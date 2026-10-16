@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How AI Is Changing Travel — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; 
+    color: var(--ink); 
+    background: var(--bg); 
+    line-height: 1.6; 
+    padding-bottom: 150px; 
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { 
+    position: sticky; top: 0; z-index: 100; 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(124, 107, 184, 0.1); 
+    padding: 12px 24px; 
+    display: flex; align-items: center; gap: 16px; 
+    box-shadow: 0 4px 20px rgba(124, 107, 184, 0.04); 
+  }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { 
+    padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); 
+    font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; 
+  }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124, 107, 184, 0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { 
+    max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden;
+    border: 1px solid rgba(124, 107, 184, 0.08); 
+    box-shadow: 0 12px 40px rgba(124, 107, 184, 0.08);
+    height: 400px; display: flex; flex-direction: column; 
+  }
+  .cover-img { height: 62%; background: #f3efe6; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { 
+    height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    padding: 16px 32px; text-align: center; background: #fff; 
+  }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 42px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { 
+    font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; 
+    display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em;
+  }
+  .section-title .num { 
+    background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; 
+  }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { 
+    background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px;
+    margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500;
+  }
+
+  .card { 
+    background: #fff; border-radius: 20px; padding: 24px; 
+    box-shadow: 0 4px 24px rgba(124, 107, 184, 0.06);
+    margin-bottom: 24px; border: 1px solid rgba(124, 107, 184, 0.08); 
+  }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92, 184, 92, 0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217, 83, 79, 0.1); }
+  
+  .card-actions { 
+    display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px;
+    border-top: 1px dashed rgba(124, 107, 184, 0.2); flex-wrap: wrap; 
+  }
+  .btn { 
+    padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer;
+    transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; 
+  }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { 
+    display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff;
+    font-weight: 600; font-size: 14px; transition: all 0.2s ease; 
+  }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63, 157, 154, 0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { 
+    width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px;
+    font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s;
+  }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
+
+  .bank { 
+    border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
+    min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
+  }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { 
+    background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none;
+    box-shadow: 0 2px 8px rgba(63, 157, 154, 0.08);
+  }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected {
+    outline: 3px solid var(--coral); outline-offset: 2px;
+    transform: scale(1.05); box-shadow: 0 4px 12px rgba(232, 112, 95, 0.3);
+  }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { 
+    display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple);
+    border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; 
+  }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .dz.dz-radio { min-width: 130px; border: none; border-bottom: 2px solid var(--purple); border-radius: 0; background: transparent; vertical-align: baseline; padding: 0 6px 2px; }
+  .dz.dz-radio.correct { border-color: var(--success); background: #e8f5e8; }
+  .dz.dz-radio.incorrect { border-color: var(--error); background: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { 
+    min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; 
+  }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key {
+    display: inline-block; margin-left: 6px;
+    background: var(--success); color: #fff;
+    padding: 4px 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 700;
+    white-space: nowrap; vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(92, 184, 92, 0.3);
+    animation: popIn 0.25s ease;
+  }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .option { 
+    background: #fff; border: 1.5px solid rgba(124, 107, 184, 0.15); padding: 12px 18px; border-radius: 12px; cursor: pointer;
+    font-weight: 500; font-size: 15px; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; position: relative; 
+  }
+  .option::before { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(124, 107, 184, 0.3); border-radius: 50%; flex-shrink: 0; transition: all 0.2s; }
+  .option:hover { border-color: var(--purple); background: var(--purple-light); }
+  .option.selected { background: var(--purple-light); border-color: var(--purple); }
+  .option.selected::before { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 4px #fff; }
+  .option.correct { background: #e8f5e8; border-color: var(--success); }
+  .option.correct::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+  .option.incorrect { background: #fbe9e7; border-color: var(--error); }
+  .option.incorrect::before { border-color: var(--error); background: var(--error); box-shadow: inset 0 0 0 4px #fff; }
+  .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
+  .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+
+  .blank { 
+    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+  }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { 
+    background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; 
+  }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { 
+    background: #fff; border: 2px dashed rgba(124, 107, 184, 0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; 
+  }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { 
+    border: 2px solid rgba(124, 107, 184, 0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px;
+    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+  }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124, 107, 184, 0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124, 107, 184, 0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 15.5px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 700; color: var(--ink); margin: 20px 0 10px; font-size: 16px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .actions { 
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #fff; border-radius: 999px; padding: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+    box-shadow: 0 8px 32px rgba(124, 107, 184, 0.15), 0 2px 8px rgba(124, 107, 184, 0.08);
+    z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124, 107, 184, 0.1);
+  }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124, 107, 184, 0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .option { padding: 14px 18px; font-size: 15px; }
+    .blank { width: 130px; font-size: 16px; }
+    .hint-input input { min-width: 130px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 280px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 28px; }
+    .cover-text p { font-size: 14px; }
+  }
+
+  /* ===== МОБИЛЬНАЯ ВЕРСИЯ: ВСЯ ШАПКА ПРОКРУЧИВАЕТСЯ ВМЕСТЕ ===== */
+  @media (max-width: 760px){
+    .header { 
+      padding: 10px 12px; 
+      gap: 12px; 
+      flex-wrap: nowrap; /* Всё в одну строку */
+      overflow-x: auto; /* Горизонтальная прокрутка всей шапки */
+      scrollbar-width: none; /* Скрываем скроллбар Firefox */
+      -webkit-overflow-scrolling: touch;
+    }
+    .header::-webkit-scrollbar { 
+      display: none; /* Скрываем скроллбар Chrome/Safari */
+    }
+    
+    .brand { 
+      flex-shrink: 0; /* Запрещаем сжатие логотипа */
+    }
+    .brand .brand-text span { 
+      display: none; /* Скрываем подзаголовок для экономии места */
+    }
+    .brand .logo { 
+      width: 36px; 
+      height: 36px; 
+    }
+    .brand .brand-text b { 
+      font-size: 15px; 
+    }
+    
+    .progress-wrap { 
+      flex-shrink: 0; /* Запрещаем сжатие прогресс-бара */
+    }
+    .progress-bar { 
+      width: 60px; 
+    }
+    
+    .nav { 
+      flex: 0 0 auto; /* Размер по контенту, не растягивается и не сжимается */
+      flex-wrap: nowrap; 
+      justify-content: flex-start;
+      gap: 6px;
+    }
+    .nav a { 
+      font-size: 12px; 
+      padding: 6px 12px; 
+      white-space: nowrap; 
+    }
+    
+    .actions { 
+      flex-wrap: nowrap; 
+      justify-content: flex-start; 
+      overflow-x: auto;
+      max-width: calc(100vw - 24px); 
+      padding: 8px; 
+      gap: 8px;
+      scrollbar-width: none; 
+      -webkit-overflow-scrolling: touch; 
+    }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { 
+      flex: 0 0 auto; 
+      padding: 10px 14px; 
+      font-size: 12px; 
+      white-space: nowrap; 
+    }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#warmup">Warm-up</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#audio">Audio</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="How AI Is Changing Travel — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>How AI Is Changing Travel</h1>
+      <p>Your Next Globetrotter's Guide?</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://www.youtube.com/watch?v=idWMC7ChrEo" target="_blank">▶ Watch on YouTube</a>
+        <a href="https://drive.google.com/file/d/16Z-YwDCB3TgcKFax7jn4NXpY7ggJyJTL/view?usp=sharing" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/nl/1059169730/how-ai-is-changing-travel-flash-cards/?i=zxpms&amp;x=1jqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. How do you usually plan your trips? Do you use any apps or AI tools?</p>
+      <p class="sentence">2. What is the most frustrating part of traveling for you?</p>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video and catch the main idea</h3>
+      <p class="sentence"><b>Answer the question:</b> How is AI changing travel?</p>
+      <div class="links" style="margin-bottom:12px"><a href="https://www.youtube.com/watch?v=idWMC7ChrEo" target="_blank">▶ Open video</a></div>
+      <h3>Extra links to the video</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1g5YbBsGC3uzMk_2nHX5h2ikyYtHZQYHF/view?usp=sharing" target="_blank">📄 Part 1</a>
+        <a class="alt" href="https://drive.google.com/file/d/1fDIMoNB8-vY1ODz31pCAnf4PrU-AseTV/view?usp=sharing" target="_blank">📄 Part 2</a>
+      </div>
+    </div>
+    <div class="card">
+      <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>Welcome to Mojo travels and today we're counting down our picks for how AI is changing travel. For this list we're taking a look at how artificial intelligence is changing the overall vacation experience in a multitude of ways. How do you think AI is changing the world of travel? Tell us in the comments.</p>
+        <div class="sub">Customer service robots</div>
+        <p>Historically Airport customer service has <b class="v">ranged from</b> extremely helpful to extremely frustrating. It all <b class="v">boils down to</b> the individual you ask for assistance. Don't be surprised if one day <b class="v">in the foreseeable future</b> you arrive at the front desk to find a robot rather than a human being. Airport robots are becoming increasingly commonplace serving various functions like checking customers in and helping guests get to the right terminal. In 2020 the market for Global airport robots was valued to be $565.15 million with almost 50 percent of global Airlines and 32 percent of Airlines looking into robotics the market value is expected to reach over 2 500 million by 2030. In 2022 Phoenix Sky Harbor became the first airline to offer self-driving car rides. Just imagine taking an autonomous vehicle from the airport to your hotel where another robot checks you in.</p>
+        <div class="sub">Forecasting flights</div>
+        <p>Tell us if this sounds familiar you book a trip several months in advance a few days before your flight you check your weather app to find a 50 chance of rain around the time of takeoff. The airport app nonetheless says that the flight is on time but less than an hour before the plane was supposed to leave it's delayed indefinitely. Companies like tomorrow.io are utilizing AI to improve forecasting employing tools like micro weather to <b class="v">map out</b> weather patterns through machine learning services like weather 2020 can predict events months in advance. The weather isn't the only thing that AI can forecast. 'Underlay' which was founded by former Delta Airlines web developer Sophia Monroe has developed an AI based system to help predict bird strikes aircraft pushback approval and other potential delays allowing airports to resolve issues faster. Your plane might not land on time but at least you'll have a better idea of when you'll arrive.</p>
+        <div class="sub">Ask the chatbots</div>
+        <p>Whether you're looking to change your flight registration or upgrade your hotel room. Some people prefer to speak with a staff member. Since one person can only resolve so many issues at time <b class="v">chances are</b> you'll spend a half hour on hold. Chat Bots are making things quicker and more convenient. In addition to <b class="v">walking</b> users through processes like booking chat Bots can provide live updates and recommendations. Chatbots might not sound like anything new in the digital era but you'd be amazed by just how far AI has taken this technology in recent years. Chat GPT, which open AI launched in November 2022 is so sophisticated that it can feel like you're communicating with an actual person. Matt Breed of Seattle Tacoma International Airport not only sees the potential for chat GPT to improve chatbot customer service but to also help employees. When an airport finds itself under unusual circumstances, chat's GPT might be able to provide a solution.</p>
+        <div class="sub">AI baggage handling</div>
+        <p>In 2018 it was reported that 4.5 billion bags are annually handled by industry luggage systems within the next couple decades that number is expected to double. Thankfully AI is becoming more advanced as well, assisting considerably with the growing workload using photo recognition. AI can better keep track of every passengers back we're already seeing strong results as the costs of mishandled luggage has been reduced from 4.22 billion to 2.1 billion in the past decade. That said lost luggage may not be a problem of the past. In the event that a bag is misplaced though lost and found software is helping to reunite you with your luggage faster. AI is also being utilized to <b class="v">anticipate</b> how much cargo space will be needed predicting the number of bags each passenger will bring based on their prior trips. The more prepared airlines are the fewer bags will risk getting left behind.</p>
+        <div class="sub">Filing complaints and social media</div>
+        <p>Your flight has been delayed and you're stuck in a terminal for the next few hours. to pass the time you Channel all of your frustration into a social media post. You might expect your friends and followers to comment however you may be surprised to find a response from the airline as well. Airlines are using social listening tools to track down complaints in real time. If you include the airline's app sign in the post you're inclined to receive a speedy helpful reply detailing how to resolve the issue. People don't always know how to put their grievances into the right words but that's where our old pal chat GPT <b class="v">comes into play</b> again. passenger Sherry luo used chat GPT to craft a carefully worded email to the airline when our flight was delayed going viral on Instagram and Tick Tock. So now more than ever once ignored Travelers are being heard thanks to AI.</p>
+        <div class="sub">Dynamic pricing</div>
+        <p>For years Airlines have used statistics to set prices considering when people are <b class="v">inclined to</b> travel where they're most likely to book a trip and how much the average traveler is willing to pay throughout the seasons. The same Dynamic pricing strategies apply to hotels AI is refining the ways that businesses collect and analyze such data helping Airlines and hotels to calculate the most reasonable and <b class="v">enticing</b> prices for potential patrons. AI is also being used to help customers find the best price. The travel app Hopper relies on machine learning algorithms to determine the most flexible flights and hotel for users. What's more Hopper will advise you whether to book the trip immediately or to wait for a better price. AI technology isn't cheap but it may save us all the money in the Long Haul.</p>
+        <div class="sub">AI travel agents</div>
+        <p>In 1758 Cox and Kings introduced the modern world travel agencies over two centuries later more people are relying on Virtual assistants to book their flights, arrange ground transportation and select the best hotels available. This doesn't necessarily mean that AI is putting travel agents out of business, however many travel agencies are <b class="v">evolving along</b> with AI using the flourishing technology to improve their business. John Aish of tricep Solutions believes that quote AI will help travel agents to have a deeper understanding of their customers. For example, AI can be used to respond to clients quicker, map <b class="v">out their itineraries</b> and search through their social media to determine their dream vacation destination. This <b class="v">frees up</b> the agent's workload allowing them more time to assist customers in other ways.</p>
+        <div class="sub">Facial recognition</div>
+        <p>We all know the process upon arriving at the TSA checkpoint we show the security officer our identification they check our ID and hopefully they let us through without any problems. well AI is slowly but surely introducing another step more airports are experimenting with facial recognition technology having Travelers insert their ID into a kiosk. The Traveler will then <b class="v">gaze into</b> a camera comparing their face to the photo on their ID. Customs agents usually remain present although we could get to the point where the process is entirely autonomous. facial recognition might not become the norm for every airport with various cities such as San Francisco having banned such technology, so may be skeptical of facial recognition but many have championed its efficiency cutting passport scanning and fingerprint matching out of the equation. It also means less in-person contact which is always a plus and a post-covid world.</p>
+        <div class="sub">Titan security</div>
+        <p>Facial recognition isn't the only way that AI is evolving airport security. Technology like baggage AI can automatically recognize potentially dangerous items alerting the airport authorities immediately with this technology proving so effective we could get to the point where passengers don't need to remove certain items from their bags as they pass through security. That also means that we'd get to keep our shoes and belts on without having to pay extra for TSA pre-check. AI plays an important part in airport cyber security especially <b class="v">when it comes to</b> machine learning this significantly reduces the possibility of terrorism staying multiple steps ahead of any looming threats. It's understandable why some will be skeptical about relying on AI for safety. They've properly utilized and monitored though AI can make the world a safer and more efficient place.</p>
+        <div class="sub">Virtual reality</div>
+        <p>As much as some people want to see the world, globetrotting isn't the cheapest hobby even if you <b class="v">save up</b> enough for your dream vacation you might not have the time or money to cross off every destination on your bucket list. Thanks to Virtual and augmented reality however you can visit the Eiffel Tower, take a gondola ride through Venice and wander across the Sahara Desert without ever leaving your house. AI is <b class="v">enhancing</b> VR and AR technology through object recognition making you feel as if you're experiencing <b class="v">the real deal</b>. You can also personalize the experience with a virtual assistant we're not saying that VR is a substitute for actual travel but it will allow you to conquer Mount Everest without getting frostbite for anyone <b class="v">on the fence</b> about traveling somewhere VR provides a preview of what to expect as well.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)">
+          <rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/>
+          <rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/>
+          <rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/>
+        </g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round">
+          <path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/>
+          <path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/>
+          <line x1="110" y1="40" x2="110" y2="128"/>
+        </g>
+        <g transform="translate(640,80)">
+          <rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/>
+          <path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/>
+        </g>
+        <g transform="translate(820,90)" fill="#7c6bb8">
+          <path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/>
+          <path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(1060,90)" fill="#3f9d9a">
+          <circle cx="60" cy="52" r="44"/>
+          <rect x="52" y="92" width="16" height="34" rx="8"/>
+          <path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/>
+        </g>
+        <g transform="translate(1280,100)" fill="#e8705f">
+          <path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/>
+          <path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/>
+        </g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/16Z-YwDCB3TgcKFax7jn4NXpY7ggJyJTL/view?usp=sharing" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:14px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/nl/1059169730/how-ai-is-changing-travel-flash-cards/?i=zxpms&amp;x=1jqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-3">
+      <h3>3.3 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching word (or tap the word, then tap the definition). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="future"><span class="term">in the foreseeable</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="hotel room"><span class="term">upgrade your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="the growing workload"><span class="term">assisting considerably with</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="with your luggage faster"><span class="term">reunite you</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="how much cargo space will be needed"><span class="term">anticipate</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="complaints"><span class="term">track down</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="worded email"><span class="term">craft a carefully</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="complaints">complaints</div>
+            <div class="match-item" data-word="future">future</div>
+            <div class="match-item" data-word="how much cargo space will be needed">how much cargo space will be needed</div>
+            <div class="match-item" data-word="hotel room">hotel room</div>
+            <div class="match-item" data-word="worded email">worded email</div>
+            <div class="match-item" data-word="with your luggage faster">with your luggage faster</div>
+            <div class="match-item" data-word="the growing workload">the growing workload</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-4">
+      <h3>3.4 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="enticing">enticing</div>
+        <div class="chip" data-word="When it comes to">When it comes to</div>
+        <div class="chip" data-word="conquered">conquered</div>
+        <div class="chip" data-word="range">range</div>
+        <div class="chip" data-word="gazing">gazing</div>
+        <div class="chip" data-word="boils down">boils down</div>
+        <div class="chip" data-word="come into play">come into play</div>
+        <div class="chip" data-word="on the fence">on the fence</div>
+        <div class="chip" data-word="mapped out">mapped out</div>
+        <div class="chip" data-word="anticipate">anticipate</div>
+        <div class="chip" data-word="inclined">inclined</div>
+        <div class="chip" data-word="itineraries">itineraries</div>
+        <div class="chip" data-word="chances are">chances are</div>
+        <div class="chip" data-word="evolved">evolved</div>
+        <div class="chip" data-word="enhance">enhance</div>
+      </div>
+      <ul style="list-style:disc; margin-left:20px;">
+        <li class="sentence">1. Travel experiences can <span class="dz" data-answer="range"></span> <b>from</b> relaxing beach vacations <b>to</b> challenging mountain treks.</li>
+        <li class="sentence">2. Choosing the perfect destination often <span class="dz" data-answer="boils down"></span> <b>to</b> your personal interests and budget.</li>
+        <li class="sentence">3. Before our trip, we <span class="dz" data-answer="mapped out"></span> all the must-see landmarks in the city.</li>
+        <li class="sentence">4. If you don't book your tickets early, <span class="dz" data-answer="chances are"></span> the prices will go up.</li>
+        <li class="sentence">5. We didn't <span class="dz" data-answer="anticipate"></span> how crowded the tourist spots would be in peak season.</li>
+        <li class="sentence">6. When planning a long trip, factors like weather and local customs really <span class="dz" data-answer="come into play"></span>.</li>
+        <li class="sentence">7. I'm more <span class="dz" data-answer="inclined"></span> <b>towards</b> adventure travel rather than all-inclusive resorts.</li>
+        <li class="sentence">8. The idea of exploring ancient ruins was so <span class="dz" data-answer="enticing"></span> that we changed our route.</li>
+        <li class="sentence">9. Travel trends have <span class="dz" data-answer="evolved"></span>, with more people now seeking sustainable options.</li>
+        <li class="sentence">10. Flexible <span class="dz" data-answer="itineraries"></span> allow you to adjust your plans based on unexpected opportunities.</li>
+        <li class="sentence">11. We spent hours <span class="dz" data-answer="gazing"></span> <b>at</b> the breathtaking sunset over the ocean.</li>
+        <li class="sentence">12. <span class="dz" data-answer="When it comes to"></span> packing, I always bring less than I think I'll need.</li>
+        <li class="sentence">13. Learning a few phrases in the local language can greatly <span class="dz" data-answer="enhance"></span> your travel experience.</li>
+        <li class="sentence">14. I'm still <span class="dz" data-answer="on the fence"></span> <b>about</b> whether to visit the busy capital or the peaceful countryside.</li>
+        <li class="sentence">15. After months of training, we finally <span class="dz" data-answer="conquered"></span> the highest peak in the region.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-5">
+      <h3>3.5 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching word (or tap the word, then tap the definition). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="a better price"><span class="term">wait for</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="their itineraries"><span class="term">map out</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="customers"><span class="term">assist</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="present"><span class="term">remain</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="security"><span class="term">pass through</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="enough for your dream vacation"><span class="term">save up</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="security">security</div>
+            <div class="match-item" data-word="a better price">a better price</div>
+            <div class="match-item" data-word="enough for your dream vacation">enough for your dream vacation</div>
+            <div class="match-item" data-word="customers">customers</div>
+            <div class="match-item" data-word="their itineraries">their itineraries</div>
+            <div class="match-item" data-word="present">present</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
+        <span class="card-score" data-score="v3-5"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.6 Choose the correct preposition</h3>
+      <div class="links"><a href="https://wordwall.net/embed/a7b3555453b24a4f97459088be00c6db?themeId=1&amp;templateId=36&amp;fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-7">
+      <h3>3.7 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="the real deal">the real deal</div>
+        <div class="chip" data-word="rise">rise</div>
+        <div class="chip" data-word="out of the equation">out of the equation</div>
+        <div class="chip" data-word="foreseeable future">foreseeable future</div>
+        <div class="chip" data-word="become the norm">become the norm</div>
+        <div class="chip" data-word="walk you through">walk you through</div>
+        <div class="chip" data-word="champion">champion</div>
+        <div class="chip" data-word="unusual circumstances">unusual circumstances</div>
+        <div class="chip" data-word="globetrotting">globetrotting</div>
+        <div class="chip" data-word="put their grievances into the right words">put their grievances into the right words</div>
+        <div class="chip" data-word="mishandled luggage">mishandled luggage</div>
+        <div class="chip" data-word="track down complaints">track down complaints</div>
+        <div class="chip" data-word="channel">channel</div>
+        <div class="chip" data-word="putting travel agents out of business">putting travel agents out of business</div>
+        <div class="chip" data-word="bucket list">bucket list</div>
+        <div class="chip" data-word="frees up the agent's workload">frees up the agent's workload</div>
+      </div>
+      <ul style="list-style:disc; margin-left:20px;">
+        <li class="sentence">While fully autonomous cars are being tested, they are unlikely to become mainstream <b>in the</b> <span class="dz" data-answer="foreseeable future"></span>.</li>
+        <li class="sentence">The new banking app includes interactive tutorials that <span class="dz" data-answer="walk you through"></span> processes like setting up international payments.</li>
+        <li class="sentence">The company, usually very profitable, <b>found itself under</b> <span class="dz" data-answer="unusual circumstances"></span> during the economic crisis and had to apply for a government loan.</li>
+        <li class="sentence">After a nightmare journey with delayed flights and <span class="dz" data-answer="mishandled luggage"></span>, we were relieved to finally get our misplaced bags delivered to the hotel.</li>
+        <li class="sentence">He learned to <span class="dz" data-answer="channel"></span> his frustration with the slow progress <b>into</b> a determined drive to find a better solution.</li>
+        <li class="sentence">The customer service team had to <span class="dz" data-answer="track down complaints"></span> from social media that hadn't been logged in their official system.</li>
+        <li class="sentence">Many customers are frustrated but don't know how to <span class="dz" data-answer="put their grievances into the right words"></span>, which is why we offer a structured feedback form.</li>
+        <li class="sentence">While the internet is <span class="dz" data-answer="putting travel agents out of business"></span>, others are flourishing by offering specialized, personalized tours.</li>
+        <li class="sentence"><b>The</b> <span class="dz" data-answer="rise"></span> of artificial intelligence is transforming industries from healthcare to finance.</li>
+        <li class="sentence">Automating the ticket booking process <span class="dz" data-answer="frees up the agent's workload"></span>, allowing them to focus on creating complex, tailor-made itineraries.</li>
+        <li class="sentence">Working remotely from home has <span class="dz" data-answer="become the norm"></span> for many professionals since the pandemic.</li>
+        <li class="sentence">As a project manager, it's my job to <span class="dz" data-answer="champion"></span> and get the rest of the team on board.</li>
+        <li class="sentence">Online banking has been so successful because it <b>cuts the need for physical branches</b> <span class="dz" data-answer="out of the equation"></span> for most transactions.</li>
+        <li class="sentence">After graduating, she spent a year <span class="dz" data-answer="globetrotting"></span>, visiting over twenty countries on five different continents.</li>
+        <li class="sentence">Seeing the Northern Lights in Iceland has always been at the top of my <span class="dz" data-answer="bucket list"></span>.</li>
+        <li class="sentence">I've tried many imitations, but this authentic Neapolitan pizza is <span class="dz" data-answer="the real deal"></span>.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
+        <span class="card-score" data-score="v3-7"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="audio">
+    <div class="section-title"><span class="num">4</span> Audio</div>
+    <div class="card" data-task="typeblank" data-id="a4-1">
+      <h3>4.1 Watch the videos and fill in the gaps</h3>
+
+      <div class="links" style="margin:0 0 12px"><a href="https://drive.google.com/file/d/1W-U5v3uLpECrXR5VMS6mT0jnI4MUOn0g/preview" target="_blank">▶ Part 1</a></div>
+      <div class="sentence"><b>Customer service robots.</b></div>
+      <div class="sentence">Historically airport customer service has <input class="blank" data-answer="ranged"> <b>from</b> extremely helpful <b>to</b> extremely frustrating. It all <input class="blank" data-answer="boils"> <input class="blank" data-answer="down"> <b>to</b> the individual you ask for assistance. Don't be surprised if one day <b>in the</b> <input class="blank" data-answer="foreseeable"> <input class="blank" data-answer="future"> you arrive at the front desk to find a robot rather than a human being. Airport robots are becoming increasingly commonplace serving various functions like checking customers in and helping guests get to the right terminal. In 2020 the market for Global airport robots was valued to be $565.15 million with almost 50 percent of global Airlines and 32 percent of Airlines looking into robotics the market value is expected to <input class="blank" data-answer="reach"> over 2 500 million by 2030. In 2022 Phoenix Sky Harbor became the first airline to offer self-driving car rides. Just imagine taking an autonomous vehicle from the airport to your hotel where another robot checks you in.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1ighVA2DTRR5MRJdZtMKd68HBsxaZVJPF/preview" target="_blank">▶ Part 2</a></div>
+      <div class="sentence"><b>Forecasting flights.</b></div>
+      <div class="sentence">Tell us if this sounds <input class="blank" data-answer="familiar"> - you book a trip several months in advance a few days before your flight you check your weather app to find a 50 chance of rain around the time of takeoff. The airport app nonetheless says that the flight is on time but less than an hour before the plane was <input class="blank" data-answer="supposed"> <b>to</b> leave it's delayed indefinitely. Companies like tomorrow.io are <input class="blank" data-answer="utilizing"> AI to improve <input class="blank" data-answer="forecasting"> employing tools like micro weather to <input class="blank" data-answer="map"> <input class="blank" data-answer="out"> weather patterns through machine learning services like weather 2020 can predict events months in advance. The weather isn't the only thing that AI can forecast. 'Underlay' which was founded by former Delta Airlines web developer Sophia Monroe has developed an AI based system to help predict bird strikes aircraft pushback approval and other potential delays allowing airports to <input class="blank" data-answer="resolve"> issues faster. Your plane might not land on time but at least you'll have a better idea of when you'll arrive.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1Ua22ddIIopc-4RFc_r0ZZJkbyvl-ixwM/preview" target="_blank">▶ Part 3</a></div>
+      <div class="sentence"><b>Ask the chatbots.</b></div>
+      <div class="sentence">Whether you're looking to change your flight registration or <input class="blank" data-answer="upgrade"> <b>your</b> <b>hotel</b> <b>room</b>. Some people prefer to speak with a staff member. Since one person can only resolve so many issues at time <input class="blank" data-answer="chances"> <b>are</b> you'll spend a half hour on hold. Chat Bots are making things quicker and more convenient. In addition to <input class="blank" data-answer="walking"> users <input class="blank" data-answer="through"> processes like booking chat Bots can provide live updates and recommendations. Chatbots might not sound like anything new in the digital era but you'd be amazed by just how far AI has taken this technology in recent years. Chat GPT, which open AI <input class="blank" data-answer="launched"> in November 2022 is so sophisticated that it can feel like you're communicating with an actual person. Matt Breed of Seattle Tacoma International Airport not only sees the potential for chat GPT to improve chatbot customer service but to also help employees. When an airport finds itself <input class="blank" data-answer="under"> <input class="blank" data-answer="unusual"> <input class="blank" data-answer="circumstances">, chat's GPT might be able to provide a solution.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1CR51SVg-mdZpxpjRs66w09tQXfJJ8OOj/preview" target="_blank">▶ Part 4</a></div>
+      <div class="sentence"><b>AI baggage handling.</b></div>
+      <div class="sentence">In 2018 it was reported that 4.5 billion bags are annually handled by industry luggage systems within the next couple decades that number is expected to double. Thankfully AI is becoming more advanced as well, assisting <input class="blank" data-answer="considerably"> <b>with the growing</b> <input class="blank" data-answer="workload"> using photo recognition. AI can better keep track of every passengers back we're already seeing strong results as the costs of <input class="blank" data-answer="mishandled"> <input class="blank" data-answer="luggage"> has been reduced from 4.22 billion to 2.1 billion in the past decade. That said lost luggage may not be a problem of the past. In the event that <b>a bag is</b> <input class="blank" data-answer="misplaced"> though lost and found software is helping to <input class="blank" data-answer="reunite"> you <input class="blank" data-answer="with"> your <input class="blank" data-answer="luggage"> faster. AI is also being utilized to <input class="blank" data-answer="anticipate"> <b>how much cargo</b> <input class="blank" data-answer="space"> <b>will be needed</b> predicting the number of bags each passenger will bring based on their prior trips. The more prepared airlines are the fewer bags will risk getting left behind.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1t519VXaO6iV_pagw196cGAxUzEcXWgQ6/preview" target="_blank">▶ Part 5</a></div>
+      <div class="sentence"><b>Filing complaints and social media.</b></div>
+      <div class="sentence">Your flight has been delayed and you're stuck in a terminal for the next few hours. To pass the time you <input class="blank" data-answer="channel"> <b>all of your</b> <input class="blank" data-answer="frustration"> <input class="blank" data-answer="into"> a <b>social media post</b>. You might expect your friends and followers to comment however you may be surprised to find a response from the airline as well. Airlines are using social listening tools to <input class="blank" data-answer="track"> <input class="blank" data-answer="down"> <b>complaints</b> in real time. If you include the airline's app sign in the post you're inclined to receive a speedy helpful reply detailing how to resolve the issue. People don't always know <b>how to</b> <input class="blank" data-answer="put"> their <input class="blank" data-answer="grievances"> <input class="blank" data-answer="into"> <b>the right</b> <input class="blank" data-answer="words"> but that's where our old pal chat GPT <input class="blank" data-answer="comes"> <input class="blank" data-answer="into"> <input class="blank" data-answer="play"> again. passenger Sherry luo used chat GPT to <input class="blank" data-answer="craft"> a <b>carefully</b> <input class="blank" data-answer="worded"> <b>email</b> to the airline when our flight was delayed going viral on Instagram and Tick Tock. So now more than ever once ignored Travelers are being heard thanks to AI.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1eFXInrpcq4ujBCWD7u6MI3PucEWsBuBs/preview" target="_blank">▶ Part 6</a></div>
+      <div class="sentence"><b>Dynamic pricing.</b></div>
+      <div class="sentence">For years Airlines have used statistics to set prices considering when people are <input class="blank" data-answer="inclined"> <input class="blank" data-answer="to"> travel where they're most likely to book a trip and how much the average traveler is willing to pay throughout the seasons. The same Dynamic pricing strategies apply to hotels AI is refining the ways that businesses collect and analyze such data helping Airlines and hotels to calculate the most reasonable and <input class="blank" data-answer="enticing"> <input class="blank" data-answer="prices"> for potential patrons. AI is also being used to help customers find the best price. The travel app Hopper relies on machine learning algorithms to determine the most flexible flights and hotel for users. What's more Hopper will advise you whether to book the trip immediately or to <input class="blank" data-answer="wait"> <b>for a better</b> <input class="blank" data-answer="price">. AI technology isn't cheap but it may save us all the money in the Long Haul.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/115Wn358r5U2kqy02n0rRKh4ku2ELN_4L/preview" target="_blank">▶ Part 7</a></div>
+      <div class="sentence"><b>AI travel agents.</b></div>
+      <div class="sentence">In 1758 Cox and Kings introduced the modern world travel agencies over two centuries later more people are relying on Virtual assistants to book their flights, arrange ground transportation and select the best hotels available. This doesn't necessarily mean that AI is <input class="blank" data-answer="putting"> <b>travel agents</b> <input class="blank" data-answer="out"> <b>of business</b>, however many travel agencies are <input class="blank" data-answer="evolving"> <input class="blank" data-answer="along"> with AI using the <input class="blank" data-answer="flourishing"> <b>technology</b> to improve their business. John Aish of tricep Solutions believes that quote AI will help travel agents to have a deeper understanding of their customers. For example, AI can be used to respond to clients quicker, <input class="blank" data-answer="map"> <input class="blank" data-answer="out"> <b>their</b> <input class="blank" data-answer="itineraries"> and search through their social media to determine their dream vacation destination. This <input class="blank" data-answer="frees"> <b>up the agent's</b> <input class="blank" data-answer="workload"> allowing them more time to <input class="blank" data-answer="assist"> <b>customers</b> in other ways.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/12v2IhRCsJlc_-YTnX8dTq9Q8RAoM3fnL/preview" target="_blank">▶ Part 8</a></div>
+      <div class="sentence"><b>Facial recognition.</b></div>
+      <div class="sentence">We all know the process upon arriving at the TSA <input class="blank" data-answer="checkpoint"> we show the security officer our identification, they check our ID and hopefully they let us through without any problems. Well AI is slowly but surely introducing another step. More airports are experimenting with facial recognition technology. Having Travelers insert their ID into a kiosk, the Traveler will then <input class="blank" data-answer="gaze"> <input class="blank" data-answer="into"> <b>a camera</b> comparing their face to the photo on their ID. Customs agents usually <input class="blank" data-answer="remain"> <input class="blank" data-answer="present"> although we could get to the point where the process is entirely autonomous. Facial recognition might not <input class="blank" data-answer="become"> <b>the</b> <input class="blank" data-answer="norm"> for every airport with various cities such as San Francisco having banned such technology, so may be skeptical of facial recognition but many have <input class="blank" data-answer="championed"> its <input class="blank" data-answer="efficiency"> <input class="blank" data-answer="cutting"> <b>passport scanning and fingerprint matching</b> <input class="blank" data-answer="out"> <input class="blank" data-answer="of"> <b>the</b> <input class="blank" data-answer="equation">. It also means less in-person contact which is always a plus and a post-covid world.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/18peP_3jHjsbpY9hgo4lkszCIqUTYnUSy/preview" target="_blank">▶ Part 9</a></div>
+      <div class="sentence"><b>Titan security.</b></div>
+      <div class="sentence">Facial recognition isn't the only way that AI is evolving airport security. Technology like baggage AI can automatically recognize potentially dangerous items <input class="blank" data-answer="alerting"> the airport authorities immediately with this technology proving so effective we could get to the point where passengers don't need to remove certain items from their bags as they <input class="blank" data-answer="pass"> <input class="blank" data-answer="through"> <b>security</b>. That also means that we'd get to keep our shoes and belts on without having to pay extra for TSA pre-check. AI plays an important part in airport cyber security especially <input class="blank" data-answer="when"> <input class="blank" data-answer="it"> <input class="blank" data-answer="comes"> <b>to</b> machine learning this significantly reduces the possibility of terrorism <input class="blank" data-answer="staying"> <b>multiple</b> <input class="blank" data-answer="steps"> <input class="blank" data-answer="ahead"> <b>of any looming threats</b>. It's understandable why some will be skeptical about relying on AI for safety. They've properly utilized and <input class="blank" data-answer="monitored"> though AI can make the world a safer and more efficient place.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1nISx_ga2YQambXn_dYzvDn70aFFvquNz/preview" target="_blank">▶ Part 10</a></div>
+      <div class="sentence"><b>Virtual reality.</b></div>
+      <div class="sentence">As much as some people want to see the world, <input class="blank" data-answer="globetrotting"> isn't the cheapest hobby even if you <input class="blank" data-answer="save"> <b>up</b> <input class="blank" data-answer="enough"> <input class="blank" data-answer="for"> <b>your dream vacation</b> you might not have the time or money to cross off every destination <input class="blank" data-answer="on"> <b>your</b> <input class="blank" data-answer="bucket"> <input class="blank" data-answer="list">. Thanks to Virtual and augmented reality however you can visit the Eiffel Tower, take a gondola ride through Venice and wander across the Sahara Desert without ever leaving your house. AI is <input class="blank" data-answer="enhancing"> <b>VR and AR</b> <input class="blank" data-answer="technology"> through object recognition making you feel as if you're experiencing <b>the</b> <input class="blank" data-answer="real"> <input class="blank" data-answer="deal">. You can also personalize the experience with a virtual assistant we're not saying that VR is a substitute for actual travel but it will allow you to conquer Mount Everest without getting frostbite for anyone <b>on the</b> <input class="blank" data-answer="fence"> <input class="blank" data-answer="about"> traveling somewhere VR provides a preview of what to expect as well.</div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="a4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="a4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="a4-1">↻ Reset</button>
+        <span class="card-score" data-score="a4-1"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">5</span> Revision</div>
+
+    <div class="card">
+      <h3>5.1 The AI Travel Companion: Your Next Globetrotter's Guide?</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>For the modern traveller, planning a trip can <b class="v">range from</b> an exciting preview of the adventure to a stressful chore. The central question often <b class="v">boils down to</b> a simple choice: do I use a human travel agent or an AI-powered website? While a fully automated AI travel agent might not replace humans completely <b class="v">in the foreseeable future</b>, its role is rapidly evolving.</p>
+        <p>Imagine <b class="v">mapping out</b> your dream <b class="v">bucket list</b> trip to Japan. You find a website with <b class="v">enticing prices</b> and an AI that promises a perfect plan. <b class="v">Chances are</b>, the AI will efficiently <b class="v">walk you through the processes</b> of selecting flights and hotels. This <b class="v">flourishing technology</b> is <b class="v">putting travel agents out of business</b> by <b class="v">cutting</b> the human intermediary <b class="v">out of the equation</b> for simple bookings. Companies that develop these AIs <b class="v">champion their efficiency</b>, claiming they <b class="v">free up the agent's workload</b> for more complex issues.</p>
+        <p>But what happens when this AI <b class="v">finds itself under unusual circumstances</b>? Let's say your flight is cancelled due to a storm, and your <b class="v">luggage is mishandled</b>. A <b class="v">bag is misplaced</b>, and you need to <b class="v">track down</b> your belongings and <b class="v">put your grievances into the right words</b> for a complaint. This is where human empathy and problem-solving <b class="v">come into play</b>. An AI might struggle to <b class="v">anticipate</b> the frustration and urgency you feel. While it can channel data <b class="v">into</b> a standard email template, a human agent is better <b class="v">inclined to</b> understand your stress and act decisively.</p>
+        <p>Soon, <b class="v">gazing into a camera</b> for a passport check at an airport might <b class="v">become the norm</b>, thanks to AI. But <b class="v">when it comes to</b> the unpredictable nature of <b class="v">globetrotting</b>, is AI <b class="v">the real deal</b>? Many travellers are still <b class="v">on the fence</b>. They appreciate the speed and cost-saving for simple <b class="v">itineraries</b>, but for complex trips or when things go wrong, the human touch remains invaluable.</p>
+      </details>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="r5-2">
+      <h3>5.2 Guess the expressions</h3>
+      <div class="instruction">💡 Type the complete expression.</div>
+      <div class="sentence">1. o w t l d b n o i o (3 words) <input class="blank" data-answer="boil down to"></div>
+      <div class="sentence">2. g l u e d d l a m g e g s i h n a (2 words) <input class="blank" data-answer="mishandled luggage"></div>
+      <div class="sentence">3. f e e r u t u i o n t e h e f r e s e a b l (4 words) <input class="blank" data-answer="in the foreseeable future"></div>
+      <div class="sentence">4. e a c r e c n s a h (2 words) <input class="blank" data-answer="chances are"></div>
+      <div class="sentence">5. n t o l i n n a c h e (2 words) <input class="blank" data-answer="channel into"></div>
+      <div class="sentence">6. p l a y o n t o i m e c (3 words) <input class="blank" data-answer="come into play"></div>
+      <div class="sentence">7. m e t h e n o r b c o m e (3 words) <input class="blank" data-answer="become the norm"></div>
+      <div class="sentence">8. a l d e r l t a e e h (3 words) <input class="blank" data-answer="the real deal"></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-2">↻ Reset</button>
+        <span class="card-score" data-score="r5-2"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="r5-3">
+      <h3>5.3 Put the words in the correct order to make collocations</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="in|the|foreseeable|future">
+        <span class="wo-num">1.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="future">future</div>
+          <div class="chip" data-word="in">in</div>
+          <div class="chip" data-word="foreseeable">foreseeable</div>
+          <div class="chip" data-word="the">the</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="upgrade|your|hotel|room">
+        <span class="wo-num">2.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="room">room</div>
+          <div class="chip" data-word="upgrade">upgrade</div>
+          <div class="chip" data-word="hotel">hotel</div>
+          <div class="chip" data-word="your">your</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="assisting|considerably|with|the|growing|workload">
+        <span class="wo-num">3.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="workload">workload</div>
+          <div class="chip" data-word="with">with</div>
+          <div class="chip" data-word="assisting">assisting</div>
+          <div class="chip" data-word="the">the</div>
+          <div class="chip" data-word="considerably">considerably</div>
+          <div class="chip" data-word="growing">growing</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="save|up|enough|for|your|dream|vacation">
+        <span class="wo-num">4.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="vacation">vacation</div>
+          <div class="chip" data-word="save">save</div>
+          <div class="chip" data-word="your">your</div>
+          <div class="chip" data-word="enough">enough</div>
+          <div class="chip" data-word="for">for</div>
+          <div class="chip" data-word="up">up</div>
+          <div class="chip" data-word="dream">dream</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="pass|through|security">
+        <span class="wo-num">5.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="security">security</div>
+          <div class="chip" data-word="pass">pass</div>
+          <div class="chip" data-word="through">through</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="map|out|their|itineraries">
+        <span class="wo-num">6.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="itineraries">itineraries</div>
+          <div class="chip" data-word="map">map</div>
+          <div class="chip" data-word="their">their</div>
+          <div class="chip" data-word="out">out</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="wait|for|a|better|price">
+        <span class="wo-num">7.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="price">price</div>
+          <div class="chip" data-word="wait">wait</div>
+          <div class="chip" data-word="better">better</div>
+          <div class="chip" data-word="a">a</div>
+          <div class="chip" data-word="for">for</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="track|down|complaints">
+        <span class="wo-num">8.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="complaints">complaints</div>
+          <div class="chip" data-word="track">track</div>
+          <div class="chip" data-word="down">down</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="craft|a|carefully|worded|email">
+        <span class="wo-num">9.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="email">email</div>
+          <div class="chip" data-word="worded">worded</div>
+          <div class="chip" data-word="carefully">carefully</div>
+          <div class="chip" data-word="a">a</div>
+          <div class="chip" data-word="craft">craft</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="anticipate|how|much|cargo|space|will|be|needed">
+        <span class="wo-num">10.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="needed">needed</div>
+          <div class="chip" data-word="cargo">cargo</div>
+          <div class="chip" data-word="how">how</div>
+          <div class="chip" data-word="much">much</div>
+          <div class="chip" data-word="will">will</div>
+          <div class="chip" data-word="anticipate">anticipate</div>
+          <div class="chip" data-word="be">be</div>
+          <div class="chip" data-word="space">space</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+      <div class="wordorder" data-answer="reunite|you|with|your|luggage|faster">
+        <span class="wo-num">11.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="faster">faster</div>
+          <div class="chip" data-word="with">with</div>
+          <div class="chip" data-word="reunite">reunite</div>
+          <div class="chip" data-word="your">your</div>
+          <div class="chip" data-word="you">you</div>
+          <div class="chip" data-word="luggage">luggage</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-3">↻ Reset</button>
+        <span class="card-score" data-score="r5-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="radio-nocheck" data-id="r5-4">
+      <h3>5.4 Complete the test</h3>
+      <div class="sentence">1. The reasons for the project's failure <span class="dz dz-radio" data-answer="boil down to"></span> poor planning and a lack of funding.
+        <div class="options"><div class="option" data-value="gaze into">gaze into</div><div class="option" data-value="boil down to">boil down to</div><div class="option" data-value="come into play">come into play</div><div class="option" data-value="channel into">channel into</div></div></div>
+      <div class="sentence">2. After her bag was <span class="dz dz-radio" data-answer="mishandled"></span>, the airline compensated her for the essential items she had to buy.
+        <div class="options"><div class="option" data-value="anticipated">anticipated</div><div class="option" data-value="mishandled">mishandled</div><div class="option" data-value="evolved">evolved</div><div class="option" data-value="championed">championed</div></div></div>
+      <div class="sentence">3. The new software is designed to <span class="dz dz-radio" data-answer="free up the agent's workload"></span>, allowing them to focus on more complex customer requests.
+        <div class="options"><div class="option" data-value="free up the agent's workload">free up the agent's workload</div><div class="option" data-value="become the norm">become the norm</div><div class="option" data-value="track down complaints">track down complaints</div><div class="option" data-value="put agents out of business">put agents out of business</div></div></div>
+      <div class="sentence">4. I'm still <span class="dz dz-radio" data-answer="on the fence"></span> about whether to go to the mountains or the beach for my holiday.
+        <div class="options"><div class="option" data-value="the real deal">the real deal</div><div class="option" data-value="on the fence">on the fence</div><div class="option" data-value="inclined towards">inclined towards</div><div class="option" data-value="cutting out of the equation">cutting out of the equation</div></div></div>
+      <div class="sentence">5. <span class="dz dz-radio" data-answer="When it comes to / the real deal"></span> modern smartphones, this model is definitely _________; its performance is unmatched.
+        <div class="options"><div class="option" data-value="When it comes to / the real deal">When it comes to / the real deal</div><div class="option" data-value="Chances are / on the fence">Chances are / on the fence</div><div class="option" data-value="In the foreseeable future / flourishing technology">In the foreseeable future / flourishing technology</div><div class="option" data-value="Gazing into / enticing prices">Gazing into / enticing prices</div></div></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-4">↻ Reset</button>
+        <span class="card-score" data-score="r5-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="r5-5">
+      <h3>5.5 Paraphrase the expression in bold using the phrases from vocabulary</h3>
+      <div class="instruction">💡 Type the complete expression.</div>
+      <div class="sentence">1. <b>It's probable</b> the flight will be delayed due to the strike. <input class="blank" data-answer="Chances are"></div>
+      <div class="sentence">2. The interactive guide will <b>explain to you step-by-step</b> the security procedures. <input class="blank" data-answer="walk you through"></div>
+      <div class="sentence">3. The main issue for most unhappy customers is that they don't know how to <b>express their complaints effectively</b>. <input class="blank" data-answer="put their grievances into the right words"></div>
+      <div class="sentence">4. I <b>have a tendency to prefer</b> simpler solutions to complex problems. <input class="blank" data-answer="am inclined towards"></div>
+      <div class="sentence">5. This is where our new AI tool <b>becomes useful and effective</b>. <input class="blank" data-answer="comes into play"></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-5">↻ Reset</button>
+        <span class="card-score" data-score="r5-5"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">6</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)">
+          <path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/>
+          <circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/>
+        </g>
+        <g transform="translate(380,120)">
+          <path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/>
+          <circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/>
+        </g>
+        <g transform="translate(620,80)" fill="#e8705f">
+          <rect x="40" y="0" width="36" height="80" rx="18"/>
+          <path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+          <line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(840,110)">
+          <circle cx="50" cy="40" r="34" fill="#b9a6e0"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/>
+        </g>
+        <g transform="translate(980,110)">
+          <circle cx="50" cy="40" r="34" fill="#8fd0c8"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/>
+        </g>
+        <g transform="translate(1160,90)" fill="#d9cdef">
+          <path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/>
+        </g>
+        <g transform="translate(1360,130)" fill="#bfe3e0">
+          <path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/>
+        </g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>Thursday question</h3>
+      <p class="sentence">How is artificial intelligence changing the travel experience? Choose three key developments mentioned in the video and briefly explain each one.</p>
+      <h3>Friday question</h3>
+      <p class="sentence">Which AI innovation mentioned in the video do you find the most exciting and why? Which one are you most skeptical or cautious about?</p>
+      <h3>Questions for study buddies</h3>
+      <p class="sentence">1. Have you personally used any AI tools (like chatbots, recommendation engines, or apps like Google Travel) to plan a trip? What was that experience like?</p>
+      <p class="sentence">2. What is the single biggest problem in travel (e.g., planning overwhelm, flight delays, cost, language barriers) that you hope AI can solve for you? Why or why not?</p>
+      <p class="sentence">3. Would you feel comfortable being checked in by a robot at an airport or hotel? Why or why not?</p>
+      <p class="sentence">4. If your flight is cancelled, would you prefer an AI to instantly rebook you or a human agent to <b class="v">walk you through the process</b>?</p>
+      <p class="sentence">5. Some people are <b class="v">on the fence</b> about AI, unsure if it's <b class="v">the real deal</b> or just a passing trend. What would it take for you to fully trust an AI as your personal travel assistant?</p>
+      <p class="sentence">6. If you received a prediction that your flight had a 90% chance of being delayed 6 hours, how would that information change your travel plans?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected');
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev)prev.classList.remove('matched');
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item)item.classList.remove('matched');
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    e.preventDefault();
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  e.preventDefault();
+  const pos=pointerPos(e);
+  if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost)state.ghost.style.display='';
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  if(e.target.classList.contains('option')){
+    const opt=e.target,sent=opt.closest('.sentence');
+    sent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    sent.querySelector('.dz-radio').dataset.selected=opt.dataset.value;
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.option,.match-target,.chip,.blank,.wordorder,.wo-target').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        dz.classList.add('correct');correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        dz.classList.add('incorrect');
+        if(dz.dataset.selected)sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+      }
+    });
+  }else if(task==='radio-nocheck'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        if(dz.dataset.selected){
+          sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+        }
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correct=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correct)correct.classList.add('answer-revealed');
+    });
+  }else if(task==='radio-nocheck'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correctOpt=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correctOpt) correctOpt.classList.add('answer-revealed');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.answer-revealed').forEach(el=>el.classList.remove('answer-revealed'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
+  card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a true chameleon master!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
