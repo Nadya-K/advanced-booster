@@ -80,6 +80,33 @@
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
 
+  /* ===== SUBMIT FLOW: steps + button + stream info ===== */
+  .submit-steps { background: var(--soft); border-radius: 12px; padding: 14px 18px; margin: 16px 0 14px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink); }
+  .submit-step { display: flex; align-items: flex-start; gap: 8px; flex: 1 1 180px; min-width: 180px; }
+  .submit-step .step-num { background: var(--purple); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .submit-step .step-text { font-weight: 500; line-height: 1.4; }
+  .submit-step .step-text b { color: var(--purple-dark); font-weight: 700; }
+
+  .submit-wrap { margin-top: 14px; display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .submit-btn { padding: 12px 22px !important; font-size: 15px !important; border-radius: 12px; background: var(--purple); color: #fff; font-weight: 600; border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(124,107,184,0.3); transition: all 0.2s ease; white-space: nowrap; }
+  .submit-btn:hover:not(:disabled) { background: var(--purple-dark); transform: translateY(-2px); }
+  .submit-btn:disabled { background: #cbd5e0 !important; color: #8a8a8a !important; cursor: not-allowed; box-shadow: none !important; transform: none !important; white-space: normal; }
+  .stream-info { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 10px 16px; border-radius: 10px; flex: 1; min-width: 240px; transition: all 0.3s ease; }
+  .stream-info-inner { color: var(--teal-dark); font-size: 13.5px; font-weight: 600; line-height: 1.5; }
+  .stream-info-inner .dates { font-weight: 500; color: var(--ink); }
+  .stream-info.ended { background: var(--coral-light); border-left-color: var(--coral); }
+  .stream-info.ended .stream-info-inner { color: var(--coral-dark); }
+
+  /* ===== TOAST ===== */
+  .toast { position: fixed; bottom: 110px; right: 24px; background: #fff; border-left: 5px solid var(--success); border-radius: 12px; padding: 14px 18px 14px 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.18); display: flex; align-items: flex-start; gap: 12px; max-width: 360px; z-index: 200; transform: translateX(calc(100% + 40px)); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toast.show { transform: translateX(0); }
+  .toast.error { border-left-color: var(--error); }
+  .toast .toast-icon { width: 28px; height: 28px; flex-shrink: 0; background: var(--success); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+  .toast.error .toast-icon { background: var(--error); }
+  .toast .toast-body { flex: 1; }
+  .toast .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .toast .toast-msg { font-size: 13px; color: #555; line-height: 1.45; }
+
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
   .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
@@ -194,6 +221,9 @@
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .submit-btn { padding: 14px 22px !important; font-size: 15px !important; }
+    .submit-steps { font-size: 14px; }
+    .toast { bottom: 120px; right: 16px; left: 16px; max-width: none; }
   }
 
   @media (max-width: 760px){
@@ -211,6 +241,34 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    .submit-wrap { flex-direction: column; align-items: stretch; }
+    .submit-btn { width: 100%; justify-content: center; }
+    .stream-info { min-width: 0; }
+
+    /* ===== МОБИЛЬНЫЕ ШАГИ: компактно, без растягивания ===== */
+    .submit-steps {
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 14px;
+      margin: 14px 0 12px;
+    }
+    .submit-step {
+      flex: 0 0 auto;
+      min-width: 0;
+      gap: 8px;
+    }
+    .submit-step .step-num {
+      width: 20px;
+      height: 20px;
+      font-size: 11px;
+      flex-shrink: 0;
+    }
+    .submit-step .step-text {
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .toast { bottom: 110px; }
   }
 </style>
 </head>
@@ -312,7 +370,7 @@
       <h3>2.1 Look through the text to make sure you got everything</h3>
       <details class="text-details">
         <summary>📖 Read the text (click to expand)</summary>
-        <p>There's a certain type of person in the world who goes on an incredible vacation or eats an unbelievable meal or has a big birthday party and then doesn't post any of it online. The only proof that it ever happened was that they tell you about it in person. I mean, if somebody has a birthday party and doesn't post about it on Instagram, did it ever really happen? Now, we've all met people who don't engage in social media, don't use social media, never post on social media, don't even have accounts. I've met a number of these people over the years. Maybe you are one of these people who's considering getting rid of all of your social media. And on the one hand, it seems so appealing, but on the other, it seems so strange, so <b class="v">cut off from the world</b>, like you're blinding yourself in one eye cuz you're sick of looking at things you don't like. This is the strange psychology of people who don't use social media. So, I've put together four reasons that I think people <b class="v">drop out of</b> the internet entirely and only live in the analog universe. So, number one is what I call the photographer's paradox. My wife, she's one of these people. Every good meal she has, every cool sunset, every interesting place that we go or fun experience we have, she wants to take a picture of it. And it drives me crazy because as soon as you stop and want to take a photo of something, you are removing yourself from the experience of that thing. Now, as somebody who really likes to <b class="v">be in the moment</b> and try to be as present as possible, this <b class="v">bugs the shit out of me</b>. Like, you're completely <b class="v">putting me out of flow state</b> to try to take an objectively beautiful picture of something that is may or may not be as good as the picture looks. And then, of course, one picture is never enough. Like you got to get different angles and then you got to do the vertical and the horizontal and the zoom out and the wide lens and it never ends, guys. It never ends. So, I get that part of it. But to me, social media, it's a little bit of a <b class="v">devil's bargain</b>. I don't like being interrupted throughout my life. But I will say as the years have gone on, I am so glad I have tons of photos and videos of certain experiences that I had in the past. And if it was up to me, I wouldn't have a lot of those photos and videos. So <b class="v">credit to</b> my wife for making me take them.</p>
+           <p>There's a certain type of person in the world who goes on an incredible vacation or eats an unbelievable meal or has a big birthday party and then doesn't post any of it online. The only proof that it ever happened was that they tell you about it in person. I mean, if somebody has a birthday party and doesn't post about it on Instagram, did it ever really happen? Now, we've all met people who don't engage in social media, don't use social media, never post on social media, don't even have accounts. I've met a number of these people over the years. Maybe you are one of these people who's considering getting rid of all of your social media. And on the one hand, it seems so appealing, but on the other, it seems so strange, so <b class="v">cut off from the world</b>, like you're blinding yourself in one eye cuz you're sick of looking at things you don't like. This is the strange psychology of people who don't use social media. So, I've put together four reasons that I think people <b class="v">drop out of</b> the internet entirely and only live in the analog universe. So, number one is what I call the photographer's paradox. My wife, she's one of these people. Every good meal she has, every cool sunset, every interesting place that we go or fun experience we have, she wants to take a picture of it. And it drives me crazy because as soon as you stop and want to take a photo of something, you are removing yourself from the experience of that thing. Now, as somebody who really likes to <b class="v">be in the moment</b> and try to be as present as possible, this <b class="v">bugs the shit out of me</b>. Like, you're completely <b class="v">putting me out of flow state</b> to try to take an objectively beautiful picture of something that is may or may not be as good as the picture looks. And then, of course, one picture is never enough. Like you got to get different angles and then you got to do the vertical and the horizontal and the zoom out and the wide lens and it never ends, guys. It never ends. So, I get that part of it. But to me, social media, it's a little bit of a <b class="v">devil's bargain</b>. I don't like being interrupted throughout my life. But I will say as the years have gone on, I am so glad I have tons of photos and videos of certain experiences that I had in the past. And if it was up to me, I wouldn't have a lot of those photos and videos. So <b class="v">credit to</b> my wife for making me take them.</p>
         <p>But I think the second reason is actually the bigger reason why people disengage and that is it's simple social comparison. See evolutionarily speaking we <b class="v">are wired to</b> always compare ourselves to the people in our environment. Our brain is constantly ranking us on an apparent <b class="v">social hierarchy</b> of uh what our social status is compared to the people around us. Now, you have to understand that that comparison machine that's going on in our brain, it evolved over hundreds of thousands of years in small tribes of a few dozen people. You're comparing yourself to others, but it's you're comparing yourself to like Uncle Monka and like how well you can bash an antelope in on the skull. It's not really <b class="v">high stakes</b> and there's not a whole lot of stuff to compare. But suddenly when you're online and you're <b class="v">exposed to</b> literally millions and millions of people from around the world, pretty much all of which you're never going to meet in real life and you're never going to interact with, that machinery is still going on where you are unconsciously comparing your social rank to each of those people. And the worst part of that is that the social media algorithms are designed to show you everybody else's highlight reel while you are <b class="v">stuck in your humdrum daily grind</b> of a life. So the comparison is an unfair one to begin with. And I think people who are particularly sensitive to these comparisons or people who <b class="v">fall into</b> the <b class="v">perceptual bias</b> of assuming that what they see online is a <b class="v">representation of</b> what the world is like, social media can kind of their brain up. So the next time you feel like the world is caving in on itself, maybe try to relax with some nice tunes.</p>
         <p>But here's the interesting part because a lot is made these days about how social media is like ruining everybody's mental health and how it's like the decline of the younger generations and blah blah blah. If you actually <b class="v">dig deep into</b> the research, what you find is that people's experiences with social media vary quite widely. For some people, they actually benefit from it. Social media actually makes them happier. Some people it makes them absolutely miserable. And what's interesting is that social media doesn't necessarily take a happy person and make them unhappy. It takes somebody who's <b class="v">predisposed to</b> a lot of social comparison or a lot of insecurity or a lot of obsessiveness or narcissism and it simply <b class="v">amplifies</b> those facets of their personality. So if you are somebody who is already very <b class="v">susceptible</b> and sensitive <b class="v">to</b> social comparison, if you are somebody who is already overly worried about your appearance or how you come across the people or your particular status or ranking, then yeah, social media is probably not going to be a fun time for you. And this is particularly true for people in the third point, which is that social media favors extroverts. Interestingly, when you look at the data on who is most engaged and active on social media and online, it tends to be more extroverted people. It tends to be more social people. People who are highly introverted, they don't really feel like they're <b class="v">missing out on</b> much. So, it's much easier for them to give up the supposed connection to the outside world, especially if they're constantly being bothered and annoyed by these obnoxious social comparisons.</p>
         <p><b class="v">Off the top of my head</b>, I can think of three people that <b class="v">opted out of social media</b> and just being online entirely many years ago. But when I think about those three people, it was funny because when all three of them got off, I remember thinking to myself, this is back in the ancient days of Facebook and Twitter and like the early 2010s. I remember thinking to myself, I'm like, they'll be back. There's way too much cool going on here to like completely opt out. I mean, where are they going to get their memes? How how could you even function? What's interesting is that everybody I know who has <b class="v">opted out of</b> the whole online social media game, they never came back. I actually have no clue what they're doing today. And it feels really weird because everybody I've ever known, I can go check and see what they're doing today except for those three people. I have no clue. I don't know where they are. I don't know what they're doing. I don't know what they do for work. They could be homeless. They could be billionaires. I have no idea. But I do find it fascinating that they never came back because one thing that I notice is that I <b class="v">disengage</b> more and more from being online and focus more on the day-to-day people around me is that I don't experience FOMO. FOMO is what you experience when you're online too much because you're <b class="v">overexposed</b> to what everybody else is doing. What I experience is joo, the joy of missing out because I feel joy in that I don't have to be aware of what everybody else is doing. I can simply enjoy what I'm doing in the moment. So, if you are chronically online and it is driving you crazy, I invite you to experience a little bit of JOMO. <b class="v">Go on a digital detox</b>. Delete all the apps off your phone. Maybe go buy a shitty <b class="v">burner phone</b> for a couple weeks. See what happens. Who knows? Maybe you'll never come back.</p>
@@ -589,6 +647,22 @@
     <div class="card">
       <h3>3.8 Write your own sentences using vocabulary you liked <i>(Optional)</i></h3>
       <textarea class="idea-box" placeholder="Write your sentences here..."></textarea>
+      <div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answer in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your answer will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="3.8">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -655,6 +729,22 @@
       <p class="sentence">9. <b>Off the top of my head</b>, one thing that makes me happy is...</p>
       <p class="sentence">10. If I <b>went on a digital detox</b> for a week, I would probably...</p>
       <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your ideas here..."></textarea>
+      <div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answers in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your text will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="4.3">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -716,6 +806,15 @@
     <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     Reset all
   </button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="alert">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Copied!</div>
+    <div class="toast-msg" id="toastMsg">Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.</div>
+  </div>
 </div>
 
 <script>
@@ -982,7 +1081,7 @@ function resetCard(card){
   card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
   card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
-  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
   card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
@@ -1054,6 +1153,132 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+// ===== TOAST =====
+const toastEl = document.getElementById('toast');
+const toastIcon = document.getElementById('toastIcon');
+const toastTitle = document.getElementById('toastTitle');
+const toastMsg = document.getElementById('toastMsg');
+let toastTimer = null;
+
+function hideToast() {
+  toastEl.classList.remove('show');
+  if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+}
+
+function showToast(type, title, msg, duration = 6000) {
+  if (toastTimer) clearTimeout(toastTimer);
+  toastEl.classList.remove('show', 'error');
+  if (type === 'error') {
+    toastEl.classList.add('error');
+    toastIcon.textContent = '!';
+  } else {
+    toastIcon.textContent = '✓';
+  }
+  toastTitle.textContent = title;
+  toastMsg.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+
+  // fallback: auto-hide after timeout
+  toastTimer = setTimeout(hideToast, duration);
+
+  // main: hide on next click anywhere on the page
+  setTimeout(() => {
+    document.addEventListener('click', hideToast, { once: true });
+  }, 0);
+}
+
+// ===== CLIPBOARD =====
+async function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) { /* fallback below */ }
+  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+// ===== SUBMIT FLOW =====
+async function handleSubmit(btn) {
+  const url = btn.dataset.formUrl;
+
+  if (!url || url.includes('ТВОЯ_ССЫЛКА')) {
+    showToast('error', 'Form not configured', 'Please ask Daria to add the Google Form link.');
+    return;
+  }
+
+  const card = btn.closest('.card');
+  const textarea = card ? card.querySelector('textarea.idea-box') : null;
+  const answerText = textarea ? textarea.value.trim() : '';
+
+  if (!answerText) {
+    showToast('error', 'Nothing to submit', 'Please write your answer in the box first.');
+    if (textarea) textarea.focus();
+    return;
+  }
+
+  // Task title from h3 (number already included), remove "(Optional)"
+  const h3 = card ? card.querySelector('h3') : null;
+  let taskTitle = h3 ? h3.textContent.trim() : '';
+  taskTitle = taskTitle.replace(/\s*\(Optional\)\s*$/i, '').trim();
+
+  const textToCopy =
+    `Task title: ${taskTitle}\n\n` +
+    `My answer:\n${answerText}`;
+
+  const copied = await copyToClipboard(textToCopy);
+
+  if (copied) {
+    showToast('success',
+      'Copied!',
+      'Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.');
+    window.open(url, '_blank');
+  } else {
+    showToast('error', 'Could not copy automatically',
+      'Please copy your answer manually, then open the form.');
+    window.open(url, '_blank');
+  }
+}
+
+// ===== STREAM DATES =====
+const STREAM_END_DATE = new Date('2026-11-15T23:59:59');
+
+function checkStreamStatus() {
+  const now = new Date();
+  const isEnded = now > STREAM_END_DATE;
+
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    if (isEnded) {
+      btn.disabled = true;
+      btn.textContent = '⏰ Submissions for this round are now closed';
+      btn.onclick = null;
+    } else {
+      btn.disabled = false;
+      btn.onclick = () => handleSubmit(btn);
+    }
+  });
+
+  document.querySelectorAll('.stream-info').forEach(block => {
+    if (isEnded) block.classList.add('ended');
+    else block.classList.remove('ended');
+  });
+}
+
+checkStreamStatus();
+setInterval(checkStreamStatus, 60 * 60 * 1000);
 </script>
 </body>
 </html>
