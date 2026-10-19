@@ -307,53 +307,24 @@
     .cover-text p { font-size: 14px; }
   }
 
-  /* ===== МОБИЛЬНАЯ ВЕРСИЯ: ВСЯ ШАПКА ПРОКРУЧИВАЕТСЯ ВМЕСТЕ ===== */
   @media (max-width: 760px){
     .header { 
       padding: 10px 12px; 
       gap: 12px; 
-      flex-wrap: nowrap; /* Всё в одну строку */
-      overflow-x: auto; /* Горизонтальная прокрутка всей шапки */
-      scrollbar-width: none; /* Скрываем скроллбар Firefox */
+      flex-wrap: nowrap; 
+      overflow-x: auto; 
+      scrollbar-width: none; 
       -webkit-overflow-scrolling: touch;
     }
-    .header::-webkit-scrollbar { 
-      display: none; /* Скрываем скроллбар Chrome/Safari */
-    }
-    
-    .brand { 
-      flex-shrink: 0; /* Запрещаем сжатие логотипа */
-    }
-    .brand .brand-text span { 
-      display: none; /* Скрываем подзаголовок для экономии места */
-    }
-    .brand .logo { 
-      width: 36px; 
-      height: 36px; 
-    }
-    .brand .brand-text b { 
-      font-size: 15px; 
-    }
-    
-    .progress-wrap { 
-      flex-shrink: 0; /* Запрещаем сжатие прогресс-бара */
-    }
-    .progress-bar { 
-      width: 60px; 
-    }
-    
-    .nav { 
-      flex: 0 0 auto; /* Размер по контенту, не растягивается и не сжимается */
-      flex-wrap: nowrap; 
-      justify-content: flex-start;
-      gap: 6px;
-    }
-    .nav a { 
-      font-size: 12px; 
-      padding: 6px 12px; 
-      white-space: nowrap; 
-    }
-    
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
     .actions { 
       flex-wrap: nowrap; 
       justify-content: flex-start; 
@@ -365,12 +336,7 @@
       -webkit-overflow-scrolling: touch; 
     }
     .actions::-webkit-scrollbar { display: none; }
-    .actions .btn { 
-      flex: 0 0 auto; 
-      padding: 10px 14px; 
-      font-size: 12px; 
-      white-space: nowrap; 
-    }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
   }
 </style>
@@ -685,12 +651,12 @@
       <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
       <div class="bank">
         <div class="chip" data-word="the real deal">the real deal</div>
-        <div class="chip" data-word="rise">rise</div>
+        <div class="chip" data-word="flourishing technology">flourishing technology</div>
         <div class="chip" data-word="out of the equation">out of the equation</div>
         <div class="chip" data-word="foreseeable future">foreseeable future</div>
         <div class="chip" data-word="become the norm">become the norm</div>
         <div class="chip" data-word="walk you through">walk you through</div>
-        <div class="chip" data-word="champion">champion</div>
+        <div class="chip" data-word="champion its efficiency">champion its efficiency</div>
         <div class="chip" data-word="unusual circumstances">unusual circumstances</div>
         <div class="chip" data-word="globetrotting">globetrotting</div>
         <div class="chip" data-word="put their grievances into the right words">put their grievances into the right words</div>
@@ -710,10 +676,10 @@
         <li class="sentence">The customer service team had to <span class="dz" data-answer="track down complaints"></span> from social media that hadn't been logged in their official system.</li>
         <li class="sentence">Many customers are frustrated but don't know how to <span class="dz" data-answer="put their grievances into the right words"></span>, which is why we offer a structured feedback form.</li>
         <li class="sentence">While the internet is <span class="dz" data-answer="putting travel agents out of business"></span>, others are flourishing by offering specialized, personalized tours.</li>
-        <li class="sentence"><b>The</b> <span class="dz" data-answer="rise"></span> of artificial intelligence is transforming industries from healthcare to finance.</li>
+        <li class="sentence">The <span class="dz" data-answer="flourishing technology"></span> is transforming industries from healthcare to finance.</li>
         <li class="sentence">Automating the ticket booking process <span class="dz" data-answer="frees up the agent's workload"></span>, allowing them to focus on creating complex, tailor-made itineraries.</li>
         <li class="sentence">Working remotely from home has <span class="dz" data-answer="become the norm"></span> for many professionals since the pandemic.</li>
-        <li class="sentence">As a project manager, it's my job to <span class="dz" data-answer="champion"></span> and get the rest of the team on board.</li>
+        <li class="sentence">As a project manager, it's my job to <span class="dz" data-answer="champion its efficiency"></span> and get the rest of the team on board.</li>
         <li class="sentence">Online banking has been so successful because it <b>cuts the need for physical branches</b> <span class="dz" data-answer="out of the equation"></span> for most transactions.</li>
         <li class="sentence">After graduating, she spent a year <span class="dz" data-answer="globetrotting"></span>, visiting over twenty countries on five different continents.</li>
         <li class="sentence">Seeing the Northern Lights in Iceland has always been at the top of my <span class="dz" data-answer="bucket list"></span>.</li>
@@ -747,11 +713,11 @@
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1CR51SVg-mdZpxpjRs66w09tQXfJJ8OOj/preview" target="_blank">▶ Part 4</a></div>
       <div class="sentence"><b>AI baggage handling.</b></div>
-      <div class="sentence">In 2018 it was reported that 4.5 billion bags are annually handled by industry luggage systems within the next couple decades that number is expected to double. Thankfully AI is becoming more advanced as well, assisting <input class="blank" data-answer="considerably"> <b>with the growing</b> <input class="blank" data-answer="workload"> using photo recognition. AI can better keep track of every passengers back we're already seeing strong results as the costs of <input class="blank" data-answer="mishandled"> <input class="blank" data-answer="luggage"> has been reduced from 4.22 billion to 2.1 billion in the past decade. That said lost luggage may not be a problem of the past. In the event that <b>a bag is</b> <input class="blank" data-answer="misplaced"> though lost and found software is helping to <input class="blank" data-answer="reunite"> you <input class="blank" data-answer="with"> your <input class="blank" data-answer="luggage"> faster. AI is also being utilized to <input class="blank" data-answer="anticipate"> <b>how much cargo</b> <input class="blank" data-answer="space"> <b>will be needed</b> predicting the number of bags each passenger will bring based on their prior trips. The more prepared airlines are the fewer bags will risk getting left behind.</div>
+      <div class="sentence">In 2018 it was reported that 4.5 billion bags are annually handled by industry luggage systems within the next couple decades that number is expected to double. Thankfully AI is becoming more advanced as well, assisting <input class="blank" data-answer="considerably"> <b>with the growing</b> <input class="blank" data-answer="workload"> using photo recognition. AI can better keep track of every passengers back we're already seeing strong results as the costs of <input class="blank" data-answer="mishandled"> <input class="blank" data-answer="luggage"> has been reduced from 4.22 billion to 2.1 billion in the past decade. That said lost luggage may not be a problem of the past. In the event that <b>a bag is</b> <input class="blank" data-answer="misplaced"> though lost and found software is helping to <input class="blank" data-answer="reunite"> <b>you</b> <input class="blank" data-answer="with"> <b>your</b> <input class="blank" data-answer="luggage"> <b>faster</b>. AI is also being utilized to <input class="blank" data-answer="anticipate"> <b>how much cargo</b> <input class="blank" data-answer="space"> <b>will be needed</b> predicting the number of bags each passenger will bring based on their prior trips. The more prepared airlines are the fewer bags will risk getting left behind.</div>
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1t519VXaO6iV_pagw196cGAxUzEcXWgQ6/preview" target="_blank">▶ Part 5</a></div>
       <div class="sentence"><b>Filing complaints and social media.</b></div>
-      <div class="sentence">Your flight has been delayed and you're stuck in a terminal for the next few hours. To pass the time you <input class="blank" data-answer="channel"> <b>all of your</b> <input class="blank" data-answer="frustration"> <input class="blank" data-answer="into"> a <b>social media post</b>. You might expect your friends and followers to comment however you may be surprised to find a response from the airline as well. Airlines are using social listening tools to <input class="blank" data-answer="track"> <input class="blank" data-answer="down"> <b>complaints</b> in real time. If you include the airline's app sign in the post you're inclined to receive a speedy helpful reply detailing how to resolve the issue. People don't always know <b>how to</b> <input class="blank" data-answer="put"> their <input class="blank" data-answer="grievances"> <input class="blank" data-answer="into"> <b>the right</b> <input class="blank" data-answer="words"> but that's where our old pal chat GPT <input class="blank" data-answer="comes"> <input class="blank" data-answer="into"> <input class="blank" data-answer="play"> again. passenger Sherry luo used chat GPT to <input class="blank" data-answer="craft"> a <b>carefully</b> <input class="blank" data-answer="worded"> <b>email</b> to the airline when our flight was delayed going viral on Instagram and Tick Tock. So now more than ever once ignored Travelers are being heard thanks to AI.</div>
+      <div class="sentence">Your flight has been delayed and you're stuck in a terminal for the next few hours. To pass the time you <input class="blank" data-answer="channel"> <b>all of your</b> <input class="blank" data-answer="frustration"> <input class="blank" data-answer="into"> <b>a social media post</b>. You might expect your friends and followers to comment however you may be surprised to find a response from the airline as well. Airlines are using social listening tools to <input class="blank" data-answer="track"> <input class="blank" data-answer="down"> <b>complaints</b> in real time. If you include the airline's app sign in the post you're inclined to receive a speedy helpful reply detailing how to resolve the issue. People don't always know <b>how to</b> <input class="blank" data-answer="put"> <b>their</b> <input class="blank" data-answer="grievances"> <input class="blank" data-answer="into"> <b>the right</b> <input class="blank" data-answer="words"> but that's where our old pal chat GPT <input class="blank" data-answer="comes"> <input class="blank" data-answer="into"> <input class="blank" data-answer="play"> again. passenger Sherry luo used chat GPT to <input class="blank" data-answer="craft"> <b>a carefully</b> <input class="blank" data-answer="worded"> <b>email</b> to the airline when our flight was delayed going viral on Instagram and Tick Tock. So now more than ever once ignored Travelers are being heard thanks to AI.</div>
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1eFXInrpcq4ujBCWD7u6MI3PucEWsBuBs/preview" target="_blank">▶ Part 6</a></div>
       <div class="sentence"><b>Dynamic pricing.</b></div>
@@ -763,7 +729,7 @@
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/12v2IhRCsJlc_-YTnX8dTq9Q8RAoM3fnL/preview" target="_blank">▶ Part 8</a></div>
       <div class="sentence"><b>Facial recognition.</b></div>
-      <div class="sentence">We all know the process upon arriving at the TSA <input class="blank" data-answer="checkpoint"> we show the security officer our identification, they check our ID and hopefully they let us through without any problems. Well AI is slowly but surely introducing another step. More airports are experimenting with facial recognition technology. Having Travelers insert their ID into a kiosk, the Traveler will then <input class="blank" data-answer="gaze"> <input class="blank" data-answer="into"> <b>a camera</b> comparing their face to the photo on their ID. Customs agents usually <input class="blank" data-answer="remain"> <input class="blank" data-answer="present"> although we could get to the point where the process is entirely autonomous. Facial recognition might not <input class="blank" data-answer="become"> <b>the</b> <input class="blank" data-answer="norm"> for every airport with various cities such as San Francisco having banned such technology, so may be skeptical of facial recognition but many have <input class="blank" data-answer="championed"> its <input class="blank" data-answer="efficiency"> <input class="blank" data-answer="cutting"> <b>passport scanning and fingerprint matching</b> <input class="blank" data-answer="out"> <input class="blank" data-answer="of"> <b>the</b> <input class="blank" data-answer="equation">. It also means less in-person contact which is always a plus and a post-covid world.</div>
+      <div class="sentence">We all know the process upon arriving at the <b>TSA</b> <input class="blank" data-answer="checkpoint"> we show the security officer our identification, they check our ID and hopefully they let us through without any problems. Well AI is slowly but surely introducing another step. More airports are experimenting with facial recognition technology. Having Travelers insert their ID into a kiosk, the Traveler will then <input class="blank" data-answer="gaze"> <input class="blank" data-answer="into"> <b>a camera</b> comparing their face to the photo on their ID. Customs agents usually <input class="blank" data-answer="remain"> <input class="blank" data-answer="present"> although we could get to the point where the process is entirely autonomous. Facial recognition might not <input class="blank" data-answer="become"> <b>the</b> <input class="blank" data-answer="norm"> for every airport with various cities such as San Francisco having banned such technology, so may be skeptical of facial recognition but many have <input class="blank" data-answer="championed"> <b>its</b> <input class="blank" data-answer="efficiency"> <input class="blank" data-answer="cutting"> <b>passport scanning and fingerprint matching</b> <input class="blank" data-answer="out"> <input class="blank" data-answer="of"> <b>the</b> <input class="blank" data-answer="equation">. It also means less in-person contact which is always a plus and a post-covid world.</div>
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/18peP_3jHjsbpY9hgo4lkszCIqUTYnUSy/preview" target="_blank">▶ Part 9</a></div>
       <div class="sentence"><b>Titan security.</b></div>
@@ -789,9 +755,9 @@
       <h3>5.1 The AI Travel Companion: Your Next Globetrotter's Guide?</h3>
       <details class="text-details">
         <summary>📖 Read the text (click to expand)</summary>
-        <p>For the modern traveller, planning a trip can <b class="v">range from</b> an exciting preview of the adventure to a stressful chore. The central question often <b class="v">boils down to</b> a simple choice: do I use a human travel agent or an AI-powered website? While a fully automated AI travel agent might not replace humans completely <b class="v">in the foreseeable future</b>, its role is rapidly evolving.</p>
+        <p>For the modern traveller, planning a trip can <b class="v">range from</b> an exciting preview of the adventure to a stressful chore. The central question often <b class="v">boils down to</b> a simple choice: do I use a human travel agent or an AI-powered website? While a fully automated AI travel agent might not replace humans completely <b class="v">in the foreseeable future</b>, its role is rapidly <b class="v">evolving</b>.</p>
         <p>Imagine <b class="v">mapping out</b> your dream <b class="v">bucket list</b> trip to Japan. You find a website with <b class="v">enticing prices</b> and an AI that promises a perfect plan. <b class="v">Chances are</b>, the AI will efficiently <b class="v">walk you through the processes</b> of selecting flights and hotels. This <b class="v">flourishing technology</b> is <b class="v">putting travel agents out of business</b> by <b class="v">cutting</b> the human intermediary <b class="v">out of the equation</b> for simple bookings. Companies that develop these AIs <b class="v">champion their efficiency</b>, claiming they <b class="v">free up the agent's workload</b> for more complex issues.</p>
-        <p>But what happens when this AI <b class="v">finds itself under unusual circumstances</b>? Let's say your flight is cancelled due to a storm, and your <b class="v">luggage is mishandled</b>. A <b class="v">bag is misplaced</b>, and you need to <b class="v">track down</b> your belongings and <b class="v">put your grievances into the right words</b> for a complaint. This is where human empathy and problem-solving <b class="v">come into play</b>. An AI might struggle to <b class="v">anticipate</b> the frustration and urgency you feel. While it can channel data <b class="v">into</b> a standard email template, a human agent is better <b class="v">inclined to</b> understand your stress and act decisively.</p>
+        <p>But what happens when this AI <b class="v">finds itself under unusual circumstances</b>? Let's say your flight is cancelled due to a storm, and your <b class="v">luggage is mishandled</b>. A <b class="v">bag is misplaced</b>, and you need to <b class="v">track down</b> your belongings and <b class="v">put your grievances into the right words</b> for a complaint. This is where human empathy and problem-solving <b class="v">come into play</b>. An AI might struggle to <b class="v">anticipate</b> the frustration and urgency you feel. While it can <b class="v">channel</b> data <b class="v">into</b> a standard email template, a human agent is better <b class="v">inclined to</b> understand your stress and act decisively.</p>
         <p>Soon, <b class="v">gazing into a camera</b> for a passport check at an airport might <b class="v">become the norm</b>, thanks to AI. But <b class="v">when it comes to</b> the unpredictable nature of <b class="v">globetrotting</b>, is AI <b class="v">the real deal</b>? Many travellers are still <b class="v">on the fence</b>. They appreciate the speed and cost-saving for simple <b class="v">itineraries</b>, but for complex trips or when things go wrong, the human touch remains invaluable.</p>
       </details>
     </div>
@@ -1350,7 +1316,7 @@ function resetCard(card){
   card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
   card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
-  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
   card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
