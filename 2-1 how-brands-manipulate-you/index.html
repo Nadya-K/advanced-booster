@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Brands Manipulate You into Buying More — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: #fff; border: 2px solid var(--purple-light); border-radius: 8px; padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .blank { width: 130px; font-size: 16px; }
+    .hint-input input { min-width: 120px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 300px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#audio">Audio</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="How Brands Manipulate You — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>How Brands Manipulate You</h1>
+      <p>The Invisible Sell: are you being pitched or connected with?</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/d/1-4FNFnA0znW92Kb06-PaQjhAslPewo6c/view" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/ru/1111759648/how-brands-manipulate-you-into-buying-more-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. What was the last thing you bought because of an ad? Do you remember which one?</p>
+      <p class="sentence">2. Do you think advertising informs us, manipulates us, or both?</p>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video and catch the main idea</h3>
+      <p class="sentence" style="font-weight:700; margin-bottom:16px;">How do brands manipulate us into buying more?</p>
+      <div class="links"><a href="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" target="_blank">▶ Open video</a></div>
+    </div>
+    <div class="card">
+      <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>Companies spend billions of dollars every year to manipulate your psychology so you feel desire, loyalty, and urgency. All in an effort to get you to buy more stuff. This isn't a conspiracy. It's not even a secret. These are strategies shared in boardrooms, <b class="v">bragged about</b> in tech offices, and liked on LinkedIn. Brands hide their true intentions from you <b class="v">through a sleight of hand</b>. They <b class="v">seamlessly blend into</b> culture, track your every move, and <b class="v">hit you with relentless messaging</b>. Every word, every image, and every offer is tested and optimized to get you to buy more. And the more I looked into it, the more I realized how <b class="v">sophisticated</b> it's gotten. This video is sponsored by Surf Shark. I'll share more about how they can help to keep your data private later. If there's one thing I want to get across from the very beginning, it's this. Don't <b class="v">be fooled by</b> what companies say they value. It's all about the money. They'll claim their mission is to make the world a better place, to empower creativity, or to build a community. We're a company that focuses on connecting people. Let's be real, that's just the message they want you to hear. The truth is much simpler and far less romantic. They don't want to empower creativity. They want more people to make free content for them. They don't want to build a community. They want loyal customers that keep coming back. They don't want to make the world a better place. They want you to buy more, more often. And without thinking too hard about it. The business model is simple. <b class="v">Capture your attention</b>, <b class="v">shape your perception</b>, and turn it into profit. This doesn't mean that every company is <b class="v">inherently bad</b> or that every advertising strategy is evil. It's just the nature of capitalism. Maximizing profit is the goal. And it's the same story we've been played out for decades, except now companies are getting smarter, using more sophisticated tools, and making it so much harder for you to resist. One of the oldest tricks in the books is for brands to get you to like them, to build <b class="v">genuine affinity</b> and trust. And it all starts with branding.</p>
+        <p>Most people today are <b class="v">savvy</b> enough to know that branding isn't just a logo, colors, or style guide. It's carefully engineered storytelling. Because advertising doesn't just sell products, it sells values. Martin Lindström, marketing insider and author of the New York Times bestselling book Biology, says, "Brands that create an emotional connection to consumers are much stronger than those that don't. It's as simple and complicated as that." Luxury car commercials don't talk about gas mileage or safety ratings. They show you freedom, success, power. Even everyday products like deodorant or shampoo <b class="v">are pitched as</b> the key to being a better, more authentic, or morally ethical version of yourself. And you know what? It really works. Brands invest millions into <b class="v">crafting their image</b>, <b class="v">refining their message</b>, and building an identity that <b class="v">speaks to you</b>. Because they know it's going to help <b class="v">bypass rational evaluation</b>. You don't buy a new car because you compare every <b class="v">spec</b>. You buy it because you want it to say something about who you are. Think about it. If you remove the logos from three popular running sneakers, most people, <b class="v">aside from</b> sneaker heads, would struggle to tell them apart. When so many sneakers use the same materials, shapes, and manufacturing processes, it's the brand that makes the difference.</p>
+        <p>This was made very clear in a 2018 <b class="v">stunt</b> by the budget footwear company Payless. Amid dropping sales and <b class="v">on the verge of</b> bankruptcy, Payless <b class="v">took a big swing</b>. They secretly took over the lease of an old Armani store in Santa Monica and turned it into a fake luxury boutique called Paylessi. The <b class="v">pop-up shop</b> was extravagant and next to some of the most expensive retailers here on Third Street Promenade, and they had the same 20 to $40 shoes on the shelves, but with fancy lighting, minimalist displays, and <b class="v">high-end tags</b> that went up to $600. They invited fashion influencers to the <b class="v">launch</b> party, and it worked. People <b class="v">raved about</b> the quality, the design, and how premium it all felt. Within hours, Payless sold thousands of dollars worth of inventory, beautifully demonstrating the power of branding and how emotional storytelling can <b class="v">shift your perception</b> of a product. And no, the irony doesn't fail me that this itself was a clever marketing stunt by a company looking to sell more shoes. Brands have smartened up a lot over the years. They know it's much easier to <b class="v">tap into your current emotions</b> and behaviors than to fundamentally change your beliefs.</p>
+        <p>This is one of Ram's most recent commercials. Americans, we can do anything we want except one thing. We just can't stop being American. If you were to reverse engineer this ad back to its origins, you'd probably end up in a room with <b class="v">a handful of</b> brand and marketing experts. This is where it all begins. It's their job to figure out how to make people want a Ram truck. And they don't just <b class="v">come up with this stuff out of nowhere</b>. It's not based on their own intuition or feelings. They look at their competitors, panalyze the cultural climate, and study their target audience. Learning, among other things, that conservative Americans see the US as the greatest country in the world. Even though among high-income nations, it ranks 33rd in infant mortality, 20th in education, 40th in life expectancy, and has one of the worst healthcare systems in the world. But facts don't sell trucks, feelings do. So these brand experts decide that they want to <b class="v">harness the feeling of</b> America is number one. After months of research, meetings, script revisions, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b class="v">out of touch</b>, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <b class="v">rebellious</b>, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands show up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b class="v">take a backseat</b> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing.</p>
+        <p>Microsoft Burger King, Gatorade, and others use the comment section as another <b class="v">touch point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any interaction you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's snarky friend. Liquid Death is literally just water in a can, but its content makes you feel <b class="v">rebellious</b> and <b class="v">irreverent</b>. And if you <b class="v">feel the urge</b> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you. Look, it would be pretty <b class="v">one-dimensional</b> to just sit here and say, "Brands bad, marketing bad." <b class="v">Plenty of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b class="v">being deceived into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you.</p>
+        <p>At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b class="v">it crosses a line to</b> being completely unethical. Out of all the advancements in marketing, the <b class="v">sophistication</b> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <b class="v">propelled</b> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what you cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical cues to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microtargeting, and it's used by virtually every big brand today. Instead of <b class="v">blasting</b> everyone <b class="v">with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b class="v">quote unquote</b> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment. In her book, she says, "There's a reason why you erase something from existence, why a teen girl feels that it can't be shared, and surely Facebook shouldn't then be using that moment <b class="v">to bombard them with</b> extreme weight loss ads or beauty industry ads or whatever else they push on teens feeling vulnerable." The weird thing is that the rest of our Facebook co-workers seemed unbothered about this. It's very very hard to <b class="v">wrap your mind around</b> the amount of data that this company has on each person who logs on to its service. Don't let Mark Zuckerberg's rebrand fool you. Changing his wardrobe doesn't change their business model. According to Williams, nothing at the company changed after these <b class="v">allegations</b> were brought forth. They simply put out a PR statement to help repair their brand image and proceeded on business as usual.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1-4FNFnA0znW92Kb06-PaQjhAslPewo6c/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ru/1111759648/how-brands-manipulate-you-into-buying-more-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-3">
+      <h3>3.3 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching word (or tap the word, then tap the ending). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="creativity"><span class="term">empower</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="a community"><span class="term">build</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="targets"><span class="term">prime</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="your perception"><span class="term">shift</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="a backseat"><span class="term">take</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="a big swing"><span class="term">make</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="your message"><span class="term">refine</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="a big swing">a big swing</div>
+            <div class="match-item" data-word="your message">your message</div>
+            <div class="match-item" data-word="targets">targets</div>
+            <div class="match-item" data-word="a backseat">a backseat</div>
+            <div class="match-item" data-word="creativity">creativity</div>
+            <div class="match-item" data-word="your perception">your perception</div>
+            <div class="match-item" data-word="a community">a community</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="v3-4">
+      <h3>3.4 Put the words into correct order</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="The|local|bookstore|hosts|weekly|readings|of|book|lovers|to|build|a|community.">
+        <span class="wo-num">1/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="The">The</div><div class="chip" data-word="local">local</div><div class="chip" data-word="bookstore">bookstore</div><div class="chip" data-word="hosts">hosts</div><div class="chip" data-word="weekly">weekly</div><div class="chip" data-word="readings">readings</div><div class="chip" data-word="of">of</div><div class="chip" data-word="book">book</div><div class="chip" data-word="lovers">lovers</div><div class="chip" data-word="to">to</div><div class="chip" data-word="build">build</div><div class="chip" data-word="a">a</div><div class="chip" data-word="community.">community.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="After|the|rebranding,|the|company|worked|hard|to|build|a|new|identity|around|innovation|and|sustainability.">
+        <span class="wo-num">2/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="After">After</div><div class="chip" data-word="the">the</div><div class="chip" data-word="rebranding,">rebranding,</div><div class="chip" data-word="company">company</div><div class="chip" data-word="worked">worked</div><div class="chip" data-word="hard">hard</div><div class="chip" data-word="to">to</div><div class="chip" data-word="build">build</div><div class="chip" data-word="a">a</div><div class="chip" data-word="new">new</div><div class="chip" data-word="identity">identity</div><div class="chip" data-word="around">around</div><div class="chip" data-word="innovation">innovation</div><div class="chip" data-word="and">and</div><div class="chip" data-word="sustainability.">sustainability.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Luxury|car|owners|are|prime|targets|for|this|new|high-end|security|system.">
+        <span class="wo-num">3/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Luxury">Luxury</div><div class="chip" data-word="car">car</div><div class="chip" data-word="owners">owners</div><div class="chip" data-word="are">are</div><div class="chip" data-word="prime">prime</div><div class="chip" data-word="targets">targets</div><div class="chip" data-word="for">for</div><div class="chip" data-word="this">this</div><div class="chip" data-word="new">new</div><div class="chip" data-word="high-end">high-end</div><div class="chip" data-word="security">security</div><div class="chip" data-word="system.">system.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Visiting|the|manufacturing|plant|helped|shift|my|perception|of|how|much|work|goes|into|each|product.">
+        <span class="wo-num">4/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Visiting">Visiting</div><div class="chip" data-word="the">the</div><div class="chip" data-word="manufacturing">manufacturing</div><div class="chip" data-word="plant">plant</div><div class="chip" data-word="helped">helped</div><div class="chip" data-word="shift">shift</div><div class="chip" data-word="my">my</div><div class="chip" data-word="perception">perception</div><div class="chip" data-word="of">of</div><div class="chip" data-word="how">how</div><div class="chip" data-word="much">much</div><div class="chip" data-word="work">work</div><div class="chip" data-word="goes">goes</div><div class="chip" data-word="into">into</div><div class="chip" data-word="each">each</div><div class="chip" data-word="product.">product.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Politicians|often|hire|consultants|to|help|them|craft|their|image|for|the|public.">
+        <span class="wo-num">5/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Politicians">Politicians</div><div class="chip" data-word="often">often</div><div class="chip" data-word="hire">hire</div><div class="chip" data-word="consultants">consultants</div><div class="chip" data-word="to">to</div><div class="chip" data-word="help">help</div><div class="chip" data-word="them">them</div><div class="chip" data-word="craft">craft</div><div class="chip" data-word="their">their</div><div class="chip" data-word="image">image</div><div class="chip" data-word="for">for</div><div class="chip" data-word="the">the</div><div class="chip" data-word="public.">public.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Sometimes,|you|just|need|to|let|logic|take|a|backseat|and|follow|your|heart.">
+        <span class="wo-num">6/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Sometimes,">Sometimes,</div><div class="chip" data-word="you">you</div><div class="chip" data-word="just">just</div><div class="chip" data-word="need">need</div><div class="chip" data-word="to">to</div><div class="chip" data-word="let">let</div><div class="chip" data-word="logic">logic</div><div class="chip" data-word="take">take</div><div class="chip" data-word="a">a</div><div class="chip" data-word="backseat">backseat</div><div class="chip" data-word="and">and</div><div class="chip" data-word="follow">follow</div><div class="chip" data-word="your">your</div><div class="chip" data-word="heart.">heart.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="He|found|it|easy|to|build|a|genuine|affinity|with|his|new|colleagues|because|of|their|shared|sense|of|humor.">
+        <span class="wo-num">7/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="He">He</div><div class="chip" data-word="found">found</div><div class="chip" data-word="it">it</div><div class="chip" data-word="easy">easy</div><div class="chip" data-word="to">to</div><div class="chip" data-word="build">build</div><div class="chip" data-word="a">a</div><div class="chip" data-word="genuine">genuine</div><div class="chip" data-word="affinity">affinity</div><div class="chip" data-word="with">with</div><div class="chip" data-word="his">his</div><div class="chip" data-word="new">new</div><div class="chip" data-word="colleagues">colleagues</div><div class="chip" data-word="because">because</div><div class="chip" data-word="of">of</div><div class="chip" data-word="their">their</div><div class="chip" data-word="shared">shared</div><div class="chip" data-word="sense">sense</div><div class="chip" data-word="of">of</div><div class="chip" data-word="humor.">humor.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-5">
+      <h3>3.5 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="on the verge">on the verge</div>
+        <div class="chip" data-word="genuine affinity">genuine affinity</div>
+        <div class="chip" data-word="savvy">savvy</div>
+        <div class="chip" data-word="shape your perception">shape your perception</div>
+        <div class="chip" data-word="stunts">stunts</div>
+        <div class="chip" data-word="blend into">blend into</div>
+        <div class="chip" data-word="fooled">fooled</div>
+        <div class="chip" data-word="relentless messaging">relentless messaging</div>
+        <div class="chip" data-word="rational evaluation">rational evaluation</div>
+        <div class="chip" data-word="capture your attention">capture your attention</div>
+        <div class="chip" data-word="through a sleight of hand">through a sleight of hand</div>
+        <div class="chip" data-word="pitched">pitched</div>
+        <div class="chip" data-word="sophisticated">sophisticated</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. The marketing campaign was incredibly <span class="dz" data-answer="sophisticated"></span>, using data analytics to target specific consumer moods.</li>
+        <li class="sentence">2. The company tried to <b>hide</b> the product's price increase <span class="dz" data-answer="through a sleight of hand"></span> by subtly reducing the package size.</li>
+        <li class="sentence">3. Successful native advertising is designed to <b>seamlessly</b> <span class="dz" data-answer="blend into"></span> the editorial content of a website, so you might not even realise it's an ad.</li>
+        <li class="sentence">4. Once you search for a product online, social media platforms will <b>hit you with</b> <span class="dz" data-answer="relentless messaging"></span> about it for weeks.</li>
+        <li class="sentence">5. Modern consumers are <span class="dz" data-answer="savvy"></span>; they can see through inauthentic marketing <span class="dz" data-answer="stunts"></span>.</li>
+        <li class="sentence">6. Don't <b>be</b> <span class="dz" data-answer="fooled"></span> <b>by</b> the brand's rustic, handcrafted aesthetic; it's owned by a massive multinational corporation.</li>
+        <li class="sentence">7. The striking visual design of the bottle is the first thing to <span class="dz" data-answer="capture your attention"></span> on the crowded shelf.</li>
+        <li class="sentence">8. A brand's mission statement aims to <span class="dz" data-answer="shape your perception"></span> of the company as being ethical and purposeful, not just profit-driven.</li>
+        <li class="sentence">9. Her love for the small coffee brand wasn't just a trend; she had a <span class="dz" data-answer="genuine affinity"></span> for their sustainable sourcing practices.</li>
+        <li class="sentence">10. After the failed product launch, the company was <span class="dz" data-answer="on the verge"></span> <b>of</b> a major reputational crisis.</li>
+        <li class="sentence">11. The new energy drink was <span class="dz" data-answer="pitched"></span> <b>as</b> a healthy, focus-enhancing supplement, rather than just a sugary caffeine boost.</li>
+        <li class="sentence">12. Emotional branding aims to <b>bypass</b> <span class="dz" data-answer="rational evaluation"></span> and create a direct, sentimental connection with the consumer.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
+        <span class="card-score" data-score="v3-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typehint" data-id="v3-6">
+      <h3>3.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
+      <div class="sentence">1. As an influencer, your full-time job is to <span class="hint-input"><span class="first-letter">c</span><input type="text" data-answer="craft"></span> <b>your image</b> and <span class="hint-input"><span class="first-letter">r</span><input type="text" data-answer="refine"></span> <b>your message</b> to attract specific sponsorship deals.</div>
+      <div class="sentence">2. Many luxury car brands <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="brag"></span> <b>about</b> their heritage and engineering excellence in their advertisements.</div>
+      <div class="sentence">3. Influencers were paid to <span class="hint-input"><span class="first-letter">r</span><input type="text" data-answer="rave"></span> <b>about</b> the new skincare product, making it an instant sell-out.</div>
+      <div class="sentence">4. With their new, radically different product design, the company decided to <b>take a big</b> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="swing"></span> to stand out from competitors.</div>
+      <div class="sentence">5. To generate buzz, the cosmetic brand opened a <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="pop"></span> <b>-up shop</b> in the city centre for one month only.</div>
+      <div class="sentence">6. You won't find any <span class="hint-input"><span class="first-letter">h</span><input type="text" data-answer="high"></span> <b>-end tags</b> in that store; it's known for its affordable, high-street fashion.</div>
+      <div class="sentence">7. <b>The</b> <span class="hint-input"><span class="first-letter">l</span><input type="text" data-answer="launch"></span> of the new smartphone was accompanied by a global media event.</div>
+      <div class="sentence">8. The travel company's marketing campaign seeks to <span class="hint-input"><span class="first-letter">h</span><input type="text" data-answer="harness"></span> <b>the feeling of</b> wanderlust and the desire for freedom.</div>
+      <div class="sentence">9. The documentary aims to <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="shift"></span> <b>your perception</b> of "fast fashion" and its environmental impact.</div>
+      <div class="sentence">10. The advertisement for the security system cleverly <b>taps</b> <span class="hint-input"><span class="first-letter">i</span><input type="text" data-answer="into"></span> <b>your current emotions</b> of fear and uncertainty about home safety.</div>
+      <div class="sentence">11. Great creatives don't <b>come up with the stuff out of</b> <span class="hint-input"><span class="first-letter">n</span><input type="text" data-answer="nowhere"></span>; they conduct deep research into consumer behaviour.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
+        <span class="card-score" data-score="v3-6"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.7 Choose the correct preposition</h3>
+      <div class="links"><a href="https://wordwall.net/ru/embed/881dbf0deabc41d4aa11bdab861b6ada?themeId=1&templateId=36&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-7">
+      <h3>3.8 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="takes a backseat">takes a backseat</div>
+        <div class="chip" data-word="sophistication">sophistication</div>
+        <div class="chip" data-word="speak to you">speak to you</div>
+        <div class="chip" data-word="out of touch">out of touch</div>
+        <div class="chip" data-word="propel">propel</div>
+        <div class="chip" data-word="blasted with">blasted with</div>
+        <div class="chip" data-word="quote unquote">quote unquote</div>
+        <div class="chip" data-word="be deceived into">be deceived into</div>
+        <div class="chip" data-word="one-dimensional">one-dimensional</div>
+        <div class="chip" data-word="touch point">touch point</div>
+        <div class="chip" data-word="bombard">bombard</div>
+        <div class="chip" data-word="wrap your mind around">wrap your mind around</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. Using outdated slang in their ads made the brand seem completely <span class="dz" data-answer="out of touch"></span> with a younger audience.</li>
+        <li class="sentence">2. In luxury marketing, the product's price often <span class="dz" data-answer="takes a backseat"></span> to the story of its craftsmanship and exclusivity.</li>
+        <li class="sentence">3. Every customer interaction, from the website to the packaging, is a <span class="dz" data-answer="touch point"></span> that influences their overall brand experience.</li>
+        <li class="sentence">4. The best brand stories <span class="dz" data-answer="speak to you"></span> on a personal level, making you feel understood.</li>
+        <li class="sentence">5. Consumers should not <span class="dz" data-answer="be deceived into"></span> believing that a "green" logo automatically means a company is fully sustainable.</li>
+        <li class="sentence">6. Regulators are looking into companies that <span class="dz" data-answer="bombard"></span> consumers <b>with</b> pre-checked subscription options and hidden fees.</li>
+        <li class="sentence">7. The <span class="dz" data-answer="sophistication"></span> of their targeting algorithm allows them to serve ads to people who are most likely to convert.</li>
+        <li class="sentence">8. A single, powerful story can <span class="dz" data-answer="propel"></span> a small brand to international fame almost overnight.</li>
+        <li class="sentence">9. During the holiday season, shoppers are <span class="dz" data-answer="blasted with"></span> advertisements from every direction.</li>
+        <li class="sentence">10. The campaign promoted a lifestyle of <span class="dz" data-answer="quote unquote"></span> "effortless cool" that was, in reality, very carefully constructed.</li>
+        <li class="sentence">11. The brand's social media presence felt <span class="dz" data-answer="one-dimensional"></span>, as it only ever posted promotional content and never engaged in real conversation.</li>
+        <li class="sentence">12. It's difficult to <span class="dz" data-answer="wrap your mind around"></span> the sheer scale of data that large tech companies collect for marketing purposes.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
+        <span class="card-score" data-score="v3-7"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="audio">
+    <div class="section-title"><span class="num">4</span> Audio</div>
+    <div class="card" data-task="typeblank" data-id="a4-1">
+      <h3>4.1 Watch the videos and fill in the gaps</h3>
+      <div class="instruction">💡 Open each clip, listen, and type the missing word(s) into the blanks.</div>
+
+      <div class="links" style="margin:0 0 12px"><a href="https://drive.google.com/file/d/1ek4ju-xTBjx5QfGUe1lANPKxe2HmfZp1/preview" target="_blank">▶ Open video 1</a></div>
+      <div class="sentence">Companies spend billions of dollars every year to manipulate your psychology so you feel desire, loyalty, and urgency. All in an effort to get you to buy more stuff. This isn't a conspiracy. It's not even a secret. These are strategies shared in boardrooms, <input class="blank" data-answer="bragged"> <b>about</b> in tech offices, and liked on LinkedIn. Brands hide their true intentions from you <b>through a sleight of</b> <input class="blank" data-answer="hand">. They <b>seamlessly</b> <input class="blank" data-answer="blend"> <b>into</b> culture, track your every move, and <b>hit you with relentless messaging</b>. Every word, every image, and every offer is tested and optimized to get you to buy more. And the more I looked into it, the more I realized how <input class="blank" data-answer="sophisticated"> it's gotten. This video is sponsored by Surf Shark. I'll share more about how they can help to keep your data private later. If there's one thing I want to get across from the very beginning, it's this. Don't <b>be</b> <input class="blank" data-answer="fooled"> <b>by</b> what companies say they value. It's all about the money. They'll claim their mission is to make the world a better place, to empower creativity, or to build a community. We're a company that focuses on connecting people. Let's be real, that's just the message they want you to hear. The truth is much simpler and far less romantic. They don't want to empower creativity. They want more people to make free content for them. They don't want to build a community. They want loyal customers that keep coming back. They don't want to make the world a better place. They want you to buy more, more often. And without thinking too hard about it. The business model is simple. <input class="blank" data-answer="Capture"> <b>your attention</b>, <input class="blank" data-answer="shape"> <b>your perception</b>, and turn it into profit. This doesn't mean that every company is <b>inherently bad</b> or that every advertising strategy is evil. It's just the nature of capitalism. Maximizing profit is the goal. It's the same story we've seen played out for decades, except now companies are getting smarter, using more sophisticated tools, and making it so much harder for you to resist. One of the oldest tricks in the books is for brands to get you to like them, to build <b>genuine</b> <input class="blank" data-answer="affinity"> and trust. And it all starts with branding.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1V-hQ7RUmrMDQerjVJ3wg0zEHsJWpaqD2/preview" target="_blank">▶ Open video 2</a></div>
+      <div class="sentence">Most people today are <input class="blank" data-answer="savvy"> enough to know that branding isn't just a logo, colors, or style guide. It's carefully engineered <input class="blank" data-answer="storytelling">. Because advertising doesn't just sell products, it sells values. Martin Lindström, marketing insider and author of the New York Times bestselling book Biology, says, "Brands that create an emotional connection to consumers are much stronger than those that don't. It's as simple and complicated as that." Luxury car commercials don't talk about gas mileage or safety ratings. They show you freedom, success, power. Even everyday products like deodorant or shampoo <b>are</b> <input class="blank" data-answer="pitched"> <b>as</b> the key to being a better, more authentic, or morally ethical version of yourself. And you know what? It really works. Brands invest millions into <b>crafting their</b> <input class="blank" data-answer="image">, <b>refining their</b> <input class="blank" data-answer="message">, and building an identity that <input class="blank" data-answer="speaks"> <b>to you</b>. Because they know it's going to help <b>bypass</b> <input class="blank" data-answer="rational"> <b>evaluation</b>. You don't buy a new car because you compare every <input class="blank" data-answer="spec">. You buy it because you want it to say something about who you are. Think about it. If you remove the logos from three popular running sneakers, most people, <input class="blank" data-answer="aside"> <b>from</b> sneaker heads, would struggle to tell them apart. When so many sneakers use the same materials, shapes, and manufacturing processes, it's the brand that makes the difference.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/13a1ywoJ-uO6hUIZcefEyWymUxNo6SSBt/preview" target="_blank">▶ Open video 3</a></div>
+      <div class="sentence">This was made very clear in a 2018 <input class="blank" data-answer="stunt"> by the budget footwear company Payless. Amid dropping sales and <b>on the</b> <input class="blank" data-answer="verge"> <b>of</b> bankruptcy, Payless <b>took a big</b> <input class="blank" data-answer="swing">. They secretly took over the lease of an old Armani store in Santa Monica and turned it into a fake luxury boutique called Paylessi. The <b>pop-up shop</b> was extravagant and next to some of the most expensive retailers here on Third Street Promenade, they had the same 20 to $40 shoes on the shelves, but with fancy lighting, minimalist displays, and <b>high-end</b> <input class="blank" data-answer="tags"> that went up to $600. They invited fashion influencers to the <b>launch</b> party, and it worked. People <input class="blank" data-answer="raved"> <b>about</b> the quality, the design, and how premium it all felt. Within hours, Payless sold thousands of dollars worth of inventory, beautifully demonstrating the power of branding and how emotional storytelling can <input class="blank" data-answer="shift"> <b>your perception</b> of a product. And no, the irony doesn't fail me that this itself was a clever marketing stunt by a company looking to sell more shoes. Brands have smartened up a lot over the years. They know it's much easier to <input class="blank" data-answer="tap"> <input class="blank" data-answer="into"> <b>your current emotions</b> and behaviors than to fundamentally change your beliefs. This is one of Ram's most recent commercials. Americans, we can do anything we want except one thing. We just can't stop being American. If you were to reverse engineer this ad back to its origins, you'd probably end up in a room with <b>a</b> <input class="blank" data-answer="handful"> <b>of</b> brand and marketing experts. This is where it all begins. It's their job to figure out how to make people want a Ram truck. And they don't just <b>come up with this stuff</b> <input class="blank" data-answer="out"> <b>of</b> <input class="blank" data-answer="nowhere">. It's not based on their own intuition or feelings. They look at their competitors, panalyze the cultural climate, and study their target audience. Learning, among other things, that conservative Americans see the US as the greatest country in the world. Even though among high-income nations, it ranks 33rd in infant mortality, 20th in education, 40th in life expectancy, and has one of the worst healthcare systems in the world.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1feEGXDnEUFYmGp2CYqDSku6DgnV-gr1x/preview" target="_blank">▶ Open video 4</a></div>
+      <div class="sentence">But facts don't sell trucks, feelings do. So these brand experts decide that they want to <input class="blank" data-answer="harness"> <b>the feeling</b> of America is number one. After months of research, meetings, script revisions, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b>out of</b> <input class="blank" data-answer="touch">, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <input class="blank" data-answer="rebellious">, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands <input class="blank" data-answer="show"> up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b>take a</b> <input class="blank" data-answer="backseat"> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing. Microsoft Burger King, Gatorade, and others use the comment section as another <input class="blank" data-answer="touch"> <b>point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any <input class="blank" data-answer="interaction"> you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's <b>snarky friend</b>. Liquid Death is literally just water in a can, but its content makes you feel <b>rebellious</b> and <input class="blank" data-answer="irreverent">. And if you <b>feel the</b> <input class="blank" data-answer="urge"> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1WvOpwZgJ3dllVExLWgKK7nKnatDinDMK/preview" target="_blank">▶ Open video 5</a></div>
+      <div class="sentence">Look, it would be pretty <b>one-</b><input class="blank" data-answer="dimensional"> to just sit here and say, "Brands bad, marketing bad." <input class="blank" data-answer="Plenty"> <b>of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b>being</b> <input class="blank" data-answer="deceived"> <b>into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you. At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b>it</b> <input class="blank" data-answer="crosses"> <b>a line</b> <input class="blank" data-answer="to"> being completely unethical. Out of all the advancements in marketing, the <input class="blank" data-answer="sophistication"> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <input class="blank" data-answer="propelled"> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what you cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical <input class="blank" data-answer="cues"> to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microargeting, and it's used by virtually every big brand today. Instead of <input class="blank" data-answer="blasting"> everyone <b>with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b>quote</b> <input class="blank" data-answer="unquote"> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them <input class="blank" data-answer="prime"> targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1T1fx-DHP06iSEqjBivdZtpvNYx2ks11K/preview" target="_blank">▶ Open video 6</a></div>
+      <div class="sentence">In her book, she says, "There's a reason why you erase something from existence, why a teen girl feels that it can't be shared, and surely Facebook shouldn't then be using that moment <b>to</b> <input class="blank" data-answer="bombard"> <b>them</b> <input class="blank" data-answer="with"> extreme weight loss ads or beauty industry ads or whatever else they push on teens feeling vulnerable." The weird thing is that the rest of our Facebook co-workers seemed unbothered about this. It's very very hard to <input class="blank" data-answer="wrap"> <b>your</b> <input class="blank" data-answer="mind"> <input class="blank" data-answer="around"> the amount of data that this company has on each person who logs on to its service. Don't let Mark Zuckerberg's rebrand fool you. Changing his wardrobe doesn't change their business model. According to Williams, nothing at the company changed after these <input class="blank" data-answer="allegations"> were brought <input class="blank" data-answer="forth">. They simply put out a PR statement to help repair their brand image and proceeded on business as usual.</div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="a4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="a4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="a4-1">↻ Reset</button>
+        <span class="card-score" data-score="a4-1"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">5</span> Revision</div>
+
+    <div class="card">
+      <h3>5.1 The Invisible Sell: Are You Being Pitched or Connected With?</h3>
+      <details class="text-details" open>
+        <summary>📖 Read the text (click to collapse)</summary>
+        <p>We live in an age of supreme marketing <b class="v">sophistication</b>. Brands no longer just <b class="v">brag about</b> their features; they <b class="v">seamlessly blend into</b> your digital life, telling stories and <b class="v">harnessing the feeling of</b> community, aspiration, and belonging. The goal is simple: to <b class="v">capture your attention</b> and <b class="v">shift your perception of</b> their product from a simple commodity to a must-have emblem of identity.</p>
+        <p>Gone are the days of the one-off commercial. Now, campaigns are designed to <b class="v">hit you with relentless messaging</b> across every <b class="v">touch point</b> - your social media feed, your favorite podcast, the bus stop you pass every day. They expertly <b class="v">tap into your current emotions</b>, whether it's a desire for sustainability, a need for convenience, or a longing for adventure. A new brand might <b class="v">be pitched as</b> the authentic alternative, cultivating what feels like a <b class="v">genuine affinity</b> with its audience. They <b class="v">craft their image</b> and <b class="v">refine their message</b> until it seems to <b class="v">speak to you</b> personally.</p>
+        <p>But when does this art of persuasion cross into manipulation? It's a line that is becoming increasingly blurred.</p>
+        <p>Consider the <b class="v">launch</b> of a new, trendy brand. They might open a <b class="v">pop-up shop</b> in a trendy neighborhood, filled with art installations and free samples. Influencers <b class="v">rave about</b> the experience, and for a moment, the product feels less like a purchase and more like a membership. This isn't a clumsy <b class="v">stunt</b>; it's a calculated effort to <b class="v">propel</b> the brand into the cultural conversation. A legacy brand, feeling <b class="v">out of touch</b> and <b class="v">on the verge of</b> irrelevance, might <b class="v">take a big swing</b>, ditching its old logo and <b class="v">blast with</b> a new campaign that <b class="v">bombards someone with</b> images of cool, young people. They swap their traditional designs for collaborations with <b class="v">high-end tags</b>, hoping some of that glamour will rub off.</p>
+        <p>For the <b class="v">savvy</b> consumer, it can be difficult to <b class="v">wrap his mind around</b> what's real. Is this a brand I have a true connection with, or have I simply <b class="v">been fooled by</b> a brilliant narrative? The product's actual function can sometimes <b class="v">take a backseat</b> to the powerful story built around it.</p>
+        <p>The most critical moment is when you realize a brand is trying to <b class="v">hide something through a sleight of hand</b>. Perhaps their messaging about ethical sourcing doesn't match their manufacturing reality. Or their image of inclusivity feels <b class="v">one-dimensional</b> and manufactured. This is the point where the strategy <b class="v">crosses a line</b>. You weren't just being marketed to; you were <b class="v">being deceived into</b> believing in a relationship that never existed.</p>
+        <p>In this complex landscape, the most powerful tool is awareness. Question the stories you're told. Look beyond the emotional appeal and ask what the product actually does. By recognizing the sophisticated machinery behind the message, you can ensure your choices are driven by your own values, and not just by a feeling a brand has cleverly learned to sell.</p>
+      </details>
+    </div>
+
+    <div class="card">
+      <h3>5.2 Solve the crossword</h3>
+      <div class="links"><a href="https://wordwall.net/ru/embed/b0437fe8b1394ded9648e5ed11adcc35?themeId=1&templateId=11&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+
+    <div class="card">
+      <h3>5.3 Complete the sentences with your own ideas <i>(Optional)</i></h3>
+      <p class="sentence">1. I usually tend to brag about…</p>
+      <p class="sentence">2. It's easy to be fooled by…</p>
+      <p class="sentence">3. A powerful way to capture your attention is to…</p>
+      <p class="sentence">4. The media can shape your perception of…</p>
+      <p class="sentence">5. On social media, it's important to craft your image to…</p>
+      <p class="sentence">6. A great song often speaks to you when…</p>
+      <p class="sentence">7. The company decided to take a big swing by…</p>
+      <p class="sentence">8. High-end tags often make people feel…</p>
+      <p class="sentence">9. Traveling to another country can shift your perception of…</p>
+      <p class="sentence">10. A good coach knows how to harness the feeling of…</p>
+      <p class="sentence">11. The most important touch point for a customer is…</p>
+      <p class="sentence">12. A one-dimensional character is boring because…</p>
+      <p class="sentence">13. For me, an advertisement crosses a line when it…</p>
+      <p class="sentence">14. A powerful speech can propel people to…</p>
+      <p class="sentence">15. I don't like it when websites blast me with…</p>
+      <p class="sentence">16. It's hard to wrap your mind around the concept of…</p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">6</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday question</h3>
+      <p class="sentence">Which three points from the video stood out to you the most, and why?</p>
+      <h3>Friday question</h3>
+      <p class="sentence">Can you think of a brand that has so <b class="v">seamlessly blended into</b> your life or culture that you don't even think of it as advertising anymore?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. What is the author's main argument about modern marketing?</p>
+      <p class="sentence">2. Do you find that traditional ads have <b class="v">taken a backseat</b> in capturing your attention compared to the content you see on TikTok, Instagram, or YouTube?</p>
+      <p class="sentence">3. What's a purchase you made based purely on emotion that managed to <b class="v">bypass your rational evaluation</b> completely? Did you regret it?</p>
+      <p class="sentence">4. When you see an influencer <b class="v">brag about</b> a product, does it make you more or less likely to trust their recommendation? Why?</p>
+      <p class="sentence">5. Describe a time you felt a company <b class="v">hit you with relentless messaging</b>. How did it make you feel, and did it eventually work?</p>
+      <p class="sentence">6. Can you remember a time an ad was so perfectly targeted it felt creepy, like it had <b class="v">captured your attention</b> by listening in on your life?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else{sel.classList.add('incorrect');}
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you see through the marketing tricks!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
