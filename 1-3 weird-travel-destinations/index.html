@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weird Travel Destinations — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; 
+    color: var(--ink); 
+    background: var(--bg); 
+    line-height: 1.6; 
+    padding-bottom: 150px; 
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { 
+    position: sticky; top: 0; z-index: 100; 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(124, 107, 184, 0.1); 
+    padding: 12px 24px; 
+    display: flex; align-items: center; gap: 16px; 
+    box-shadow: 0 4px 20px rgba(124, 107, 184, 0.04); 
+  }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { 
+    padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); 
+    font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; 
+  }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124, 107, 184, 0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { 
+    max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden;
+    border: 1px solid rgba(124, 107, 184, 0.08); 
+    box-shadow: 0 12px 40px rgba(124, 107, 184, 0.08);
+    height: 400px; display: flex; flex-direction: column; 
+  }
+  .cover-img { height: 62%; background: #f3efe6; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { 
+    height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    padding: 16px 32px; text-align: center; background: #fff; 
+  }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 42px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { 
+    font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; 
+    display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em;
+  }
+  .section-title .num { 
+    background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; 
+  }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { 
+    background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px;
+    margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500;
+  }
+
+  .card { 
+    background: #fff; border-radius: 20px; padding: 24px; 
+    box-shadow: 0 4px 24px rgba(124, 107, 184, 0.06);
+    margin-bottom: 24px; border: 1px solid rgba(124, 107, 184, 0.08); 
+  }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92, 184, 92, 0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217, 83, 79, 0.1); }
+  
+  .card-actions { 
+    display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px;
+    border-top: 1px dashed rgba(124, 107, 184, 0.2); flex-wrap: wrap; 
+  }
+  .btn { 
+    padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer;
+    transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; 
+  }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { 
+    display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff;
+    font-weight: 600; font-size: 14px; transition: all 0.2s ease; 
+  }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63, 157, 154, 0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { 
+    width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px;
+    font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s;
+  }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
+
+  .bank { 
+    border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
+    min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
+  }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { 
+    background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none;
+    box-shadow: 0 2px 8px rgba(63, 157, 154, 0.08);
+  }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected {
+    outline: 3px solid var(--coral); outline-offset: 2px;
+    transform: scale(1.05); box-shadow: 0 4px 12px rgba(232, 112, 95, 0.3);
+  }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { 
+    display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple);
+    border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; 
+  }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .dz.dz-radio { min-width: 130px; border: none; border-bottom: 2px solid var(--purple); border-radius: 0; background: transparent; vertical-align: baseline; padding: 0 6px 2px; }
+  .dz.dz-radio.correct { border-color: var(--success); background: #e8f5e8; }
+  .dz.dz-radio.incorrect { border-color: var(--error); background: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { 
+    min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; 
+  }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key {
+    display: inline-block; margin-left: 6px;
+    background: var(--success); color: #fff;
+    padding: 4px 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 700;
+    white-space: nowrap; vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(92, 184, 92, 0.3);
+    animation: popIn 0.25s ease;
+  }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .option { 
+    background: #fff; border: 1.5px solid rgba(124, 107, 184, 0.15); padding: 12px 18px; border-radius: 12px; cursor: pointer;
+    font-weight: 500; font-size: 15px; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; position: relative; 
+  }
+  .option::before { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(124, 107, 184, 0.3); border-radius: 50%; flex-shrink: 0; transition: all 0.2s; }
+  .option:hover { border-color: var(--purple); background: var(--purple-light); }
+  .option.selected { background: var(--purple-light); border-color: var(--purple); }
+  .option.selected::before { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 4px #fff; }
+  .option.correct { background: #e8f5e8; border-color: var(--success); }
+  .option.correct::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+  .option.incorrect { background: #fbe9e7; border-color: var(--error); }
+  .option.incorrect::before { border-color: var(--error); background: var(--error); box-shadow: inset 0 0 0 4px #fff; }
+  .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
+  .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+
+  .blank { 
+    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+  }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { 
+    background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; 
+  }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { 
+    background: #fff; border: 2px dashed rgba(124, 107, 184, 0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; 
+  }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { 
+    border: 2px solid rgba(124, 107, 184, 0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px;
+    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+  }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124, 107, 184, 0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124, 107, 184, 0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 15.5px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 700; color: var(--ink); margin: 20px 0 10px; font-size: 16px; }
+  b.v { color: var(--purple); font-weight: 700; }
+  b.p { background: #c9d2f5; padding: 0 4px; border-radius: 4px; font-weight: 700; }
+  b.verb { background: #c9d2f5; padding: 0 4px; border-radius: 4px; font-weight: 700; }
+
+  .paraphrase-gap { display: inline-flex; align-items: center; margin: 0 4px; }
+  .paraphrase-gap input { 
+    border: 2px solid rgba(124, 107, 184, 0.2); border-radius: 8px; padding: 6px 10px;
+    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+  }
+  .paraphrase-gap input:focus { border-color: var(--purple); }
+  .paraphrase-gap.correct input { border-color: var(--success); background: #e8f5e8; }
+  .paraphrase-gap.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  .para-sub-title { font-size: 16px; font-weight: 700; text-decoration: underline; color: var(--ink); margin: 16px 0 10px; }
+
+  .set-group { background: var(--soft); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--purple); }
+  .set-group p { font-size: 15.5px; line-height: 1.7; margin-bottom: 8px; }
+  .set-group p:last-child { margin-bottom: 0; }
+  .set-blank { display: inline-block; min-width: 90px; border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline; }
+  .set-dz { 
+    min-width: 140px; min-height: 36px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple);
+    border-radius: 10px; padding: 4px 12px; margin: 0 0 16px; display: inline-block; vertical-align: middle; transition: all 0.2s ease;
+  }
+  .set-dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .set-dz .chip { font-size: 13px; padding: 4px 10px; }
+  .set-dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .set-dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .pic-match-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 12px; }
+  @media (max-width: 640px){ .pic-match-grid { grid-template-columns: repeat(2, 1fr); } }
+  .pic-match-item { background: #fff; border: 2px solid var(--purple-light); border-radius: 12px; overflow: hidden; transition: all .2s; display: flex; flex-direction: column; }
+  .pic-match-item:hover { border-color: var(--purple); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(124,107,184,.15); }
+  .pic-match-item img { width: 100%; height: 140px; object-fit: cover; display: block; }
+  .pic-match-item .pic-label { padding: 10px; text-align: center; font-weight: 700; font-size: 13px; color: var(--purple); min-height: 48px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 4px; line-height: 1.3; cursor: pointer; }
+  .pic-match-item .pic-label .answer { display: block; width: 100%; }
+  .pic-match-item.correct { border-color: var(--success); background: #e8f5e8; }
+  .pic-match-item.incorrect { border-color: var(--error); background: #fbe9e7; }
+
+  .scramble-letters { background: var(--soft); padding: 8px 12px; border-radius: 8px; font-family: monospace; font-size: 15px; letter-spacing: 2px; margin-bottom: 8px; display: inline-block; }
+  .scramble-hint { color: var(--teal-dark); font-size: 13px; margin-left: 8px; }
+
+  .actions { 
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #fff; border-radius: 999px; padding: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+    box-shadow: 0 8px 32px rgba(124, 107, 184, 0.15), 0 2px 8px rgba(124, 107, 184, 0.08);
+    z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124, 107, 184, 0.1);
+  }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124, 107, 184, 0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .option { padding: 14px 18px; font-size: 15px; }
+    .blank { width: 130px; font-size: 16px; }
+    .hint-input input { min-width: 130px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 280px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 28px; }
+    .cover-text p { font-size: 14px; }
+    .paraphrase-gap input { min-width: 120px; font-size: 15px; }
+    .pic-match-item img { height: 120px; }
+  }
+
+  @media (max-width: 760px){
+    .header { 
+      padding: 10px 12px; 
+      gap: 12px; 
+      flex-wrap: nowrap; 
+      overflow-x: auto; 
+      scrollbar-width: none; 
+      -webkit-overflow-scrolling: touch;
+    }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#warmup">Warm-up</a>
+    <a href="#video">Video</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#audio">Audio</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Weird Travel Destinations — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Weird Travel Destinations</h1>
+      <p>Bizarre & eye-catching attractions around the world</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1L2B9NtgH9IkkTXhHPPxWs8U4lriup-KT/preview" target="_blank">▶ Lesson video</a>
+        <a href="https://drive.google.com/file/d/1GNsGjKMuub3q9z8ZmQDJKOQa0Xjlo7RF/view?usp=sharing" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/ru/1101333243/the-weirdest-places-in-the-world-to-visit-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. What's the most unusual place you have ever visited?</p>
+      <p class="sentence">2. Do you prefer popular tourist hubs or hidden gems off the beaten path? Why?</p>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video and answer the question</h3>
+      <p class="sentence" style="font-weight:700; margin-bottom:16px;">Which place do you find the most appealing to visit?</p>
+      <div class="links"><a href="https://drive.google.com/file/d/1L2B9NtgH9IkkTXhHPPxWs8U4lriup-KT/preview" target="_blank">▶ Open video</a></div>
+    </div>
+    <div class="card">
+      <h3>1.2 Write down your answer (Optional)</h3>
+      <textarea class="idea-box" placeholder="Type your answer here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)">
+          <rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/>
+          <rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/>
+          <rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/>
+        </g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round">
+          <path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/>
+          <path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/>
+          <line x1="110" y1="40" x2="110" y2="128"/>
+        </g>
+        <g transform="translate(640,80)">
+          <rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/>
+          <path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/>
+        </g>
+        <g transform="translate(820,90)" fill="#7c6bb8">
+          <path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/>
+          <path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(1060,90)" fill="#3f9d9a">
+          <circle cx="60" cy="52" r="44"/>
+          <rect x="52" y="92" width="16" height="34" rx="8"/>
+          <path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/>
+        </g>
+        <g transform="translate(1280,100)" fill="#e8705f">
+          <path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/>
+          <path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/>
+        </g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>2.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1GNsGjKMuub3q9z8ZmQDJKOQa0Xjlo7RF/view?usp=sharing" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:14px">2.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ru/1101333243/the-weirdest-places-in-the-world-to-visit-flash-cards/?i=zxpms&x=1jqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-3">
+      <h3>2.3 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="scenic areas">scenic areas</div>
+        <div class="chip" data-word="fine wine">fine wine</div>
+        <div class="chip" data-word="perpetual">perpetual</div>
+        <div class="chip" data-word="highlights of the trip">highlights of the trip</div>
+        <div class="chip" data-word="breathtaking">breathtaking</div>
+        <div class="chip" data-word="venture into">venture into</div>
+        <div class="chip" data-word="chiselled away">chiselled away</div>
+        <div class="chip" data-word="on the outskirts of">on the outskirts of</div>
+        <div class="chip" data-word="surreal">surreal</div>
+        <div class="chip" data-word="overrun with">overrun with</div>
+        <div class="chip" data-word="seek out natural oddities">seek out natural oddities</div>
+      </div>
+      <ol style="list-style:none; padding-left:0;">
+        <li class="sentence">1. To escape the city's chaos, we booked a charming guesthouse <span class="dz" data-answer="on the outskirts of"></span> Lisbon, which offered stunning views of the countryside.</li>
+        <li class="sentence">2. Only the most experienced guides are qualified to <span class="dz" data-answer="venture into"></span> the deepest, most remote parts of the Amazon rainforest.</li>
+        <li class="sentence">3. The <span class="dz" data-answer="breathtaking"></span> view from the summit made every arduous step of the eight-hour climb feel instantly worthwhile.</li>
+        <li class="sentence">4. It felt <span class="dz" data-answer="surreal"></span> to be standing amidst the ancient ruins of Machu Picchu, a place I had only ever seen in history books.</li>
+        <li class="sentence">5. One of the <span class="dz" data-answer="highlights of the trip"></span> was a spontaneous cooking class where we learned to make pasta from a local Italian nonna.</li>
+        <li class="sentence">6. We decided to visit the coastal town in the off-season because we'd heard it gets <span class="dz" data-answer="overrun with"></span> tourists in July and August.</li>
+        <li class="sentence">7. Centuries of wind and rain have <span class="dz" data-answer="chiselled away"></span> at the sandstone cliffs, creating the dramatic, sculpted arches we see today.</li>
+        <li class="sentence">8. No trip to the Bordeaux region would be complete without indulging in a glass of <span class="dz" data-answer="fine wine"></span> at the vineyard where it was produced.</li>
+        <li class="sentence">9. We dedicated a full day to driving through the Lake District, stopping frequently to hike in the most beautiful <span class="dz" data-answer="scenic areas"></span>.</li>
+        <li class="sentence">10. Instead of following the standard tourist trail, we prefer to <span class="dz" data-answer="seek out natural oddities"></span>, like this lake with its bizarre pink-coloured water.</li>
+        <li class="sentence">11. The city has a <span class="dz" data-answer="perpetual"></span> energy, a buzz that continues from the early morning markets right through to the vibrant nightlife.</li>
+      </ol>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-3">↻ Reset</button>
+        <span class="card-score" data-score="v2-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v2-4">
+      <h3>2.4 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching word (or tap the word, then tap the definition). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="sand dunes"><span class="term">rolling</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="of the trip"><span class="term">highlights</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="in their own right"><span class="term">attraction</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="valley"><span class="term">uninhabited</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="have chiseled away"><span class="term">the powerful elements</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="beautiful"><span class="term">hauntingly</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="out of a dream"><span class="term">something</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="many shapes and sizes"><span class="term">come in</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="to the gills"><span class="term">packed</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="in an odd location"><span class="term">wind up</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="of the trip">of the trip</div>
+            <div class="match-item" data-word="in their own right">in their own right</div>
+            <div class="match-item" data-word="to the gills">to the gills</div>
+            <div class="match-item" data-word="have chiseled away">have chiseled away</div>
+            <div class="match-item" data-word="many shapes and sizes">many shapes and sizes</div>
+            <div class="match-item" data-word="valley">valley</div>
+            <div class="match-item" data-word="beautiful">beautiful</div>
+            <div class="match-item" data-word="in an odd location">in an odd location</div>
+            <div class="match-item" data-word="sand dunes">sand dunes</div>
+            <div class="match-item" data-word="out of a dream">out of a dream</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-4">↻ Reset</button>
+        <span class="card-score" data-score="v2-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="v2-5">
+      <h3>2.5 Put the words into correct order</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="The|eye-catching|poster|made|me|want|to|visit|immediately.">
+        <span class="wo-num">1/5</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="me">me</div>
+          <div class="chip" data-word="The">The</div>
+          <div class="chip" data-word="eye-catching">eye-catching</div>
+          <div class="chip" data-word="poster">poster</div>
+          <div class="chip" data-word="to">to</div>
+          <div class="chip" data-word="visit">visit</div>
+          <div class="chip" data-word="immediately.">immediately.</div>
+          <div class="chip" data-word="want">want</div>
+          <div class="chip" data-word="made">made</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Taxi|fares|can|eat|away|at|your|travel|budget.">
+        <span class="wo-num">2/5</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="can">can</div>
+          <div class="chip" data-word="budget.">budget.</div>
+          <div class="chip" data-word="Taxi">Taxi</div>
+          <div class="chip" data-word="away">away</div>
+          <div class="chip" data-word="eat">eat</div>
+          <div class="chip" data-word="fares">fares</div>
+          <div class="chip" data-word="at">at</div>
+          <div class="chip" data-word="your">your</div>
+          <div class="chip" data-word="travel">travel</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="The|ancient|temple|was|awe-inspiringly|huge.">
+        <span class="wo-num">3/5</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="huge.">huge.</div>
+          <div class="chip" data-word="The">The</div>
+          <div class="chip" data-word="ancient">ancient</div>
+          <div class="chip" data-word="awe-inspiringly">awe-inspiringly</div>
+          <div class="chip" data-word="was">was</div>
+          <div class="chip" data-word="temple">temple</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="We|loved|the|vibrant|colours|of|the|local|market.">
+        <span class="wo-num">4/5</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="the">the</div>
+          <div class="chip" data-word="vibrant">vibrant</div>
+          <div class="chip" data-word="loved">loved</div>
+          <div class="chip" data-word="the">the</div>
+          <div class="chip" data-word="local">local</div>
+          <div class="chip" data-word="colours">colours</div>
+          <div class="chip" data-word="We">We</div>
+          <div class="chip" data-word="market.">market.</div>
+          <div class="chip" data-word="of">of</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="I|have|stacks|of|photos|from|my|trip|to|Rome.">
+        <span class="wo-num">5/5</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="trip">trip</div>
+          <div class="chip" data-word="stacks">stacks</div>
+          <div class="chip" data-word="to">to</div>
+          <div class="chip" data-word="Rome.">Rome.</div>
+          <div class="chip" data-word="I">I</div>
+          <div class="chip" data-word="of">of</div>
+          <div class="chip" data-word="have">have</div>
+          <div class="chip" data-word="from">from</div>
+          <div class="chip" data-word="my">my</div>
+          <div class="chip" data-word="photos">photos</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
+        <span class="card-score" data-score="v2-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="picmatch" data-id="v2-6">
+      <h3>2.6 Match the words with the pictures</h3>
+      <div class="instruction">💡 Drag each word from the bank to the matching picture (or tap the word, then tap the picture). Click on the word under the picture to return it to the bank.</div>
+      <div class="bank">
+        <div class="chip" data-word="packed to the gills">packed to the gills</div>
+        <div class="chip" data-word="breathtaking">breathtaking</div>
+        <div class="chip" data-word="on the outskirts of">on the outskirts of</div>
+        <div class="chip" data-word="vibrant">vibrant</div>
+        <div class="chip" data-word="stacks of">stacks of</div>
+        <div class="chip" data-word="eye-catching">eye-catching</div>
+        <div class="chip" data-word="bizarre">bizarre</div>
+        <div class="chip" data-word="isolated">isolated</div>
+      </div>
+      <div class="pic-match-grid">
+        <div class="pic-match-item" data-answer="isolated">
+          <img src="isolated.png" alt="Picture 1">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="vibrant">
+          <img src="vibrant.png" alt="Picture 2">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="breathtaking">
+          <img src="breathtaking.png" alt="Picture 3">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="eye-catching">
+          <img src="eye-catching.png" alt="Picture 4">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="packed to the gills">
+          <img src="packed to the gills.png" alt="Picture 5">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="stacks of">
+          <img src="stacks of.png" alt="Picture 6">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="bizarre">
+          <img src="bizarre.png" alt="Picture 7">
+          <div class="pic-label"></div>
+        </div>
+        <div class="pic-match-item" data-answer="on the outskirts of">
+          <img src="on the outskirts of.png" alt="Picture 8">
+          <div class="pic-label"></div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-6">↻ Reset</button>
+        <span class="card-score" data-score="v2-6"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-7">
+      <h3>2.7 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="whopping">whopping</div>
+        <div class="chip" data-word="record">record</div>
+        <div class="chip" data-word="bizarre">bizarre</div>
+        <div class="chip" data-word="across">across</div>
+        <div class="chip" data-word="isolated">isolated</div>
+        <div class="chip" data-word="come">come</div>
+        <div class="chip" data-word="help">help</div>
+        <div class="chip" data-word="uninhabited">uninhabited</div>
+        <div class="chip" data-word="gills">gills</div>
+        <div class="chip" data-word="odd">odd</div>
+        <div class="chip" data-word="surround">surround</div>
+        <div class="chip" data-word="immersion">immersion</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">● The tour included a day trip to an <span class="dz" data-answer="uninhabited"></span> island, where we spent the day completely alone on a pristine, white-sand beach.</li>
+        <li class="sentence">● You <b>can't</b> <span class="dz" data-answer="help"></span> <b>but</b> be impressed by the sheer scale and grandeur of the Grand Canyon when you see it for the first time.</li>
+        <li class="sentence">● After taking a wrong turn and getting completely lost, we somehow <b>wound up in an</b> <span class="dz" data-answer="odd"></span> <b>location</b> — a deserted village that wasn't on any of our maps.</li>
+        <li class="sentence">● The remnants of the ancient civilisation, from broken pottery to foundation stones, are <b>scattered</b> <span class="dz" data-answer="across"></span> the entire archaeological site.</li>
+        <li class="sentence">● The new high-speed rail link has cut the travel time to the capital by a <span class="dz" data-answer="whopping"></span> 70%, revolutionising tourism in the region.</li>
+        <li class="sentence">● For a true full immersion experience, I recommend you <span class="dz" data-answer="surround"></span> <b>yourself with</b> the local culture by staying in a family-run homestay.</li>
+        <li class="sentence">● He signed up for a <b>full</b> <span class="dz" data-answer="immersion"></span> language course, which involved living with a local family and agreeing to speak only Spanish for two weeks.</li>
+        <li class="sentence">● We stumbled upon a <span class="dz" data-answer="bizarre"></span> market in the backstreets of Marrakech, where vendors sold everything from traditional spices to antique car parts.</li>
+        <li class="sentence">● The last ferry of the day was <b>packed to the</b> <span class="dz" data-answer="gills"></span>, with tourists and their luggage, leaving barely any room to move.</li>
+        <li class="sentence">● The northern coast remains <b>largely</b> <span class="dz" data-answer="isolated"></span> from the country's industrial development, preserving its rugged, natural beauty.</li>
+        <li class="sentence">● The hike was more challenging than the brochure suggested, but <b>for the</b> <span class="dz" data-answer="record"></span>, I still think it was an incredible and rewarding experience.</li>
+        <li class="sentence">● Travellers <span class="dz" data-answer="come"></span> <b>in many shapes and sizes:</b> from the luxury seeker in a five-star resort to the budget backpacker sleeping in a hostel dormitory.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-7">↻ Reset</button>
+        <span class="card-score" data-score="v2-7"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="audio">
+    <div class="section-title"><span class="num">3</span> Audio</div>
+    <div class="card" data-task="typeblank" data-id="a3-1">
+      <h3>3.1 Watch the videos and fill in the gaps</h3>
+      <div class="instruction">💡 Type the correct word into each gap.</div>
+      
+      <p style="margin-bottom:12px;"><b>Pancake Rocks, NZ</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1I1wfC19_UR4Xz-eMdINU1OKVugFnn0UD/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">We agree pancakes do rock but sadly flapjacks aren't on the menu at this unique site in New Zealand. Located south of Punakaiki village <input class="blank" data-answer="on"> <b>the</b> <input class="blank" data-answer="outskirts"> <b>of</b> Paparoa National Park, the pancake rocks are made of limestone and have been slowly carved by the ocean tides over the course of countless years. As water bears through natural blowholes, it slowly <input class="blank" data-answer="eats"> <input class="blank" data-answer="away"> the layers of sandstone. The end result is an area of shoreline populated by rock formations that look unlike uneven <input class="blank" data-answer="stacks"> <b>of pancakes</b>. Thanks to a number of walkways in the area you can really get a close look at the structures without risk of damaging them.</p>
+
+      <p style="margin:20px 0 12px;"><b>Lençóis Maranhenses National Park, Brazil</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1LMHdi2qqHYEVjxOxVDqcLTZzl5tCzTqr/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">We know what you're thinking — that's a pretty piece of abstract art, but allow your eyes to adjust a bit and you'll see that what you're actually looking at is a series of <input class="blank" data-answer="rolling"> <b>sand dunes</b> with water pooling between them. Located in Maranhão state, Lençóis Maranhenses National Park extends from the coastline to cover a total of 380,000 acres of land. The inland area is made up of low-lying sand dunes that, following rainstorms, become interspersed with fresh water lagoons. The end result is truly <input class="blank" data-answer="breathtaking"> and <input class="blank" data-answer="surreal"> to the point that, whether photographed from above or seen in person, the site is hard to believe. Don't let the photos fool you though — those lagoons are actually quite large. Visitors often identify swimming in the pools as one of the <input class="blank" data-answer="highlights"> <b>of the</b> <input class="blank" data-answer="trip">.</p>
+
+      <p style="margin:20px 0 12px;"><b>Cat Island and Bunny Island, Japan</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1LuSJL4D4I-uA-qlFObFI8NSUjQURZCKe/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Okay, as an apology for all the food-related teasing, this entry comes just as advertised. And to really make amends we're giving you not one but two <input class="blank" data-answer="odd"> travel experiences for the price of one. Located off of Japan's eastern coast, the island of Tashirojima is home to only about 100 people — but many times that number of cats. They previously worked to keep mice away from local silkworms. But now they're an <input class="blank" data-answer="attraction"> <b>in their own</b> <input class="blank" data-answer="right">. As if that's not enough cuteness, over on the island of Ōkunoshima you can get another overdose of cute and cuddly — the place is totally <input class="blank" data-answer="overrun"> <input class="blank" data-answer="with"> feral but friendly rabbits. Adding to the weirdness factor, the island is also home to an abandoned poison gas factory, a relic from the island's dark World War II history.</p>
+
+      <p style="margin:20px 0 12px;"><b>Goblin Valley State Park, USA</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1R6cJAfQOgxfCWXxH2edtd9vNqm-iRKeK/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Not as cute but nonetheless an interesting place to visit, Goblin Valley State Park is thankfully not named after a dominant local species. Located in Utah a few hundred miles from Salt Lake City, it actually takes its name from the strange rock formations that populate this otherwise <input class="blank" data-answer="uninhabited"> Valley. Slowly but surely, the powerful elements have <input class="blank" data-answer="chiselled"> <input class="blank" data-answer="away"> at the sandstone, resulting in mushroom-shaped pinnacles and hoodoos. These unique natural structures tend to be top-heavy with thinner lower sections, due to the upper layers of <input class="blank" data-answer="sandstone"> being more durable. Many of the pinnacles and hoodoos are millions of years old, and their odd shape certainly feels prehistoric — some suggest they even look like monstrous creatures from fairy tales, hence the name.</p>
+
+      <p style="margin:20px 0 12px;"><b>Catacombs, Paris, France</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1AYlXJc0FyOPffIDcwS_6fkwRPIyDpDSI/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Most of the weird places on our list today are <input class="blank" data-answer="naturally"> <b>occurring</b>, but not all of them. The world-famous Paris Catacombs might be a popular attraction, but there's no denying that this underground shrine to death is just about one of the strangest things the city has to offer. Occupying a small section of the tunnels that run underneath this city of love, the catacombs contain the bones of <input class="blank" data-answer="roughly"> 6 million Parisians. Once a simple dumping ground for human <input class="blank" data-answer="remains"> due to overloaded cemeteries, the ossuary was better organized in the early 19th century, when the bones were set up in various patterns. You're sure to enjoy the <input class="blank" data-answer="fine"> <b>wine,</b> <input class="blank" data-answer="world">-<input class="blank" data-answer="class"> <b>food</b> and stunning architecture of Paris, but we can all but guarantee that the catacombs are what will really stay with you.</p>
+
+      <p style="margin:20px 0 12px;"><b>Thor's Well, Oregon, USA</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1xc87sYFWnDKhkrUBBXodQODPKaOn30Lp/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Returning to Oregon, the home state of the Painted Hills, we leave the John Day Fossil Beds National Monument for the coast. Cape Perpetua is a forested headland in Lincoln County managed by the United States Forest Service. Though the entire area is beautiful, the cape's <input class="blank" data-answer="perpetuous"> <input class="blank" data-answer="scenic"> area is, as the name suggests, a highlight. Here visitors can camp, hike and go whale watching among other activities, but those who <input class="blank" data-answer="seeking"> <input class="blank" data-answer="out"> <b>natural</b> <input class="blank" data-answer="oddities">  will want to make a beeline for Thor's Well as well. A powerful saltwater fountain, the aptly named coastal feature is known for both its seemingly insatiable thirst and the watery explosions it emits at high tide. For more coastal oddities, check out neighboring sites in the scenic <input class="blank" data-answer="area">, including the Devil's Churn and the Spouting Horn.</p>
+
+      <p style="margin:20px 0 12px;"><b>Moeraki Boulders, NZ</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1iUm3DChX4oi4QtNUknE6BLJXl389hB0o/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Rocks — they're not always the most exciting things on the planet, but as soon as they take on a weird shape, texture or color, or <input class="blank" data-answer="wind"> <input class="blank" data-answer="up"> <b>in an</b> <input class="blank" data-answer="odd"> <b>location</b>, we <b>can't</b> <input class="blank" data-answer="help"> but be fascinated by them. And the Moeraki Boulders check more than one box. Noteworthy for their size, location and strangely smooth shape, they almost look like the fossilized eggs of some colossal primordial beast, as if they were left to hatch by a sea turtle the size of a football stadium. <input class="blank" data-answer="Scattered"> <input class="blank" data-answer="across"> the beaches of New Zealand's Otago Coast, they vary in size from 1.8 feet to a <input class="blank" data-answer="whopping"> 7.2 feet in diameter. Though they've inspired local myths and extraterrestrial conspiracy theories, scientists for their part deem them to be naturally occurring, albeit having taken shape under specific circumstances across millions of years.</p>
+
+      <p style="margin:20px 0 12px;"><b>Mendenhall Ice Caves, Alaska, USA</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1dHG79aXN8sovf0_PYtQjTxnq52MiDTh-/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Can't take the heat and need to cool off? Then why not take a trip to Alaska, where you can <input class="blank" data-answer="surround"> <b>yourself</b> <input class="blank" data-answer="with"> ice. And we're not just talking about a snowy landscape, we mean <input class="blank" data-answer="full"> <input class="blank" data-answer="immersion">. The glacier is impressive from any angle, but <input class="blank" data-answer="venturing"> <input class="blank" data-answer="inside"> is to step into another world. The <input class="blank" data-answer="glacier"> is partially hollow in certain areas meaning that you can venture into its underbelly. Once inside, apart from the rocky floor, you're surrounded by brilliant blue walls and a ceiling of ice. The result of the glacier's melting, the Mendenhall Ice Caves are forever changing — but they sadly won't be around forever.</p>
+
+      <p style="margin:20px 0 12px;"><b>Jellyfish Lake, Palau</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/19eYZonQAdgI9dbbMFsyDCWfHUO70MojG/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Imagine yourself swimming in a lake completely surrounded by jellyfish. For some, this particular mental image might be the stuff of nightmares — but hey, weird places aren't for everyone. And for travelers looking for a thoroughly unique experience, it doesn't get much better or more surreal than this. Located in Palau on the island of Eil Malk, this marine lake is <input class="blank" data-answer="packed"> <b>to the</b> <input class="blank" data-answer="gills"> with jellyfish. The lake is only about 1,500 feet long and 520 feet deep at its widest points, but in this modest-sized lake swim millions of jellyfish that are largely <input class="blank" data-answer="isolated"> from the ocean and have diverged from the evolutionary path of the rest of their various species. <input class="blank" data-answer="For"> <b>the</b> <input class="blank" data-answer="record">, these jellyfish can sting, but they're not considered powerful enough to harm humans. It's worth noting, however, that while snorkeling is allowed, scuba diving is not.</p>
+
+      <p style="margin:20px 0 12px;"><b>Lake Hillier & Hutt Lagoon, Australia</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1RGR1dLHVMtXpKdcYGY1_PEX8sD1YyVZY/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Lakes <input class="blank" data-answer="come"> <b>in many</b> <input class="blank" data-answer="shapes"> <b>and</b> <input class="blank" data-answer="sizes"> — but color? That's not usually a variable you expect. In Australia, however, there are actually multiple lakes that defy convention with the bright pink color of their water. Lake Hillier, located on Middle Island, was first documented by European explorer Matthew Flinders in 1802. Today we know that the unique <input class="blank" data-answer="vibrant"> pink color is a result of two factors: the incredibly high concentration of salt in the lake and the presence of Dunaliella salina. Despite the <input class="blank" data-answer="eye">-<input class="blank" data-answer="catching"> pink hue, Lake Hillier is safe to swim in, though notably hard to reach. For a pink lake that's more accessible, consider a trip to Hutt Lagoon on Australia's West Coast — weather conditions and time of year can affect the intensity of the color.</p>
+
+      <p style="margin:20px 0 12px;"><b>Deadvlei, Namibia</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1JMnX_1Gvhi8zg87Misq6dpeEKnzceGeI/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">If you're looking for a desert oasis, you're too late by about 600 to 700 years, actually. If, however, you're in the market for a totally unique photo, Deadvlei is just about as <input class="blank" data-answer="compelling"> <b>of a</b> <input class="blank" data-answer="place"> as you can ask for. This salt pan in Namibia is surrounded on all sides by some of the highest sand dunes on Earth. At one point long ago this was a collection point for water after rainfall, giving rise to an oasis of camel-thorn trees. It eventually dried up, however, and now only the skeletal remains are left as a reminder of what once was. The heat and lack of humidity are so intense that the trees, while not petrified, have become blackened as a result of the intense elements — and it's <input class="blank" data-answer="hauntingly"> <b>beautiful</b>.</p>
+
+      <p style="margin:20px 0 12px;"><b>Salar de Uyuni, Bolivia</b></p>
+      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1bB0z_ISRYYlAzFQBd8WxTbyz0cSbD7L8/preview" target="_blank">▶ Open video</a></div>
+      <p class="sentence">Photographers and Instagram influencers, this one's for you. Salar de Uyuni is so <input class="blank" data-answer="awe">-<input class="blank" data-answer="inspiringly"> beautiful and unique that it's now impossible not to appreciate it, regardless of your specific travel interests. The world's largest salt pan, this 4,086-square-mile stretch of land is covered in a salt crust and is one of the <input class="blank" data-answer="flattest"> expanses on Earth. It makes for a remarkable sight on any given day, rain or shine, but when a thin layer of water collects on the surface it becomes one giant mirror that reflects the sky — and when that happens, your brain will genuinely struggle to process the sight before your eyes: sky and land <input class="blank" data-answer="merge"> into one as far as the eye can see. Add some grazing flamingos, who use the salt flats as an annual <input class="blank" data-answer="breeding"> ground, and it's like <b>something</b> <input class="blank" data-answer="out"> <b>of a</b> <input class="blank" data-answer="dream">.</p>
+      
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="a3-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="a3-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="a3-1">↻ Reset</button>
+        <span class="card-score" data-score="a3-1"></span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">4</span> Revision</div>
+
+    <div class="card">
+      <h3>4.1 Read the text and answer the questions below</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>For the avid traveller who prefers to <b class="v">seek out</b> unique experiences, the <b class="v">scenic</b> coast of Nova Scotia offers more than just lighthouses. <b class="v">On the outskirts of</b> the main tourist hubs, you can find some truly <b class="v">bizarre</b> and <b class="v">eye-catching</b> attractions. One such place is the "Balancing Rock," a <b class="v">whopping</b> 9-meter tall basalt column that appears to defy gravity. The hike to see this geological marvel is <b class="v">awe-inspiringly</b> beautiful, culminating in a <b class="v">breathtaking</b> view of the <b class="v">uninhabited</b> islands <b class="v">scattered across</b> the bay.</p>
+        <p>Further inland, if you <b class="v">venture into</b> the less-trodden paths, you might discover the charming, <b class="v">isolated</b> village of Blue Rocks. Unlike the capital, which can be <b class="v">packed to the gills</b> with tourists in summer, this village offers a sense of peace. Its <b class="v">vibrant</b> blue-hued fishing shacks are an <b class="v">attraction in their own right</b>, providing a <b class="v">surreal</b> and photogenic landscape. For many, these moments of discovery become the <b class="v">highlights of the trip</b>, offering a <b class="v">full immersion</b> into the local culture and untouched nature.</p>
+      </details>
+      <p style="margin-top:16px; font-weight:700;">Questions:</p>
+      <p class="sentence">1. According to the text, what kind of traveller is this destination for?</p>
+      <p class="sentence">2. Why might someone visit the village of Blue Rocks instead of the capital?</p>
+      <p class="sentence">3. Find a word in the text that is a synonym for "huge" or "massive."</p>
+      <p class="sentence">4. What does the phrase "packed to the gills" suggest about the capital city in summer?</p>
+    </div>
+
+    <div class="card">
+      <h3>4.2 Write down your answers (Optional)</h3>
+      <textarea class="idea-box" placeholder="Type your answers here..."></textarea>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="r4-3">
+      <h3>4.3 Guess the adjectives (unscramble the letters)</h3>
+      <div class="instruction">💡 Type the correct adjective. The letters are mixed up.</div>
+
+      <div class="sentence">1. <span class="scramble-letters">k t t n g r e i a b a h</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="breathtaking" style="width:200px;"></div>
+      <div class="sentence">2. <span class="scramble-letters">s u a r r e l</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="surreal" style="width:150px;"></div>
+      <div class="sentence">3. <span class="scramble-letters">n c i s e c</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="scenic" style="width:120px;"></div>
+      <div class="sentence">4. <span class="scramble-letters">a i t e u b h d n n i</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="uninhabited" style="width:180px;"></div>
+      <div class="sentence">5. <span class="scramble-letters">n g w h o p p i</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="whopping" style="width:150px;"></div>
+      <div class="sentence">6. <span class="scramble-letters">b t i r a v n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="vibrant" style="width:130px;"></div>
+      <div class="sentence">7. <span class="scramble-letters">- y e c a h c n t i g e</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="eye-catching" style="width:180px;"></div>
+      <div class="sentence">8. <span class="scramble-letters">p o l g e i l c m n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="compelling" style="width:160px;"></div>
+      <div class="sentence">9. <span class="scramble-letters">l p e s i g a w i r - y i n n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="awe-inspiringly" style="width:200px;"></div>
+      <div class="sentence">10. <span class="scramble-letters">e a b r i z r</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="bizarre" style="width:130px;"></div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-3">↻ Reset</button>
+        <span class="card-score" data-score="r4-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="r4-4">
+      <h3>4.4 Complete the second sentence so that it has a similar meaning to the first, using the word given. Do not change the word given. Use between 3 and 6 words.</h3>
+      <div class="instruction">💡 Type the complete answer.</div>
+      <div class="sentence" style="margin-bottom:16px;">1. The old castle is the main thing people come to see in this town.<br><b style="color:var(--purple);">ATTRACTION</b><br>The old castle is <input class="blank" data-answer="the main attraction" style="min-width:200px; width:auto;"> in this town.</div>
+      <div class="sentence" style="margin-bottom:16px;">2. We didn't plan to visit the cat museum, but we ended up there anyway.<br><b style="color:var(--purple);">WIND</b><br>We didn't plan to visit the cat museum, but we <input class="blank" data-answer="wound up" style="min-width:150px; width:auto;"> there.</div>
+      <div class="sentence" style="margin-bottom:16px;">3. The market was so crowded that it was almost impossible to move.<br><b style="color:var(--purple);">GILLS</b><br>The market was <input class="blank" data-answer="packed to the gills" style="min-width:220px; width:auto;"> that it was almost impossible to move.</div>
+      <div class="sentence" style="margin-bottom:16px;">4. The most effective way to learn the language is to live with a local family.<br><b style="color:var(--purple);">IMMERSION</b><br>The most effective way to learn the language is <input class="blank" data-answer="a full immersion" style="min-width:200px; width:auto;"> experience with a local family.</div>
+      <div class="sentence" style="margin-bottom:16px;">5. The hotel wasn't in the city centre; it was located on the edge of a national park.<br><b style="color:var(--purple);">OUTSKIRTS</b><br>The hotel was located <input class="blank" data-answer="on the outskirts of" style="min-width:220px; width:auto;"> a national park.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-4">↻ Reset</button>
+        <span class="card-score" data-score="r4-4"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">5</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)">
+          <path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/>
+          <circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/>
+        </g>
+        <g transform="translate(380,120)">
+          <path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/>
+          <circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/>
+        </g>
+        <g transform="translate(620,80)" fill="#e8705f">
+          <rect x="40" y="0" width="36" height="80" rx="18"/>
+          <path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+          <line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(840,110)">
+          <circle cx="50" cy="40" r="34" fill="#b9a6e0"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/>
+        </g>
+        <g transform="translate(980,110)">
+          <circle cx="50" cy="40" r="34" fill="#8fd0c8"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/>
+        </g>
+        <g transform="translate(1160,90)" fill="#d9cdef">
+          <path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/>
+        </g>
+        <g transform="translate(1360,130)" fill="#bfe3e0">
+          <path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/>
+        </g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday question</h3>
+      <p class="sentence">Pick three places from the video that you liked the most and talk about each one.</p>
+      <h3>Friday question</h3>
+      <p class="sentence">What is the weirdest or unusual place you have ever visited?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study buddy</h3>
+      <p class="sentence">1. Sometimes the best travel moments are unplanned. Have you ever taken a wrong turn and ended up discovering a charming, hidden spot? Describe a time you can't help but feel grateful you <b>wound up in an odd location</b>.</p>
+      <p class="sentence">2. Which city you've been to has the most eye-catching attractions?</p>
+      <p class="sentence">3. Have you ever been to a place that was overrun with tourists?</p>
+      <p class="sentence">4. What's something you can't help but do when you're on holiday?</p>
+      <p class="sentence">5. Some people feel <b>a perpetuous need</b> to always be planning their next journey. Do you identify with this feeling? What do you think is the root of this constant desire to explore?</p>
+      <p class="sentence">6. Would you like to visit an uninhabited island? Why or why not?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+function assignPicMatch(pm,item){
+  const label=pm.querySelector('.pic-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.chip[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.innerHTML='<span class="user-word">'+item.dataset.word+'</span>';
+  pm.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatchPic(pm){
+  const label=pm.querySelector('.pic-label');
+  if(!label.dataset.word)return;
+  const word=label.dataset.word;
+  const card=pm.closest('.card');
+  const bank=card.querySelector('.bank');
+  const item=bank.querySelector('.chip[data-word="'+CSS.escape(word)+'"]');
+  if(item){
+    item.classList.remove('matched');
+    item.style.display='';
+    item.innerHTML=word;
+  }
+  label.innerHTML='';
+  delete label.dataset.word;
+  pm.classList.remove('filled','correct','incorrect');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    e.preventDefault();
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  e.preventDefault();
+  const pos=pointerPos(e);
+  if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost)state.ghost.style.display='';
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.pic-match-item'):null;
+  if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.pic-match-item'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('pic-match-item')){assignPicMatch(drop,el);}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  if(e.target.closest('.pic-label')){
+    const pm=e.target.closest('.pic-match-item');
+    if(pm){unmatchPic(pm);return;}
+  }
+  if(e.target.classList.contains('option')){
+    const opt=e.target,sent=opt.closest('.sentence');
+    sent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    sent.querySelector('.dz-radio').dataset.selected=opt.dataset.value;
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+    const pm=e.target.closest('.pic-match-item');
+    if(pm&&selected.classList.contains('chip')){assignPicMatch(pm,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.option,.match-target,.chip,.blank,.wordorder,.wo-target,.paraphrase-gap,.set-dz,.pic-match-item').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.pic-match-item .pic-label .correct-answer').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        dz.classList.add('correct');correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        dz.classList.add('incorrect');
+        if(dz.dataset.selected)sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+      }
+    });
+  }else if(task==='radio-nocheck'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        if(dz.dataset.selected){
+          sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+        }
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='picmatch'){
+    card.querySelectorAll('.pic-match-item[data-answer]').forEach(pm=>{
+      total++;
+      const label=pm.querySelector('.pic-label');
+      if(label&&label.dataset.word===pm.dataset.answer){pm.classList.add('correct');correct++;}
+      else pm.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='text-paraphrase'){
+    card.querySelectorAll('.paraphrase-gap input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.paraphrase-gap');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      total++;
+      const dz=group.querySelector('.set-dz');
+      const chip=dz&&dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===group.dataset.answer){
+        dz.classList.add('correct');chip.classList.add('correct');correct++;
+      }else{
+        dz.classList.add('incorrect');
+        if(chip)chip.classList.add('incorrect');
+      }
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correct=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correct)correct.classList.add('answer-revealed');
+    });
+  }else if(task==='radio-nocheck'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correctOpt=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correctOpt) correctOpt.classList.add('answer-revealed');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='picmatch'){
+    card.querySelectorAll('.pic-match-item[data-answer]').forEach(pm=>{
+      const label=pm.querySelector('.pic-label');
+      const userAnswer=label.dataset.word;
+      if(!userAnswer){
+        pm.classList.add('correct');
+        label.innerHTML='<span class="correct-answer" style="background:var(--success);color:#fff;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:800;display:block;margin-top:4px;">✓ '+pm.dataset.answer+'</span>';
+      }else if(userAnswer===pm.dataset.answer){
+        pm.classList.add('correct');
+      }else{
+        pm.classList.add('incorrect');
+        const correctBadge=document.createElement('span');
+        correctBadge.className='correct-answer';
+        correctBadge.style.cssText='background:var(--success);color:#fff;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:800;display:block;margin-top:4px;';
+        correctBadge.textContent='✓ '+pm.dataset.answer;
+        label.appendChild(correctBadge);
+      }
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='text-paraphrase'){
+    card.querySelectorAll('.paraphrase-gap input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      const dz=group.querySelector('.set-dz');
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+group.dataset.answer;
+      if(dz)dz.appendChild(exp);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.answer-revealed').forEach(el=>el.classList.remove('answer-revealed'));
+  card.querySelectorAll('.pic-match-item .pic-label .correct-answer').forEach(el=>{
+    el.remove();
+  });
+  card.querySelectorAll('.pic-match-item.correct,.pic-match-item.incorrect').forEach(pm=>{
+    pm.classList.remove('correct','incorrect');
+  });
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
+  card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.pic-match-item').forEach(pm=>unmatchPic(pm));
+  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  card.querySelectorAll('.paraphrase-gap input').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a weird travel expert!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
