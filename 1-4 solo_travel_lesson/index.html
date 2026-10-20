@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solo Travel Mistakes — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; 
+    color: var(--ink); 
+    background: var(--bg); 
+    line-height: 1.6; 
+    padding-bottom: 150px; 
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { 
+    position: sticky; top: 0; z-index: 100; 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(124, 107, 184, 0.1); 
+    padding: 12px 24px; 
+    display: flex; align-items: center; gap: 16px; 
+    box-shadow: 0 4px 20px rgba(124, 107, 184, 0.04); 
+  }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { 
+    padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); 
+    font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; 
+  }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124, 107, 184, 0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { 
+    max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden;
+    border: 1px solid rgba(124, 107, 184, 0.08); 
+    box-shadow: 0 12px 40px rgba(124, 107, 184, 0.08);
+    height: 400px; display: flex; flex-direction: column; 
+  }
+  .cover-img { height: 62%; background: #f3efe6; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { 
+    height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    padding: 16px 32px; text-align: center; background: #fff; 
+  }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 42px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { 
+    font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; 
+    display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em;
+  }
+  .section-title .num { 
+    background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; 
+  }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { 
+    background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px;
+    margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500;
+  }
+
+  .card { 
+    background: #fff; border-radius: 20px; padding: 24px; 
+    box-shadow: 0 4px 24px rgba(124, 107, 184, 0.06);
+    margin-bottom: 24px; border: 1px solid rgba(124, 107, 184, 0.08); 
+  }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92, 184, 92, 0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217, 83, 79, 0.1); }
+  
+  .card-actions { 
+    display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px;
+    border-top: 1px dashed rgba(124, 107, 184, 0.2); flex-wrap: wrap; 
+  }
+  .btn { 
+    padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer;
+    transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; 
+  }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { 
+    display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff;
+    font-weight: 600; font-size: 14px; transition: all 0.2s ease; 
+  }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63, 157, 154, 0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { 
+    width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px;
+    font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s;
+  }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
+
+  .bank { 
+    border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
+    min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
+  }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { 
+    background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none;
+    box-shadow: 0 2px 8px rgba(63, 157, 154, 0.08);
+  }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected {
+    outline: 3px solid var(--coral); outline-offset: 2px;
+    transform: scale(1.05); box-shadow: 0 4px 12px rgba(232, 112, 95, 0.3);
+  }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { 
+    display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple);
+    border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; 
+  }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    background: #fff; border: 2px solid var(--purple-light); border-radius: 8px;
+    padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600;
+    color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center;
+  }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { 
+    min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; 
+  }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key {
+    display: inline-block; margin-left: 6px;
+    background: var(--success); color: #fff;
+    padding: 4px 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 700;
+    white-space: nowrap; vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(92, 184, 92, 0.3);
+    animation: popIn 0.25s ease;
+  }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .blank { 
+    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+  }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { 
+    background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; 
+  }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { 
+    background: #fff; border: 2px dashed rgba(124, 107, 184, 0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; 
+  }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124, 107, 184, 0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124, 107, 184, 0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 700; color: var(--ink); margin: 20px 0 10px; font-size: 16px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .grammar-box { 
+    background: #e0f2fe; border: 1.5px solid #bae6fd; border-left: 4px solid #0ea5e9; 
+    border-radius: 12px; padding: 16px; margin-bottom: 16px; 
+  }
+  .grammar-box p { font-size: 16px; margin-bottom: 10px; color: var(--ink); }
+  .grammar-box b { color: var(--ink); font-weight: 700; }
+  .grammar-box b.gram-term { 
+    color: #1e4d6b; font-weight: 700; text-decoration: underline; 
+  }
+  .grammar-box b.gram-label { 
+    color: #1e4d6b; font-weight: 700; 
+  }
+  .grammar-highlight { 
+    background: #bae6fd; color: #0f172a; font-weight: 700; padding: 2px 6px; border-radius: 4px; 
+  }
+
+  .actions { 
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #fff; border-radius: 999px; padding: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+    box-shadow: 0 8px 32px rgba(124, 107, 184, 0.15), 0 2px 8px rgba(124, 107, 184, 0.08);
+    z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124, 107, 184, 0.1);
+  }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124, 107, 184, 0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .blank { width: 130px; font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 280px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 28px; }
+    .cover-text p { font-size: 14px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+  }
+
+  @media (max-width: 760px){
+    .header { 
+      padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; 
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { 
+      flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto;
+      max-width: calc(100vw - 24px); padding: 8px; gap: 8px;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch; 
+    }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#warmup">Warm-up</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#grammar">Grammar</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Solo Travel Mistakes — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Solo Travel Mistakes</h1>
+      <p>8 solo travel mistakes not to make</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1jXbSOIxBJHlqddaS-O7f2OIeguCcqdAJ/preview" target="_blank">▶ Lesson video</a>
+        <a href="https://drive.google.com/file/d/1aR5cJxg6lCVEZikXWwKZGbbE0s1rRAPV/view?usp=drive_link" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/ru/1105506018/solo-travel-mistakes-to-avoid-on-your-first-solo-trip-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+        <a href="https://docs.google.com/presentation/d/1tHZuHOv0Zc26HOKBitRuj0DpvS0u0vfI4wD6jJVUgGw/edit?usp=sharing" target="_blank">📽 Presentation</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. Have you ever travelled alone? What did you love or hate about it?</p>
+      <p class="sentence">2. What safety rules do you (or would you) follow when travelling solo?</p>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video and catch the main idea</h3>
+      <p class="sentence" style="font-weight:700; margin-bottom:16px;">What risks is she talking about?</p>
+      <div class="links"><a href="https://drive.google.com/file/d/1jXbSOIxBJHlqddaS-O7f2OIeguCcqdAJ/preview" target="_blank">▶ Open video</a></div>
+    </div>
+    <div class="card">
+      <h3>1.2 Write down your ideas about the video (Optional)</h3>
+      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Read the text</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>I have been solo traveling for about 10 years now. And I have made my <b class="v">fair share of</b> solo travel mistakes. So if you're new to solo traveling, you're about to take your first solo trip, or you're interested in traveling alone then keep watching because in this video, I'm gonna be talking about eight solo travel mistakes not to make.</p>
+        <p>The first mistake is geotagging your location and posting on social media in real time. I know we all wanna get those beautiful travel pics and we wanna update our family and friends of where we're going through photos and videos, which is all good and fine, but you don't wanna do this in real time. You never know who's watching and you don't want people to know where you are. Even if you don't have a large following and your account is private, if at any point in your trip, you're using an open wifi, so a wifi that doesn't need a password for example, like if you're at the airport or a hotel and you're jumping on a wifi that isn't password protected. And your stuff is pretty much free and open and anyone can gather your information, your account information, and even your location. And I know this might seem <b class="v">far-fetched</b> and <b class="v">the chances</b> of this happening <b class="v">are</b> pretty low, but when you're traveling alone, safety is your <b class="v">top priority</b>. And you really don't wanna just put where you are and where you're located just out there for anyone to see. You wanna make sure that if you are posting on social media and you are <b class="v">tagging your location</b> that you're doing it a couple days after you've been to that place or even after your trip is done, or you moved on to a new city entirely.</p>
+        <p>The next solo travel mistake is not <b class="v">keeping track of your stuff</b>. I had to <b class="v">learn</b> this one <b class="v">the hard way</b> and I was this close to losing to my Mac laptop. So I'll tell you what happened. I was in London, at London Heathrow Airport. I was leaving the city and I had a lot of stuff in my hand and I was <b class="v">in a rush</b>, which is <b class="v">no excuse</b> to not keep track of your belongings. I had so many things. I had duty free bags. I had my laptop, my luggage. I had a heavy coat in my hand, 'cause this was winter. But I remember being in a rush, I was so incredibly hungry and I didn't have any snacks with me. And I stopped at one of those kiosks to get something to eat. I had just left security. And when I was at the kios paying for my sandwich or snack or whatever it was that I got, I must have put my laptop down. And then once I paid, I just walked away. I was, over by my gate, sitting there and then when I was making sure I had all of my stuff and realized I didn't have my laptop. I <b class="v">ran</b> back to the kiosk, <b class="v">fully out of breath</b>, and thank God, it hadn't been that much time since I noticed. And the sweet girl that was working behind the kiosk just lifted my laptop and was like forgetting something. I was so close to losing my laptop which had everything on there. You definitely wanna make sure that no matter how many things you have, no matter how hungry you are, no matter if you're in a rush, you wanna make sure that you're keeping track of all of your belongings. Because, again, you're by yourself, there's no one there to watch your stuff, there's no one there to make sure you've done a checklist and you've got your phone, your keys, your wallet, all that stuff. You wanna make sure you're doing that for yourself. And you wanna make sure that you're keeping track of all of your belongings.</p>
+        <p>Next mistake is making yourself a target. When you're traveling solo and even when you're traveling with other people, you wanna make sure that you are stopping, you're <b class="v">observing</b>, and you're seeing what people who live in that city who are locals to that city or that country or wherever you are, look at how they dress and look at how they behave and try to <b class="v">blend in</b>. Try to avoid wearing <b class="v">flashy jewelry</b> or flashy clothing things with really big logos on it. And you also wanna try not to <b class="v">make a scene</b>. All of these things are gonna <b class="v">draw more attention to</b> you and make you a target for crime.</p>
+        <p>Another thing you don't wanna do is be distracted. And I know that I have been so guilty of this in the past. When you're walking down the street during the day or whatever, try not to have headphones in or be on your cell phone, that's gonna make you a target and that's gonna make to the locals around you <b class="v">stand out</b> that you're not from there. And again if you don't see the locals doing it, don't do it.</p>
+        <p>The next solo travel mistake is not <b class="v">trusting your guts</b>. Women and men, but women, we have got that female intuition, we know what's up. And we know when we get that feeling that, something isn't right, you gotta go with that. You know, I feel like sometimes as women, we can be socialized to <b class="v">be overly polite</b>, to be over accommodating to kind of stuff that feeling down and just go with whatever's around us. If you have that feeling inside that something isn't right, get out of there no matter where you are, no matter who you're with, try to get out of there as fast as you can. You don't have to apologize. You don't have to be polite. You don't even have to explain yourself. And I also wanna note that this isn't just for when you're traveling, this is also for when you're planning an accommodation, for example, right? And I'll give you an example. I am going on a solo trip in a couple of months and I was planning everything out, trying to figure out where I was gonna stay. I wanted to stay in a hotel and I was having a little trouble with some of the hotels that I was looking at because they were all very expensive. It just wasn't expecting the hotel prices to be that expensive. And so I looked into Airbnb which is something I travel with a lot. I had ended up picking this Airbnb simply because it was cheaper and I booked it. But as the days passed, I just kept thinking and even as I was looking at that Airbnb, initially, I just kept thinking <b class="v">something doesn't feel right</b>. I can't <b class="v">pinpoint</b> what it is but something about this Airbnb just doesn't feel right. And so after a few days I ended up canceling it and just booking with a hotel even though it was more expensive. So sometimes, especially when you're <b class="v">frugal</b>, you know I'm a frugal person. So you wanna try to <b class="v">be mindful of your money</b>. I totally get that cause I'm the same way. But you don't wanna <b class="v">cut corners</b> and go for something that's cheaper just because it's cheaper. When you have that intuition and that feeling that something isn't right then go with the more expensive option, 'cause that's just gonna make you feel better. It's gonna help you sleep at night. And something that could potentially be keeping you very safe. Now I have no idea why I felt that way about that Airbnb. And it could have been totally fine. And I'll never know because I canceled that booking. I had to <b class="v">go with my intuition</b>.</p>
+        <p>Next mistake is not planning your arrival and departure in the daytime. So when you're traveling with friends, it's probably okay to <b class="v">take that red-eye flight</b> or take a night train into a city. But when you're traveling by yourself, I would suggest planning your arrival flight, plane, bus. And you're departing by plane, bus in the daytime. So you're arriving into your destination in the daytime and you're leaving your destination in the daytime. Again, when you're traveling by yourself, safety is top priority and anything can happen during the daytime. Crime happens during the daytime all the time. But I feel like when you're coming in, especially at night, you're increasing the chances of something happening. And you also wanna <b class="v">take into account</b> getting lost, because if you're coming to a new city no matter how much you prepare there's still a chance and a possibility that you might get lost. If you have to take public transport, if you're walking, you wanna be doing all of this in the middle of the day. So that if you get lost, if something goes wrong, you have the sunlight in the daytime to help you <b class="v">navigate</b> where you're going. You can read street signs clearly. You can ask for help if you need to and not feel like your safety is <b class="v">at risk</b>. And honestly, in some cities, one wrong turn, one wrong street… And also during the day is where some of these in some major cities, like tourist boards and information centers are open.</p>
+        <p>Next mistake is not doing your research. And this is particularly true for international travel. Now I know there's some of you out there that are <b class="v">free spirits</b> and that maybe don't wanna plan as much as I do or don't wanna <b class="v">go to the lengths</b> that I do. And that's totally fine, do you. But there are a few things that you wanna make sure you're researching. For example, you wanna know what the common scams are in that country? What are the cultural norms in that country especially for women? Do they have views that could be different from your home country? Are there some things that I do in my home country that are considered normal, that might be habitual for me but in other countries are considered rude or disrespectful. There are a lot of scams that are centered around airports, money exchange, cell phones, Ubers. You wanna research these things and <b class="v">know them up front before</b> you arrive in your destination.</p>
+        <p>The next so travel mistake is telling people that you're traveling alone. When you're traveling solo, you'd be surprised at how many people you meet and how many friends you make. I have made so many friends traveling alone. But again going back to what I said before, <b class="v">trust your intuition</b> and <b class="v">trust your gut</b>. No one needs to know that you're traveling alone, <b class="v">it's none of their business</b> and it's not because you wanna be rude or you're hiding something or you're ashamed or you're lying, it's not that, but it's just nobody's business. Don't wanna make yourself a target. And sometimes telling people that you're traveling alone <b class="v">puts it on the radar</b> and puts it on the map. And some people are looking out for that. Some people are gonna target you because they know that you're traveling alone, especially as a solo female traveler. Not pushing past fear and enjoying your trip. At the end of the day, yes, you wanna be safe, yes, you wanna be aware, yes, you wanna do research and make sure you know what you're getting into. But at the end of the day, it's your trip. This is your time you're traveling alone, you can do whatever you want and you can make this trip your own. Don't have so much fear or don't <b class="v">feel so guarded</b> that you can't enjoy yourself, that you don't go on adventures and do wonderful things with wonderful people, just because you're afraid. Use your intuition and <b class="v">step out of that box</b>, enjoy yourself. Once you're prepared, once you've planned, and once you've got everything in place, the next thing to do is just go. Go and enjoy yourself.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)">
+          <rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/>
+          <rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/>
+          <rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/>
+        </g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round">
+          <path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/>
+          <path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/>
+          <line x1="110" y1="40" x2="110" y2="128"/>
+        </g>
+        <g transform="translate(640,80)">
+          <rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/>
+          <path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/>
+        </g>
+        <g transform="translate(820,90)" fill="#7c6bb8">
+          <path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/>
+          <path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(1060,90)" fill="#3f9d9a">
+          <circle cx="60" cy="52" r="44"/>
+          <rect x="52" y="92" width="16" height="34" rx="8"/>
+          <path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/>
+        </g>
+        <g transform="translate(1280,100)" fill="#e8705f">
+          <path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/>
+          <path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/>
+        </g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1aR5cJxg6lCVEZikXWwKZGbbE0s1rRAPV/view?usp=drive_link" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:14px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ru/1105506018/solo-travel-mistakes-to-avoid-on-your-first-solo-trip-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-3">
+      <h3>3.3 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap, or click the phrase and then click the gap. Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="fair share of">fair share of</div>
+        <div class="chip" data-word="flashy jewelry">flashy jewelry</div>
+        <div class="chip" data-word="make a scene">make a scene</div>
+        <div class="chip" data-word="learned the hard way">learned the hard way</div>
+        <div class="chip" data-word="keep track of">keep track of</div>
+        <div class="chip" data-word="running fully out of breath">running fully out of breath</div>
+        <div class="chip" data-word="no excuse">no excuse</div>
+        <div class="chip" data-word="stand out">stand out</div>
+        <div class="chip" data-word="far-fetched">far-fetched</div>
+        <div class="chip" data-word="be overly polite">be overly polite</div>
+        <div class="chip" data-word="blend in">blend in</div>
+        <div class="chip" data-word="the chances are">the chances are</div>
+        <div class="chip" data-word="in a rush">in a rush</div>
+      </div>
+      <ol style="list-style:none; padding-left:0;">
+        <li class="sentence">1. After a decade of exploring alone, I've made my <span class="dz" data-answer="fair share of"></span> solo travel mistakes, from booking a hostel in the wrong city to trusting a "friendly" stranger a bit too quickly.</li>
+        <li class="sentence">2. The idea that you can travel through Southeast Asia for a year without any planning sounds <span class="dz" data-answer="far-fetched"></span>, but with flexibility and a good dose of luck, some people actually manage it.</li>
+        <li class="sentence">3. If you don't research local customs before visiting a conservative country, <span class="dz" data-answer="the chances are"></span> you'll unintentionally offend someone or stand out as a tourist.</li>
+        <li class="sentence">4. I <span class="dz" data-answer="learned the hard way"></span> that not keeping track of your daily expenses while traveling can lead to a serious budget crisis by the end of the trip.</li>
+        <li class="sentence">5. Use a budgeting app to <span class="dz" data-answer="keep track of"></span> your spending; it's the best way to be mindful of your money and avoid financial stress.</li>
+        <li class="sentence">6. We were <span class="dz" data-answer="in a rush"></span> to catch the sunrise at Angkor Wat, but in our haste, we took a wrong turn and got completely lost.</li>
+        <li class="sentence">7. With free language apps readily available, there's <span class="dz" data-answer="no excuse"></span> for not learning at least basic pleasantries like "hello," "thank you," and "please" in the local language.</li>
+        <li class="sentence">8. I had to sprint through the terminal to make my connection and arrived at the gate, <span class="dz" data-answer="running fully out of breath"></span>, only to find the flight was delayed by two hours.</li>
+        <li class="sentence">9. To <span class="dz" data-answer="blend in"></span> with the locals and avoid pickpockets, avoid wearing flashy jewelry and dress more modestly than you might at home.</li>
+        <li class="sentence">10. Wearing <span class="dz" data-answer="flashy jewelry"></span> in a crowded market is a surefire way to stand out and make yourself a target for theft.</li>
+        <li class="sentence">11. When the waiter accidentally spilled water on me, I decided not to <span class="dz" data-answer="make a scene"></span> and instead accepted his profuse apologies with a smile, choosing to be overly polite.</li>
+        <li class="sentence">12. His bright orange backpack made him <span class="dz" data-answer="stand out"></span> in the quiet, grey city, making it impossible for him to blend in.</li>
+        <li class="sentence">13. In some cultures, it's better to <span class="dz" data-answer="be overly polite"></span> and risk seeming slightly formal than to be too casual and come across as rude.</li>
+      </ol>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-4">
+      <h3>3.4 Match the parts of phrases</h3>
+      <div class="instruction">💡 Drag each ending to the matching word, or click the word and then click the definition. Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="travel mistakes"><span class="term">fair share of</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="belongings"><span class="term">keep track of your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="a scene"><span class="term">make</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="a red-eye flight"><span class="term">take</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="priority"><span class="term">top</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="the box"><span class="term">step out of</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="priority">priority</div>
+            <div class="match-item" data-word="a red-eye flight">a red-eye flight</div>
+            <div class="match-item" data-word="a scene">a scene</div>
+            <div class="match-item" data-word="travel mistakes">travel mistakes</div>
+            <div class="match-item" data-word="the box">the box</div>
+            <div class="match-item" data-word="belongings">belongings</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="v3-5">
+      <h3>3.5 Choose the correct option</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. <i>After a long and frustrating debate, he decided to</i> <span class="select-wrap"><select data-answer="walk away"><option value="">Choose...</option><option value="stand out">stand out</option><option value="walk away">walk away</option><option value="blend in">blend in</option></select></span> <i>and let them figure it out themselves.</i></div>
+      <div class="sentence">2. <i>When you visit a new place, it's polite to try and</i> <span class="select-wrap"><select data-answer="blend in"><option value="">Choose...</option><option value="end up">end up</option><option value="blend in">blend in</option><option value="step out of">step out of</option></select></span> <i>with the locals, rather than drawing attention to yourself.</i></div>
+      <div class="sentence">3. <i>If you want to be noticed at the job interview, wear something that will make you</i> <span class="select-wrap"><select data-answer="stand out"><option value="">Choose...</option><option value="stand out">stand out</option><option value="go for">go for</option><option value="walk away">walk away</option></select></span> <i>from the other candidates.</i></div>
+      <div class="sentence">4. <i>We got lost on our road trip, but we</i> <span class="select-wrap"><select data-answer="ended up"><option value="">Choose...</option><option value="went for">went for</option><option value="ended up">ended up</option><option value="stepped out of">stepped out of</option></select></span> <i>discovering a wonderful little café in the countryside.</i></div>
+      <div class="sentence">5. <i>I'm usually very shy, but this year I promised myself I would</i> <span class="select-wrap"><select data-answer="step out of"><option value="">Choose...</option><option value="step out of">step out of</option><option value="blend in with">blend in with</option><option value="walk away from">walk away from</option></select></span> <i>my comfort zone and try public speaking.</i></div>
+      <div class="sentence">6. <i>There are many good options on the menu, but I think I'll</i> <span class="select-wrap"><select data-answer="go for"><option value="">Choose...</option><option value="stand out">stand out</option><option value="end up">end up</option><option value="go for">go for</option></select></span> <i>the chef's special.</i></div>
+      <div class="sentence">7. <i>She was offered a lot of money for her old car, but she</i> <span class="select-wrap"><select data-answer="walked away from"><option value="">Choose...</option><option value="walked away from">walked away from</option><option value="ended up with">ended up with</option><option value="blended in with">blended in with</option></select></span> <i>the deal because she didn't trust the buyer.</i></div>
+      <div class="sentence">8. <i>The spy wore ordinary clothes to</i> <span class="select-wrap"><select data-answer="blend in"><option value="">Choose...</option><option value="stand out">stand out</option><option value="blend in">blend in</option><option value="go for">go for</option></select></span> <i>with the crowd and avoid detection.</i></div>
+      <div class="sentence">9. <i>I didn't have a specific plan for my career; I just let things happen and</i> <span class="select-wrap"><select data-answer="ended up"><option value="">Choose...</option><option value="stepped out of">stepped out of</option><option value="went for">went for</option><option value="ended up">ended up</option></select></span> <i>becoming a teacher.</i></div>
+      <div class="sentence">10. <i>He decided to</i> <span class="select-wrap"><select data-answer="go for"><option value="">Choose...</option><option value="go for">go for</option><option value="walk away">walk away</option><option value="blend in">blend in</option></select></span> <i>the bold, red tie to make his outfit more interesting.</i></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
+        <span class="card-score" data-score="v3-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-6">
+      <h3>3.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap, or click the phrase and then click the gap. Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="go to the lengths">go to the lengths</div>
+        <div class="chip" data-word="navigate">navigate</div>
+        <div class="chip" data-word="take that red-eye flight">take that red-eye flight</div>
+        <div class="chip" data-word="cut corners">cut corners</div>
+        <div class="chip" data-word="frugal">frugal</div>
+        <div class="chip" data-word="put it on my radar">put it on my radar</div>
+        <div class="chip" data-word="couldn't help but">couldn't help but</div>
+        <div class="chip" data-word="step out of that box">step out of that box</div>
+        <div class="chip" data-word="mindful of my money">mindful of my money</div>
+        <div class="chip" data-word="free spirits">free spirits</div>
+        <div class="chip" data-word="pinpoint">pinpoint</div>
+        <div class="chip" data-word="trust my gut">trust my gut</div>
+        <div class="chip" data-word="at risk">at risk</div>
+      </div>
+      <ol style="list-style:none; padding-left:0;">
+        <li class="sentence">1. It's difficult to <span class="dz" data-answer="pinpoint"></span> the exact moment I fell in love with Lisbon, but it was somewhere between the first taste of Pastel de Nata and the sound of Fado music drifting through the Alfama district.</li>
+        <li class="sentence">2. She was so <span class="dz" data-answer="frugal"></span> during her gap year that she managed to stretch her savings for an extra three months by staying in dorm rooms and cooking her own meals.</li>
+        <li class="sentence">3. As a freelancer with a variable income, I have to be <span class="dz" data-answer="mindful of my money"></span>, which means I sometimes take that red-eye flight to save on accommodation.</li>
+        <li class="sentence">4. After being scammed in a foreign market, I <span class="dz" data-answer="couldn't help but"></span> feel so guarded in every subsequent interaction with street vendors.</li>
+        <li class="sentence">5. To save on a night's accommodation and have a full day in the city, I decided to <span class="dz" data-answer="take that red-eye flight"></span> and sleep on the plane.</li>
+        <li class="sentence">6. Using a combination of Google Maps and intuition, we managed to <span class="dz" data-answer="navigate"></span> the intricate alleyways of the ancient medina without a guide.</li>
+        <li class="sentence">7. By leaving her passport in her back pocket, she put her most important document <span class="dz" data-answer="at risk"></span> of being stolen.</li>
+        <li class="sentence">8. After my friend raved about her trip to Georgia, she <span class="dz" data-answer="put it on my radar"></span> as a destination for my next adventure.</li>
+        <li class="sentence">9. The beach town was a haven for <span class="dz" data-answer="free spirits"></span> and artists who had rejected the corporate world to live a life of creativity and travel.</li>
+        <li class="sentence">10. She would <span class="dz" data-answer="go to the lengths"></span> of learning a new language for a year just to be able to converse fluently with locals during her trip.</li>
+        <li class="sentence">11. Don't <span class="dz" data-answer="cut corners"></span> on travel insurance; a medical emergency abroad without proper coverage can be financially devastating.</li>
+        <li class="sentence">12. The taxi driver seemed friendly, but something felt off, so I decided to <span class="dz" data-answer="trust my gut"></span> and get out of the car at a busy intersection.</li>
+        <li class="sentence">13. Travel is all about choosing to <span class="dz" data-answer="step out of that box"></span> — whether it's trying a bizarre local delicacy or striking up a conversation with a stranger.</li>
+      </ol>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
+        <span class="card-score" data-score="v3-6"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-7">
+      <h3>3.7 Match the parts of phrases</h3>
+      <div class="instruction">💡 Drag each ending to the matching word, or click the word and then click the definition. Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="a target"><span class="term">make yourself</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="your gut"><span class="term">trust</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="intuition"><span class="term">female</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="norms"><span class="term">cultural</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="corners"><span class="term">cut</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="the radar"><span class="term">put on</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="your location"><span class="term">geotagging</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="your gut">your gut</div>
+            <div class="match-item" data-word="a target">a target</div>
+            <div class="match-item" data-word="your location">your location</div>
+            <div class="match-item" data-word="corners">corners</div>
+            <div class="match-item" data-word="intuition">intuition</div>
+            <div class="match-item" data-word="the radar">the radar</div>
+            <div class="match-item" data-word="norms">norms</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
+        <span class="card-score" data-score="v3-7"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="grammar">
+    <div class="section-title"><span class="num">4</span> Grammar</div>
+    
+    <div class="card">
+      <div class="sentence" style="background:var(--soft); border-left:4px solid var(--purple);">
+        <p>I remember being in a rush, I was so incredibly hungry and I didn't have any snacks with me. And I stopped at one of those kiosks to get something to eat. I had just left security. And when I was at the kios paying for my sandwich or snack or whatever it was that I got, I <span class="grammar-highlight">must have put</span> my laptop down. And then once I paid, I just walked away.</p>
+      </div>
+      <div class="grammar-box">
+        <p><b class="gram-term">Must have done</b> is a modal verb structure used to express a strong deduction or conclusion about a past event based on current evidence. It is used when you are very certain that something happened, but you are not stating it as a proven fact, but as a logical inference.</p>
+        <p><b class="gram-label">How to use "must have done"</b><br>
+        <b class="gram-label">Structure:</b> Modal verb <b>must</b> + <b>auxiliary verb have</b> + <b>past participle of the main verb</b>.<br>
+        <b class="gram-label">Meaning:</b> Expresses a high degree of certainty about a past action that is likely true.<br>
+        <b class="gram-label">Example:</b> "The thief must have had a key, because the door was locked and nothing was broken".</p>
+        <p><b class="gram-term">Common contrasts and uses</b><br>
+        <b class="gram-label">Should have done:</b> expresses regret or criticism for something that did not happen but was advisable.<br>
+        <i>Example: You should have called me; I was worried (implies you didn't call, but it would have been a good idea).</i><br>
+        <b class="gram-label">Can't have done:</b> used to make a strong deduction that something did not happen.<br>
+        <i>Example: He can't have been at the party; I didn't see him there at all.</i><br>
+        <b class="gram-label">Might have done:</b> used to express a lower degree of probability or a more tentative guess about a past event.<br>
+        <i>Example: It's raining, so they might have missed their train.</i></p>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="g4-1">
+      <h3>4.1 Choose the correct option to complete each sentence</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. The ground is completely dry. It <span class="select-wrap"><select data-answer="can't have rained"><option value="">Choose...</option><option value="must have rained">must have rained</option><option value="can't have rained">can't have rained</option><option value="should have rained">should have rained</option></select></span> last night.</div>
+      <div class="sentence">2. I failed the test. I <span class="select-wrap"><select data-answer="should have studied"><option value="">Choose...</option><option value="must have studied">must have studied</option><option value="should have studied">should have studied</option><option value="can't have studied">can't have studied</option></select></span> more.</div>
+      <div class="sentence">3. Julie speaks perfect Italian. She <span class="select-wrap"><select data-answer="must have lived"><option value="">Choose...</option><option value="might have lived">might have lived</option><option value="must have lived">must have lived</option><option value="should have lived">should have lived</option></select></span> in Italy for years.</div>
+      <div class="sentence">4. You <span class="select-wrap"><select data-answer="can't have seen"><option value="">Choose...</option><option value="must have seen">must have seen</option><option value="might have seen">might have seen</option><option value="can't have seen">can't have seen</option></select></span> Tom at the party. He was sick at home all evening.</div>
+      <div class="sentence">5. I don't know where my wallet is. I <span class="select-wrap"><select data-answer="might have left"><option value="">Choose...</option><option value="should have left">should have left</option><option value="might have left">might have left</option><option value="must have left">must have left</option></select></span> it at the restaurant.</div>
+      <div class="sentence">6. I feel sick. I <span class="select-wrap"><select data-answer="shouldn't have eaten"><option value="">Choose...</option><option value="shouldn't have eaten">shouldn't have eaten</option><option value="mustn't have eaten">mustn't have eaten</option><option value="can't have eaten">can't have eaten</option></select></span> so much cake.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="g4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="g4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="g4-1">↻ Reset</button>
+        <span class="card-score" data-score="g4-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="g4-2">
+      <h3>4.2 Complete the second sentence so that it has a similar meaning to the first, using the word in bold. Use 3 words, including the word given.</h3>
+      <div class="instruction">💡 Type the complete answer (3 words).</div>
+      <div class="sentence">1. I'm sure they were very tired after the long journey.<br><b style="color:var(--purple);">MUST</b><br>They <input class="blank" data-answer="must have been" style="min-width:180px;"> very tired after the long journey.</div>
+      <div class="sentence">2. It was a mistake not to bring a map.<br><b style="color:var(--purple);">SHOULD</b><br>We <input class="blank" data-answer="should have brought" style="min-width:180px;"> a map.</div>
+      <div class="sentence">3. It's impossible that he forgot our anniversary. He's the most romantic person I know.<br><b style="color:var(--purple);">CAN'T</b><br>He <input class="blank" data-answer="can't have forgotten" style="min-width:180px;"> our anniversary.</div>
+      <div class="sentence">4. Perhaps she took the earlier train.<br><b style="color:var(--purple);">TAKEN</b><br>She <input class="blank" data-answer="might have taken" style="min-width:180px;"> the earlier train.</div>
+      <div class="sentence">5. I'm certain you left your umbrella at the office.<br><b style="color:var(--purple);">HAVE</b><br>You <input class="blank" data-answer="must have left" style="min-width:180px;"> your umbrella at the office.</div>
+      <div class="sentence">6. It was wrong of you to lie to me.<br><b style="color:var(--purple);">SHOULDN'T</b><br>You <input class="blank" data-answer="shouldn't have lied" style="min-width:180px;"> to me.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="g4-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="g4-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="g4-2">↻ Reset</button>
+        <span class="card-score" data-score="g4-2"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">5</span> Revision</div>
+
+    <div class="card" data-task="dragfill" data-id="r5-1">
+      <h3>5.1 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap, or click the word and then click the gap. Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="corners">corners</div>
+        <div class="chip" data-word="flight">flight</div>
+        <div class="chip" data-word="risk">risk</div>
+        <div class="chip" data-word="help">help</div>
+        <div class="chip" data-word="spirits">spirits</div>
+        <div class="chip" data-word="lengths">lengths</div>
+        <div class="chip" data-word="gut">gut</div>
+        <div class="chip" data-word="radar">radar</div>
+        <div class="chip" data-word="box">box</div>
+        <div class="chip" data-word="mindful">mindful</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">● Don't <b>cut</b> <span class="dz" data-answer="corners"></span> on travel insurance; a medical emergency abroad without proper coverage can be financially devastating.</li>
+        <li class="sentence">● To save on a night's accommodation and have a full day in the city, I decided to <b>take that red-eye</b> <span class="dz" data-answer="flight"></span> and sleep on the plane.</li>
+        <li class="sentence">● By leaving her passport in her back pocket, she put her most important document <b>at</b> <span class="dz" data-answer="risk"></span> of being stolen.</li>
+        <li class="sentence">● After being scammed in a foreign market, I <b>couldn't</b> <span class="dz" data-answer="help"></span> <b>but</b> feel so guarded in every subsequent interaction with street vendors.</li>
+        <li class="sentence">● The beach town was a haven for <b>free</b> <span class="dz" data-answer="spirits"></span> and artists who had rejected the corporate world to live a life of creativity and travel.</li>
+        <li class="sentence">● She would <b>go to the</b> <span class="dz" data-answer="lengths"></span> of learning a new language for a year just to be able to converse fluently with locals during her trip.</li>
+        <li class="sentence">● The taxi driver seemed friendly, but something felt off, so I decided to <b>trust my</b> <span class="dz" data-answer="gut"></span> and get out of the car at a busy intersection.</li>
+        <li class="sentence">● After my friend raved about her trip to Georgia, she <b>put it on my</b> <span class="dz" data-answer="radar"></span> as a destination for my next adventure.</li>
+        <li class="sentence">● Travel is all about choosing to <b>step out of that</b> <span class="dz" data-answer="box"></span> —whether it's trying a bizarre local delicacy or striking up a conversation with a stranger.</li>
+        <li class="sentence">● As a freelancer with a variable income, I have to <b>be</b> <span class="dz" data-answer="mindful"></span> <b>of my money</b>, which means I sometimes take that red-eye flight to save on accommodation.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-1">↻ Reset</button>
+        <span class="card-score" data-score="r5-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="r5-2">
+      <h3>5.2 Choose the correct option</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. The plot of the sci-fi movie was so <span class="select-wrap"><select data-answer="far-fetched"><option value="">Choose...</option><option value="frugal">frugal</option><option value="far-fetched">far-fetched</option><option value="guarded">guarded</option></select></span> that I just couldn't believe any of it.</div>
+      <div class="sentence">2. After getting a huge credit card bill, Marco had to <span class="select-wrap"><select data-answer="learn the hard way"><option value="">Choose...</option><option value="learn the hard way">learn the hard way</option><option value="trust his gut">trust his gut</option><option value="pinpoint">pinpoint</option></select></span> about the importance of budgeting.</div>
+      <div class="sentence">3. To succeed in a new market, a company must <span class="select-wrap"><select data-answer="navigate"><option value="">Choose...</option><option value="stand out">stand out</option><option value="navigate">navigate</option><option value="blend in">blend in</option></select></span> the complex local regulations.</div>
+      <div class="sentence">4. The artist was a true <span class="select-wrap"><select data-answer="free spirit"><option value="">Choose...</option><option value="free spirit">free spirit</option><option value="far-fetched idea">far-fetched idea</option><option value="fair share">fair share</option></select></span>, living in a van and painting whatever inspired her.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-2">↻ Reset</button>
+        <span class="card-score" data-score="r5-2"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>5.3 Complete the sentences with your own ideas</h3>
+      <div class="instruction">💡 Think about your own experiences and complete these sentences.</div>
+      <p class="sentence">1. After my <b>fair share of solo travel mistakes</b>, I now always…</p>
+      <p class="sentence">2. The most <b>far-fetched</b> excuse I have ever heard was…</p>
+      <p class="sentence">3. If you don't study for the exam, <b>the chances are</b>…</p>
+      <p class="sentence">4. I had to <b>learn the hard way</b> that you should never…</p>
+      <p class="sentence">5. When visiting a new country, I try to <b>blend in</b> by avoiding…</p>
+      <p class="sentence">6. One value that makes me <b>stand out</b> from my peers is…</p>
+      <p class="sentence">7. My <b>frugal</b> habits, such as…, help me be <b>mindful of my money</b>.</p>
+      <p class="sentence">8. If you <b>cut corners</b> while building a reputation, you…</p>
+      <p class="sentence">9. To <b>navigate</b> a difficult conversation with a friend, I…</p>
+      <p class="sentence">10. People who don't wear a helmet while cycling are <b>at risk of</b>…</p>
+      <p class="sentence">11. A time I decided to <b>trust my gut</b> instead of listening to others was when…</p>
+      <p class="sentence">12. After being betrayed, I began to <b>feel so guarded</b> about…</p>
+      <p class="sentence">13. This year, I plan to <b>step out of that box</b> and…</p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">6</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)">
+          <path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/>
+          <circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/>
+        </g>
+        <g transform="translate(380,120)">
+          <path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/>
+          <circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/>
+        </g>
+        <g transform="translate(620,80)" fill="#e8705f">
+          <rect x="40" y="0" width="36" height="80" rx="18"/>
+          <path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+          <line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(840,110)">
+          <circle cx="50" cy="40" r="34" fill="#b9a6e0"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/>
+        </g>
+        <g transform="translate(980,110)">
+          <circle cx="50" cy="40" r="34" fill="#8fd0c8"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/>
+        </g>
+        <g transform="translate(1160,90)" fill="#d9cdef">
+          <path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/>
+        </g>
+        <g transform="translate(1360,130)" fill="#bfe3e0">
+          <path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/>
+        </g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday question</h3>
+      <p class="sentence">Recall three solo travel mistakes from the video and talk about each of them.</p>
+      <h3>Friday question — pick one you like the most</h3>
+      <p class="sentence">The phrase "<b>trust your gut</b>" is crucial for solo travellers. Can you think of a time (in travel or in life) when your intuition warned you about a person or a situation? How did you react? You can also talk about someone you know.<br><br><b>OR:</b><br>Which piece of advice do you think is the most universally important for any traveler, not just those traveling alone? Why?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study buddy</h3>
+      <p class="sentence">1. If you had to summarize the author's philosophy on solo travel in one or two sentences, what would it be?</p>
+      <p class="sentence">2. A common piece of advice is to avoid looking like you are <b>in a rush</b>, as it can make you a target. How can a traveller project confidence and awareness, even when they might be feeling lost or anxious?</p>
+      <p class="sentence">3. Imagine a situation where a traveler is pressured into buying something they don't want. Is it ever better to be <b>overly</b> polite to avoid conflict, or is it sometimes necessary to <b>make a scene</b> to protect yourself? Where do you draw the line?</p>
+      <p class="sentence">4. Solo travel is often associated with free spirits. Do you think this is a personality you are born with, or one that can be developed by <b>stepping out of that box</b>?</p>
+      <p class="sentence">5. In the age of smartphones, is the ability to physically <b>navigate</b> with a paper map a lost art? What are the risks of being entirely dependent on digital maps while travelling?</p>
+      <p class="sentence">6. To save on accommodation, many travellers take that <b>red-eye flight</b>. What are the pros and cons of this strategy? Would you do it?</p>
+    </div>
+
+    <div class="card">
+      <h3>6.1 Presentation</h3>
+      <div class="links"><a class="pur" href="https://docs.google.com/presentation/d/1tHZuHOv0Zc26HOKBitRuj0DpvS0u0vfI4wD6jJVUgGw/edit?usp=sharing" target="_blank">Follow the link</a></div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null, ghost:null, offsetX:0, offsetY:0, currentOver:null, isDragging:false, startX:0, startY:0};
+
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX = e.clientX;
+    state.startY = e.clientY;
+    state.isDragging = false;
+    
+    const pos={x:e.clientX,y:e.clientY},rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+
+function onMove(e){
+  if(!state.dragging)return;
+  if (!state.isDragging && (Math.abs(e.clientX - state.startX) > 5 || Math.abs(e.clientY - state.startY) > 5)) {
+    state.isDragging = true;
+  }
+  
+  if (state.isDragging) {
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+
+function onEnd(e){
+  if(!state.dragging)return;
+  
+  if (!state.isDragging) {
+    if(state.ghost) { state.ghost.remove(); state.ghost = null; }
+    state.dragging.el.classList.remove('dragging');
+    state.dragging = null;
+    return;
+  }
+  
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){
+        sel.classList.add('correct');
+        correct++;
+      }else{
+        sel.classList.add('incorrect');
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{
+    sel.classList.remove('correct','incorrect');
+  });
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a solo travel expert!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
