@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where Is It Illegal to Be Ugly? — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #f6dfe6; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: #fff; border: 2px solid var(--purple-light); border-radius: 8px; padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .blank { width: 110px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .blank { width: 120px; font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 300px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#revision">Revision</a>
+    <a href="#questions">Questions</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Where Is It Illegal to Be Ugly? — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Where Is It Illegal to Be Ugly?</h1>
+      <p>Inside South Korea's beauty standards</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/167nVMLy3F-VHEYHwmNXIVJcFvUpgpEk8/view" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/d/1edC75iEnotAriMvafuKQ88VyWzq7OQwZ/view" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/ae/1210780119/inside-the-country-where-its-illegal-to-be-ugly-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video</h3>
+      <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">Where is it illegal to be ugly? Inside South Korea's beauty standards.</p>
+      <div class="links"><a href="https://drive.google.com/file/d/167nVMLy3F-VHEYHwmNXIVJcFvUpgpEk8/view" target="_blank">▶ Open video</a></div>
+    </div>
+    <div class="card">
+      <h3>1.2 The whole video is here</h3>
+      <div class="links"><a class="alt" href="https://youtu.be/xk8RLMwWHak?si=sYCZF9FTqx9vGlJe" target="_blank">Follow the link</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>When a girl here finishes high school, her parents give her a graduation gift, a new face. They would get their graduation gift from their parents, which is double eyelid surgery. Real plastic surgery paid for like a laptop or a car because in South Korea, beauty isn't a matter of opinion. There are rules for what your face is supposed to look like, and they start young. The youngest client was underage. The most common operation cuts the eyelid open and folds it into a new crease. In Seoul, half of all young women have already had surgery, trying to reach a standard that keeps moving away. No one catches it. Not even the most beautiful women in the country. I have to be more prettier. I want to buy clothes here, but I can't.</p>
+        <p>Korea is one of the richest, safest, smartest countries on Earth. And it's the hardest place in the world to feel beautiful. How did that happen and what happens to the women who can't <b class="v">keep up</b>? So, no one can enter this beauty ideal image. I think this is a really toxic situation that we face.</p>
+        <p>I went to ask them. I've literally just got off the plane and I came around the corner to exchange some money and I've already been given some cosmetics and some cosmetics vouchers before I've even really arrived. Wow. I'm already seeing that the biggest deal here is to look good. I'm excited to be here and see what the real pressure of being a woman here is in Korea.</p>
+        <p>So, I've come to these gates. They're in quite a few parks in Seoul, but if I'm going to <b class="v">do a deep dive into</b> the appearance and the topic here in Korea, I need to know where exactly I fit physically. Different variations of translations, but some of them don't really sound that nice. All right, so I can fit through there. What about this one? It's already starting to get a little bit tight if I'm being honest with you. That's <b class="v">a tight squeeze</b>. The standard. It's not very big, is it? Let's be honest. It's a squeeze, but I can make it. I mean, these are very small. And if you have a look, they've actually taken — there was meant to be a pole right here. So, that is confronting. Not only to mention the fact that this is in what is a kid's path. So, kids coming here and pushing themselves through these poles from a very, very young age, from as long as they can remember, and getting it <b class="v">drilled into their head</b> that this is the standard size. That's tough.</p>
+        <p>Today, I'm meeting a Korean influencer and model who <b class="v">from the outside thrives</b> within these harsh beauty standards. She's taken me to a clinic she recommends so that I can experience one of Korea's <b class="v">beauty treatments</b> for myself and better understand the culture surrounding them.</p>
+        <p>Hello. Nice to meet you. Thank you for having me. Thanks for having me. I'm Lily. Yes, nice to meet you. I'm a bit nervous. It's not painful at — no down time. So yeah, you don't have to worry about that. Awesome. This whole building is a clinic. The whole building. Yeah. Oh, it's big. Really big.</p>
+        <p>Almost half of women in their 20s in Korea have had cosmetic surgery. Not considered it, had it. And the average age of a first procedure is just 21. South Korea has the highest rate of cosmetic surgery of any nation on Earth. And second place <b class="v">isn't even remotely close</b>. It's a 10 billion dollar industry growing faster than the Korean economy itself. And if you're in the district of Gangnam, you're statistically more likely to see a cosmetic surgery clinic than you would be to see a Starbucks in downtown Manhattan. Yes, more frequent than a coffee shop. The most common procedure of all is double eyelid surgery, a cut that adds a crease above the lash line, making the eye look bigger. Hundreds of thousands every year, many on teenagers, often as a graduation gift from their parents.</p>
+        <p>But how did we get here? In 1954, a year after the war stopped, an American military surgeon named Ralph Millard was stationed in Seoul. Millard believed that the Korean eye looked passive and <b class="v">unreadable</b>, his words, and he knew the procedure to fix it. His first patient was a Korean translator who hoped rounder eyes would make Americans trust him, and was popular amongst American war brides. 70 years later, and while the surgery is now well and truly a Korean one, it's still <b class="v">hard to think of</b> it as anything other than changing yourself to <b class="v">appeal to someone</b> else.</p>
+        <p>Did you wear any sunscreen? No, I didn't put anything on. Is that okay? Even skin? Not today. I was nervous it was going to be bad. This is a skin analysis machine to check your skin condition, and they are using some AI that — after taking some pictures you can check your skin conditions. This is a big deal. I don't get treatments or anything like that, so for you is this feel more normal? Not normal, but recently Korean girls, Korean women, even, you know, men, they started to take care of their skin care by going to the clinics to get some treatment too. In South Korea young generation we love to get double eyelid surgery.</p>
+        <p>Sitting inside the clinic, I am feeling nervous. I<b class="v">'m about to</b> have a consultation to tell me what I need to change about myself and ultimately what treatment I will have. But I need to ask the surgeon some important questions first. When someone comes into a clinic like this, what is it that they're usually wanting to change about their appearance? — There are so many patients who are taking care of the <b class="v">sagging</b>, like sagging things. So they want to get some <b class="v">lifting treatment</b> too. How young is your youngest client? — The youngest client was <b class="v">underage</b>. If someone asks you, I want to come and I want to just be prettier, what would you recommend to them? What is it they do you think that they're feeling? — Center of beauty is very subjective, right? It is not, you know, being look pretty, but it's later than they want to be looked like young, younger than their age.</p>
+        <p>Laying down on the table to start this treatment gives me a chance to reflect. I'm doing this because I want to know what it's like inside the system, but it feels almost <b class="v">counteractive to</b> who I am. As someone with no Botox, no <b class="v">facial surgeries</b>, I don't even really wear makeup in my videos, and I usually just wear my big, thick glasses. I always want to show women that you can <b class="v">take up space</b> on a platform like this without having to <b class="v">bend to</b> what society expects you to be or look like. While that's my intention and something that I am able to do, perhaps that's not a luxury afforded to women in Korea.</p>
+        <p>It's not painful at all. Just like kind of warm on my face, kind of pleasant actually. Can you see a little bit tightened? Yeah, it looks more like this. This is crazy. I can genuinely see it less like fat here. This side is visibly more lifted than here. Instant. Wow. Gosh, that was so relaxing. Relaxing.</p>
+        <p>Maybe you can tell me like what you did before and what you do now. But maybe you know the Olive Young store. Yeah. Yes, Olive Young is really big, um, cosmetic retail company. To understand beauty in Korea, you have to understand the insane scale of Olive Young. 1,300 branches in South Korea. Every corner you can find Olive Young. And its popularity is not just local. It's becoming a tourist destination for holiday makers in Korea. Its influence is so <b class="v">dominant</b> that when it opened its first American store in California in May 2026, fans <b class="v">camped out overnight</b> and <b class="v">lined up around the block</b>. And when improvement <b class="v">is always within reach</b>, participation can begin to feel less optional.</p>
+        <p>So I was a product manager in that headquarter before. Wow. And I have made a lot of the cosmetic products. Now I'm running my own travel agency specialized in cosmetics. Can you tell me like um what kind of surgeries or treatments that you've had? — I will be very honest. The first thing I got — no surgery except — and then no silicone inside — 10 years ago. 20 years old. 20. Yeah. Before going to the university. Did you need your parents permission or can you choose yourself? — I can choose. My mom gave me money. So a gift for me. After that, 3 years ago, I did breast surgery. It was a failure. Really? I don't want to get it anymore. I really was satisfied this result too.</p>
+        <p>Did you feel better after getting yours done? — If I were not some influencer or model, maybe I don't have to get the surgery. To be honest, when I was teenager, I was not pretty. After teenager, I started to decorate myself. Yeah. <b class="v">Glow up</b> and I got confidence.</p>
+        <p>After saying goodbye to Lily, an hour long taxi ride in Seoul traffic gives me time to <b class="v">reflect on</b> what I have just experienced. So, I just want to talk about how lovely Lily was. As pretty as Lily is, she was just a lovely person. And something really <b class="v">stuck with</b> me. Do you think, Lily, that if you grew up in a different country, do you think that you would still have the surgeries that you have? — No. Maybe. You know, she has to live inside this beauty standard. I think the beauty standard here in Korea is intense. But then someone might think that me going to the gym when I was 16 is intense. Or people entering beauty pageants when they're seven or eight or nine is intense. And everyone I meet in this country has to live in that standard that Lily is inside. And I just wish we could all be ourselves.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1edC75iEnotAriMvafuKQ88VyWzq7OQwZ/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ae/1210780119/inside-the-country-where-its-illegal-to-be-ugly-flash-cards/?i=zxpms&x=1jqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-3">
+      <h3>3.3 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="a tight squeeze">a tight squeeze</div>
+        <div class="chip" data-word="thrive">thrive</div>
+        <div class="chip" data-word="do a deep dive into">do a deep dive into</div>
+        <div class="chip" data-word="isn't even remotely close">isn't even remotely close</div>
+        <div class="chip" data-word="be hard to think of">be hard to think of</div>
+        <div class="chip" data-word="appeal to">appeal to</div>
+        <div class="chip" data-word="keep up with">keep up with</div>
+        <div class="chip" data-word="lifting treatment">lifting treatment</div>
+        <div class="chip" data-word="drilled into his head">drilled into his head</div>
+        <div class="chip" data-word="From the outside">From the outside</div>
+        <div class="chip" data-word="unreadable">unreadable</div>
+        <div class="chip" data-word="beauty treatments">beauty treatments</div>
+        <div class="chip" data-word="was about to">was about to</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. She booked a non-invasive <span class="dz" data-answer="lifting treatment"></span> before her wedding because she wanted to look more refreshed.</li>
+        <li class="sentence">2. Before making a decision, she decided to <span class="dz" data-answer="do a deep dive into"></span> the long-term effects of cosmetic procedures.</li>
+        <li class="sentence">3. It's becoming increasingly difficult to <span class="dz" data-answer="keep up with"></span> the rapid pace of change in the beauty industry.</li>
+        <li class="sentence">4. His parents <span class="dz" data-answer="drilled into his head"></span> that appearance was less important than character.</li>
+        <li class="sentence">5. <span class="dz" data-answer="From the outside"></span>, their lifestyle looks perfect, but social media rarely tells the whole story.</li>
+        <li class="sentence">6. Some people <span class="dz" data-answer="thrive"></span> in highly competitive environments, while others find them exhausting.</li>
+        <li class="sentence">7. She spends a considerable amount of money on <span class="dz" data-answer="beauty treatments"></span>, from facials to laser procedures.</li>
+        <li class="sentence">8. Getting six people into such a small apartment was <span class="dz" data-answer="a tight squeeze"></span>, but we somehow managed.</li>
+        <li class="sentence">9. The actual cost of the procedure <span class="dz" data-answer="isn't even remotely close"></span> to what I had expected.</li>
+        <li class="sentence">10. The doctor's handwriting was almost <span class="dz" data-answer="unreadable"></span>, so I had to ask for the instructions to be typed out.</li>
+        <li class="sentence">11. When you're put on the spot, it can <span class="dz" data-answer="be hard to think of"></span> a convincing answer.</li>
+        <li class="sentence">12. The idea of having surgery at such a young age doesn't <span class="dz" data-answer="appeal to"></span> me at all.</li>
+        <li class="sentence">13. I <span class="dz" data-answer="was about to"></span> leave when she called me and asked me to stay for another ten minutes.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-4">
+      <h3>3.4 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="beauty standards"><span class="term">harsh</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="dive into something"><span class="term">to do a deep</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="squeeze"><span class="term">a tight</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="into someone's head"><span class="term">to drill something</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="cosmetic surgery"><span class="term">to have</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="appeal to someone"><span class="term">to change yourself to</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="condition"><span class="term">a skin</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="sagging skin"><span class="term">to take care of</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="treatment"><span class="term">lifting</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="out overnight"><span class="term">to camp</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="surgery"><span class="term">to get breast</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="yourself"><span class="term">to decorate</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="pageant"><span class="term">to enter a beauty</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="treatment">treatment</div>
+            <div class="match-item" data-word="cosmetic surgery">cosmetic surgery</div>
+            <div class="match-item" data-word="into someone's head">into someone's head</div>
+            <div class="match-item" data-word="surgery">surgery</div>
+            <div class="match-item" data-word="sagging skin">sagging skin</div>
+            <div class="match-item" data-word="out overnight">out overnight</div>
+            <div class="match-item" data-word="condition">condition</div>
+            <div class="match-item" data-word="appeal to someone">appeal to someone</div>
+            <div class="match-item" data-word="squeeze">squeeze</div>
+            <div class="match-item" data-word="beauty standards">beauty standards</div>
+            <div class="match-item" data-word="dive into something">dive into something</div>
+            <div class="match-item" data-word="yourself">yourself</div>
+            <div class="match-item" data-word="pageant">pageant</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="v3-5">
+      <h3>3.5 Choose the correct option</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. Despite working full-time, she manages to <span class="select-wrap"><select data-answer="keep up"><option value="">Choose...</option><option value="keep up">keep up</option><option value="bend to">bend to</option><option value="take up">take up</option></select></span> with her studies.</div>
+      <div class="sentence">2. The elevator was so crowded that getting in was <span class="select-wrap"><select data-answer="a tight squeeze"><option value="">Choose...</option><option value="a tight squeeze">a tight squeeze</option><option value="a glow-up">a glow-up</option><option value="a lifting treatment">a lifting treatment</option></select></span>.</div>
+      <div class="sentence">3. Some people <span class="select-wrap"><select data-answer="thrive"><option value="">Choose...</option><option value="sag">sag</option><option value="bend">bend</option><option value="thrive">thrive</option></select></span> when they have a lot of freedom and responsibility.</div>
+      <div class="sentence">4. She regularly gets facials and other <span class="select-wrap"><select data-answer="beauty treatments"><option value="">Choose...</option><option value="facial surgeries">facial surgeries</option><option value="beauty treatments">beauty treatments</option><option value="deep dives">deep dives</option></select></span>.</div>
+      <div class="sentence">5. The two products are completely different. The second one <span class="select-wrap"><select data-answer="isn't even remotely close to"><option value="">Choose...</option><option value="isn't even remotely close to">isn't even remotely close to</option><option value="isn't always within reach of">isn't always within reach of</option><option value="isn't hard to think of">isn't hard to think of</option></select></span> the first in quality.</div>
+      <div class="sentence">6. The idea of living by the sea really <span class="select-wrap"><select data-answer="appeals to"><option value="">Choose...</option><option value="bends to">bends to</option><option value="appeals to">appeals to</option><option value="reflects on">reflects on</option></select></span> her.</div>
+      <div class="sentence">7. I was <span class="select-wrap"><select data-answer="about to"><option value="">Choose...</option><option value="about to">about to</option><option value="stuck with">stuck with</option><option value="hard to think of">hard to think of</option></select></span> send an email when I noticed a mistake in the attachment.</div>
+      <div class="sentence">8. The cream is designed to improve the appearance of <span class="select-wrap"><select data-answer="sagging"><option value="">Choose...</option><option value="sagging">sagging</option><option value="dominant">dominant</option><option value="unreadable">unreadable</option></select></span> skin.</div>
+      <div class="sentence">9. She decided to try a non-invasive <span class="select-wrap"><select data-answer="lifting treatment"><option value="">Choose...</option><option value="tight squeeze">tight squeeze</option><option value="lifting treatment">lifting treatment</option><option value="glow-up">glow-up</option></select></span> before considering surgery.</div>
+      <div class="sentence">10. She is considering having <span class="select-wrap"><select data-answer="facial surgeries"><option value="">Choose...</option><option value="beauty treatments">beauty treatments</option><option value="tight squeezes">tight squeezes</option><option value="facial surgeries">facial surgeries</option></select></span> to change the shape of her face.</div>
+      <div class="sentence">11. This sofa <span class="select-wrap"><select data-answer="takes up"><option value="">Choose...</option><option value="takes up">takes up</option><option value="keeps up">keeps up</option><option value="bends to">bends to</option></select></span> too much space in the living room.</div>
+      <div class="sentence">12. She had an amazing <span class="select-wrap"><select data-answer="glow-up"><option value="">Choose...</option><option value="deep dive">deep dive</option><option value="glow-up">glow-up</option><option value="tight squeeze">tight squeeze</option></select></span> after changing her hairstyle and wardrobe.</div>
+      <div class="sentence">13. I spent some time <span class="select-wrap"><select data-answer="reflecting on"><option value="">Choose...</option><option value="reflecting on">reflecting on</option><option value="appealing to">appealing to</option><option value="bending to">bending to</option></select></span> what had happened.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
+        <span class="card-score" data-score="v3-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-6">
+      <h3>3.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="lined up around the block">lined up around the block</div>
+        <div class="chip" data-word="facial surgeries">facial surgeries</div>
+        <div class="chip" data-word="dominant">dominant</div>
+        <div class="chip" data-word="bend to">bend to</div>
+        <div class="chip" data-word="underage">underage</div>
+        <div class="chip" data-word="glow-up">glow-up</div>
+        <div class="chip" data-word="counteractive to">counteractive to</div>
+        <div class="chip" data-word="stuck with">stuck with</div>
+        <div class="chip" data-word="reflect on">reflect on</div>
+        <div class="chip" data-word="within reach">within reach</div>
+        <div class="chip" data-word="sagging">sagging</div>
+        <div class="chip" data-word="takes up too much space">takes up too much space</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. The cream is marketed as a way to reduce <span class="dz" data-answer="sagging"></span> skin and restore a more youthful appearance.</li>
+        <li class="sentence">2. Customers <span class="dz" data-answer="lined up around the block"></span> when the store released its limited-edition collection.</li>
+        <li class="sentence">3. You have to be at least eighteen to undergo the procedure without parental consent because anyone younger is <span class="dz" data-answer="underage"></span>.</li>
+        <li class="sentence">4. Constantly comparing yourself with edited images online can be <span class="dz" data-answer="counteractive to"></span> developing a healthy self-image.</li>
+        <li class="sentence">5. Although <span class="dz" data-answer="facial surgeries"></span> have become increasingly common, they still involve significant risks and recovery time.</li>
+        <li class="sentence">6. The oversized furniture <span class="dz" data-answer="takes up too much space"></span> in the living room.</li>
+        <li class="sentence">7. Her transformation was a real <span class="dz" data-answer="glow-up"></span>, but she says the biggest change was in her confidence.</li>
+        <li class="sentence">8. Social media has become a <span class="dz" data-answer="dominant"></span> influence on how young people perceive beauty.</li>
+        <li class="sentence">9. She refused to <span class="dz" data-answer="bend to"></span> social pressure and change her appearance simply to fit in.</li>
+        <li class="sentence">10. With smartphones always <span class="dz" data-answer="within reach"></span>, it has become much harder to disconnect from work.</li>
+        <li class="sentence">11. Taking time to <span class="dz" data-answer="reflect on"></span> your experiences can help you understand why you make certain decisions.</li>
+        <li class="sentence">12. We missed the last train and ended up <span class="dz" data-answer="stuck with"></span> each other at the station for three hours.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
+        <span class="card-score" data-score="v3-6"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.7 Write your own sentences using vocabulary you liked <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Write your sentences here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">4</span> Revision</div>
+
+    <div class="card" data-task="typeblank" data-id="r4-1">
+      <h3>4.1 Complete the sentences</h3>
+      <div class="instruction">💡 Type the missing preposition into each gap.</div>
+      <div class="sentence">1. She works long hours but still manages to <b>keep</b> <input class="blank" data-answer="up" style="width:90px;"> <b>with</b> her friends and family.</div>
+      <div class="sentence">2. I decided to <b>do a deep dive</b> <input class="blank" data-answer="into" style="width:90px;"> the psychology behind our obsession with appearance.</div>
+      <div class="sentence">3. <input class="blank" data-answer="From" style="width:90px;"> <b>the outside</b>, she seemed completely confident, but she was actually struggling with low self-esteem.</div>
+      <div class="sentence">4. Some people <b>thrive</b> <input class="blank" data-answer="in" style="width:90px;"> competitive environments, while others find them overwhelming.</div>
+      <div class="sentence">5. The idea of changing careers <b>appeals</b> <input class="blank" data-answer="to" style="width:90px;"> <b>her</b> because she wants a fresh start.</div>
+      <div class="sentence">6. I was <b>about</b> <input class="blank" data-answer="to" style="width:90px;"> leave the house when my phone suddenly rang.</div>
+      <div class="sentence">7. Spending hours comparing yourself to people online can be <b>counteractive</b> <input class="blank" data-answer="to" style="width:90px;"> building self-confidence.</div>
+      <div class="sentence">8. Large pieces of furniture can <b>take</b> <input class="blank" data-answer="up" style="width:90px;"> <b>space</b> that could otherwise be used for something more practical.</div>
+      <div class="sentence">9. She refused to <b>bend</b> <input class="blank" data-answer="to" style="width:90px;"> social pressure and decided to do what felt right for her.</div>
+      <div class="sentence">10. With a smartphone, information is <b>always</b> <input class="blank" data-answer="within" style="width:90px;"> <b>reach</b>, no matter where you are.</div>
+      <div class="sentence">11. Taking some time to <b>reflect</b> <input class="blank" data-answer="on" style="width:90px;"> your experiences can help you understand what you really want.</div>
+      <div class="sentence">12. After moving abroad, she found herself <b>stuck</b> <input class="blank" data-answer="with" style="width:90px;"> a job she no longer enjoyed.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button>
+        <span class="card-score" data-score="r4-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="r4-2">
+      <h3>4.2 Put the words into correct order</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="The idea|of|living|abroad|really|appeals|to me.">
+        <span class="wo-num">1/6</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="abroad">abroad</div><div class="chip" data-word="to me.">to me.</div><div class="chip" data-word="living">living</div><div class="chip" data-word="really">really</div><div class="chip" data-word="appeals">appeals</div><div class="chip" data-word="of">of</div><div class="chip" data-word="The idea">The idea</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="He|was|still underage|when|he|got|his|first tattoo.">
+        <span class="wo-num">2/6</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="got">got</div><div class="chip" data-word="was">was</div><div class="chip" data-word="first tattoo.">first tattoo.</div><div class="chip" data-word="still underage">still underage</div><div class="chip" data-word="he">he</div><div class="chip" data-word="He">He</div><div class="chip" data-word="his">his</div><div class="chip" data-word="when">when</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="This|huge sofa|takes|up|almost half|of|the living room.">
+        <span class="wo-num">3/6</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="huge sofa">huge sofa</div><div class="chip" data-word="takes">takes</div><div class="chip" data-word="This">This</div><div class="chip" data-word="the living room.">the living room.</div><div class="chip" data-word="up">up</div><div class="chip" data-word="of">of</div><div class="chip" data-word="almost half">almost half</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="The restaurant|was|so popular|that|people|were|lining up|around|the block.">
+        <span class="wo-num">4/6</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="The restaurant">The restaurant</div><div class="chip" data-word="people">people</div><div class="chip" data-word="that">that</div><div class="chip" data-word="the block.">the block.</div><div class="chip" data-word="around">around</div><div class="chip" data-word="lining up">lining up</div><div class="chip" data-word="was">was</div><div class="chip" data-word="were">were</div><div class="chip" data-word="so popular">so popular</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="I|need|some time|to reflect|on|everything|that happened|yesterday.">
+        <span class="wo-num">5/6</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="yesterday.">yesterday.</div><div class="chip" data-word="to reflect">to reflect</div><div class="chip" data-word="I">I</div><div class="chip" data-word="need">need</div><div class="chip" data-word="everything">everything</div><div class="chip" data-word="that happened">that happened</div><div class="chip" data-word="some time">some time</div><div class="chip" data-word="on">on</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="This|new|version|isn't|even|remotely|close|to|the original|one.">
+        <span class="wo-num">6/6</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="even">even</div><div class="chip" data-word="to">to</div><div class="chip" data-word="close">close</div><div class="chip" data-word="one.">one.</div><div class="chip" data-word="new">new</div><div class="chip" data-word="the original">the original</div><div class="chip" data-word="version">version</div><div class="chip" data-word="remotely">remotely</div><div class="chip" data-word="This">This</div><div class="chip" data-word="isn't">isn't</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-2">↻ Reset</button>
+        <span class="card-score" data-score="r4-2"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>4.3 Complete the sentences with your own ideas. You can also do the task with your Study Buddy. <i>(Optional)</i></h3>
+      <p class="sentence">I find it difficult to <b>keep up with</b>...</p>
+      <p class="sentence">If I could <b>do a deep dive into</b> any subject, it would be...</p>
+      <p class="sentence">Something my parents <b>drilled into my head</b> was...</p>
+      <p class="sentence"><b>From the outside</b>, my life...</p>
+      <p class="sentence">I <b>thrive</b> when...</p>
+      <p class="sentence">A <b>beauty treatment</b> I would/wouldn't consider is...</p>
+      <p class="sentence">Something that <b>isn't even remotely close</b> to my expectations is...</p>
+      <p class="sentence">Something I find <b>hard to think of</b> is...</p>
+      <p class="sentence">Something that really <b>appeals to</b> me is...</p>
+      <p class="sentence">The last time I was <b>about to</b> do something but changed my mind was...</p>
+      <p class="sentence">Something I would never <b>bend to</b> social pressure about is...</p>
+      <p class="sentence">One thing that can <b>take up too much space</b> in my life is...</p>
+      <p class="sentence">One thing that is <b>always within reach</b> for me is...</p>
+      <p class="sentence">A person or situation I've been <b>stuck with</b> is...</p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your answers here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="section-title"><span class="num">5</span> Questions</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday</h3>
+      <p class="sentence">According to the video, how have beauty standards influenced Korean culture?</p>
+      <h3>Friday</h3>
+      <p class="sentence">What beauty standards do you think are particularly strong in your country?<br><b>or</b><br>Do you think improving your appearance can genuinely boost your confidence?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. What beliefs or ideas do you think are often <b class="v">drilled into people's heads</b> from a young age?</p>
+      <p class="sentence">2. Which <b class="v">beauty treatments</b> do you think are worth paying for, and which ones are unnecessary?</p>
+      <p class="sentence">3. Why do you think people choose to have <b class="v">facial surgeries</b>? Do you think the reasons have changed over time?</p>
+      <p class="sentence">4. What do you think usually causes someone to have a <b class="v">glow up</b>?</p>
+      <p class="sentence">5. How often do you <b class="v">reflect on</b> the decisions you've made in the past?</p>
+      <p class="sentence">6. What is something you've been <b class="v">stuck with</b> for a long time but would like to change?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else{sel.classList.add('incorrect');}
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you see beauty beyond the standards!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
