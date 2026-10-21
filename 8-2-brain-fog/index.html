@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brain Fog — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 40px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  /* Скрытый держатель ответа для radio-заданий (без линии) */
+  .dz.dz-radio { display: none; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .option { background: #fff; border: 1.5px solid rgba(124,107,184,0.15); padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 15px; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; position: relative; }
+  .option::before { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(124,107,184,0.3); border-radius: 50%; flex-shrink: 0; transition: all 0.2s; }
+  .option:hover { border-color: var(--purple); background: var(--purple-light); }
+  .option.selected { background: var(--purple-light); border-color: var(--purple); }
+  .option.selected::before { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 4px #fff; }
+  .option.correct { background: #e8f5e8; border-color: var(--success); }
+  .option.correct::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+  .option.incorrect { background: #fbe9e7; border-color: var(--error); }
+  .option.incorrect::before { border-color: var(--error); background: var(--error); box-shadow: inset 0 0 0 4px #fff; }
+  .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
+  .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+
+  .blank { width: 130px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 120px; outline: none; transition: border-color 0.2s; }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 800; color: var(--ink); margin: 20px 0 10px; font-size: 16.5px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .post-img { width: 100%; max-width: 560px; display: block; margin: 0 auto 16px; border-radius: 14px; border: 1px solid rgba(124,107,184,0.15); background: #fff; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .option { padding: 14px 18px; font-size: 15px; }
+    .blank { width: 120px; font-size: 16px; }
+    .hint-input input { min-width: 110px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 280px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 26px; }
+    .cover-text p { font-size: 14px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#vocabulary2">Vocabulary 2</a>
+    <a href="#revision">Revision</a>
+    <a href="#questions">Questions</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Brain Fog — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Brain Fog</h1>
+      <p>What it is, why it happens, and how to fix it</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a class="pur" href="https://drive.google.com/file/d/1ya37IzwqrhB9mLeH1i1_g8TKb5Q_5K-g/preview" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/ae/1207568738/what-is-brain-fog-and-how-do-i-fix-it-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+        <a href="https://docs.google.com/presentation/d/1xFIFxik0T811aTcVM_UetNE_7pKTTcRg2YO5glRd-pU/edit?usp=sharing" target="_blank">📽 Presentation</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">1</span> Text</div>
+    <div class="card">
+      <h3>1.1 Read the text</h3>
+      <details class="text-details">
+        <summary>📖 What is Brain Fog and How Do I Fix It? (click to expand)</summary>
+        <p>Some days, <b class="v">you're on your A-game</b>: Your head is clear, you're quick to answer questions at work, get chores done efficiently, and you easily strategize dinner plans with your friends. But when it's hard to focus and make decisions quickly, you may casually ask yourself, <i>Is this what brain fog is?</i></p>
+        <p>Turns out that mentally hazy sensation is real, according to the experts we spoke with. Here, they explain what <i>is</i> brain fog, why it happens, and how to deal.</p>
+        <div class="sub">What is brain fog?</div>
+        <p>So brain fog isn't a clinical diagnosis or a mental health condition, which makes defining it a little tricky. Generally speaking though, brain fog is a colloquial term people often use to describe a feeling of mental sluggishness, says Karen Stewart, PhD, a licensed clinical psychologist who specializes in ADHD and executive dysfunction symptoms, like impulsivity and memory issues.</p>
+        <p>With brain fog, everything you do can feel harder than usual, Dr. Stewart says. "If <b class="v">going about your daily life</b> is the equivalent of walking on a flat sidewalk, brain fog can feel like that sidewalk turned into mud. You feel stuck," she says. You might have trouble multitasking or finishing said tasks, and it can be more difficult to make decisions.</p>
+        <p>Brain fog often shows up as thinking or memory difficulties too, says Shehrooz B. Pudumjee, PhD, Director of Neuropsychology at the Cleveland Clinic Lou Ruvo Center for Brain Health. For example, you may struggle to find your keys or phone and feel extra distractible, Dr. Pudumjee adds. That makes everyday things like absorbing information or focusing on a task extra challenging.</p>
+        <p>According to Dr. Stewart and Dr. Pudumjee, brain fog can also lead to issues like struggling to find the right word, confusion, fatigue, and <b class="v">losing your train of thought</b>. Your mood can be impacted as well.</p>
+        <p>You're not wrong: All of these symptoms might be things you feel on your average Monday, and that's nothing to be alarmed about. Most people won't <b class="v">be at their peak</b> cognitive performance all day, every day, says Dr. Stewart. "It's actually normal to <b class="v">have a dip in cognitive, physical, and emotional energy</b> in the afternoon hours," Dr. Stewart says. So there's that!</p>
+        <div class="sub">Why does brain fog happen?</div>
+        <p>Again, this isn't a diagnosis, so there's no definitive answer as to why these kinds of symptoms happen. That said, there are some physical and mental health issues associated with a foggy brain, Dr. Pudumjee says.</p>
+        <p>Dr. Stewart adds that, in her experience as a mental health pro, lots of mental health conditions can contribute to brain fog. Apart from anxiety and depression, bipolar disorder, schizophrenia, trauma, ADHD, and autism can all come with brain fog-like symptoms and mental sluggishness, she says.</p>
+        <p>Your physical health can impact mental clarity too, adds Dr. Stewart. For example, inadequate sleep, nutrition, physical activity, and high-stress levels can all lead to brain fog, she explains.</p>
+        <p>Aside from those basics, there are a few physical conditions that might be tied to brain fog as well. One of the biggies is long Covid. One recent study found a link between long Covid and brain fog, including issues with focus and following a conversation. Others include perimenopause or menopause, which some studies suggest are associated with symptoms of brain fog. And, of course, sleep conditions like sleep apnea and insomnia can also contribute to fuzzy thinking, says Dr. Pudumjee.</p>
+        <p>If you suspect any of those could be contributing to your brain fog, consider speaking with a health care professional to <b class="v">get to the bottom of it</b>.</p>
+        <div class="sub">How do I deal with brain fog?</div>
+        <p>While you can't always prevent that mental sluggishness, you can make it less of a recurring thing. Here, experts explain the best ways to prevent brain fog and how to <b class="v">work around</b> it when you have to.</p>
+        <div class="sub">Prioritize important mental tasks.</div>
+        <p>If you know you often get brain fog after a long day of decision-making, hack your schedule so you're doing the things that require the most mental sharpness first thing in the morning.</p>
+        <p>Your entire day is made up of infinite choices, and that can <b class="v">wear your mind down</b> and create brain fog, Dr. Stewart says. You wake up and decide what to wear, what to pack for lunch, whether to cancel plans tonight, what to watch if you ditch the group, etc. And that's not even counting all the decisions you get paid to make during your 9-to-5.</p>
+        <p>According to some research, all of this effort can <b class="v">tax your brain's</b> executive functioning, making it harder for you to use self-control and get things done. Sometimes this brand of brain fog is called decision fatigue.</p>
+        <p>But by planning ahead, tackling your most important tasks first, you can use your brain when it's still crystal clear.</p>
+        <div class="sub">Lean into self-compassion.</div>
+        <p>Sometimes our brains don't cooperate with us, and that's OK, says Dr. Stewart. But if you tend <b class="v">to berate yourself</b> for not being at the top of your game, it just makes the situation worse, she adds. Translation: Trying to negative self-talk your way to improved performance doesn't work. In fact, beating yourself up will likely <b class="v">dampen your mood</b> and elevate stress, which can make it even harder to <b class="v">get back on track</b>, she adds.</p>
+        <p>So <b class="v">cut yourself some slack</b> by lowering your expectations a bit. Know that you can't be expected to give everything 100 percent of our time, attention, and effort all the time. It's just not sustainable (or human).</p>
+        <p>Then, start to notice the rude <b class="v">chatter in your brain</b> chiming in with things like, <i>This is why you're not making as much money as you want to be, or, You'll never be as good as the rest of your team if you don't get it together.</i> When it comes up, take a beat, ask yourself if those things are actually true, and remind yourself that literally no one is on all the time.</p>
+        <div class="sub">Give your brain a break.</div>
+        <p>Oftentimes, the root of brain fog is stress. So addressing those feelings of overwhelm can really make a difference, says Dr. Pudumjee.</p>
+        <p>Think about it: When you're freaking out, it's so much harder to make choices, remember things, and problem solve, says Dr. Stewart. All of those are executive functions, she adds.</p>
+        <p>Whether it's work-life balance, relationship issues, or finances stressing you out, find a quick way to reset and <b class="v">shake off the sense of impending doom</b>. That could look like stepping away from your desk to watch TikTok in a bathroom stall, heading outside for a walk, taking 10 minutes to stare at the ceiling, or texting a friend.</p>
+        <p>If you can't physically get away, mentally <b class="v">switching gears</b> is the next best thing. See if you can do something a little less taxing while you<b class="v">'re in the thick of</b> it, says Dr. Stewart. Sort through your inbox, write a to-do list for tomorrow, run to the store to buy more toilet paper. The less brain power the better.</p>
+        <p>Another way to <b class="v">take the pressure off</b> your sweet noggin' is by using your calendar, the reminders feature on your phone, and sticky notes to remember important events or details. That can help you stay on track and meet deadlines without the work of remembering everything, adds Dr. Pudumjee.</p>
+        <div class="sub">Take care of your body.</div>
+        <p>Brain fog or no brain fog, your mind works best when you're rested, moving regularly, and eating well, says Dr. Stewart. "Each of these healthy habits is linked to better executive function."</p>
+        <p>You don't have to be a gold-star student though. Aim to get at least seven hours of sleep, find physical activities you actually like (and do them as often as you can), and aim to eat a diet rich in healthy fats, lean protein, and plants. All of that can help, says Dr. Pudumjee.</p>
+        <p>Along the same lines, avoiding substances that "impact how clearly you think and remember things" is a good move too, says Dr. Pudumjee.</p>
+        <div class="sub">Reach out to a pro.</div>
+        <p>Brain fog can come and go, Dr. Pudumjee says, but if it doesn't let up, something bigger may be going on. When it keeps you from completing your daily tasks, adhering to responsibilities, engaging in your regular activities, or becomes highly distressing or persists beyond a few weeks, it's time to reach out to a doctor, she explains. They can help determine the underlying causes or contributors so you can get back to thinking clearly.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>2.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1ya37IzwqrhB9mLeH1i1_g8TKb5Q_5K-g/preview" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">2.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ae/1207568738/what-is-brain-fog-and-how-do-i-fix-it-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v2-3">
+      <h3>2.3 Match collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="information"><span class="term">absorb</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="A-game"><span class="term">be on your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="thought"><span class="term">lose your train of</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="peak"><span class="term">be at your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="mind down"><span class="term">wear your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="brain"><span class="term">tax your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="on track"><span class="term">get back</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="some slack"><span class="term">cut yourself</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="gears"><span class="term">switch</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="some slack">some slack</div>
+            <div class="match-item" data-word="information">information</div>
+            <div class="match-item" data-word="gears">gears</div>
+            <div class="match-item" data-word="peak">peak</div>
+            <div class="match-item" data-word="on track">on track</div>
+            <div class="match-item" data-word="mind down">mind down</div>
+            <div class="match-item" data-word="A-game">A-game</div>
+            <div class="match-item" data-word="brain">brain</div>
+            <div class="match-item" data-word="thought">thought</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-3">↻ Reset</button>
+        <span class="card-score" data-score="v2-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-4">
+      <h3>2.4 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="chimed in">chimed in</div>
+        <div class="chip" data-word="fuzzy thinking">fuzzy thinking</div>
+        <div class="chip" data-word="be on her A-game">be on her A-game</div>
+        <div class="chip" data-word="Fatigue">Fatigue</div>
+        <div class="chip" data-word="berate yourself">berate yourself</div>
+        <div class="chip" data-word="shake off the sense of impending doom">shake off the sense of impending doom</div>
+        <div class="chip" data-word="feel at my peak">feel at my peak</div>
+        <div class="chip" data-word="take the pressure off">take the pressure off</div>
+        <div class="chip" data-word="have a dip in energy">have a dip in energy</div>
+        <div class="chip" data-word="wear your mind down">wear your mind down</div>
+        <div class="chip" data-word="lean into">lean into</div>
+        <div class="chip" data-word="in the thick of">in the thick of</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. After several nights of poor sleep, I started experiencing <span class="dz" data-answer="fuzzy thinking"></span>.</li>
+        <li class="sentence">2. She's <span class="dz" data-answer="in the thick of"></span> a major project, so she barely has any free time.</li>
+        <li class="sentence">3. Try not to <span class="dz" data-answer="berate yourself"></span> for making a mistake.</li>
+        <li class="sentence">4. I usually <span class="dz" data-answer="feel at my peak"></span> in the morning, when my mind is fresh.</li>
+        <li class="sentence">5. Constant worrying can slowly <span class="dz" data-answer="wear your mind down"></span>.</li>
+        <li class="sentence">6. I always <span class="dz" data-answer="have a dip in energy"></span> around three in the afternoon.</li>
+        <li class="sentence">7. Delegating a few tasks can <span class="dz" data-answer="take the pressure off"></span> when you have too much to do.</li>
+        <li class="sentence">8. I was trying to focus when a random thought <span class="dz" data-answer="chimed in"></span>.</li>
+        <li class="sentence">9. <span class="dz" data-answer="Fatigue"></span> can make even simple tasks feel exhausting.</li>
+        <li class="sentence">10. Instead of fighting the feeling of tiredness, she decided to <span class="dz" data-answer="lean into"></span> it and take a proper break.</li>
+        <li class="sentence">11. Going for a walk usually helps me <span class="dz" data-answer="shake off the sense of impending doom"></span>.</li>
+        <li class="sentence">12. Even on a busy Monday, she manages to <span class="dz" data-answer="be on her A-game"></span> at work.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-4">↻ Reset</button>
+        <span class="card-score" data-score="v2-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="radio" data-id="v2-5">
+      <h3>2.5 Choose the best option</h3>
+      <div class="instruction">💡 Click the correct option, then press Check.</div>
+      <div class="sentence">1. After three hours of back-to-back meetings, my brain was completely… <span class="dz dz-radio" data-answer="taxed"></span>
+        <div class="options"><div class="option" data-value="on my A-game">on my A-game</div><div class="option" data-value="taxed">taxed</div><div class="option" data-value="at my peak">at my peak</div></div></div>
+      <div class="sentence">2. Instead of berating yourself, you should… <span class="dz dz-radio" data-answer="cut yourself some slack"></span>
+        <div class="options"><div class="option" data-value="cut yourself some slack">cut yourself some slack</div><div class="option" data-value="lose your train of thought">lose your train of thought</div><div class="option" data-value="dampen your mood">dampen your mood</div></div></div>
+      <div class="sentence">3. She was in the thick of… <span class="dz dz-radio" data-answer="a stressful project at work"></span>
+        <div class="options"><div class="option" data-value="a stressful project at work">a stressful project at work</div><div class="option" data-value="a dip in energy">a dip in energy</div><div class="option" data-value="her A-game">her A-game</div></div></div>
+      <div class="sentence">4. Listening to the same negative thoughts over and over can… <span class="dz dz-radio" data-answer="wear your mind down"></span>
+        <div class="options"><div class="option" data-value="get you back on track">get you back on track</div><div class="option" data-value="wear your mind down">wear your mind down</div><div class="option" data-value="switch gears">switch gears</div></div></div>
+      <div class="sentence">5. Taking a short break helped… <span class="dz dz-radio" data-answer="shake off the sense of impending doom"></span>
+        <div class="options"><div class="option" data-value="shake off the sense of impending doom">shake off the sense of impending doom</div><div class="option" data-value="tax her brain">tax her brain</div><div class="option" data-value="berate herself">berate herself</div></div></div>
+      <div class="sentence">6. Changing your environment can sometimes… <span class="dz dz-radio" data-answer="take the pressure off"></span>
+        <div class="options"><div class="option" data-value="dampen your mood">dampen your mood</div><div class="option" data-value="take the pressure off">take the pressure off</div><div class="option" data-value="make you at your peak">make you at your peak</div></div></div>
+      <div class="sentence">7. When you finish one demanding task and start doing something completely different, you… <span class="dz dz-radio" data-answer="switch gears"></span>
+        <div class="options"><div class="option" data-value="lean into it">lean into it</div><div class="option" data-value="switch gears">switch gears</div><div class="option" data-value="chime in">chime in</div></div></div>
+      <div class="sentence">8. If something is emotionally upsetting or worrying, it can be described as… <span class="dz dz-radio" data-answer="distressing"></span>
+        <div class="options"><div class="option" data-value="taxing">taxing</div><div class="option" data-value="distressing">distressing</div><div class="option" data-value="sluggish">sluggish</div></div></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
+        <span class="card-score" data-score="v2-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-6">
+      <h3>2.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="work around">work around</div>
+        <div class="chip" data-word="sluggishness">sluggishness</div>
+        <div class="chip" data-word="switch gears">switch gears</div>
+        <div class="chip" data-word="lost my train of thought">lost my train of thought</div>
+        <div class="chip" data-word="cut yourself some slack">cut yourself some slack</div>
+        <div class="chip" data-word="distressing">distressing</div>
+        <div class="chip" data-word="dampen your mood">dampen your mood</div>
+        <div class="chip" data-word="taxing">taxing</div>
+        <div class="chip" data-word="tax your brain">tax your brain</div>
+        <div class="chip" data-word="get to the bottom of">get to the bottom of</div>
+        <div class="chip" data-word="go about her daily life">go about her daily life</div>
+        <div class="chip" data-word="get back on track">get back on track</div>
+        <div class="chip" data-word="chatter in your brain">chatter in your brain</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. Writing a detailed report after a long day can be mentally <span class="dz" data-answer="taxing"></span>.</li>
+        <li class="sentence">2. Despite the stress, she tries to <span class="dz" data-answer="go about her daily life"></span> as normally as possible.</li>
+        <li class="sentence">3. After several hours of studying, I need a short break before I <span class="dz" data-answer="switch gears"></span> and start working.</li>
+        <li class="sentence">4. I've been feeling a strange <span class="dz" data-answer="sluggishness"></span> lately, especially in the mornings.</li>
+        <li class="sentence">5. Bad news first thing in the morning can really <span class="dz" data-answer="dampen your mood"></span>.</li>
+        <li class="sentence">6. The doctor ran several tests to <span class="dz" data-answer="get to the bottom of"></span> the problem.</li>
+        <li class="sentence">7. You've had a difficult week, so <span class="dz" data-answer="cut yourself some slack"></span>.</li>
+        <li class="sentence">8. Sometimes the constant <span class="dz" data-answer="chatter in your brain"></span> makes it difficult to concentrate.</li>
+        <li class="sentence">9. I <span class="dz" data-answer="lost my train of thought"></span> halfway through the presentation.</li>
+        <li class="sentence">10. We had to <span class="dz" data-answer="work around"></span> the technical issues and find another solution.</li>
+        <li class="sentence">11. Watching someone you love go through a difficult experience can be deeply <span class="dz" data-answer="distressing"></span>.</li>
+        <li class="sentence">12. After a few unproductive days, I'm trying to <span class="dz" data-answer="get back on track"></span>.</li>
+        <li class="sentence">13. Trying to remember too many things at once can really <span class="dz" data-answer="tax your brain"></span>.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-6">↻ Reset</button>
+        <span class="card-score" data-score="v2-6"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary2">
+    <div class="section-title"><span class="num">3</span> Vocabulary 2</div>
+    <div class="card" data-task="typeblank" data-id="v3-1">
+      <h3>3.1 Complete the gaps</h3>
+      <div class="instruction">💡 Look at each post and type the missing word(s) from the highlighted expression into the blanks.</div>
+
+      <img class="post-img" src="1.png" alt="Post 1">
+      <div class="sentence">"Nothing exposes <input class="blank" data-answer="fuzzy"> <input class="blank" data-answer="thinking"> faster than trying to explain: Who is this for? Why should they care? Why us? Why now?"</div>
+
+      <img class="post-img" src="2.png" alt="Post 2">
+      <div class="sentence">"…the brain physically struggles to <input class="blank" data-answer="switch"> <input class="blank" data-answer="gears"> from active to asleep without a dopamine buffer."</div>
+
+      <img class="post-img" src="3.png" alt="Post 3">
+      <div class="sentence">"If you are <input class="blank" data-answer="in"> <b>the</b> <input class="blank" data-answer="thick"> <b>of</b> it, I see you sis."</div>
+
+      <img class="post-img" src="4.png" alt="Post 4">
+      <div class="sentence">"I feel so unmotivated lately. Can you share some tips to get <input class="blank" data-answer="back"> <b>on</b> <input class="blank" data-answer="track">?"</div>
+
+      <img class="post-img" src="5.png" alt="Post 5">
+      <div class="sentence">"Funny how people used to <input class="blank" data-answer="berate"> me for the spelling mistakes in my content … and now people are like WHHHHOA YOU'RE AN ACTUAL HUMAN AND NOT AI"</div>
+
+      <img class="post-img" src="6.png" alt="Post 6">
+      <div class="sentence">"My mental state is <input class="blank" data-answer="wearing"> <b>me</b> <input class="blank" data-answer="down"> and nobody understands me."</div>
+
+      <img class="post-img" src="7.png" alt="Post 7">
+      <div class="sentence">"…but those who are truly strong are the ones who dare to <input class="blank" data-answer="lean"> <input class="blank" data-answer="into"> their human emotions and refine their emotional intelligence."</div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-1">↻ Reset</button>
+        <span class="card-score" data-score="v3-1"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">4</span> Revision</div>
+
+    <div class="card" data-task="radio" data-id="r4-1">
+      <h3>4.1 Choose the expression that fits best</h3>
+      <div class="instruction">💡 Click the correct option, then press Check.</div>
+      <div class="sentence">You are physically and mentally exhausted after not sleeping well. <span class="dz dz-radio" data-answer="fatigue"></span>
+        <div class="options"><div class="option" data-value="fatigue">fatigue</div><div class="option" data-value="fuzzy thinking">fuzzy thinking</div></div></div>
+      <div class="sentence">You can't think clearly or make simple decisions. <span class="dz dz-radio" data-answer="fuzzy thinking"></span>
+        <div class="options"><div class="option" data-value="fatigue">fatigue</div><div class="option" data-value="fuzzy thinking">fuzzy thinking</div></div></div>
+      <div class="sentence">You are doing your best work and performing extremely well. <span class="dz dz-radio" data-answer="on your A-game"></span>
+        <div class="options"><div class="option" data-value="on your A-game">on your A-game</div><div class="option" data-value="in the thick of something">in the thick of something</div></div></div>
+      <div class="sentence">You are being too critical of yourself after making a mistake. <span class="dz dz-radio" data-answer="berate yourself"></span>
+        <div class="options"><div class="option" data-value="berate yourself">berate yourself</div><div class="option" data-value="cut yourself some slack">cut yourself some slack</div></div></div>
+      <div class="sentence">You need to find the real reason something is happening. <span class="dz dz-radio" data-answer="get to the bottom of something"></span>
+        <div class="options"><div class="option" data-value="get to the bottom of something">get to the bottom of something</div><div class="option" data-value="work around something">work around something</div></div></div>
+      <div class="sentence">You need to find a way to deal with a problem without actually removing it. <span class="dz dz-radio" data-answer="work around something"></span>
+        <div class="options"><div class="option" data-value="get to the bottom of something">get to the bottom of something</div><div class="option" data-value="work around something">work around something</div></div></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button>
+        <span class="card-score" data-score="r4-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typehint" data-id="r4-2">
+      <h3>4.2 Complete the sentences</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter(s) before the gap are just hints — they are NOT part of your answer.</div>
+      <div class="sentence">1. I wasn't really <b>on my A-</b><span class="hint-input"><span class="first-letter">g</span><input type="text" data-answer="game"></span> during the meeting this morning because I hadn't slept well.</div>
+      <div class="sentence">2. After several weeks of working late, she started experiencing constant <span class="hint-input"><span class="first-letter">f</span><input type="text" data-answer="fatigue"></span>.</div>
+      <div class="sentence">3. I was explaining my idea to the team when I suddenly <b>lost my train of</b> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="thought"></span>.</div>
+      <div class="sentence">4. I usually <b>have a</b> <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="dip"></span> <b>in energy</b> around three or four in the afternoon.</div>
+      <div class="sentence">5. Lack of sleep often leads to <span class="hint-input"><span class="first-letter">f</span><input type="text" data-answer="fuzzy"></span> <b>thinking</b>, making it harder to make even simple decisions.</div>
+      <div class="sentence">6. We had to <b>work</b> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="around"></span> the technical problems and find another way to finish the presentation.</div>
+      <div class="sentence">7. Constantly worrying about things you can't control can really <b>wear your mind</b> <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="down"></span>.</div>
+      <div class="sentence">8. Instead of fighting your emotions, sometimes it's better to <b>lean</b> <span class="hint-input"><span class="first-letter">i</span><input type="text" data-answer="into"></span> them and try to understand where they're coming from.</div>
+      <div class="sentence">9. Being surrounded by negative news can <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="dampen"></span> <b>your mood</b>, even if you weren't feeling bad to begin with.</div>
+      <div class="sentence">10. After a stressful few weeks, I'm trying to <b>get back</b> <span class="hint-input"><span class="first-letter">o</span><input type="text" data-answer="on"></span> <b>track</b> with my sleep and exercise routine.</div>
+      <div class="sentence">11. After spending hours answering emails, I needed to <span class="hint-input"><span class="first-letter">sw…</span><input type="text" data-answer="switch"></span> <b>gears</b> and focus on something more creative.</div>
+      <div class="sentence">12. She was <b>in the</b> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="thick"></span> <b>of</b> a particularly stressful project when her manager asked her to take on another task.</div>
+      <div class="sentence">13. Delegating some of my responsibilities really helped <b>take the pressure</b> <span class="hint-input"><span class="first-letter">o</span><input type="text" data-answer="off"></span>.</div>
+      <div class="sentence">14. Watching someone struggle with a serious illness can be extremely <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="distressing"></span>, especially when you feel powerless to help.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-2">↻ Reset</button>
+        <span class="card-score" data-score="r4-2"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="section-title"><span class="num">5</span> Questions</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday</h3>
+      <p class="sentence">According to the article, what is brain fog and how do we fix it?</p>
+      <h3>Friday</h3>
+      <p class="sentence">What do you think has the biggest impact on our ability to concentrate: technology, stress, lack of sleep, or something else?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. Do you think modern lifestyles are making people more likely to experience <b class="v">sluggishness</b> and <b class="v">fatigue</b>? Why?</p>
+      <p class="sentence">2. What do you think <b class="v">wears people's minds down</b> more: work, relationships, financial problems, or constant everyday decisions?</p>
+      <p class="sentence">3. What do you think is the best way to <b class="v">get back on track</b> after a period of stress or low motivation?</p>
+      <p class="sentence">4. What kinds of situations are most <b class="v">distressing</b> for people today, in your opinion?</p>
+      <p class="sentence">5. Do you think we have unrealistic expectations about always being productive and <b class="v">at our peak</b>?</p>
+      <p class="sentence">6. Can someone be successful without being <b class="v">on their A-game</b> every day? Why or why not?</p>
+    </div>
+
+    <div class="card">
+      <h3>5.1 Presentation</h3>
+      <div class="links"><a class="pur" href="https://docs.google.com/presentation/d/1xFIFxik0T811aTcVM_UetNE_7pKTTcRg2YO5glRd-pU/edit?usp=sharing" target="_blank">Follow the link</a></div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target'):null;
+    if(drop&&!drop.classList.contains('dz-radio')){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  if(e.target.classList.contains('option')){
+    const opt=e.target,sent=opt.closest('.sentence');
+    sent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    sent.querySelector('.dz-radio').dataset.selected=opt.dataset.value;
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.option,.match-target,.chip,.blank').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        if(dz.dataset.selected)sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correctOpt=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correctOpt)correctOpt.classList.add('answer-revealed');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.answer-revealed').forEach(el=>el.classList.remove('answer-revealed'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
+  card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — your mind is crystal clear!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
