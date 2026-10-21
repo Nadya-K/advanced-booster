@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Some People Are Always Late — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #f3efe6; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 40px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: #fff; border: 2px solid var(--purple-light); border-radius: 8px; padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+
+  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .set-group { background: var(--soft); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--purple); }
+  .set-group p { font-size: 15.5px; line-height: 1.7; margin-bottom: 8px; }
+  .set-group p:last-child { margin-bottom: 0; }
+  .set-blank { display: inline-block; min-width: 90px; border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline; }
+  .set-dz { min-width: 140px; min-height: 36px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 4px 12px; margin: 0 0 16px; display: inline-block; vertical-align: middle; transition: all 0.2s ease; }
+  .set-dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .set-dz .chip { font-size: 13px; padding: 4px 10px; }
+  .set-dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .set-dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .blank { width: 130px; font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 280px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 26px; }
+    .cover-text p { font-size: 14px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .set-dz { min-width: 180px; min-height: 44px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#videopractice">Video practice</a>
+    <a href="#revision">Revision</a>
+    <a href="#questions">Questions</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Why Some People Are Always Late — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Why Some People Are Always Late</h1>
+      <p>Are you a timekeeper or a timebender?</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1A-10tYbG3qVjs1HIIgUCbhnD-6IL3RmE/view" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/d/1wBvKADWmt6pa5eQ3M2QxbGQN1GzPhT-q/view" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/ae/1205202273/why-some-people-are-always-late-bbc-reel-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1A-10tYbG3qVjs1HIIgUCbhnD-6IL3RmE/view" target="_blank">▶ Open video</a>
+        <a class="alt" href="https://youtu.be/uk-JuzGlSgs?si=Wyms8zszt8Rohe0s" target="_blank">▶ Watch on YouTube</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>Ok, confession time. I'm someone with a slightly annoying tendency to be late. Well, slightly annoying for me, very annoying for everybody else. In fact, this video was supposed to come out in January. Yeah. But I'm not alone in being <b class="v">punctually challenged</b>. A 2014 YouGov survey found that one in five Americans are late to work at least once a week, and actually us Millennials who seem to be the worst at it. So what's going on? Are some of us just more <b class="v">hardwired</b> to be late than others? This is something author Grace Pacie decided to look into to try and understand her own struggle with punctuality. In terms of personalities it's a bell curve. At one end of the scale, there are people I call 'timekeepers', who are anxious to be early, and at the other end of the scale, I call us 'timebenders'. A 'timebender' doesn't like routine. We don't like tasks that are familiar, we get bored pretty easily. We can focus really well when we're interested in something, and if <b class="v">time is tight</b> we can work really effectively. If you wanted to walk into an office and pick the 'timebenders', they are the ones with the messy desks, because they don't finish one thing before starting another. I'm not going to lie, that does sound a lot like me. And quite a lot of this seems to <b class="v">be baked into</b> our personality. So are there particular <b class="v">personality traits</b> that might be leading us to be regularly late?</p>
+        <p>When it comes to lateness one of their major personality traits is <b class="v">conscientiousness</b>. Now, conscientiousness is one of the big five personality traits, along with things like agreeableness and extroversion, so it's really important. You can measure it by asking people questions about how tidy they are, how organised they are. One of the questions does concern whether they're punctual. You know, all of these things about whether you are a very ordered person. OK, so perhaps I'm just not a very conscientious person, but I can't help but feel maybe there's more going on in my head with the way I'm able to <b class="v">keep track of time</b>. Grace Pacie believes those of us who are 'timebenders' experience time in a different way to others. We have a different <b class="v">perception of time</b> to most people. Every minute isn't the same length for us. Time can <b class="v">speed up and slow down</b>. We can <b class="v">get deeply engrossed in</b> something and not be aware of time at all. On the other hand, if we have a deadline, we can work really effectively. A 2016 study by Washington University psychologists found something similar. They looked into our ability to mentally <b class="v">measure time</b>, which they described as our Time-Based Prospective Memory. In an experiment, the subjects had a set time to complete a task and even had a clock they were allowed to check. However the tasks were designed to be engrossing, to distract people from clock watching. Their results were clear: Some people were naturally better at <b class="v">estimating the passing of time</b> and using those memories to effectively plan in the future.</p>
+        <p>What frustrates me, though, is that I'm not late for everything. I never miss planes, I'm pretty good with trains, but getting my daughter to nursery on time each day or arriving early for social gatherings is always a struggle. One of the most revealing things that came out of my research was that we're not late for everything. We can be on time when it matters. And what that means to us is that there are consequences for our being late. The times when we <b class="v">slip into</b> our worst 'timebending', are when there are no firm deadlines and no consequences. And that tends to be for social events. So when we say I can be on time when it matters, we can be very hurtful to the people in our lives who matter because they are the ones that see us as always being late. I think it's really helpful to recognise the power of deadlines and how important it is that they are real, external and have consequences. Just asking for a deadline or even suggesting a deadline puts it out there in the real world, and therefore we take it seriously. We cannot <b class="v">pluck a deadline from the air</b> and work to it. It has to have consequences.</p>
+        <p>As it's our friends who often feel the <b class="v">full force of</b> our lateness, most friendship groups usually have that person who is known as being 'the late one'. If yours doesn't, then it's probably you. However, these social expectations can make the problem worse. If you know people are expecting you to be late, it's more likely that you will be. One problem with people who might be known for being late is that they just assume that's something that's so much a part of their genes and their makeup that they don't even try to kind of correct the behaviour. So it's really in this way that our kind of beliefs about ourselves can become a <b class="v">self-fulfilling prophecy</b>, and that can actually be quite <b class="v">self-sabotaging</b> when with a bit of effort, we might be able to change. And it's that idea that we can choose to change our personality, that our personality traits aren't <b class="v">set in stone</b>, <b class="v">destined from birth</b>, but rather can be <b class="v">malleable</b>, that's one of the most exciting recent developments in psychology.</p>
+        <p>For example, some studies have shown that I could train myself to be more conscientious. These studies have tended to last a few weeks to a few months. They try to get the participants to just do things like form a detailed schedule for each day to set aside a time to organise their desk if that's messy, their room, if that's messy. You know, all of these things that we know that people with natural, high trait conscientiousness do, and they might lack. And what happens is that just by practicing those things and being a bit more conscious about when you do them, it just forms these kinds of mental habits. It just helps to retrain the brain a little bit. So, being a 'timebender' is, to some degree, part of our personality, and some of us might be better at mentally keeping track of time than others. However, that doesn't mean that we have to accept that we will forever be 'the late one'. By setting ourselves <b class="v">meaningful deadlines</b> with consequences, and by retraining certain behaviours we can <b class="v">alter our personality</b> and hopefully improve our punctuality. Oh, damn, sorry, I've got to...</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1wBvKADWmt6pa5eQ3M2QxbGQN1GzPhT-q/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ae/1205202273/why-some-people-are-always-late-bbc-reel-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-3">
+      <h3>3.3 Match the halves</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Beginnings</h4>
+          <div class="match-target" data-answer="you need to prioritise what matters most."><span class="term">When time is tight,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="you become extremely absorbed in what you're doing."><span class="term">If you get deeply engrossed in something,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="it is based on an arbitrary guess rather than evidence."><span class="term">If a deadline is plucked from the air,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="it is an established and natural part of that culture."><span class="term">If something is baked into a culture,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="you are behaving in a way that makes your own success more difficult."><span class="term">If your behaviour is self-sabotaging,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="you can change or reshape it relatively easily."><span class="term">If something is malleable,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="you may not notice how much time has passed."><span class="term">If you lose track of time,</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="your expectations can actually help make the expected outcome happen."><span class="term">If something is a self-fulfilling prophecy,</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Endings</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="it is an established and natural part of that culture.">it is an established and natural part of that culture.</div>
+            <div class="match-item" data-word="you may not notice how much time has passed.">you may not notice how much time has passed.</div>
+            <div class="match-item" data-word="you can change or reshape it relatively easily.">you can change or reshape it relatively easily.</div>
+            <div class="match-item" data-word="your expectations can actually help make the expected outcome happen.">your expectations can actually help make the expected outcome happen.</div>
+            <div class="match-item" data-word="you are behaving in a way that makes your own success more difficult.">you are behaving in a way that makes your own success more difficult.</div>
+            <div class="match-item" data-word="you become extremely absorbed in what you're doing.">you become extremely absorbed in what you're doing.</div>
+            <div class="match-item" data-word="it is based on an arbitrary guess rather than evidence.">it is based on an arbitrary guess rather than evidence.</div>
+            <div class="match-item" data-word="you need to prioritise what matters most.">you need to prioritise what matters most.</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-4">
+      <h3>3.4 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="measure time">measure time</div>
+        <div class="chip" data-word="hardwired">hardwired</div>
+        <div class="chip" data-word="tight">tight</div>
+        <div class="chip" data-word="personality traits">personality traits</div>
+        <div class="chip" data-word="slowed down">slowed down</div>
+        <div class="chip" data-word="baked into">baked into</div>
+        <div class="chip" data-word="engrossed in">engrossed in</div>
+        <div class="chip" data-word="lose track of time">lose track of time</div>
+        <div class="chip" data-word="speed up">speed up</div>
+        <div class="chip" data-word="perception of time">perception of time</div>
+        <div class="chip" data-word="conscientiousness">conscientiousness</div>
+        <div class="chip" data-word="punctually challenged">punctually challenged</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. I'm chronically <span class="dz" data-answer="punctually challenged"></span>, so I always give myself an extra 20 minutes to get anywhere.</li>
+        <li class="sentence">2. Some people seem to be <span class="dz" data-answer="hardwired"></span> to worry about the future, even when everything is going well.</li>
+        <li class="sentence">3. When time is <span class="dz" data-answer="tight"></span>, I tend to focus on the most important tasks and ignore everything else.</li>
+        <li class="sentence">4. The ability to work under pressure is <span class="dz" data-answer="baked into"></span> the culture of many high-performing companies.</li>
+        <li class="sentence">5. Certain <span class="dz" data-answer="personality traits"></span>, such as patience and conscientiousness, can have a significant impact on how we manage our time.</li>
+        <li class="sentence">6. Research suggests that <span class="dz" data-answer="conscientiousness"></span> is one of the personality traits most closely linked to professional success.</li>
+        <li class="sentence">7. I completely <span class="dz" data-answer="lose track of time"></span> when I'm reading something I find fascinating.</li>
+        <li class="sentence">8. Children often have a very different <span class="dz" data-answer="perception of time"></span> from adults, especially when they are waiting for something.</li>
+        <li class="sentence">9. Time seems to <span class="dz" data-answer="speed up"></span> as we get older, while a boring meeting can make it feel as though everything has <span class="dz" data-answer="slowed down"></span>.</li>
+        <li class="sentence">10. I got so deeply <span class="dz" data-answer="engrossed in"></span> the book that I didn't notice how late it had become.</li>
+        <li class="sentence">11. Before clocks became widespread, people used the movement of the sun and other natural phenomena to <span class="dz" data-answer="measure time"></span>.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-5">
+      <h3>3.5 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching word (or tap the word, then tap the ending). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="challenged"><span class="term">be punctually</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="tight"><span class="term">time is</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="traits"><span class="term">personality</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="track of time"><span class="term">keep</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="time"><span class="term">perception of</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="prophecy"><span class="term">a self-fulfilling</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="stone"><span class="term">be set in</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="from birth"><span class="term">be destined</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="aside time"><span class="term">set</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="brain"><span class="term">retrain the</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="degree"><span class="term">to some</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="deadlines"><span class="term">meaningful</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="personality"><span class="term">alter your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="punctuality"><span class="term">improve your</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="time">time</div>
+            <div class="match-item" data-word="stone">stone</div>
+            <div class="match-item" data-word="track of time">track of time</div>
+            <div class="match-item" data-word="challenged">challenged</div>
+            <div class="match-item" data-word="prophecy">prophecy</div>
+            <div class="match-item" data-word="aside time">aside time</div>
+            <div class="match-item" data-word="traits">traits</div>
+            <div class="match-item" data-word="punctuality">punctuality</div>
+            <div class="match-item" data-word="deadlines">deadlines</div>
+            <div class="match-item" data-word="tight">tight</div>
+            <div class="match-item" data-word="from birth">from birth</div>
+            <div class="match-item" data-word="brain">brain</div>
+            <div class="match-item" data-word="degree">degree</div>
+            <div class="match-item" data-word="personality">personality</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
+        <span class="card-score" data-score="v3-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-6">
+      <h3>3.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="plucked the date from the air">plucked the date from the air</div>
+        <div class="chip" data-word="slip into">slip into</div>
+        <div class="chip" data-word="self-sabotaging">self-sabotaging</div>
+        <div class="chip" data-word="set in stone">set in stone</div>
+        <div class="chip" data-word="malleable">malleable</div>
+        <div class="chip" data-word="alter your personality">alter your personality</div>
+        <div class="chip" data-word="destined for greatness from birth">destined for greatness from birth</div>
+        <div class="chip" data-word="estimating the passing of time">estimating the passing of time</div>
+        <div class="chip" data-word="felt the full force of">felt the full force of</div>
+        <div class="chip" data-word="set meaningful deadlines">set meaningful deadlines</div>
+        <div class="chip" data-word="become a self-fulfilling prophecy">become a self-fulfilling prophecy</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. Without checking my phone, I'm terrible at <span class="dz" data-answer="estimating the passing of time"></span>.</li>
+        <li class="sentence">2. Putting off important tasks until the last minute is completely <span class="dz" data-answer="self-sabotaging"></span>.</li>
+        <li class="sentence">3. It's easy to <span class="dz" data-answer="slip into"></span> a routine where you spend most of your free time scrolling through social media.</li>
+        <li class="sentence">4. The deadline seems completely arbitrary — it feels as though someone simply <span class="dz" data-answer="plucked the date from the air"></span>.</li>
+        <li class="sentence">5. When the deadline was moved forward by two weeks, we <span class="dz" data-answer="felt the full force of"></span> the pressure.</li>
+        <li class="sentence">6. If you keep telling yourself that you're terrible at managing time, it can <span class="dz" data-answer="become a self-fulfilling prophecy"></span>.</li>
+        <li class="sentence">7. Our habits and even some aspects of our personality are far more <span class="dz" data-answer="malleable"></span> than we tend to believe.</li>
+        <li class="sentence">8. The schedule isn't <span class="dz" data-answer="set in stone"></span>, so we can still make a few adjustments.</li>
+        <li class="sentence">9. People sometimes assume that highly successful individuals were <span class="dz" data-answer="destined for greatness from birth"></span>, but their achievements are usually more complicated than that.</li>
+        <li class="sentence">10. Moving abroad can <span class="dz" data-answer="alter your personality"></span> by forcing you to become more independent and adaptable.</li>
+        <li class="sentence">11. Instead of setting arbitrary deadlines, managers should <span class="dz" data-answer="set meaningful deadlines"></span> that help employees prioritise their workload.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
+        <span class="card-score" data-score="v3-6"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typeblank" data-id="v3-7">
+      <h3>3.7 Fill in the missing words</h3>
+      <div class="instruction">💡 Type the missing preposition into each gap.</div>
+      <div class="sentence">1. Competition is <b>baked</b> <input class="blank" data-answer="into" style="width:90px;"> the culture of the company.</div>
+      <div class="sentence">2. She got <b>deeply engrossed</b> <input class="blank" data-answer="in" style="width:90px;"> the book and completely forgot about the time.</div>
+      <div class="sentence">3. After a stressful day, I usually <b>slip</b> <input class="blank" data-answer="into" style="width:90px;"> a more relaxed state when I get home.</div>
+      <div class="sentence">4. I don't know the exact number, so I just <b>plucked it</b> <input class="blank" data-answer="from" style="width:90px;"> <b>the air</b>.</div>
+      <div class="sentence">5. Small businesses often <b>feel the full force</b> <input class="blank" data-answer="of" style="width:90px;"> an economic crisis.</div>
+      <div class="sentence">6. The date isn't <b>set</b> <input class="blank" data-answer="in" style="width:90px;"> <b>stone</b>, so we can still change our plans.</div>
+      <div class="sentence">7. Some people seem to believe they are <b>destined</b> <input class="blank" data-answer="for" style="width:90px;"> success from an early age.</div>
+      <div class="sentence">8. I try to <b>set</b> <input class="blank" data-answer="aside" style="width:90px;"> some money every month for emergencies.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
+        <span class="card-score" data-score="v3-7"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="videopractice">
+    <div class="section-title"><span class="num">4</span> Video practice</div>
+    <div class="card" data-task="typeblank" data-id="vp4-1">
+      <h3>4.1 Watch the video and write the missing words down</h3>
+      <div class="instruction">💡 Open each part, watch, and type the missing words into the gaps.</div>
+
+      <div class="links" style="margin:0 0 12px"><a href="https://drive.google.com/file/d/1Jncin8gZ_jGH_wyETuHhawuRb2WG8-Yz/preview" target="_blank">▶ Part 1</a></div>
+      <div class="sentence">I'm someone with a slightly annoying tendency to be late. Well, slightly annoying for me, very annoying for everybody else. In fact, this video was supposed to come out in January. Yeah. But I'm not alone in being <input class="blank" data-answer="punctually"> <input class="blank" data-answer="challenged">. A 2014 YouGov survey found that one in five Americans are late to work at least once a week, and actually us Millennials who seem to be the worst at it. So what's going on? Are some of us just more <input class="blank" data-answer="hardwired"> to be late than others? This is something author Grace Pacie decided to look into to try and understand her own struggle <input class="blank" data-answer="with"> punctuality. In terms of personalities it's a bell curve. At one end of the scale, there are people I call 'timekeepers', who are anxious to be early, and at the other end of the scale, I call us 'timebenders'. A 'timebender' doesn't like routine. We don't like tasks that are familiar, we get bored pretty easily. We can focus really well when we're interested in something, and if <b>time is</b> <input class="blank" data-answer="tight"> we can work really effectively. If you wanted to walk into an office and pick the 'timebenders', they are the ones with the messy desks, because they don't finish one thing before starting another. I'm not going to lie, that does sound a lot like me. And quite a lot of this seems to <b>be</b> <input class="blank" data-answer="baked"> <input class="blank" data-answer="into"> our personality. So are there particular <input class="blank" data-answer="personality"> <input class="blank" data-answer="traits"> that might be leading us to be regularly late?</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1lj3QC8IgeFlayF88AsMxdCNQXbNTq68a/preview" target="_blank">▶ Part 2</a></div>
+      <div class="sentence">When it comes to lateness one of their major personality traits is <input class="blank" data-answer="conscientiousness">. Now, conscientiousness is one of the big five personality traits, along with things like agreeableness and extroversion, so it's really important. You can measure it by asking people questions about how tidy they are, how organised they are. One of the questions does concern whether they're punctual. You know, all of these things about whether you are a very ordered person. OK, so perhaps I'm just not a very conscientious person, but I can't help but feel maybe there's more going on in my head with the way I'm able to <input class="blank" data-answer="keep"> <input class="blank" data-answer="track"> <b>of time</b>. Grace Pacie believes those of us who are 'timebenders' experience time in a different way to others. We have a different <input class="blank" data-answer="perception"> <b>of</b> <input class="blank" data-answer="time"> to most people. Every minute isn't the same length for us. Time can <input class="blank" data-answer="speed"> <b>up and</b> <input class="blank" data-answer="slow"> <input class="blank" data-answer="down">. We can <b>get</b> <input class="blank" data-answer="deeply"> <input class="blank" data-answer="engrossed"> <input class="blank" data-answer="in"> something and not be aware of time at all. On the other hand, if we have a deadline, we can work really effectively.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1scHGW0UIsq2-5F5wi5SfLd4TqoKmuFO7/preview" target="_blank">▶ Part 3</a></div>
+      <div class="sentence">A 2016 study by Washington University psychologists found something similar. They looked into our ability to mentally <input class="blank" data-answer="measure"> <input class="blank" data-answer="time">, which they described as our Time-Based Prospective Memory. In an experiment, the subjects had a set time to complete a task and even had a clock they were allowed to check. However the tasks were designed to be <input class="blank" data-answer="engrossing">, to distract people from clock watching. Their results were clear: Some people were naturally better at <input class="blank" data-answer="estimating"> <b>the</b> <input class="blank" data-answer="passing"> <b>of time</b> and using those memories to effectively plan in the future. What frustrates me, though, is that I'm not late for everything. I never miss planes, I'm pretty good with trains, but getting my daughter to nursery on time each day or arriving early for social gatherings is always a struggle. One of the most revealing things that came out of my research was that we're not late for everything. We can be on time when it matters. And what that means to us is that there are consequences for our being late. The times when we <input class="blank" data-answer="slip"> <input class="blank" data-answer="into"> our worst 'timebending', are when there are no firm deadlines and no consequences. And that tends to be for social events. So when we say I can be on time when it matters, we can be very hurtful to the people in our lives who matter because they are the ones that see us as always being late. I think it's really helpful to recognise the <input class="blank" data-answer="power"> of deadlines and how important it is that they are real, external and have consequences. Just asking for a deadline or even suggesting a deadline puts it out there in the real world, and therefore we take it seriously. We cannot <input class="blank" data-answer="pluck"> <b>a</b> <input class="blank" data-answer="deadline"> <b>from the</b> <input class="blank" data-answer="air"> and work to it. It has to have consequences.</div>
+
+      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1HYpF5-d2tQgbBYJ-IWQB9mh6z8IarTWX/preview" target="_blank">▶ Part 4</a></div>
+      <div class="sentence">As it's our friends who often feel the <input class="blank" data-answer="full"> <input class="blank" data-answer="force"> of our lateness, most friendship groups usually have that person who is known as being 'the late one'. If yours doesn't, then it's probably you. However, these social expectations can make the problem worse. If you know people are expecting you to be late, it's more likely that you will be. One problem with people who might be known for being late is that they just assume that's something that's so much a part of their genes and their makeup that they don't even try to kind of correct the behaviour. So it's really in this way that our kind of beliefs about ourselves can become <b>a</b> <input class="blank" data-answer="self"><b>-</b><input class="blank" data-answer="fulfilling"> <input class="blank" data-answer="prophecy">, and that can actually be quite <input class="blank" data-answer="self">-<input class="blank" data-answer="sabotaging"> when with a bit of effort, we might be able to change. And it's that idea that we can choose to change our personality, that our personality traits aren't <input class="blank" data-answer="set"> <b>in</b> <input class="blank" data-answer="stone">, <input class="blank" data-answer="destined"> <b>from</b> <input class="blank" data-answer="birth">, but rather can be <input class="blank" data-answer="malleable">, that's one of the most exciting recent developments in psychology. For example, some studies have shown that I could train myself to be more conscientious. These studies have tended to last a few weeks to a few months. They try to get the participants to just do things like form a <input class="blank" data-answer="detailed"> schedule for each day to set aside a time to organise their desk if that's messy, their room, if that's messy. You know, all of these things that we know that people with natural, high trait conscientiousness do, and they might lack. And what happens is that just by practicing those things and being a bit more conscious about when you do them, it just forms these kinds of mental habits. It just helps to <input class="blank" data-answer="retrain"> the brain a little bit. So, being a 'timebender' is, to some degree, part of our personality, and some of us might be better at mentally <input class="blank" data-answer="keeping"> track of <input class="blank" data-answer="time"> than others. However, that doesn't mean that we have to accept that we will forever be 'the late one'. By setting ourselves <input class="blank" data-answer="meaningful"> <input class="blank" data-answer="deadlines"> with consequences, and by retraining certain behaviours we can <input class="blank" data-answer="alter"> <b>our</b> <input class="blank" data-answer="personality"> and hopefully improve our punctuality.</div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="vp4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="vp4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="vp4-1">↻ Reset</button>
+        <span class="card-score" data-score="vp4-1"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">5</span> Revision</div>
+
+    <div class="card" data-task="setfill" data-id="r5-1">
+      <h3>5.1 Complete each set of three sentences with the same vocabulary item from the list</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the dashed box above a group of three sentences — one item fits all three. Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="feel the full force of">feel the full force of</div>
+        <div class="chip" data-word="engrossed">engrossed</div>
+        <div class="chip" data-word="baked into">baked into</div>
+        <div class="chip" data-word="when time is tight">when time is tight</div>
+        <div class="chip" data-word="set in stone">set in stone</div>
+        <div class="chip" data-word="hardwired">hardwired</div>
+        <div class="chip" data-word="personality traits">personality traits</div>
+        <div class="chip" data-word="punctually challenged">punctually challenged</div>
+        <div class="chip" data-word="to set meaningful deadlines">to set meaningful deadlines</div>
+      </div>
+
+      <div class="set-group" data-answer="punctually challenged">
+        <div class="set-dz"></div>
+        <p>I'm usually late for appointments, so I guess I'm <span class="set-blank"></span>.</p>
+        <p>She's always the last person to arrive at meetings because she's <span class="set-blank"></span>.</p>
+        <p>Being <span class="set-blank"></span> can make it difficult to maintain a good reputation at work.</p>
+      </div>
+
+      <div class="set-group" data-answer="hardwired">
+        <div class="set-dz"></div>
+        <p>Some people are <span class="set-blank"></span> to check their phones whenever they feel bored.</p>
+        <p>We may be <span class="set-blank"></span> to look for patterns in everything we see.</p>
+        <p>Humans are <span class="set-blank"></span> to seek social approval.</p>
+      </div>
+
+      <div class="set-group" data-answer="when time is tight">
+        <div class="set-dz"></div>
+        <p>We usually order takeout <span class="set-blank"></span>.</p>
+        <p><span class="set-blank"></span>, I prefer to focus on the most important tasks.</p>
+        <p>You need to make quick decisions <span class="set-blank"></span>.</p>
+      </div>
+
+      <div class="set-group" data-answer="baked into">
+        <div class="set-dz"></div>
+        <p>Attention to detail is <span class="set-blank"></span> the company's culture.</p>
+        <p>Competition is <span class="set-blank"></span> the education system.</p>
+        <p>Technology is now <span class="set-blank"></span> almost every aspect of our lives.</p>
+      </div>
+
+      <div class="set-group" data-answer="personality traits">
+        <div class="set-dz"></div>
+        <p>Patience and curiosity are useful <span class="set-blank"></span> for a teacher.</p>
+        <p>Certain <span class="set-blank"></span> can make people more likely to be punctual.</p>
+        <p>Researchers are studying which <span class="set-blank"></span> are associated with success.</p>
+      </div>
+
+      <div class="set-group" data-answer="engrossed">
+        <div class="set-dz"></div>
+        <p>She got deeply <span class="set-blank"></span> in the documentary and forgot to check her phone.</p>
+        <p>He became deeply <span class="set-blank"></span> in the conversation and didn't notice the time.</p>
+        <p>I got deeply <span class="set-blank"></span> in an interesting article and missed my train.</p>
+      </div>
+
+      <div class="set-group" data-answer="feel the full force of">
+        <div class="set-dz"></div>
+        <p>Small businesses often <span class="set-blank"></span> an economic crisis.</p>
+        <p>The industry is beginning to <span class="set-blank"></span> rising costs.</p>
+        <p>Low-income families <span class="set-blank"></span> increases in food prices.</p>
+      </div>
+
+      <div class="set-group" data-answer="set in stone">
+        <div class="set-dz"></div>
+        <p>The date isn't <span class="set-blank"></span> yet.</p>
+        <p>Our plans aren't <span class="set-blank"></span>, so we can still make changes.</p>
+        <p>Nothing is <span class="set-blank"></span> until the contract is signed.</p>
+      </div>
+
+      <div class="set-group" data-answer="to set meaningful deadlines">
+        <div class="set-dz"></div>
+        <p>Instead of rushing everything at the last minute, try <span class="set-blank"></span>.</p>
+        <p>Good managers know how <span class="set-blank"></span> that are realistic.</p>
+        <p>Learning <span class="set-blank"></span> can help you avoid unnecessary stress.</p>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-1">↻ Reset</button>
+        <span class="card-score" data-score="r5-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="r5-2">
+      <h3>5.2 Choose the best option</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. Anna was so <span class="select-wrap"><select data-answer="deeply engrossed in"><option value="">Choose...</option><option value="set in stone">set in stone</option><option value="deeply engrossed in">deeply engrossed in</option><option value="baked into">baked into</option></select></span> her work that she didn't notice it was already midnight.</div>
+      <div class="sentence">2. Being late isn't necessarily a fixed personality trait. People's behaviour can be quite <span class="select-wrap"><select data-answer="malleable"><option value="">Choose...</option><option value="hardwired">hardwired</option><option value="tight">tight</option><option value="malleable">malleable</option></select></span>.</div>
+      <div class="sentence">3. The deadline was <span class="select-wrap"><select data-answer="plucked from the air"><option value="">Choose...</option><option value="set in stone">set in stone</option><option value="plucked from the air">plucked from the air</option><option value="baked into">baked into</option></select></span>, rather than being based on realistic estimates.</div>
+      <div class="sentence">4. When time is <span class="select-wrap"><select data-answer="tight"><option value="">Choose...</option><option value="malleable">malleable</option><option value="engrossed">engrossed</option><option value="tight">tight</option></select></span>, we need to focus on the most urgent tasks.</div>
+      <div class="sentence">5. His belief that he's "bad at languages" may become <span class="select-wrap"><select data-answer="a self-fulfilling prophecy"><option value="">Choose...</option><option value="a personality trait">a personality trait</option><option value="a self-fulfilling prophecy">a self-fulfilling prophecy</option><option value="a timekeeper">a timekeeper</option></select></span>.</div>
+      <div class="sentence">6. Some people <span class="select-wrap"><select data-answer="lose track of time"><option value="">Choose...</option><option value="set meaningful deadlines">set meaningful deadlines</option><option value="pluck a deadline from the air">pluck a deadline from the air</option><option value="lose track of time">lose track of time</option></select></span> when they're scrolling through social media.</div>
+      <div class="sentence">7. The rules aren't <span class="select-wrap"><select data-answer="set in stone"><option value="">Choose...</option><option value="baked into">baked into</option><option value="hardwired">hardwired</option><option value="set in stone">set in stone</option></select></span>. We can still change them.</div>
+      <div class="sentence">8. The ability to meet deadlines is often associated with <span class="select-wrap"><select data-answer="conscientiousness"><option value="">Choose...</option><option value="perception of time">perception of time</option><option value="conscientiousness">conscientiousness</option><option value="self-sabotaging">self-sabotaging</option></select></span>.</div>
+      <div class="sentence">9. After the accident, the company <span class="select-wrap"><select data-answer="felt the full force of"><option value="">Choose...</option><option value="slipped into">slipped into</option><option value="plucked from the air">plucked from the air</option><option value="felt the full force of">felt the full force of</option></select></span> public criticism.</div>
+      <div class="sentence">10. You don't have to be <span class="select-wrap"><select data-answer="destined from birth"><option value="">Choose...</option><option value="set in stone">set in stone</option><option value="punctually challenged">punctually challenged</option><option value="destined from birth">destined from birth</option></select></span> to become successful.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-2">↻ Reset</button>
+        <span class="card-score" data-score="r5-2"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>5.3 Agree or disagree? Answer each question and use at least one target expression in your answer. <i>(Optional)</i></h3>
+      <p class="sentence"><i>Some people are simply <b>hardwired to be late</b>.</i></p>
+      <p class="sentence"><i>Personality traits are mostly <b>set in stone</b> by adulthood.</i></p>
+      <p class="sentence"><i>People are <b>destined from birth</b> to become successful or unsuccessful.</i></p>
+      <p class="sentence"><i>Having strict deadlines is always motivating.</i></p>
+      <p class="sentence"><i>Modern technology has changed our <b>perception of time</b>.</i></p>
+      <p class="sentence"><i>People can completely <b>alter their personality</b> if they really want to.</i></p>
+      <p class="sentence"><i>Being extremely conscientious can sometimes become <b>self-sabotaging</b>.</i></p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your answers here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="section-title"><span class="num">6</span> Questions</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday</h3>
+      <p class="sentence">According to the video, why are some people more likely to be late than others?</p>
+      <h3>Friday</h3>
+      <p class="sentence">Would you describe yourself as a timekeeper or a timebender? What makes you say that?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. Which <b class="v">personality traits</b> do you think are most closely connected to punctuality?</p>
+      <p class="sentence">2. Have other people ever labelled you as "the late one," "the organised one," or something similar? Do you think the label was accurate?</p>
+      <p class="sentence">3. Do you usually <b class="v">keep track of time</b>, or do you often <b class="v">lose track of time</b>?</p>
+      <p class="sentence">4. What kinds of situations make time seem to <b class="v">speed up or slow down</b> for you?</p>
+      <p class="sentence">5. Have you ever <b class="v">felt the full force of</b> someone else's lateness? How did it affect you?</p>
+      <p class="sentence">6. Do you believe some aspects of our personalities are <b class="v">destined from birth</b>, or are they mainly shaped by our experiences?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function placeSetChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.set-dz'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.set-dz'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('set-dz'))placeSetChip(drop,el);
+    else if(drop&&drop.classList.contains('dz'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('set-dz')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const sdz=e.target.closest('.set-dz');
+    if(sdz&&selected.classList.contains('chip')){placeSetChip(sdz,selected);return;}
+    const dz=e.target.closest('.dz');
+    if(dz&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.match-target,.chip,.blank,.select-wrap select,.set-dz').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else{sel.classList.add('incorrect');}
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      total++;
+      const dz=group.querySelector('.set-dz');
+      const chip=dz&&dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===group.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      const dz=group.querySelector('.set-dz');
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+group.dataset.answer;
+      if(dz)dz.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.set-dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a true timekeeper!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
