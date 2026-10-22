@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Five Habits of Self-Made Millionaires — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: #fff; border: 2px solid var(--purple-light); border-radius: 8px; padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 800; color: var(--ink); margin: 20px 0 10px; font-size: 16.5px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  /* ===== Grammar theory (solo-travel style) ===== */
+  .card.grammar-card { background: #e8f4fb; border: 1px solid #bfe0f2; border-left: 6px solid #4aa8d8; }
+  .card.grammar-card h3 { color: #1d6fa5; }
+  .gd-examples { background: #fff; border: 1px solid #bfe0f2; border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; }
+  .gd-examples p { margin-bottom: 8px; font-size: 15.5px; line-height: 1.7; }
+  .gd-examples p:last-child { margin-bottom: 0; }
+  .mh { background: #7fd8f2; padding: 0 6px; font-weight: 700; border-radius: 4px; }
+  .gd-title { display: inline-block; font-size: 22px; font-weight: 800; color: #1d6fa5; background: linear-gradient(90deg, #c8e6f6 0%, #e8f4fb 100%); border-radius: 10px; padding: 10px 18px; margin-bottom: 14px; }
+  .gd-intro { font-size: 15.5px; line-height: 1.7; margin-bottom: 16px; color: var(--ink); }
+  .gd-block { background: #fff; border-left: 4px solid #4aa8d8; border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; }
+  .gd-block:last-child { margin-bottom: 0; }
+  .gd-block h4 { color: #1d6fa5; font-size: 16px; font-weight: 800; margin-bottom: 10px; }
+  .gd-block ul { list-style: none; padding: 0; margin: 0; }
+  .gd-block ul li { margin-bottom: 8px; font-size: 15px; line-height: 1.65; }
+  .gd-block ul li:last-child { margin-bottom: 0; }
+  .gd-block ul li b { color: #1d6fa5; font-weight: 800; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .blank { width: 130px; font-size: 16px; }
+    .hint-input input { min-width: 120px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 300px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#grammar">Grammar</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Five Habits of Self-Made Millionaires — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Five Habits of Self-Made Millionaires</h1>
+      <p>The modern blueprint for building wealth</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1pAyykfmplu3mX5PvHkanrhIu7QHLwFOC/view" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/u/0/d/16UvMow4Pc4zzXFIgU4gAoOeFIRF6X3-K/view" target="_blank">📄 Expressions PDF</a>
+        <a class="alt" href="https://quizlet.com/hu/1118584636/5-actual-habits-of-self-made-millionaires-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. What does being "rich" mean to you personally?</p>
+      <p class="sentence">2. Do you believe anyone can become a self-made millionaire? Why or why not?</p>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video and catch the main idea. Answer the question:</h3>
+      <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">How would you summarize the speaker's overall philosophy or strategy for building wealth based on the five lessons?</p>
+      <div class="links"><a href="https://drive.google.com/file/d/1pAyykfmplu3mX5PvHkanrhIu7QHLwFOC/view" target="_blank">▶ Open video</a></div>
+      <p style="margin-top:12px; font-size:14px; color:#6b7280;"><i>5 ACTUAL Habits of Self-Made Millionaires (NOT CLICKBAIT) | YourRichBFF</i></p>
+    </div>
+    <div class="card">
+      <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>The average millionaire is 57 years old. I did it by age 27. And while there's not get rich quick scheme - there are 5 MAJOR secrets to becoming rich, and I promise this video is not clickbait. Lots of people <b class="v">chalk success up</b> to things like luck or being born into the right family, and while those things can make it a lot easier - understanding yourself & how the game of money is played is just as important. You see - our generation, think millennials and Gen-Z have lived most of our lives in <b class="v">financial turmoil</b>. We experienced things like 9/11, the 2008 housing market crash, and even a global pandemic. Not to mention housing prices and education costs have <b class="v">skyrocketed</b> and inflation <b class="v">is off the charts</b>, while <b class="v">wages have stagnated</b>. So it's no surprise that becoming a millionaire can <b class="v">feel more and more out of reach</b> if you weren't born to rich parents. But - the stats actually tell a different story. A 2019 study published by Wealth-X found that around 68% of those with <b class="v">a net worth</b> of $30 million or more made it themselves. Furthermore, a second study by Fidelity Investments found that 88% of all millionaires are self-made, meaning they did not inherit their wealth. And listen - coming into wealth isn't always a simple process – many people work very hard to achieve their financial success, But I'm Vivian, Your Rich BFF, and your favorite Wall Street girly, and I'm going to teach you major secrets that helped me become a millionaire in half the time it takes most people. Please like, comment, and subscribe to learn more about being good with your money! Let's get to it!</p>
+        <div class="sub">Lesson #1</div>
+        <p><b>You can only save as much as you earn:</b> <b class="v">First and foremost</b>, rich people are not <b class="v">scrimping and saving</b>. And I know what you're thinking - duh they're rich. But that's not what I mean. We as a society often <b class="v">point the finger</b> when it comes to <b class="v">financial shortcomings</b>. We blame individuals because they're overspenders, they're shopaholics, and they loveeee lattes and avocado toast. But rich people know a big secret - you can only save as much as you earn. This essentially means, it's a lot easier to come up with extra dollars by MAKING MORE than it is by <b class="v">cutting back on</b> every little purchase that brings you joy. Instead of worrying about a $5 coffee, millionaires are a lot more focused on how they can <b class="v">level up their careers</b>, so that at the end of each and every year - they can ask for <b class="v">a raise or a promotion</b>. When most people think about self-made millionaires, they imagine some entrepreneur <b class="v">working around the clock</b>, but 39% of the self-made millionaires actually get rich working for someone else, so performing well at your job - is an important part of getting to millionaire status.</p>
+        <div class="sub">Lesson #2</div>
+        <p><b>Labor vs. Growth:</b> Millionaires think a lot about scalability. Most of us trade time and labor for money, but millionaires know that these are both finite resources. We only have 24 hours in a day, 7 days a week, 365 days in a year. So if your money making is dependent on your time and labor - you're not going to have much time or energy for anything else. What's the point of being rich if you can't enjoy a nice vacation, make it in time for your kid's soccer game, or have a nice meal out with friends and family? Instead, millionaires all invest. They do so because they know while they can only work so many hours in a day - their money can work for them non-stop. By investing, they're able to bring in passive income aka where they work once, and <b class="v">reap the benefits</b> over and over again. While they do focus on making as much as possible from their jobs, they then use this money to make them even more.</p>
+        <div class="sub">Lesson #3</div>
+        <p><b>Discipline & delaying gratification:</b> Millionaires practice discipline and delayed gratification. I will be the one to say what everyone is wondering. No - millionaires are not smarter, better, faster, stronger, or anything special vs. Non-millionaires. The only <b class="v">marked difference</b> I've noticed amongst my friends who are self-made millionaires vs. those who aren't is that they're typically more disciplined, and better at <b class="v">delaying gratification</b>. For example - think about the runner's trick. You aren't running for 30 minutes, you're just running for 10 minutes 3 times. Runners think about running to the next stop sign, and then the next tree, then the landmark, and you're essentially able to <b class="v">mentally trick yourself into delaying gratification</b> aka stopping. This is the same when it comes to wealth, because if you're able to delay comforts like luxury goods, or paying for convenience earlier on in your life, you'll be able to put your money to work early, meaning you don't have to put as much money away overall. This allows you to invest early and often, so that by the time you're 30 or 40 - you'll have a major <b class="v">financial cushion</b> and can then start to really <b class="v">enjoy the fruits of your labor</b>. If present you is able to take care of future you, instead of only focusing on present you, your life will get easier and easier. And I know we've all heard of the phrase - live every day like it's your last, but realistically - it's not. If you focus on making each day as spectacular as possible, especially by using your money to do so, there may not be much left over for you a week, a month, a year, or 10 years from now. I'm not saying don't have fun, but balancing fun today with a mix of responsibility and discipline, means you'll get to have fun in the future too.</p>
+        <div class="sub">Lesson #4</div>
+        <p><b>They love changing their minds:</b> Many of us have heard the cliche term that millionaires aren't afraid of failure, but that's not the important part - <b class="v">the pivotal key</b> here is that once these rich people recognize that they've failed - they're willing and able to <b class="v">change course quickly</b>. When presented with new information, millionaires aren't shy about acknowledging that they're wrong so they waste less time trying to bail out a sinking ship. Whether it's business ideas, personal opinions, or even just directions when driving, millionaires are able to change their minds quickly and without shame. You doing so as well, will help you save time and money.</p>
+        <div class="sub">Lesson #5</div>
+        <p><b>They set ambitious goals:</b> you know I always say this - but you don't get to become a millionaire if you don't make a plan. Very few millionaires just <b class="v">wing it</b> and make it. Millionaires <b class="v">set ambitious goals</b> and act on them. Not only do they write down their goals - they also formulate plans with baby steps to get there. It may not be feasible to scale your business from $0 to $1M overnight, but 25% growth each year over 4 years could get you there. It's unlikely for you to go from making $50k annually to $300k annually in one year, but if you have a plan to <b class="v">job jump</b> every 2 years and ask for a 50% raise each time, you've certainly <b class="v">carved a roadmap</b> on how you intend to do it. By making concrete plans that align with your goals - you'll set yourself up for success.</p>
+        <p><b class="v">To close out</b> this video - the most important thing to remember is that millionaires are not special. They're not smarter or better than non-millionaires, but they do live their lives more strategically, and if you're able to do the same - you could very well become a millionaire too. The more you're able to maximize these strategies - the faster it'll happen. If this video was helpful - subscribe for more money, wealth-building, and finance tips!</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the expressions (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/u/0/d/16UvMow4Pc4zzXFIgU4gAoOeFIRF6X3-K/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/hu/1118584636/5-actual-habits-of-self-made-millionaires-flash-cards/?i=zxpms&x=1jqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-3">
+      <h3>3.3 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="out of reach">out of reach</div>
+        <div class="chip" data-word="a net worth">a net worth</div>
+        <div class="chip" data-word="financial turmoil">financial turmoil</div>
+        <div class="chip" data-word="off the charts">off the charts</div>
+        <div class="chip" data-word="wages have stagnated">wages have stagnated</div>
+        <div class="chip" data-word="point the finger at">point the finger at</div>
+        <div class="chip" data-word="scrimp and save">scrimp and save</div>
+        <div class="chip" data-word="skyrocket">skyrocket</div>
+        <div class="chip" data-word="First and foremost">First and foremost</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. The startup navigated the period of <span class="dz" data-answer="financial turmoil"></span> by focusing on its most loyal customers.</li>
+        <li class="sentence">2. It's unproductive to simply <span class="dz" data-answer="point the finger at"></span> the management without proposing solutions.</li>
+        <li class="sentence">3. Employee morale was <span class="dz" data-answer="off the charts"></span> following the announcement of the new profit-sharing scheme.</li>
+        <li class="sentence">4. While the cost of living has increased dramatically, <span class="dz" data-answer="wages have stagnated"></span> for many middle-class workers.</li>
+        <li class="sentence">5. For many young people, the dream of owning a home can feel more and more <span class="dz" data-answer="out of reach"></span>.</li>
+        <li class="sentence">6. Building <span class="dz" data-answer="a net worth"></span> of one million dollars was her primary financial target by age 40.</li>
+        <li class="sentence">7. <span class="dz" data-answer="First and foremost"></span>, we must ensure the team feels valued and heard.</li>
+        <li class="sentence">8. Her grandparents had to <span class="dz" data-answer="scrimp and save"></span> for years to buy their first car.</li>
+        <li class="sentence">9. After the product launch, demand began to <span class="dz" data-answer="skyrocket"></span>, exceeding all warehouse capacities.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-4">
+      <h3>3.4 Match collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="the right family"><span class="term">born into</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="your career"><span class="term">level up</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="shortcomings"><span class="term">financial</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="income"><span class="term">passive</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="gratification"><span class="term">delaying</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="money to"><span class="term">put your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="a roadmap"><span class="term">carved</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="more strategically"><span class="term">live your life</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="the benefits"><span class="term">reap</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="ambitious goals"><span class="term">set</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="the benefits">the benefits</div>
+            <div class="match-item" data-word="income">income</div>
+            <div class="match-item" data-word="ambitious goals">ambitious goals</div>
+            <div class="match-item" data-word="the right family">the right family</div>
+            <div class="match-item" data-word="money to">money to</div>
+            <div class="match-item" data-word="more strategically">more strategically</div>
+            <div class="match-item" data-word="shortcomings">shortcomings</div>
+            <div class="match-item" data-word="a roadmap">a roadmap</div>
+            <div class="match-item" data-word="gratification">gratification</div>
+            <div class="match-item" data-word="your career">your career</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typehint" data-id="v3-5">
+      <h3>3.5 Fill in the gaps</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
+      <div class="sentence">1. Honest budgeting is the first step to addressing one's <span class="hint-input"><span class="first-letter">f</span><input type="text" data-answer="financial"></span> <b>shortcomings</b>.</div>
+      <div class="sentence">2. To fund her new venture, she decided to <span class="hint-input"><span class="first-letter">c</span><input type="text" data-answer="cut"></span> <b>back on</b> all non-essential subscriptions and dining out.</div>
+      <div class="sentence">3. They enrolled in a professional certification program to <span class="hint-input"><span class="first-letter">l</span><input type="text" data-answer="level"></span> <b>up their careers</b>.</div>
+      <div class="sentence">4. She scheduled a meeting with her boss to confidently ask for <b>a</b> <span class="hint-input"><span class="first-letter">r</span><input type="text" data-answer="raise"></span> <b>or a promotion</b>.</div>
+      <div class="sentence">5. To meet the deadline, the entire team had to <span class="hint-input"><span class="first-letter">w</span><input type="text" data-answer="work"></span> <b>around the clock</b> for a week.</div>
+      <div class="sentence">6. If you invest wisely now, you will <span class="hint-input"><span class="first-letter">r</span><input type="text" data-answer="reap"></span> <b>the benefits</b> in your retirement.</div>
+      <div class="sentence">7. There was <b>a marked</b> <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="difference"></span> in his confidence after he completed the public speaking course.</div>
+      <div class="sentence">8. <b>Delaying</b> <span class="hint-input"><span class="first-letter">g</span><input type="text" data-answer="gratification"></span>  — like investing a bonus instead of spending it — is a key wealth-building strategy.</div>
+      <div class="sentence">9. Seeing the market trend decline, the savvy investor decided to <span class="hint-input"><span class="first-letter">c</span><input type="text" data-answer="change"></span> <b>course quickly</b> and sold her stocks.</div>
+      <div class="sentence">10. You can <b>mentally</b> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="trick"></span> <b>yourself into delaying gratification</b> by automating your savings the day you get paid.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
+        <span class="card-score" data-score="v3-5"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.6 Crossword</h3>
+      <div class="links"><a href="https://wordwall.net/embed/f0d961339a214f88b86063505a6e46e4?themeId=1&templateId=11&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="grammar">
+    <div class="section-title"><span class="num">4</span> Grammar</div>
+
+    <div class="card grammar-card">
+      <h3>4.1 Linking devices</h3>
+      <div class="gd-examples">
+        <p><span class="mh">Not to mention</span> housing prices and education costs have skyrocketed and inflation is off the charts, while wages have stagnated.</p>
+        <p><span class="mh">First and foremost</span>, rich people are not scrimping and saving.</p>
+      </div>
+      <span class="gd-title">Linking devices</span>
+      <p class="gd-intro">Linking devices are <b>words and phrases, such as "therefore," "however," and "for example," that connect ideas, sentences, and paragraphs to create a logical flow and smooth transitions.</b> They show relationships between different parts of a text, like cause and effect, comparison, contrast, and sequence, helping the reader follow the writer's train of thought.</p>
+      <div class="gd-block">
+        <h4>Common types and examples</h4>
+        <ul>
+          <li><b>To add information:</b> and, furthermore, moreover, additionally, also, in addition</li>
+          <li><b>To express reason or cause:</b> because, since, as a result of, due to, for this reason</li>
+          <li><b>To express result or effect:</b> therefore, so, as a result, consequently, thus, hence</li>
+          <li><b>To contrast ideas:</b> however, but, on the other hand, by contrast, nevertheless, whereas, although</li>
+          <li><b>To compare ideas:</b> similarly, likewise, in the same way, compared with</li>
+          <li><b>To provide examples:</b> for example, for instance, such as, to illustrate</li>
+          <li><b>To show sequence:</b> first, second(ly), next, then, finally, lastly</li>
+          <li><b>To summarize or conclude:</b> in conclusion, to summarize, therefore, in summary, overall</li>
+        </ul>
+      </div>
+      <div class="gd-block">
+        <h4>Tips for using linking devices</h4>
+        <ul>
+          <li><b>Show relationships:</b> Use linking devices to make the connection between ideas clear to the reader, such as explaining the cause of an event or the result of an action.</li>
+          <li><b>Ensure smooth flow:</b> They prevent abrupt shifts between thoughts and ensure the text reads smoothly and logically.</li>
+          <li><b>Be mindful of placement:</b> Linking words and phrases can often be placed at the beginning or in the middle of a sentence. Pay attention to punctuation, especially when a linking word starts a sentence (e.g., "However,…").</li>
+          <li><b>Vary your choices:</b> Use different linking devices to avoid repetition and add variety to your writing.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="g4-2">
+      <h3>4.2 Choose the correct option</h3>
+      <div class="instruction">💡 Select the correct linking device from the dropdown menu.</div>
+      <div class="sentence">Smartphones have fundamentally changed communication. <span class="select-wrap"><select data-answer="First"><option value="">Choose...</option><option value="Furthermore">Furthermore</option><option value="First">First</option><option value="Similarly">Similarly</option></select></span>, they provide instant global connectivity through apps <span class="select-wrap"><select data-answer="such as"><option value="">Choose...</option><option value="such as">such as</option><option value="in addition">in addition</option><option value="due to">due to</option></select></span> WhatsApp and email. <span class="select-wrap"><select data-answer="Furthermore"><option value="">Choose...</option><option value="For instance">For instance</option><option value="Therefore">Therefore</option><option value="Furthermore">Furthermore</option></select></span>, they are vital tools for education and remote work due to their access to information. <span class="select-wrap"><select data-answer="However"><option value="">Choose...</option><option value="However">However</option><option value="Because">Because</option><option value="Also">Also</option></select></span>, this constant connectivity has significant downsides. <span class="select-wrap"><select data-answer="For instance"><option value="">Choose...</option><option value="But">But</option><option value="Then">Then</option><option value="For instance">For instance</option></select></span>, excessive use can lead to social isolation; <span class="select-wrap"><select data-answer="as a result"><option value="">Choose...</option><option value="as a result">as a result</option><option value="such as">such as</option><option value="and">and</option></select></span>, people may interact less in person. <span class="select-wrap"><select data-answer="Similarly"><option value="">Choose...</option><option value="First">First</option><option value="Similarly">Similarly</option><option value="In summary">In summary</option></select></span>, the pressure to be always available can increase stress. <span class="select-wrap"><select data-answer="Therefore"><option value="">Choose...</option><option value="Therefore">Therefore</option><option value="In the same way">In the same way</option><option value="Moreover">Moreover</option></select></span>, it is crucial to find a balance. <span class="select-wrap"><select data-answer="In conclusion"><option value="">Choose...</option><option value="Next">Next</option><option value="Then">Then</option><option value="In conclusion">In conclusion</option></select></span>, while smartphones are powerful tools, we must use them mindfully.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="g4-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="g4-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="g4-2">↻ Reset</button>
+        <span class="card-score" data-score="g4-2"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">5</span> Revision</div>
+
+    <div class="card">
+      <h3>5.1 Read the article</h3>
+      <details class="text-details" open>
+        <summary>📖 Beyond the Grind: The Modern Blueprint for Building Wealth (click to collapse)</summary>
+        <p>In today's economic landscape, it's common to <b class="v">chalk success up</b> to sheer hustle. Yet, many find themselves navigating persistent <b class="v">financial turmoil</b> as living costs <b class="v">skyrocket</b> and home ownership prices seem <b class="v">to be off the charts</b>. While corporate profits soar, for the average professional, real <b class="v">wages have stagnated</b>, making financial stability <b class="v">feel more and more out of reach</b>. Building a substantial <b class="v">net worth</b> can appear as a puzzle with missing pieces.</p>
+        <p>So, what's the solution? <b class="v">First and foremost</b>, we must move beyond the traditional advice simply <b class="v">to scrimp and save</b>. It's easy <b class="v">to point the finger at</b> personal <b class="v">financial shortcomings</b>—the daily latte, the subscription services—and while it's wise <b class="v">to cut back on</b> non-essentials, this alone is a defensive tactic. The modern wealth blueprint requires a powerful offensive strategy: <b class="v">to level up your career</b>.</p>
+        <p>Gone are the days of expecting a generous <b class="v">raise or a promotion</b> simply because you <b class="v">work around the clock</b>. Loyalty often doesn't allow you to <b class="v">reap the benefits</b> of your increased value. There is <b class="v">a marked difference</b> between those who wait and those who strategically act.</p>
+        <p>This is where a refined concept of <b class="v">delaying gratification</b> comes in. It's not just about skipping pleasures; it's about learning <b class="v">to mentally trick yourself into delaying gratification</b> by linking today's choices to tomorrow's security. Every invested dollar or learned skill builds <b class="v">a financial cushion</b>, so you can eventually <b class="v">enjoy the fruits of your labor</b> without constant anxiety.</p>
+        <p>For many, <b class="v">the pivotal key</b> has been career agility — the willingness and ability <b class="v">to change course quickly</b>. This isn't about <b class="v">winging it</b>. It means <b class="v">to set ambitious goals</b> and execute a plan. The strategic <b class="v">job jump</b> has become a central tool, but it's most effective when you first <b class="v">carve a roadmap</b> identifying the skills, network, and roles that align with your targets.</p>
+        <p>The process culminates when you <b class="v">close out</b> a chapter — a stagnant role, an underpaying job — and leap into one that recognizes your worth. This proactive approach transforms your financial trajectory, turning stagnant earnings into growing assets and shifting you from a mindset of scarcity to one of empowered building.</p>
+        <p>Ultimately, modern wealth isn't just about what you save, but what you earn through strategic career moves. It's a dynamic combination of disciplined saving, smart gratification delays, and, most crucially, the courage to continually invest in and advance your own professional value.</p>
+      </details>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="r5-2">
+      <h3>5.2 Complete the sentences</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="Success|is|often|easier|if|you're|born|into|the|right|family.">
+        <span class="wo-num">1/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Success">Success</div><div class="chip" data-word="is">is</div><div class="chip" data-word="often">often</div><div class="chip" data-word="easier">easier</div><div class="chip" data-word="if">if</div><div class="chip" data-word="you're">you're</div><div class="chip" data-word="born">born</div><div class="chip" data-word="into">into</div><div class="chip" data-word="the">the</div><div class="chip" data-word="right">right</div><div class="chip" data-word="family.">family.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="To|level|up|in|your|career,|you|need|new|skills|and|strong|networks.">
+        <span class="wo-num">2/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="To">To</div><div class="chip" data-word="level">level</div><div class="chip" data-word="up">up</div><div class="chip" data-word="in">in</div><div class="chip" data-word="your">your</div><div class="chip" data-word="career,">career,</div><div class="chip" data-word="you">you</div><div class="chip" data-word="need">need</div><div class="chip" data-word="new">new</div><div class="chip" data-word="skills">skills</div><div class="chip" data-word="and">and</div><div class="chip" data-word="strong">strong</div><div class="chip" data-word="networks.">networks.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Budgeting|is|essential|to|overcome|financial|shortcomings.">
+        <span class="wo-num">3/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Budgeting">Budgeting</div><div class="chip" data-word="is">is</div><div class="chip" data-word="essential">essential</div><div class="chip" data-word="to">to</div><div class="chip" data-word="overcome">overcome</div><div class="chip" data-word="financial">financial</div><div class="chip" data-word="shortcomings.">shortcomings.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Building|passive|income|provides|long-term|financial|security.">
+        <span class="wo-num">4/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Building">Building</div><div class="chip" data-word="passive">passive</div><div class="chip" data-word="income">income</div><div class="chip" data-word="provides">provides</div><div class="chip" data-word="long-term">long-term</div><div class="chip" data-word="financial">financial</div><div class="chip" data-word="security.">security.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Delaying|gratification|is|key|to|achieving|major|goals.">
+        <span class="wo-num">5/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Delaying">Delaying</div><div class="chip" data-word="gratification">gratification</div><div class="chip" data-word="is">is</div><div class="chip" data-word="key">key</div><div class="chip" data-word="to">to</div><div class="chip" data-word="achieving">achieving</div><div class="chip" data-word="major">major</div><div class="chip" data-word="goals.">goals.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="It's|wise|to|put|your|money|to|work|through|investments.">
+        <span class="wo-num">6/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="It's">It's</div><div class="chip" data-word="wise">wise</div><div class="chip" data-word="to">to</div><div class="chip" data-word="put">put</div><div class="chip" data-word="your">your</div><div class="chip" data-word="money">money</div><div class="chip" data-word="to">to</div><div class="chip" data-word="work">work</div><div class="chip" data-word="through">through</div><div class="chip" data-word="investments.">investments.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="The|coach|carved|a|roadmap|for|the|team's|championship|run.">
+        <span class="wo-num">7/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="The">The</div><div class="chip" data-word="coach">coach</div><div class="chip" data-word="carved">carved</div><div class="chip" data-word="a">a</div><div class="chip" data-word="roadmap">roadmap</div><div class="chip" data-word="for">for</div><div class="chip" data-word="the">the</div><div class="chip" data-word="team's">team's</div><div class="chip" data-word="championship">championship</div><div class="chip" data-word="run.">run.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="To|live|your|life|more|strategically,|prioritize|your|core|values.">
+        <span class="wo-num">8/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="To">To</div><div class="chip" data-word="live">live</div><div class="chip" data-word="your">your</div><div class="chip" data-word="life">life</div><div class="chip" data-word="more">more</div><div class="chip" data-word="strategically,">strategically,</div><div class="chip" data-word="prioritize">prioritize</div><div class="chip" data-word="your">your</div><div class="chip" data-word="core">core</div><div class="chip" data-word="values.">values.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="If|you|invest|now,|you|will|reap|the|benefits|in|a|decade.">
+        <span class="wo-num">9/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="If">If</div><div class="chip" data-word="you">you</div><div class="chip" data-word="invest">invest</div><div class="chip" data-word="now,">now,</div><div class="chip" data-word="you">you</div><div class="chip" data-word="will">will</div><div class="chip" data-word="reap">reap</div><div class="chip" data-word="the">the</div><div class="chip" data-word="benefits">benefits</div><div class="chip" data-word="in">in</div><div class="chip" data-word="a">a</div><div class="chip" data-word="decade.">decade.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Set|ambitious|goals|to|push|beyond|your|comfort|zone.">
+        <span class="wo-num">10/10</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="Set">Set</div><div class="chip" data-word="ambitious">ambitious</div><div class="chip" data-word="goals">goals</div><div class="chip" data-word="to">to</div><div class="chip" data-word="push">push</div><div class="chip" data-word="beyond">beyond</div><div class="chip" data-word="your">your</div><div class="chip" data-word="comfort">comfort</div><div class="chip" data-word="zone.">zone.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-2">↻ Reset</button>
+        <span class="card-score" data-score="r5-2"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="r5-3">
+      <h3>5.3 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="the fruits of their labor">the fruits of their labor</div>
+        <div class="chip" data-word="set ambitious goals">set ambitious goals</div>
+        <div class="chip" data-word="carve a roadmap">carve a roadmap</div>
+        <div class="chip" data-word="the pivotal key">the pivotal key</div>
+        <div class="chip" data-word="close out">close out</div>
+        <div class="chip" data-word="job jump">job jump</div>
+        <div class="chip" data-word="chalk success up to">chalk success up to</div>
+        <div class="chip" data-word="wing it">wing it</div>
+        <div class="chip" data-word="a financial cushion">a financial cushion</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. The inheritance gave them <span class="dz" data-answer="a financial cushion"></span> that allowed them to take a career risk.</li>
+        <li class="sentence">2. After decades of hard work, they retired to the coast to finally enjoy <span class="dz" data-answer="the fruits of their labor"></span>.</li>
+        <li class="sentence">3. Building a strong professional network was <span class="dz" data-answer="the pivotal key"></span> to unlocking those exclusive opportunities.</li>
+        <li class="sentence">4. With her mentor's help, she began to <span class="dz" data-answer="carve a roadmap"></span> for her ascent to an executive position.</li>
+        <li class="sentence">5. It's important to <span class="dz" data-answer="set ambitious goals"></span>, but they must be paired with a realistic action plan.</li>
+        <li class="sentence">6. You shouldn't <span class="dz" data-answer="chalk success up to"></span> luck alone, as consistent effort is almost always the foundation.</li>
+        <li class="sentence">7. She made a strategic <span class="dz" data-answer="job jump"></span> to a competitor, which came with a 30% salary increase.</li>
+        <li class="sentence">8. He didn't prepare for the presentation and decided just to <span class="dz" data-answer="wing it"></span>, which was immediately obvious to the audience.</li>
+        <li class="sentence">9. The team worked tirelessly to <span class="dz" data-answer="close out"></span> the project successfully before the fiscal year-end.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r5-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r5-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r5-3">↻ Reset</button>
+        <span class="card-score" data-score="r5-3"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">6</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday question</h3>
+      <p class="sentence">What are the main ideas and lessons the speaker shares about how people can become wealthy? Choose three that you found the most useful.</p>
+      <h3>Friday question — choose one</h3>
+      <p class="sentence">Think of someone you know who is financially successful. What do people <b class="v">chalk their success up to</b>? Do you think that's the real reason?</p>
+      <p class="sentence" style="margin-top:8px;"><b>OR</b></p>
+      <p class="sentence">Why do people often <b class="v">chalk success up to</b> luck rather than consistent effort?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. What is the overarching conclusion the speaker wants the viewer to draw about the possibility of becoming a self-made millionaire?</p>
+      <p class="sentence">2. When you face <b class="v">financial shortcomings</b>, are you more likely to <b class="v">point the finger</b> at external factors (the economy, your job) or your own choices?</p>
+      <p class="sentence">3. How big of a <b class="v">financial cushion</b> (emergency fund) do you think is necessary to feel secure? Do you have one?</p>
+      <p class="sentence">4. Do you know anyone who seems to <b class="v">work around the clock</b>? Do they <b class="v">reap the benefits</b> financially, or does it lead to burnout?</p>
+      <p class="sentence">5. At the end of a month, do you <b class="v">close out</b> your budget to see where your money went, or do you avoid looking at it?</p>
+      <p class="sentence">6. Do you <b class="v">set ambitious goals</b> with clear steps, or do you prefer to <b class="v">wing it</b> and figure things out as you go?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else{sel.classList.add('incorrect');}
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are building wealth strategically!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
