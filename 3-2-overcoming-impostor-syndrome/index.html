@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Overcoming Impostor Syndrome — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; overflow-wrap: break-word; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: #fff; border: 2px solid var(--purple-light); border-radius: 8px; padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .blank { width: 150px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; max-width: 100%; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+  /* Широкие поля для modal perfect (3.2) */
+  .wide-blanks .blank { width: 250px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; flex-wrap: wrap; max-width: calc(100% - 8px); margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; width: 130px; min-width: 60px; max-width: 100%; outline: none; transition: border-color 0.2s; }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input .answer-key { white-space: normal; }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 800; color: var(--ink); margin: 18px 0 10px; font-size: 16.5px; }
+  details.text-details ul, details.text-details ol { margin: 0 0 16px 22px; }
+  details.text-details li { margin-bottom: 6px; font-size: 15.5px; font-style: italic; color: #20698c; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .grammar-box { background: #e8f4fb; border: 1px solid #bfe0f2; border-left: 5px solid #4aa8d8; border-radius: 12px; padding: 16px 20px; margin-bottom: 16px; }
+  .grammar-box p { font-size: 15px; margin-bottom: 12px; line-height: 1.65; }
+  .grammar-box p:last-child { margin-bottom: 0; }
+  .grammar-box b.h { color: #20698c; }
+
+  .set-group { background: var(--soft); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--purple); }
+  .set-group p { font-size: 15.5px; line-height: 1.7; margin-bottom: 8px; }
+  .set-group p:last-child { margin-bottom: 0; }
+  .set-blank { display: inline-block; min-width: 90px; border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline; }
+  .set-dz { min-width: 170px; min-height: 40px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 4px 12px; margin: 0 0 12px; display: inline-block; vertical-align: middle; transition: all 0.2s ease; }
+  .set-dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .set-dz .chip { font-size: 13px; padding: 4px 10px; }
+  .set-dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .set-dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .blank { width: 140px; font-size: 16px; }
+    .wide-blanks .blank { width: 230px; }
+    .hint-input input { width: 120px; min-width: 60px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: auto; min-height: 320px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .set-dz { min-width: 200px; min-height: 48px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .cover-card { height: auto; min-height: 340px; }
+    .cover-img { height: 210px; flex: 0 0 210px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .hint-input { max-width: calc(100% - 4px); }
+    .wide-blanks .blank { width: 100%; min-width: 200px; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#grammar">Grammar</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+    <a href="#week">Week 1&2</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Overcoming Impostor Syndrome — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Overcoming Impostor Syndrome</h1>
+      <p>A self-inflicted feeling — and it's time to get it sorted</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a class="pur" href="https://drive.google.com/file/d/11sowhrtSbeFX6N6KnHuFB0BsiG755oLm/preview" target="_blank">📄 Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/nl/1134837930/overcoming-impostor-syndrome-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
+        <a href="https://drive.google.com/file/d/1ha_bUG-MpBa0e97VF_-n71HVzqPkXua6/preview" target="_blank">📰 Original article</a>
+        <a class="pur" href="https://docs.google.com/presentation/d/1F92sI6kpHPJzC5Bpoxf3ygL8M5NT3gxSAJ_Bz6Nlfvw/edit?usp=sharing" target="_blank">📽 Presentation</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. Have you ever felt like a "fraud" despite your achievements? What triggered it?</p>
+      <p class="sentence">2. Do you think perfectionism helps or harms your performance?</p>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">1</span> Text</div>
+    <div class="card">
+      <h3>1.1 Read the text and answer the question: <i>What is impostor syndrome, and what are its key characteristics according to the text?</i></h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p><i><b>It's a self-inflicted feeling that holds you back, burns you out and saps your motivation — and it's time to get it sorted.</b></i></p>
+        <p>There it goes again: that <b class="v">nagging</b>, negative <b class="v">feeling</b> that you are barely getting away with it. Any minute now, they will find out that you are <b class="v">a fraud</b>! You may have done a good job, but that was <b class="v">by fluke</b> more than skill. You might have fooled them into giving you this promotion, but within weeks you will mess up and the truth will be out. It is obvious that you will never be <b class="v">the real deal</b> — not like those grown-up people over there.</p>
+        <p>But what if your brain is <b class="v">tricking you into</b> believing your feelings represent reality? Do these impostor syndrome feelings <b class="v">stand up to scrutiny</b>?</p>
+        <div class="sub">What is impostor syndrome?</div>
+        <p>You might have heard the phrase "impostor syndrome" before, but what does it really mean? The term first appeared in 1978, in a research article by Doctors Pauline Clance and Suzanne Imes. While the original phrase given to this set of feelings was "impostor phenomenon", the term "impostor syndrome" became more widely used — perhaps because it's easier to say and spell! The problem with the word 'syndrome' is that it suggests a medical condition, when in this case it is no such thing. It is a feeling that can come and go. It is a brain trick — a cognitive distortion. Terminology aside, what is impostor syndrome? How is it relevant to you? And what can you do about it? The first point to emphasise is that this is about feelings, not an infection or broken bone. We are talking about a <b class="v">self-inflicted feeling</b>. If you are doing it to yourself, it must surely be easy to fix, right? Achievable, of course, but not easy.</p>
+        <div class="sub">What does impostor syndrome feel like?</div>
+        <p>To overcome it, you need to be able to recognise it. It's a disconnected sensation — as if you are on the outside looking in. The others have a right to be there, but you don't.</p>
+        <p>It is the <b class="v">gnawing feeling</b> that if you <b class="v">take your eye off the ball</b> — if you stop doing your utmost to be loved, accepted and perfect — then you will be ostracised by a <b class="v">jeering crowd</b> of haters who have discovered the useless or unlikeable you. It is a feeling of embarrassment when people praise you — they are just <b class="v">gullible</b> or polite. It is a feeling of surviving rather than thriving. You are not alone in having these feelings. Jodie Foster described it like this: "When I won the Oscar, I thought it was a fluke [..] I thought everybody would find out, and they'd take it back. They'd come to my house, knocking on the door: 'Excuse me, we meant to give that to someone else. That was going to Meryl Streep.'" However, it might not have been accepted by Meryl Streep. She too experiences impostor syndrome feelings, which she describes like this: "You think, 'Why would anyone want to see me again in a movie? And I don't know how to act any way, so why am I doing this?'" Away from the world of the famous, let's look at some everyday feelings that you might recognise:</p>
+        <ul>
+          <li>I feel 'weak' when I ask for help</li>
+          <li>I feel I need to be perfect, or <b>the game's up</b></li>
+          <li>I feel that I must show proof of my capabilities</li>
+          <li>I feel like I can't be the real me</li>
+          <li>I feel that my achievements are more fluke than skill</li>
+          <li>I feel awkward when given compliments</li>
+          <li>I feel reluctant to take on new challenges in case I fail</li>
+          <li>I <b>feel weary</b> from 'faking it'</li>
+          <li>I feel as though others in my group [business/friends] are better than me</li>
+          <li>I feel anxious when not in control</li>
+          <li>I feel strangely 'alien' a lot of the time — as if looking in from the outside</li>
+        </ul>
+        <p>Do any of these feelings resonate?</p>
+        <div class="sub">What if the feelings are left unchecked?</div>
+        <p>Some feelings <b class="v">lead you astray</b>, like hearing a car backfire and fearing for your life; or seeing a stranger in a café who reminds you of someone bad, and feeling anger towards them. They are very real feelings followed by responses that make no rational sense. While <b class="v">gut instinct</b> can provide a healthy decision filter, blindly responding to every feeling with an action or decision can lead to negative consequences. Let's look at some of these — this should motivate you to work on reframing some of your impostor-syndrome-fed responses. I like to group the consequences into three categories:</p>
+        <ul>
+          <li>Hide-out</li>
+          <li>Burn-out</li>
+          <li>Freak-out</li>
+        </ul>
+        <p>This probably needs some explanation.</p>
+        <p>Why 'hide-out'? Think about it: when you are constantly doubting yourself and living in fear of being found out, it follows that you might keep your head down, try to <b class="v">blend in</b>, agree rather than express your perspective, or even walk away from new opportunities. You are unlikely to voice your achievements and things you should be proud of — you mistakenly believe that this would <b class="v">come across as</b> arrogant. Worse still, they would think: 'Wow, they are so full of themselves, and goodness knows why!'</p>
+        <p>Why 'burn-out'? You're trying too hard to please and be perfect. Perfectionism is a big symptom of impostor syndrome. There is nothing wrong with doing a good job, but if you impose ridiculous standards on yourself for fear of falling short and being found out as a fraud, well, you will burn out.</p>
+        <p>Why 'freak-out'? You become a living pressure cooker, and <b class="v">bottling up all those suppressed emotions</b> is not good for you. That urge to break free and show the world a less filtered version of you... all that effort you make to be accommodating <b class="v">for the sake of</b> being accepted. In the pressure cooker of impostor syndrome, these feelings have no way of escaping — until something goes wrong and the whole thing explodes! If you never <b class="v">let off steam</b>, you risk exploding at the wrong time and place, with dire consequences. You erupt in anger during a meeting, you slam a door so hard that it breaks, you hand in your notice in a dramatic outburst... you get the picture. In an ideal world, you want to avoid all these negative consequences. It's time to get your impostor syndrome under control.</p>
+        <div class="sub">Is there a cure?</div>
+        <p>Unfortunately, there is no quick fix for impostor syndrome. There is no cure because it is not an illness or broken bone as we established earlier. It is a feeling. You can't stop feelings, and you shouldn't attempt to. We feel — we are human. Many of our negative thoughts are there to protect us. We have the same brain wiring as our ancestors did back in our <b class="v">hunter-gatherer days</b>. We need a healthy dose of self-doubt to prevent us regularly running into danger. However, impostor syndrome is not this kind of natural, healthy self-doubt — it is not helpful. It is a trick, an illusion — it is your own brain giving you fake news!</p>
+        <p>But how do you avoid the negative consequences of impostor syndrome? You need to acknowledge these feelings. Pay attention to them and be aware of how you respond to them. Instead of <b class="v">making knee-jerk decisions</b> that are fuelled by an irrational feeling, use the pause button. It is such a relief when you discover you are in control of the pause button. You own it. The sequence is: <i>feeling — pause — action</i>. Simple, but so effective.</p>
+        <div class="sub">Your action plan</div>
+        <p>There is slightly more to it than pressing the pause button, of course. What do you do during this pause? You need to get rational with your emotions. Here is how this works in practice: take the feeling and put it through the rationality filter. For example:</p>
+        <p><b>Feeling:</b> I feel like a useless child in a world of grown-up professionals.<br>
+        <b>Rationality filter:</b> Am I a child? Is everything about children useless? Who defines the word 'professional'?</p>
+        <p>Now ask yourself this: How helpful is this feeling? Only then should you proceed with the appropriate action or decision.</p>
+        <div class="sub">In summary:</div>
+        <ol>
+          <li>Press pause between feeling and action</li>
+          <li>Put the feeling through the rationality filter</li>
+          <li>Act on or dismiss accordingly</li>
+        </ol>
+        <p>Knowledge is power when it comes to impostor syndrome — know it, make friends with it and become the boss of it. Give it a name, perhaps even draw your impostor syndrome character. Taking a step back from the nagging, negative chatter inside your head is a good feeling — a relief and a release. I speak from experience.</p>
+      </details>
+    </div>
+    <div class="card">
+      <h3>1.2 The original article is here</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1ha_bUG-MpBa0e97VF_-n71HVzqPkXua6/preview" target="_blank">Follow the link</a></div>
+    </div>
+    <div class="card">
+      <h3>1.3 Write down your ideas about the text <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>2.1 Study the vocabulary (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/11sowhrtSbeFX6N6KnHuFB0BsiG755oLm/preview" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">2.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/nl/1134837930/overcoming-impostor-syndrome-flash-cards/?i=zxpms&x=1jqt" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">2.3 Choose the correct preposition</h3>
+      <div class="links"><a class="pur" href="https://wordwall.net/embed/a93e6c2d8d874dfeafee594e15c1a003?themeId=1&templateId=36&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-4">
+      <h3>2.4 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="a fluke">a fluke</div>
+        <div class="chip" data-word="a gnawing feeling">a gnawing feeling</div>
+        <div class="chip" data-word="a fraud">a fraud</div>
+        <div class="chip" data-word="sap your motivation">sap your motivation</div>
+        <div class="chip" data-word="took its eye off the ball">took its eye off the ball</div>
+        <div class="chip" data-word="stand up to scrutiny">stand up to scrutiny</div>
+        <div class="chip" data-word="trick you into">trick you into</div>
+        <div class="chip" data-word="the real deal">the real deal</div>
+        <div class="chip" data-word="nagging feelings">nagging feelings</div>
+        <div class="chip" data-word="a self-inflicted feeling">a self-inflicted feeling</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. The initial low monthly subscription is designed to <span class="dz" data-answer="trick you into"></span> underestimating the total annual cost.</li>
+        <li class="sentence">2. Micromanagement from leadership can severely <span class="dz" data-answer="sap your motivation"></span> and stifle any sense of autonomy.</li>
+        <li class="sentence">3. Despite getting positive feedback, she couldn't shake the <span class="dz" data-answer="nagging feelings"></span> that her presentation hadn't been convincing enough.</li>
+        <li class="sentence">4. When she was promoted ahead of more experienced colleagues, she battled intense feelings of being <span class="dz" data-answer="a fraud"></span>, a phenomenon known as impostor syndrome.</li>
+        <li class="sentence">5. The anxiety he felt before the meeting was largely <span class="dz" data-answer="a self-inflicted feeling"></span>, stemming from his own perfectionism.</li>
+        <li class="sentence">6. He had <span class="dz" data-answer="a gnawing feeling"></span> that accepting the new job for the salary alone was a mistake.</li>
+        <li class="sentence">7. Unlike other candidates who talked a good game, her portfolio and references showed she was <span class="dz" data-answer="the real deal"></span>.</li>
+        <li class="sentence">8. He dismissed his early success as <span class="dz" data-answer="a fluke"></span>, but a consistent record of achievements eventually proved it was due to skill.</li>
+        <li class="sentence">9. Before we invest, our financial team needs to ensure the proposal can <span class="dz" data-answer="stand up to scrutiny"></span> in a volatile market.</li>
+        <li class="sentence">10. The company became so focused on expanding into new markets that it <span class="dz" data-answer="took its eye off the ball"></span> with its core product.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-4">↻ Reset</button>
+        <span class="card-score" data-score="v2-4"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v2-5">
+      <h3>2.5 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="motivation"><span class="term">to sap your</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="scrutiny"><span class="term">to stand up to</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="off the ball"><span class="term">to take your eye</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="deal"><span class="term">the real</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="feeling"><span class="term">a self-inflicted</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="instinct"><span class="term">a gut</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="fix"><span class="term">a quick</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="decision"><span class="term">a knee-jerk</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="button"><span class="term">the pause</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="distortion"><span class="term">a cognitive</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="steam"><span class="term">to let off</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="steam">steam</div>
+            <div class="match-item" data-word="motivation">motivation</div>
+            <div class="match-item" data-word="distortion">distortion</div>
+            <div class="match-item" data-word="scrutiny">scrutiny</div>
+            <div class="match-item" data-word="button">button</div>
+            <div class="match-item" data-word="off the ball">off the ball</div>
+            <div class="match-item" data-word="deal">deal</div>
+            <div class="match-item" data-word="feeling">feeling</div>
+            <div class="match-item" data-word="instinct">instinct</div>
+            <div class="match-item" data-word="fix">fix</div>
+            <div class="match-item" data-word="decision">decision</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
+        <span class="card-score" data-score="v2-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-6">
+      <h3>2.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="making knee-jerk decisions">making knee-jerk decisions</div>
+        <div class="chip" data-word="for the sake of">for the sake of</div>
+        <div class="chip" data-word="to feel weary">to feel weary</div>
+        <div class="chip" data-word="to bottle up suppressed emotions">to bottle up suppressed emotions</div>
+        <div class="chip" data-word="comes across as">comes across as</div>
+        <div class="chip" data-word="to let off steam">to let off steam</div>
+        <div class="chip" data-word="lead you astray">lead you astray</div>
+        <div class="chip" data-word="be gullible">be gullible</div>
+        <div class="chip" data-word="to blend in">to blend in</div>
+        <div class="chip" data-word="gut instinct">gut instinct</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. A seasoned leader avoids <span class="dz" data-answer="making knee-jerk decisions"></span> based on a single piece of bad news, preferring to wait for a fuller analysis.</li>
+        <li class="sentence">2. They decided to settle the legal dispute out of court <span class="dz" data-answer="for the sake of"></span> preserving a long-standing business relationship.</li>
+        <li class="sentence">3. Relying solely on anecdotal evidence can easily <span class="dz" data-answer="lead you astray"></span> when making important data-driven decisions.</li>
+        <li class="sentence">4. The data was inconclusive, so she had to rely on her <span class="dz" data-answer="gut instinct"></span> to make the final call.</li>
+        <li class="sentence">5. As a new expatriate, she tried <span class="dz" data-answer="to blend in"></span> by learning the local customs and subtle social cues.</li>
+        <li class="sentence">6. After a decade in the high-pressure industry, she began <span class="dz" data-answer="to feel weary"></span> of the relentless pace.</li>
+        <li class="sentence">7. In his attempt to sound authoritative, he often <span class="dz" data-answer="comes across as"></span> arrogant and dismissive in meetings.</li>
+        <li class="sentence">8. He had a tendency <span class="dz" data-answer="to bottle up suppressed emotions"></span> at work, which would later cause unnecessary conflict at home.</li>
+        <li class="sentence">9. In negotiations, appearing to <span class="dz" data-answer="be gullible"></span> can sometimes be a strategic advantage, as the other party may underestimate you.</li>
+        <li class="sentence">10. After a stressful week, she goes for a long run on Saturday mornings <span class="dz" data-answer="to let off steam"></span> and clear her head.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-6">↻ Reset</button>
+        <span class="card-score" data-score="v2-6"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="grammar">
+    <div class="section-title"><span class="num">3</span> Grammar / Modal Perfect</div>
+    <div class="card">
+      <p class="sentence">You <b>may have done</b> a good job, but that was by fluke more than skill. You <b>might have fooled</b> them into giving you this promotion, but within weeks you will mess up and the truth will be out.</p>
+      <div class="grammar-box">
+        <p>A modal perfect (<i>for example, might have done</i>) is formed by: <b class="h">modal verb + have + past participle</b>. It is used to express past suppositions, deductions, regrets, or unfulfilled possibilities. Key uses include <i>must have</i> (strong probability), <i>should have</i> (advice/regret), <i>could have</i> (past possibility/ability), and <i>might have</i> (uncertainty).</p>
+        <p><b class="h">Purpose:</b> To talk about actions or situations that happened (or didn't happen) in the past, often speculating about them.</p>
+        <p><b class="h">Common Modal Perfects & Usage</b><br>
+        — <b>must have</b> (past probability): used for logical deductions about the past.<br><i>Example:</i> The ground is wet. It must have rained last night.<br>
+        — <b>could have / couldn't have</b> (possibility/ability): used for something that was possible in the past but did not happen, or to make guesses.<br><i>Example:</i> She could have won the race. / He couldn't have stolen it; he was with me.<br>
+        — <b>might have / may have</b> (uncertainty): expresses that something was possible but you are not sure.<br><i>Example:</i> I might have left my keys at the office.<br>
+        — <b>should have / shouldn't have</b> (regret/advice): used to talk about a past action that was or wasn't a good idea.<br><i>Example:</i> I should have studied harder for the exam.</p>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="g3-1">
+      <h3>3.1 Choose the correct modal perfect</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. Your phone is off. You <span class="select-wrap"><select data-answer="must have"><option value="">Choose...</option><option value="must have">must have</option><option value="should have">should have</option></select></span> run out of battery.</div>
+      <div class="sentence">2. I didn't know you were sick! You <span class="select-wrap"><select data-answer="could have"><option value="">Choose...</option><option value="must have">must have</option><option value="could have">could have</option></select></span> called me.</div>
+      <div class="sentence">3. He knows everything about the movie. He <span class="select-wrap"><select data-answer="must have"><option value="">Choose...</option><option value="might have">might have</option><option value="must have">must have</option></select></span> read the book.</div>
+      <div class="sentence">4. She failed the test. She <span class="select-wrap"><select data-answer="should have"><option value="">Choose...</option><option value="should have">should have</option><option value="would have">would have</option></select></span> studied more.</div>
+      <div class="sentence">5. The package isn't here. They <span class="select-wrap"><select data-answer="might have"><option value="">Choose...</option><option value="might have">might have</option><option value="should have">should have</option></select></span> delivered it to the wrong address.</div>
+      <div class="sentence">6. I <span class="select-wrap"><select data-answer="couldn't have"><option value="">Choose...</option><option value="couldn't have">couldn't have</option><option value="shouldn't have">shouldn't have</option></select></span> finished the project without your help. Thank you!</div>
+      <div class="sentence">7. He arrived looking very tired. He <span class="select-wrap"><select data-answer="must have"><option value="">Choose...</option><option value="would have">would have</option><option value="must have">must have</option></select></span> had a long journey.</div>
+      <div class="sentence">8. You <span class="select-wrap"><select data-answer="should have"><option value="">Choose...</option><option value="might have">might have</option><option value="should have">should have</option></select></span> told me you were a vegetarian before I cooked dinner!</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="g3-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="g3-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="g3-1">↻ Reset</button>
+        <span class="card-score" data-score="g3-1"></span>
+      </div>
+    </div>
+
+    <div class="card wide-blanks" data-task="typeblank" data-id="g3-2">
+      <h3>3.2 Fill in the blank with the correct form of the modal perfect (e.g., <b>must have + past participle</b>). Use the verb given.</h3>
+      <div class="instruction">💡 Type the complete form (modal + have + past participle). Where several answers are possible, any of them is accepted.</div>
+      <div class="sentence">1. The window is broken. Someone <input class="blank" data-answer="must have broken"> it. <i>(break)</i></div>
+      <div class="sentence">2. I feel terrible. I <input class="blank" data-answer="shouldn't have eaten|should not have eaten"> so much cake. <i>(eat)</i></div>
+      <div class="sentence">3. She's not answering her phone. She <input class="blank" data-answer="might have fallen|may have fallen"> asleep. <i>(fall)</i></div>
+      <div class="sentence">4. We took a taxi, but we <input class="blank" data-answer="could have walked">. The bus was much cheaper. <i>(walk)</i></div>
+      <div class="sentence">5. I can't find my wallet. I <input class="blank" data-answer="might have left"> it at home. <i>(leave)</i></div>
+      <div class="sentence">6. They <input class="blank" data-answer="must have missed"> the train; they left the house very late. <i>(miss)</i></div>
+      <div class="sentence">7. You <input class="blank" data-answer="could have asked"> me! I would have been happy to lend you money. <i>(ask)</i></div>
+      <div class="sentence">8. A: "Who left the door open?" B: "I don't know. It <input class="blank" data-answer="might have been|could have been"> John." <i>(be)</i></div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="g3-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="g3-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="g3-2">↻ Reset</button>
+        <span class="card-score" data-score="g3-2"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">4</span> Revision</div>
+
+    <div class="card" data-task="typehint" data-id="r4-1">
+      <h3>4.1 Complete the gaps</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
+      <div class="sentence">1. The endless, tedious paperwork began to <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="sap"></span> <b>my motivation</b> for the job I once loved.</div>
+      <div class="sentence">2. Despite the positive feedback, <span class="hint-input"><span class="first-letter">n</span><input type="text" data-answer="nagging"></span> <b>feelings</b> of doubt about her performance wouldn't leave her alone.</div>
+      <div class="sentence">3. On the first day at a new school, he wore plain clothes just to <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="blend"></span> <b>in</b> and avoid attention.</div>
+      <div class="sentence">4. A good leader gathers information and doesn't <span class="hint-input"><span class="first-letter">m</span><input type="text" data-answer="make"></span> <b>knee-jerk decisions</b> based on fear.</div>
+      <div class="sentence">5. After watching her perform live, we knew she wasn't just another pop star — she was <b>the real</b> <span class="hint-input"><span class="first-letter">d</span><input type="text" data-answer="deal"></span>.</div>
+      <div class="sentence">6. He had <b>a</b> <span class="hint-input"><span class="first-letter">g</span><input type="text" data-answer="gnawing"></span> <b>feeling</b> that he had forgotten something important as he boarded the plane.</div>
+      <div class="sentence">7. He tended to <b>bottle up</b> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="suppressed"></span> <b>emotions</b> until they erupted in an unhelpful outburst.</div>
+      <div class="sentence">8. As a child, I was <span class="hint-input"><span class="first-letter">g</span><input type="text" data-answer="gullible"></span> enough to believe my brother when he said the moon was made of cheese.</div>
+      <div class="sentence">9. After years of the same political arguments, I've begun to <b>feel</b> <span class="hint-input"><span class="first-letter">w</span><input type="text" data-answer="weary"></span> <b>of</b> the whole debate.</div>
+      <div class="sentence">10. His jealousy would often <b>lead him</b> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="astray"></span>, causing him to doubt his most loyal friends.</div>
+      <div class="sentence">11. Despite the data suggesting otherwise, her <span class="hint-input"><span class="first-letter">g</span><input type="text" data-answer="gut"></span> <b>instinct</b> told her not to trust the proposed partner.</div>
+      <div class="sentence">12. His first successful business venture was dismissed by critics as <b>a</b> <span class="hint-input"><span class="first-letter">f</span><input type="text" data-answer="fluke"></span>, but he proved them wrong with his second.</div>
+      <div class="sentence">13. In the interview, she tried to <b>come</b> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="across"></span> <b>as</b> confident, but her nervous hands betrayed her.</div>
+      <div class="sentence">14. The con artist tried to <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="trick"></span> <b>me into believing</b> I had won a prize that required an upfront "processing fee."</div>
+      <div class="sentence">15. She decided to end the argument, not because she agreed, but <b>for the</b> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="sake"></span> <b>of</b> keeping the peace.</div>
+      <div class="sentence">16. After a stressful week at work, he went for a long run to <b>let off</b> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="steam"></span>.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button>
+        <span class="card-score" data-score="r4-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="r4-2">
+      <h3>4.2 Put the words into correct order</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="Constant|negative|feedback|from|his manager|began|to sap|his|motivation.">
+        <span class="wo-num">1/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="his manager">his manager</div><div class="chip" data-word="his">his</div><div class="chip" data-word="negative">negative</div><div class="chip" data-word="began">began</div><div class="chip" data-word="to sap">to sap</div><div class="chip" data-word="feedback">feedback</div><div class="chip" data-word="motivation.">motivation.</div><div class="chip" data-word="Constant">Constant</div><div class="chip" data-word="from">from</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Her research|findings|were|so well-documented|that|she|knew|they|would stand|up|to|scrutiny.">
+        <span class="wo-num">2/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="scrutiny.">scrutiny.</div><div class="chip" data-word="so well-documented">so well-documented</div><div class="chip" data-word="she">she</div><div class="chip" data-word="Her research">Her research</div><div class="chip" data-word="to">to</div><div class="chip" data-word="would stand">would stand</div><div class="chip" data-word="were">were</div><div class="chip" data-word="they">they</div><div class="chip" data-word="up">up</div><div class="chip" data-word="findings">findings</div><div class="chip" data-word="that">that</div><div class="chip" data-word="knew">knew</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="When traveling|in|a new place,|she|prefers|to dress|simply|to blend|in|with|the locals.">
+        <span class="wo-num">3/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="in">in</div><div class="chip" data-word="to dress">to dress</div><div class="chip" data-word="the locals.">the locals.</div><div class="chip" data-word="to blend">to blend</div><div class="chip" data-word="she">she</div><div class="chip" data-word="a new place,">a new place,</div><div class="chip" data-word="in">in</div><div class="chip" data-word="prefers">prefers</div><div class="chip" data-word="with">with</div><div class="chip" data-word="When traveling">When traveling</div><div class="chip" data-word="simply">simply</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="After|a stressful|week|at work,|he|goes|for|a long|run|on Saturdays|to|let|off|steam.">
+        <span class="wo-num">4/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="off">off</div><div class="chip" data-word="to">to</div><div class="chip" data-word="a long">a long</div><div class="chip" data-word="week">week</div><div class="chip" data-word="at work,">at work,</div><div class="chip" data-word="let">let</div><div class="chip" data-word="a stressful">a stressful</div><div class="chip" data-word="for">for</div><div class="chip" data-word="run">run</div><div class="chip" data-word="After">After</div><div class="chip" data-word="on Saturdays">on Saturdays</div><div class="chip" data-word="goes">goes</div><div class="chip" data-word="he">he</div><div class="chip" data-word="steam.">steam.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="His constant|jealousy|was|a self-inflicted|feeling|that|strained|his relationships.">
+        <span class="wo-num">5/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="His constant">His constant</div><div class="chip" data-word="feeling">feeling</div><div class="chip" data-word="his relationships.">his relationships.</div><div class="chip" data-word="was">was</div><div class="chip" data-word="a self-inflicted">a self-inflicted</div><div class="chip" data-word="that">that</div><div class="chip" data-word="strained">strained</div><div class="chip" data-word="jealousy">jealousy</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Even|without|evidence,|I had|a gut|instinct|that|something|about|the deal|wasn't right.">
+        <span class="wo-num">6/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="a gut">a gut</div><div class="chip" data-word="without">without</div><div class="chip" data-word="Even">Even</div><div class="chip" data-word="that">that</div><div class="chip" data-word="the deal">the deal</div><div class="chip" data-word="wasn't right.">wasn't right.</div><div class="chip" data-word="evidence,">evidence,</div><div class="chip" data-word="about">about</div><div class="chip" data-word="something">something</div><div class="chip" data-word="instinct">instinct</div><div class="chip" data-word="I had">I had</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="Quitting|his job|in|anger|was|a knee-jerk|decision|he|later|regretted.">
+        <span class="wo-num">7/7</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="regretted.">regretted.</div><div class="chip" data-word="Quitting">Quitting</div><div class="chip" data-word="later">later</div><div class="chip" data-word="in">in</div><div class="chip" data-word="was">was</div><div class="chip" data-word="a knee-jerk">a knee-jerk</div><div class="chip" data-word="his job">his job</div><div class="chip" data-word="decision">decision</div><div class="chip" data-word="he">he</div><div class="chip" data-word="anger">anger</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-2">↻ Reset</button>
+        <span class="card-score" data-score="r4-2"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>4.3 Complete the sentences with your own ideas. You can also do the task with your Study Buddy. <i>(Optional)</i></h3>
+      <p class="sentence">1. A <b>self-inflicted feeling</b> of doubt often arises when...</p>
+      <p class="sentence">2. One thing that can really <b>sap my motivation</b> is...</p>
+      <p class="sentence">3. I sometimes feel like <b>a fraud</b> when...</p>
+      <p class="sentence">4. Social media often tries to <b>trick you into</b>...</p>
+      <p class="sentence">5. I know I can be <b>gullible</b> about things like...</p>
+      <p class="sentence">6. I start to <b>feel weary</b> in situations where...</p>
+      <p class="sentence">7. A bad piece of advice that could <b>lead you astray</b> is...</p>
+      <p class="sentence">8. My <b>gut instinct</b> is usually right about...</p>
+      <p class="sentence">9. The pressure to <b>blend in</b> can make people...</p>
+      <p class="sentence">10. I try to <b>come across as</b> ______, but sometimes I...</p>
+      <p class="sentence">11. When you <b>bottle up suppressed emotions</b>, the result can be...</p>
+      <p class="sentence">12. <b>For the sake of</b> ______, people sometimes...</p>
+      <p class="sentence">13. A healthy way for me to <b>let off steam</b> is to...</p>
+      <p class="sentence">14. I tend to <b>make knee-jerk decisions</b> when...</p>
+      <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your answers here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">5</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday question</h3>
+      <p class="sentence">How does the text describe impostor syndrome, and what practical steps does it suggest to keep it under control?</p>
+      <h3>Friday question</h3>
+      <p class="sentence">Can you recall a time when impostor syndrome made you believe your success was a fluke? How did you eventually recognise that you were the real deal?<br><b>Or:</b><br>Can you recall an instance where you tried hard to <b class="v">blend in</b> or to <b class="v">come across as</b> more confident to hide your self-doubt? What was the result?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. The article calls impostor syndrome a "<b class="v">self-inflicted feeling</b>" and a "<b class="v">cognitive distortion</b>". What does this mean to you? Does framing it this way make it feel more or less manageable?</p>
+      <p class="sentence">2. The article links perfectionism directly to "burn-out." Why do you think the fear of being "found out" drives people toward impossible standards? How can we differentiate between healthy striving for excellence and harmful perfectionism?</p>
+      <p class="sentence">3. Have you ever worried that others would <b class="v">find out you were a fraud</b>? How did that belief affect your behavior?</p>
+      <p class="sentence">4. If you were to give your impostor syndrome a name or character, what would it be like?</p>
+      <p class="sentence">5. Have you ever noticed yourself making a <b class="v">knee-jerk decision</b> based on fear rather than facts?</p>
+      <p class="sentence">6. How do you personally decide whether a feeling is <b class="v">helpful or harmful</b>?</p>
+    </div>
+
+    <div class="card">
+      <h3>5.1 Presentation</h3>
+      <div class="links"><a class="pur" href="https://docs.google.com/presentation/d/1F92sI6kpHPJzC5Bpoxf3ygL8M5NT3gxSAJ_Bz6Nlfvw/edit?usp=sharing" target="_blank">Follow the link</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="week">
+    <div class="section-title"><span class="num">6</span> Revision Week 1&2</div>
+
+    <div class="card" data-task="setfill" data-id="w6-1">
+      <h3>6.1 Complete each set of three sentences with the same vocabulary item from the bank</h3>
+      <div class="instruction">💡 Drag the phrase that fits ALL three sentences of the set into the dashed box (or tap the phrase, then tap the box). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="mediocre">mediocre</div>
+        <div class="chip" data-word="let off steam">let off steam</div>
+        <div class="chip" data-word="make knee-jerk decisions">make knee-jerk decisions</div>
+        <div class="chip" data-word="wreck">wreck</div>
+        <div class="chip" data-word="the real deal">the real deal</div>
+        <div class="chip" data-word="by all means">by all means</div>
+        <div class="chip" data-word="a fraud">a fraud</div>
+        <div class="chip" data-word="blend in">blend in</div>
+        <div class="chip" data-word="sap your motivation">sap your motivation</div>
+        <div class="chip" data-word="enlightened">enlightened</div>
+        <div class="chip" data-word="for the sake of">for the sake of</div>
+        <div class="chip" data-word="revere">revere</div>
+        <div class="chip" data-word="stink">stink</div>
+        <div class="chip" data-word="gut instinct">gut instinct</div>
+        <div class="chip" data-word="a torture">a torture</div>
+        <div class="chip" data-word="lead you astray">lead you astray</div>
+        <div class="chip" data-word="bottle up suppressed emotions">bottle up suppressed emotions</div>
+      </div>
+
+      <div class="set-group" data-answer="make knee-jerk decisions">
+        <span class="set-dz"></span>
+        <p>His tendency to <span class="set-blank"></span> often resulted in plans that were poorly thought out.</p>
+        <p>To <span class="set-blank"></span> in a crisis can exacerbate the problem instead of solving it.</p>
+        <p>A good leader gathers information and does not simply <span class="set-blank"></span> based on fear.</p>
+      </div>
+      <div class="set-group" data-answer="a fraud">
+        <span class="set-dz"></span>
+        <p>The art collector discovered the priceless painting was, in fact, <span class="set-blank"></span>.</p>
+        <p>He felt like <span class="set-blank"></span> accepting the award, believing his success was just luck.</p>
+        <p>The company was exposed as <span class="set-blank"></span> taking investments for a product that never existed.</p>
+      </div>
+      <div class="set-group" data-answer="mediocre">
+        <span class="set-dz"></span>
+        <p>Despite the hype, the restaurant served decidedly <span class="set-blank"></span> food at premium prices.</p>
+        <p>She refused to settle for a <span class="set-blank"></span> performance and practiced until it was perfect.</p>
+        <p>The film wasn't terrible, but its <span class="set-blank"></span> plot left the audience feeling indifferent.</p>
+      </div>
+      <div class="set-group" data-answer="the real deal">
+        <span class="set-dz"></span>
+        <p>After trying several imitators, I found a baker who is <span class="set-blank"></span> when it comes to sourdough.</p>
+        <p>Don't be fooled by his modest office; as a surgeon, he's <span class="set-blank"></span>.</p>
+        <p>Her confidence and skill in the negotiation proved she was <span class="set-blank"></span>.</p>
+      </div>
+      <div class="set-group" data-answer="revere">
+        <span class="set-dz"></span>
+        <p>In many cultures, it is customary to <span class="set-blank"></span> one's elders and ancestors.</p>
+        <p>The scientist was <span class="set-blank"></span>ed for her groundbreaking and ethical contributions to medicine.</p>
+        <p>He <span class="set-blank"></span>ed the ancient texts, handling the fragile manuscripts with the utmost care.</p>
+      </div>
+      <div class="set-group" data-answer="stink">
+        <span class="set-dz"></span>
+        <p>The forgotten leftovers in the container began to <span class="set-blank"></span> after a week.</p>
+        <p>Figuratively, his plan to get rich quick really <span class="set-blank"></span> of desperation.</p>
+        <p>This situation absolutely <span class="set-blank"></span>s; we've been treated so unfairly.</p>
+      </div>
+      <div class="set-group" data-answer="a torture">
+        <span class="set-dz"></span>
+        <p>For the shy student, giving a presentation felt like <span class="set-blank"></span>.</p>
+        <p>The endless, repetitive meetings were sheer <span class="set-blank"></span> for the creative team.</p>
+        <p>Waiting for the test results in silence was its own form of <span class="set-blank"></span>.</p>
+      </div>
+      <div class="set-group" data-answer="enlightened">
+        <span class="set-dz"></span>
+        <p>The <span class="set-blank"></span> policies of the new management focused on employee well-being.</p>
+        <p>After her travels, she returned with a more <span class="set-blank"></span> view of the world.</p>
+        <p>An <span class="set-blank"></span> approach to justice considers rehabilitation, not just punishment.</p>
+      </div>
+      <div class="set-group" data-answer="wreck">
+        <span class="set-dz"></span>
+        <p>The storm threatened to <span class="set-blank"></span> the small boats in the harbor.</p>
+        <p>Missing the crucial deadline could <span class="set-blank"></span> our chances of getting the contract.</p>
+        <p>He didn't want his nervousness to <span class="set-blank"></span> the important interview.</p>
+      </div>
+      <div class="set-group" data-answer="by all means">
+        <span class="set-dz"></span>
+        <p>"<span class="set-blank"></span>," the professor said, "ask questions if anything is unclear."</p>
+        <p>If you have a better idea, <span class="set-blank"></span> suggest it.</p>
+        <p>We should <span class="set-blank"></span> try to finish today, but not at the cost of accuracy.</p>
+      </div>
+      <div class="set-group" data-answer="sap your motivation">
+        <span class="set-dz"></span>
+        <p>Constant criticism can quickly <span class="set-blank"></span> to try new things.</p>
+        <p>The dreary, gray weather began to <span class="set-blank"></span> to go for a run.</p>
+        <p>Doing repetitive tasks without a clear goal will inevitably <span class="set-blank"></span>.</p>
+      </div>
+      <div class="set-group" data-answer="lead you astray">
+        <span class="set-dz"></span>
+        <p>His bad advice could <span class="set-blank"></span> if you're not careful.</p>
+        <p>The misleading map <span class="set-blank"></span> the hikers <span class="set-blank"></span>, and they got lost.</p>
+        <p>Don't let flashy marketing <span class="set-blank"></span> from the product's actual quality.</p>
+      </div>
+      <div class="set-group" data-answer="gut instinct">
+        <span class="set-dz"></span>
+        <p>Her <span class="set-blank"></span> told her not to trust the stranger's offer.</p>
+        <p>Sometimes, you have to ignore the data and follow your <span class="set-blank"></span>.</p>
+        <p>His <span class="set-blank"></span> about the stock being a bad investment proved correct.</p>
+      </div>
+      <div class="set-group" data-answer="blend in">
+        <span class="set-dz"></span>
+        <p>The spy knew how to <span class="set-blank"></span> with the crowd to avoid detection.</p>
+        <p>When visiting a new country, I try to <span class="set-blank"></span> and observe local customs.</p>
+        <p>The new furniture was chosen to <span class="set-blank"></span> with the room's existing style.</p>
+      </div>
+      <div class="set-group" data-answer="bottle up suppressed emotions">
+        <span class="set-dz"></span>
+        <p>It's unhealthy to <span class="set-blank"></span> like anger and sadness.</p>
+        <p>Years of <span class="set-blank"></span>ing <span class="set-blank"></span> eventually led to a moment of intense outburst.</p>
+        <p>Therapy helped him learn how to express feelings instead of <span class="set-blank"></span>ing them <span class="set-blank"></span>.</p>
+      </div>
+      <div class="set-group" data-answer="for the sake of">
+        <span class="set-dz"></span>
+        <p>He stayed in the difficult job <span class="set-blank"></span> his family's stability.</p>
+        <p>Let's not argue <span class="set-blank"></span> arguing; we need to find a solution.</p>
+        <p>She compromised <span class="set-blank"></span> maintaining peace within the team.</p>
+      </div>
+      <div class="set-group" data-answer="let off steam">
+        <span class="set-dz"></span>
+        <p>After a stressful week at work, he went to the gym to <span class="set-blank"></span>.</p>
+        <p>Their loud argument was just a way to <span class="set-blank"></span> after a long journey.</p>
+        <p>Playing a competitive sport is a great way to <span class="set-blank"></span> and clear your head.</p>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="w6-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="w6-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="w6-1">↻ Reset</button>
+        <span class="card-score" data-score="w6-1"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="select" data-id="w6-2">
+      <h3>6.2 Choose the correct word or phrase to complete each sentence</h3>
+      <div class="instruction">💡 Select the correct option from the dropdown menu.</div>
+      <div class="sentence">1. Successful leaders don't <span class="select-wrap"><select data-answer="make knee-jerk decisions"><option value="">Choose...</option><option value="outnumber">outnumber</option><option value="make knee-jerk decisions">make knee-jerk decisions</option><option value="blend in">blend in</option></select></span>; they analyze the information carefully.</div>
+      <div class="sentence">2. After checking the accounts, the inspector realized the scheme was <span class="select-wrap"><select data-answer="a fraud"><option value="">Choose...</option><option value="a fluke">a fluke</option><option value="a fraud">a fraud</option><option value="a sweet spot">a sweet spot</option></select></span>.</div>
+      <div class="sentence">3. Without a <span class="select-wrap"><select data-answer="meticulously designed plan"><option value="">Choose...</option><option value="meticulously designed plan">meticulously designed plan</option><option value="self-inflicted feeling">self-inflicted feeling</option><option value="gnawing feeling">gnawing feeling</option></select></span>, the complex project quickly fell behind schedule.</div>
+      <div class="sentence">4. True artists <span class="select-wrap"><select data-answer="revere"><option value="">Choose...</option><option value="dole them out">dole them out</option><option value="give that a shot">give that a shot</option><option value="revere">revere</option></select></span> their craft above financial rewards.</div>
+      <div class="sentence">5. A <span class="select-wrap"><select data-answer="nagging feeling"><option value="">Choose...</option><option value="master tactician">master tactician</option><option value="nagging feeling">nagging feeling</option><option value="remuneration">remuneration</option></select></span> of self-doubt began to undermine her confidence before the big presentation.</div>
+      <div class="sentence">6. You can't <span class="select-wrap"><select data-answer="lose yourself in the delusion"><option value="">Choose...</option><option value="lose yourself in the delusion">lose yourself in the delusion</option><option value="take a genuine interest in">take a genuine interest in</option><option value="stand up to scrutiny">stand up to scrutiny</option></select></span> that the first successful result wasn't just luck; it needs to be repeated.</div>
+      <div class="sentence">7. She didn't want to <span class="select-wrap"><select data-answer="let off steam"><option value="">Choose...</option><option value="hold back">hold back</option><option value="let off steam">let off steam</option><option value="pursue her dreams">pursue her dreams</option></select></span>, so she remained professional despite her frustration with the unfair decision.</div>
+      <div class="sentence">8. The coach told the team not to <span class="select-wrap"><select data-answer="get distracted or dispirited"><option value="">Choose...</option><option value="get distracted or dispirited">get distracted or dispirited</option><option value="leave an imprint">leave an imprint</option><option value="be game">be game</option></select></span> if they fell behind early in the game.</div>
+      <div class="sentence">9. Regular exercise can significantly <span class="select-wrap"><select data-answer="boost your well-being"><option value="">Choose...</option><option value="pile up accomplishments">pile up accomplishments</option><option value="boost your well-being">boost your well-being</option><option value="forge your way">forge your way</option></select></span> and reduce stress.</div>
+      <div class="sentence">10. He managed to <span class="select-wrap"><select data-answer="forge"><option value="">Choose...</option><option value="forge">forge</option><option value="wreck">wreck</option><option value="sap">sap</option></select></span> several key alliances that helped him win the contract.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="w6-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="w6-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="w6-2">↻ Reset</button>
+        <span class="card-score" data-score="w6-2"></span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function placeSetChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.set-dz'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.set-dz'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('set-dz'))placeSetChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')||parent.classList.contains('set-dz')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const sdz=e.target.closest('.set-dz');
+    if(sdz&&selected.classList.contains('chip')){placeSetChip(sdz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select,.set-dz').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else sel.classList.add('incorrect');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      const ok=inp.dataset.answer.split('|').some(a=>norm(inp.value)===norm(a));
+      if(ok){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      total++;
+      const dz=group.querySelector('.set-dz');
+      const chip=dz&&dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===group.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer.split('|').join(' / ');
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      const dz=group.querySelector('.set-dz');
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+group.dataset.answer;
+      if(dz)dz.appendChild(exp);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.set-dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are the boss of your impostor syndrome!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
