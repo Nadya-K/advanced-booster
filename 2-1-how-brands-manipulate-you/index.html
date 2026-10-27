@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How Brands Manipulate You into Buying More — Interactive Practice</title>
+<title>The Chameleon Effect — Interactive Practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -37,11 +37,11 @@
 
   .cover-wrap { padding: 24px 24px 12px; }
   .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
-  .cover-img { height: 62%; background: #cfc9ec; }
+  .cover-img { height: 62%; background: #d8e7d8; }
   .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
   .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
   .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
-  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text h1 { color: var(--purple); font-size: 38px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
   .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
 
   .container { max-width: 920px; margin: 0 auto; padding: 24px; }
@@ -99,13 +99,6 @@
   .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
   .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
 
-  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .select-wrap select { appearance: none; -webkit-appearance: none; -moz-appearance: none; background: #fff; border: 2px solid var(--purple-light); border-radius: 8px; padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600; color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
-  .select-wrap select:hover { border-color: var(--purple); }
-  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
-  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
-  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
-
   .wordorder { margin-bottom: 20px; }
   .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
   .wordorder .bank { margin-bottom: 10px; }
@@ -140,9 +133,40 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  .hint-input { 
+    display: inline-flex; 
+    align-items: center; 
+    margin: 0 4px; 
+    vertical-align: middle;
+    flex-wrap: wrap;
+    max-width: calc(100% - 8px);
+    gap: 0;
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none; 
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 80px;
+    max-width: 100%;
+    width: auto;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -180,8 +204,8 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 120px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .hint-input input { min-width: 90px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -189,14 +213,12 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
-    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
   }
 
   @media (max-width: 760px){
@@ -214,12 +236,14 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 24px; }
     .cover-text p { font-size: 14px; }
+    .hint-input input { min-width: 70px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
   }
 </style>
 </head>
@@ -265,8 +289,8 @@
   </div>
   <nav class="nav">
     <a class="links-btn" href="#links">🔗 Links</a>
-    <a href="#video">Video</a>
-    <a href="#text">Text</a>
+    <a href="#warmup">Warm-up</a>
+    <a href="#reading">Reading</a>
     <a href="#vocabulary">Vocabulary</a>
     <a href="#audio">Audio</a>
     <a href="#revision">Revision</a>
@@ -280,11 +304,11 @@
 
 <div class="cover-wrap">
   <div class="cover-card">
-    <div class="cover-img"><img src="img-cover.png" alt="How Brands Manipulate You — cover"></div>
+    <div class="cover-img"><img src="img-cover.png" alt="The Chameleon Effect — cover"></div>
     <div class="cover-text">
       <span class="cover-brand">Advanced Booster</span>
-      <h1>How Brands Manipulate You</h1>
-      <p>The Invisible Sell: are you being pitched or connected with?</p>
+      <h1>The Chameleon Effect</h1>
+      <p>Why do we subconsciously mimic others?</p>
     </div>
   </div>
 </div>
@@ -295,9 +319,8 @@
     <div class="card">
       <h3>Lesson links</h3>
       <div class="links">
-        <a href="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" target="_blank">▶ Lesson video</a>
-        <a class="pur" href="https://drive.google.com/file/d/1-4FNFnA0znW92Kb06-PaQjhAslPewo6c/view" target="_blank">📄 Vocabulary PDF</a>
-        <a class="alt" href="https://quizlet.com/ru/1111759648/how-brands-manipulate-you-into-buying-more-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+        <a class="pur" href="https://drive.google.com/file/d/1ChameleonEffect_PsychologyNow/view" target="_blank">📄 Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/ru/the-chameleon-effect-flash-cards" target="_blank">🃏 Quizlet</a>
       </div>
     </div>
   </section>
@@ -308,42 +331,35 @@
     <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
     <div class="card warm">
       <h3>Let's chat!</h3>
-      <p class="sentence">1. What was the last thing you bought because of an ad? Do you remember which one?</p>
-      <p class="sentence">2. Do you think advertising informs us, manipulates us, or both?</p>
+      <p class="sentence">1. Have you ever caught yourself copying someone's gestures, accent, or facial expression during a conversation without realising it?</p>
+      <p class="sentence">2. Do you think you behave differently around your family, friends, and colleagues? Why or why not?</p>
     </div>
   </section>
 
-  <section class="section" id="video">
-    <div class="section-title"><span class="num">1</span> Video</div>
+  <section class="section" id="reading">
+    <div class="section-title"><span class="num">1</span> Reading</div>
     <div class="card">
-      <h3>1.1 Watch the video and catch the main idea</h3>
-      <p class="sentence" style="font-weight:700; margin-bottom:16px;">How do brands manipulate us into buying more?</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" target="_blank">▶ Open video</a></div>
-    </div>
-    <div class="card">
-      <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
-      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
-    </div>
-  </section>
-
-  <section class="section" id="text">
-    <div class="section-title"><span class="num">2</span> Text</div>
-    <div class="card">
-      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <h3>1.1 Read the article and make sure you got everything</h3>
       <details class="text-details">
-        <summary>📖 Read the text (click to expand)</summary>
-        <p>Companies spend billions of dollars every year to manipulate your psychology so you feel desire, loyalty, and urgency. All in an effort to get you to buy more stuff. This isn't a conspiracy. It's not even a secret. These are strategies shared in boardrooms, <b class="v">bragged about</b> in tech offices, and liked on LinkedIn. Brands hide their true intentions from you <b class="v">through a sleight of hand</b>. They <b class="v">seamlessly blend into</b> culture, track your every move, and <b class="v">hit you with relentless messaging</b>. Every word, every image, and every offer is tested and optimized to get you to buy more. And the more I looked into it, the more I realized how <b class="v">sophisticated</b> it's gotten. This video is sponsored by Surf Shark. I'll share more about how they can help to keep your data private later. If there's one thing I want to get across from the very beginning, it's this. Don't <b class="v">be fooled by</b> what companies say they value. It's all about the money. They'll claim their mission is to make the world a better place, to empower creativity, or to build a community. We're a company that focuses on connecting people. Let's be real, that's just the message they want you to hear. The truth is much simpler and far less romantic. They don't want to empower creativity. They want more people to make free content for them. They don't want to build a community. They want loyal customers that keep coming back. They don't want to make the world a better place. They want you to buy more, more often. And without thinking too hard about it. The business model is simple. <b class="v">Capture your attention</b>, <b class="v">shape your perception</b>, and turn it into profit. This doesn't mean that every company is <b class="v">inherently bad</b> or that every advertising strategy is evil. It's just the nature of capitalism. Maximizing profit is the goal. And it's the same story we've been played out for decades, except now companies are getting smarter, using more sophisticated tools, and making it so much harder for you to resist. One of the oldest tricks in the books is for brands to get you to like them, to build <b class="v">genuine affinity</b> and trust. And it all starts with branding.</p>
-        <p>Most people today are <b class="v">savvy</b> enough to know that branding isn't just a logo, colors, or style guide. It's carefully engineered storytelling. Because advertising doesn't just sell products, it sells values. Martin Lindström, marketing insider and author of the New York Times bestselling book Biology, says, "Brands that create an emotional connection to consumers are much stronger than those that don't. It's as simple and complicated as that." Luxury car commercials don't talk about gas mileage or safety ratings. They show you freedom, success, power. Even everyday products like deodorant or shampoo <b class="v">are pitched as</b> the key to being a better, more authentic, or morally ethical version of yourself. And you know what? It really works. Brands invest millions into <b class="v">crafting their image</b>, <b class="v">refining their message</b>, and building an identity that <b class="v">speaks to you</b>. Because they know it's going to help <b class="v">bypass rational evaluation</b>. You don't buy a new car because you compare every <b class="v">spec</b>. You buy it because you want it to say something about who you are. Think about it. If you remove the logos from three popular running sneakers, most people, <b class="v">aside from</b> sneaker heads, would struggle to tell them apart. When so many sneakers use the same materials, shapes, and manufacturing processes, it's the brand that makes the difference.</p>
-        <p>This was made very clear in a 2018 <b class="v">stunt</b> by the budget footwear company Payless. Amid dropping sales and <b class="v">on the verge of</b> bankruptcy, Payless <b class="v">took a big swing</b>. They secretly took over the lease of an old Armani store in Santa Monica and turned it into a fake luxury boutique called Paylessi. The <b class="v">pop-up shop</b> was extravagant and next to some of the most expensive retailers here on Third Street Promenade, and they had the same 20 to $40 shoes on the shelves, but with fancy lighting, minimalist displays, and <b class="v">high-end tags</b> that went up to $600. They invited fashion influencers to the <b class="v">launch</b> party, and it worked. People <b class="v">raved about</b> the quality, the design, and how premium it all felt. Within hours, Payless sold thousands of dollars worth of inventory, beautifully demonstrating the power of branding and how emotional storytelling can <b class="v">shift your perception</b> of a product. And no, the irony doesn't fail me that this itself was a clever marketing stunt by a company looking to sell more shoes. Brands have smartened up a lot over the years. They know it's much easier to <b class="v">tap into your current emotions</b> and behaviors than to fundamentally change your beliefs.</p>
-        <p>This is one of Ram's most recent commercials. Americans, we can do anything we want except one thing. We just can't stop being American. If you were to reverse engineer this ad back to its origins, you'd probably end up in a room with <b class="v">a handful of</b> brand and marketing experts. This is where it all begins. It's their job to figure out how to make people want a Ram truck. And they don't just <b class="v">come up with this stuff out of nowhere</b>. It's not based on their own intuition or feelings. They look at their competitors, panalyze the cultural climate, and study their target audience. Learning, among other things, that conservative Americans see the US as the greatest country in the world. Even though among high-income nations, it ranks 33rd in infant mortality, 20th in education, 40th in life expectancy, and has one of the worst healthcare systems in the world. But facts don't sell trucks, feelings do. So these brand experts decide that they want to <b class="v">harness the feeling of</b> America is number one. After months of research, meetings, script revisions, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b class="v">out of touch</b>, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <b class="v">rebellious</b>, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands show up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b class="v">take a backseat</b> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing.</p>
-        <p>Microsoft Burger King, Gatorade, and others use the comment section as another <b class="v">touch point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any interaction you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's snarky friend. Liquid Death is literally just water in a can, but its content makes you feel <b class="v">rebellious</b> and <b class="v">irreverent</b>. And if you <b class="v">feel the urge</b> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you. Look, it would be pretty <b class="v">one-dimensional</b> to just sit here and say, "Brands bad, marketing bad." <b class="v">Plenty of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b class="v">being deceived into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you.</p>
-        <p>At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b class="v">it crosses a line to</b> being completely unethical. Out of all the advancements in marketing, the <b class="v">sophistication</b> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <b class="v">propelled</b> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what you cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical cues to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microtargeting, and it's used by virtually every big brand today. Instead of <b class="v">blasting</b> everyone <b class="v">with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b class="v">quote unquote</b> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment. In her book, she says, "There's a reason why you erase something from existence, why a teen girl feels that it can't be shared, and surely Facebook shouldn't then be using that moment <b class="v">to bombard them with</b> extreme weight loss ads or beauty industry ads or whatever else they push on teens feeling vulnerable." The weird thing is that the rest of our Facebook co-workers seemed unbothered about this. It's very very hard to <b class="v">wrap your mind around</b> the amount of data that this company has on each person who logs on to its service. Don't let Mark Zuckerberg's rebrand fool you. Changing his wardrobe doesn't change their business model. According to Williams, nothing at the company changed after these <b class="v">allegations</b> were brought forth. They simply put out a PR statement to help repair their brand image and proceeded on business as usual.</p>
+        <summary>📖 The Chameleon Effect (click to expand)</summary>
+        <p>Have you ever been in mid-conversation with someone, when you look over and find them standing in the same position as you or holding the same facial expression? It may seem like they have consciously copied you, but it is much more likely that this is <b class="v">the chameleon effect</b> at play.</p>
+        <p>The chameleon effect is the <b class="v">nonconscious mimicry</b> of another person's gestures or mannerisms. Just as a chameleon <b class="v">blends into</b> the background to match any environment's colours, people <b class="v">acquire the behaviours</b> of others to bring them closer together and help make their interactions smooth and <b class="v">well-received</b>.</p>
+        <p>Evidence that the chameleon effect was a real phenomenon was demonstrated in an experiment by psychologists John Bargh and Tanya Chartrand in 1999. The duo wanted to see if the chameleon effect worked in both acquaintances and <b class="v">complete strangers</b>. The first of their experiments included 78 people, who each spoke with an experimenter. During three parts of the test, Bargh and Chartrand studied whether participants would copy the actions of someone they hadn't met before — such as <b class="v">waggling the foot</b> and <b class="v">touching the face</b>. In the first stage, when gestures were applied, participants increased their face touching by 20% and their foot movement by 50%, while in conversation about a photograph with the experimenter.</p>
+        <p>The individuals weren't aware of what they were being studied for, and the photograph was used as a <b class="v">distraction</b> to ensure subconscious acts. The second part of the experiment involved half of the participants being mimicked, and then rating the likeability of the experimenter. The results showed that those who were mimicked scored the experimenter higher.</p>
+        <p>Studies such as this have shown that when someone copies our behaviour, we develop more <b class="v">positive feelings</b> about them. These interactions could be a person subconsciously willing to be liked, and forming a moment of connection and <b class="v">empathy</b>. To understand the empathetic theory, consider how you would respond in a situation where your close friend tells you they have just passed an exam they had been really worried about. If your friend tells you the news in an excitable and happy manner, the chances are you respond in a similar tone. This is because it is part of human nature to share feelings and <b class="v">navigate through life</b> with companions.</p>
+        <p>Another theory about why the chameleon effect exists is as an adapted <b class="v">survival trait</b>. Being able to <b class="v">fit in with</b> those around you, and being accepted into a group means that there are others who can have your back when under threat. In modern life, the brain may react similarly when moving abroad or into another new group. Because those who live in the same country or community usually share the same behaviour, traits, knowledge and attitude, it is natural for <b class="v">outsiders</b> to initially feel <b class="v">vulnerable</b>.</p>
+        <p>In some instances, the chameleon effect targets speech. As your brain processes a strong new accent during conversation — or is exposed to new vocabulary — you may begin to <b class="v">adopt an accent</b> different to the one you use daily. Similarly, if you spend enough time talking to someone who uses a particular word or phrase, it is easy to unintentionally incorporate new phrases into your regular speech.</p>
+        <p>Couples and close friends are significant targets for the power of the chameleon effect. Some happy couples, for example, are described as being 'made for each other' as they seemingly live life in <b class="v">synchronisation</b>. For most couples, their similarities grow over the years. By spending significant amounts of time together during each day, couples develop some of each other's <b class="v">quirks</b> and routines until they both appear to be very similar to an outsider.</p>
+        <p>Your own signs of the chameleon effect may go unnoticed, but some celebrities in the public eye can't escape this awareness. One example can be heard in the video of English football player Joey Barton being interviewed in a French accent that went viral in 2012. The football player had recently been signed to play for Marseille, and had been living there for the season. As he answered questions at the press conference in France, his Scouse English accent was swapped for French pronunciations. The accent wasn't put on to allow the French audience to better understand him, as he was speaking to his French translator. In an interview later on, he explained that he had no idea that was how he was speaking at the time.</p>
+        <p>According to psychologists, when the chameleon effect occurs to you during time in a country that speaks a different language, <b class="v">self-consciousness</b> is heightened. Those who actively worry about fitting in and not being able to communicate are most likely to <b class="v">subconsciously</b> develop new accents and mannerisms in a foreign country.</p>
+        <p>The main reasons behind humans' social flexibility and mimicry are positive. However, too much of the chameleon effect can be damaging. Some people carry this chameleon trait to the extreme, causing them to drastically change in different situations. When this happens, people can lose their <b class="v">sense of self</b>.</p>
+        <p>When working in a job, most people mimic the behaviour of people in the workplace in some way, whether consciously or not. This is because, in general, many people like to keep their work and social life relatively separate. For others, there is a certain <b class="v">persona</b> that they believe they need to achieve to progress in their profession. One study, carried out by psychologists at the University of Cambridge, found that most people felt they had to <b class="v">suppress</b> some aspect of their personality at work to appear professional. Of those who did this, introverted people found it easier than extraverted people. The study concluded that extraverts felt more stressed and exhausted by fitting in to the tone of their jobs.</p>
       </details>
     </div>
   </section>
 
   <section class="section" id="vocabulary">
-    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
     <div class="section-banner">
       <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
         <rect width="1600" height="320" fill="#f4f2fb"/>
@@ -362,301 +378,271 @@
     </div>
 
     <div class="card">
-      <h3>3.1 Study the vocabulary (link to PDF file)</h3>
-      <div class="links"><a href="https://drive.google.com/file/d/1-4FNFnA0znW92Kb06-PaQjhAslPewo6c/view" target="_blank">Follow the link</a></div>
-      <h3 style="margin-top:20px">3.2 Quizlet</h3>
-      <div class="links"><a class="alt" href="https://quizlet.com/ru/1111759648/how-brands-manipulate-you-into-buying-more-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+      <h3>2.1 Study the vocabulary (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1ChameleonEffect_PsychologyNow/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">2.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ru/the-chameleon-effect-flash-cards" target="_blank">Follow the link</a></div>
     </div>
 
-    <div class="card" data-task="match" data-id="v3-3">
-      <h3>3.3 Match the parts of collocations</h3>
+    <div class="card" data-task="match" data-id="v2-3">
+      <h3>2.3 Match the parts of collocations</h3>
       <div class="instruction">💡 Drag each ending to the matching word (or tap the word, then tap the ending). Click the coral label to unmatch.</div>
       <div class="match-grid">
         <div class="match-col">
           <h4>Column A</h4>
-          <div class="match-target" data-answer="creativity"><span class="term">empower</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="a community"><span class="term">build</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="targets"><span class="term">prime</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="your perception"><span class="term">shift</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="a backseat"><span class="term">take</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="a big swing"><span class="term">make</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="your message"><span class="term">refine</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="mimicry"><span class="term">nonconscious</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="into"><span class="term">blend</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="the behaviours"><span class="term">acquire</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="an accent"><span class="term">adopt</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="with"><span class="term">fit in</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="life"><span class="term">navigate through</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="trait"><span class="term">survival</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="of self"><span class="term">sense</span><span class="matched-label" style="display:none"></span></div>
         </div>
         <div class="match-col">
           <h4>Column B</h4>
           <div class="bank" style="display:block">
-            <div class="match-item" data-word="a big swing">a big swing</div>
-            <div class="match-item" data-word="your message">your message</div>
-            <div class="match-item" data-word="targets">targets</div>
-            <div class="match-item" data-word="a backseat">a backseat</div>
-            <div class="match-item" data-word="creativity">creativity</div>
-            <div class="match-item" data-word="your perception">your perception</div>
-            <div class="match-item" data-word="a community">a community</div>
+            <div class="match-item" data-word="mimicry">mimicry</div>
+            <div class="match-item" data-word="into">into</div>
+            <div class="match-item" data-word="the behaviours">the behaviours</div>
+            <div class="match-item" data-word="an accent">an accent</div>
+            <div class="match-item" data-word="with">with</div>
+            <div class="match-item" data-word="life">life</div>
+            <div class="match-item" data-word="trait">trait</div>
+            <div class="match-item" data-word="of self">of self</div>
           </div>
         </div>
       </div>
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
-        <span class="card-score" data-score="v3-3"></span>
+        <button class="btn btn-check btn-small" data-card="v2-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-3">↻ Reset</button>
+        <span class="card-score" data-score="v2-3"></span>
       </div>
     </div>
 
-    <div class="card" data-task="wordorder" data-id="v3-4">
-      <h3>3.4 Put the words into correct order</h3>
+    <div class="card" data-task="wordorder" data-id="v2-4">
+      <h3>2.4 Put the words into correct order</h3>
       <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
 
-      <div class="wordorder" data-answer="The|local|bookstore|hosts|weekly|readings|of|book|lovers|to|build|a|community.">
-        <span class="wo-num">1/7</span>
+      <div class="wordorder" data-answer="The|chameleon|effect|is|the|nonconscious|mimicry|of|another|person's|gestures.">
+        <span class="wo-num">1/6</span>
         <div class="bank wo-bank">
-          <div class="chip" data-word="The">The</div><div class="chip" data-word="local">local</div><div class="chip" data-word="bookstore">bookstore</div><div class="chip" data-word="hosts">hosts</div><div class="chip" data-word="weekly">weekly</div><div class="chip" data-word="readings">readings</div><div class="chip" data-word="of">of</div><div class="chip" data-word="book">book</div><div class="chip" data-word="lovers">lovers</div><div class="chip" data-word="to">to</div><div class="chip" data-word="build">build</div><div class="chip" data-word="a">a</div><div class="chip" data-word="community.">community.</div>
+          <div class="chip" data-word="The">The</div><div class="chip" data-word="chameleon">chameleon</div><div class="chip" data-word="effect">effect</div><div class="chip" data-word="is">is</div><div class="chip" data-word="the">the</div><div class="chip" data-word="nonconscious">nonconscious</div><div class="chip" data-word="mimicry">mimicry</div><div class="chip" data-word="of">of</div><div class="chip" data-word="another">another</div><div class="chip" data-word="person's">person's</div><div class="chip" data-word="gestures.">gestures.</div>
         </div>
         <div class="wo-target"></div>
       </div>
 
-      <div class="wordorder" data-answer="After|the|rebranding,|the|company|worked|hard|to|build|a|new|identity|around|innovation|and|sustainability.">
-        <span class="wo-num">2/7</span>
+      <div class="wordorder" data-answer="People|acquire|the|behaviours|of|others|to|make|interactions|well-received.">
+        <span class="wo-num">2/6</span>
         <div class="bank wo-bank">
-          <div class="chip" data-word="After">After</div><div class="chip" data-word="the">the</div><div class="chip" data-word="rebranding,">rebranding,</div><div class="chip" data-word="company">company</div><div class="chip" data-word="worked">worked</div><div class="chip" data-word="hard">hard</div><div class="chip" data-word="to">to</div><div class="chip" data-word="build">build</div><div class="chip" data-word="a">a</div><div class="chip" data-word="new">new</div><div class="chip" data-word="identity">identity</div><div class="chip" data-word="around">around</div><div class="chip" data-word="innovation">innovation</div><div class="chip" data-word="and">and</div><div class="chip" data-word="sustainability.">sustainability.</div>
+          <div class="chip" data-word="People">People</div><div class="chip" data-word="acquire">acquire</div><div class="chip" data-word="the">the</div><div class="chip" data-word="behaviours">behaviours</div><div class="chip" data-word="of">of</div><div class="chip" data-word="others">others</div><div class="chip" data-word="to">to</div><div class="chip" data-word="make">make</div><div class="chip" data-word="interactions">interactions</div><div class="chip" data-word="well-received.">well-received.</div>
         </div>
         <div class="wo-target"></div>
       </div>
 
-      <div class="wordorder" data-answer="Luxury|car|owners|are|prime|targets|for|this|new|high-end|security|system.">
-        <span class="wo-num">3/7</span>
+      <div class="wordorder" data-answer="Participants|increased|their|face|touching|by|20%|during|the|experiment.">
+        <span class="wo-num">3/6</span>
         <div class="bank wo-bank">
-          <div class="chip" data-word="Luxury">Luxury</div><div class="chip" data-word="car">car</div><div class="chip" data-word="owners">owners</div><div class="chip" data-word="are">are</div><div class="chip" data-word="prime">prime</div><div class="chip" data-word="targets">targets</div><div class="chip" data-word="for">for</div><div class="chip" data-word="this">this</div><div class="chip" data-word="new">new</div><div class="chip" data-word="high-end">high-end</div><div class="chip" data-word="security">security</div><div class="chip" data-word="system.">system.</div>
+          <div class="chip" data-word="Participants">Participants</div><div class="chip" data-word="increased">increased</div><div class="chip" data-word="their">their</div><div class="chip" data-word="face">face</div><div class="chip" data-word="touching">touching</div><div class="chip" data-word="by">by</div><div class="chip" data-word="20%">20%</div><div class="chip" data-word="during">during</div><div class="chip" data-word="the">the</div><div class="chip" data-word="experiment.">experiment.</div>
         </div>
         <div class="wo-target"></div>
       </div>
 
-      <div class="wordorder" data-answer="Visiting|the|manufacturing|plant|helped|shift|my|perception|of|how|much|work|goes|into|each|product.">
-        <span class="wo-num">4/7</span>
+      <div class="wordorder" data-answer="We|develop|positive|feelings|when|someone|copies|our|behaviour.">
+        <span class="wo-num">4/6</span>
         <div class="bank wo-bank">
-          <div class="chip" data-word="Visiting">Visiting</div><div class="chip" data-word="the">the</div><div class="chip" data-word="manufacturing">manufacturing</div><div class="chip" data-word="plant">plant</div><div class="chip" data-word="helped">helped</div><div class="chip" data-word="shift">shift</div><div class="chip" data-word="my">my</div><div class="chip" data-word="perception">perception</div><div class="chip" data-word="of">of</div><div class="chip" data-word="how">how</div><div class="chip" data-word="much">much</div><div class="chip" data-word="work">work</div><div class="chip" data-word="goes">goes</div><div class="chip" data-word="into">into</div><div class="chip" data-word="each">each</div><div class="chip" data-word="product.">product.</div>
+          <div class="chip" data-word="We">We</div><div class="chip" data-word="develop">develop</div><div class="chip" data-word="positive">positive</div><div class="chip" data-word="feelings">feelings</div><div class="chip" data-word="when">when</div><div class="chip" data-word="someone">someone</div><div class="chip" data-word="copies">copies</div><div class="chip" data-word="our">our</div><div class="chip" data-word="behaviour.">behaviour.</div>
         </div>
         <div class="wo-target"></div>
       </div>
 
-      <div class="wordorder" data-answer="Politicians|often|hire|consultants|to|help|them|craft|their|image|for|the|public.">
-        <span class="wo-num">5/7</span>
+      <div class="wordorder" data-answer="Couples|develop|quirks|and|routines|until|they|appear|similar.">
+        <span class="wo-num">5/6</span>
         <div class="bank wo-bank">
-          <div class="chip" data-word="Politicians">Politicians</div><div class="chip" data-word="often">often</div><div class="chip" data-word="hire">hire</div><div class="chip" data-word="consultants">consultants</div><div class="chip" data-word="to">to</div><div class="chip" data-word="help">help</div><div class="chip" data-word="them">them</div><div class="chip" data-word="craft">craft</div><div class="chip" data-word="their">their</div><div class="chip" data-word="image">image</div><div class="chip" data-word="for">for</div><div class="chip" data-word="the">the</div><div class="chip" data-word="public.">public.</div>
+          <div class="chip" data-word="Couples">Couples</div><div class="chip" data-word="develop">develop</div><div class="chip" data-word="quirks">quirks</div><div class="chip" data-word="and">and</div><div class="chip" data-word="routines">routines</div><div class="chip" data-word="until">until</div><div class="chip" data-word="they">they</div><div class="chip" data-word="appear">appear</div><div class="chip" data-word="similar.">similar.</div>
         </div>
         <div class="wo-target"></div>
       </div>
 
-      <div class="wordorder" data-answer="Sometimes,|you|just|need|to|let|logic|take|a|backseat|and|follow|your|heart.">
-        <span class="wo-num">6/7</span>
+      <div class="wordorder" data-answer="Extraverts|felt|more|stressed|by|fitting|in|to|their|job|tone.">
+        <span class="wo-num">6/6</span>
         <div class="bank wo-bank">
-          <div class="chip" data-word="Sometimes,">Sometimes,</div><div class="chip" data-word="you">you</div><div class="chip" data-word="just">just</div><div class="chip" data-word="need">need</div><div class="chip" data-word="to">to</div><div class="chip" data-word="let">let</div><div class="chip" data-word="logic">logic</div><div class="chip" data-word="take">take</div><div class="chip" data-word="a">a</div><div class="chip" data-word="backseat">backseat</div><div class="chip" data-word="and">and</div><div class="chip" data-word="follow">follow</div><div class="chip" data-word="your">your</div><div class="chip" data-word="heart.">heart.</div>
-        </div>
-        <div class="wo-target"></div>
-      </div>
-
-      <div class="wordorder" data-answer="He|found|it|easy|to|build|a|genuine|affinity|with|his|new|colleagues|because|of|their|shared|sense|of|humor.">
-        <span class="wo-num">7/7</span>
-        <div class="bank wo-bank">
-          <div class="chip" data-word="He">He</div><div class="chip" data-word="found">found</div><div class="chip" data-word="it">it</div><div class="chip" data-word="easy">easy</div><div class="chip" data-word="to">to</div><div class="chip" data-word="build">build</div><div class="chip" data-word="a">a</div><div class="chip" data-word="genuine">genuine</div><div class="chip" data-word="affinity">affinity</div><div class="chip" data-word="with">with</div><div class="chip" data-word="his">his</div><div class="chip" data-word="new">new</div><div class="chip" data-word="colleagues">colleagues</div><div class="chip" data-word="because">because</div><div class="chip" data-word="of">of</div><div class="chip" data-word="their">their</div><div class="chip" data-word="shared">shared</div><div class="chip" data-word="sense">sense</div><div class="chip" data-word="of">of</div><div class="chip" data-word="humor.">humor.</div>
+          <div class="chip" data-word="Extraverts">Extraverts</div><div class="chip" data-word="felt">felt</div><div class="chip" data-word="more">more</div><div class="chip" data-word="stressed">stressed</div><div class="chip" data-word="by">by</div><div class="chip" data-word="fitting">fitting</div><div class="chip" data-word="in">in</div><div class="chip" data-word="to">to</div><div class="chip" data-word="their">their</div><div class="chip" data-word="job">job</div><div class="chip" data-word="tone.">tone.</div>
         </div>
         <div class="wo-target"></div>
       </div>
 
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
-        <span class="card-score" data-score="v3-4"></span>
+        <button class="btn btn-check btn-small" data-card="v2-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-4">↻ Reset</button>
+        <span class="card-score" data-score="v2-4"></span>
       </div>
     </div>
 
-    <div class="card" data-task="dragfill" data-id="v3-5">
-      <h3>3.5 Fill in the gaps</h3>
-      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
-      <div class="bank">
-        <div class="chip" data-word="on the verge">on the verge</div>
-        <div class="chip" data-word="genuine affinity">genuine affinity</div>
-        <div class="chip" data-word="savvy">savvy</div>
-        <div class="chip" data-word="shape your perception">shape your perception</div>
-        <div class="chip" data-word="stunts">stunts</div>
-        <div class="chip" data-word="blend into">blend into</div>
-        <div class="chip" data-word="fooled">fooled</div>
-        <div class="chip" data-word="relentless messaging">relentless messaging</div>
-        <div class="chip" data-word="rational evaluation">rational evaluation</div>
-        <div class="chip" data-word="capture your attention">capture your attention</div>
-        <div class="chip" data-word="through a sleight of hand">through a sleight of hand</div>
-        <div class="chip" data-word="pitched">pitched</div>
-        <div class="chip" data-word="sophisticated">sophisticated</div>
-      </div>
-      <ul style="list-style:none; padding-left:0;">
-        <li class="sentence">1. The marketing campaign was incredibly <span class="dz" data-answer="sophisticated"></span>, using data analytics to target specific consumer moods.</li>
-        <li class="sentence">2. The company tried to <b>hide</b> the product's price increase <span class="dz" data-answer="through a sleight of hand"></span> by subtly reducing the package size.</li>
-        <li class="sentence">3. Successful native advertising is designed to <b>seamlessly</b> <span class="dz" data-answer="blend into"></span> the editorial content of a website, so you might not even realise it's an ad.</li>
-        <li class="sentence">4. Once you search for a product online, social media platforms will <b>hit you with</b> <span class="dz" data-answer="relentless messaging"></span> about it for weeks.</li>
-        <li class="sentence">5. Modern consumers are <span class="dz" data-answer="savvy"></span>; they can see through inauthentic marketing <span class="dz" data-answer="stunts"></span>.</li>
-        <li class="sentence">6. Don't <b>be</b> <span class="dz" data-answer="fooled"></span> <b>by</b> the brand's rustic, handcrafted aesthetic; it's owned by a massive multinational corporation.</li>
-        <li class="sentence">7. The striking visual design of the bottle is the first thing to <span class="dz" data-answer="capture your attention"></span> on the crowded shelf.</li>
-        <li class="sentence">8. A brand's mission statement aims to <span class="dz" data-answer="shape your perception"></span> of the company as being ethical and purposeful, not just profit-driven.</li>
-        <li class="sentence">9. Her love for the small coffee brand wasn't just a trend; she had a <span class="dz" data-answer="genuine affinity"></span> for their sustainable sourcing practices.</li>
-        <li class="sentence">10. After the failed product launch, the company was <span class="dz" data-answer="on the verge"></span> <b>of</b> a major reputational crisis.</li>
-        <li class="sentence">11. The new energy drink was <span class="dz" data-answer="pitched"></span> <b>as</b> a healthy, focus-enhancing supplement, rather than just a sugary caffeine boost.</li>
-        <li class="sentence">12. Emotional branding aims to <b>bypass</b> <span class="dz" data-answer="rational evaluation"></span> and create a direct, sentimental connection with the consumer.</li>
-      </ul>
-      <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button>
-        <span class="card-score" data-score="v3-5"></span>
-      </div>
-    </div>
-
-    <div class="card" data-task="typehint" data-id="v3-6">
-      <h3>3.6 Fill in the gaps</h3>
-      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
-      <div class="sentence">1. As an influencer, your full-time job is to <span class="hint-input"><span class="first-letter">c</span><input type="text" data-answer="craft"></span> <b>your image</b> and <span class="hint-input"><span class="first-letter">r</span><input type="text" data-answer="refine"></span> <b>your message</b> to attract specific sponsorship deals.</div>
-      <div class="sentence">2. Many luxury car brands <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="brag"></span> <b>about</b> their heritage and engineering excellence in their advertisements.</div>
-      <div class="sentence">3. Influencers were paid to <span class="hint-input"><span class="first-letter">r</span><input type="text" data-answer="rave"></span> <b>about</b> the new skincare product, making it an instant sell-out.</div>
-      <div class="sentence">4. With their new, radically different product design, the company decided to <b>take a big</b> <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="swing"></span> to stand out from competitors.</div>
-      <div class="sentence">5. To generate buzz, the cosmetic brand opened a <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="pop"></span> <b>-up shop</b> in the city centre for one month only.</div>
-      <div class="sentence">6. You won't find any <span class="hint-input"><span class="first-letter">h</span><input type="text" data-answer="high"></span> <b>-end tags</b> in that store; it's known for its affordable, high-street fashion.</div>
-      <div class="sentence">7. <b>The</b> <span class="hint-input"><span class="first-letter">l</span><input type="text" data-answer="launch"></span> of the new smartphone was accompanied by a global media event.</div>
-      <div class="sentence">8. The travel company's marketing campaign seeks to <span class="hint-input"><span class="first-letter">h</span><input type="text" data-answer="harness"></span> <b>the feeling of</b> wanderlust and the desire for freedom.</div>
-      <div class="sentence">9. The documentary aims to <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="shift"></span> <b>your perception</b> of "fast fashion" and its environmental impact.</div>
-      <div class="sentence">10. The advertisement for the security system cleverly <b>taps</b> <span class="hint-input"><span class="first-letter">i</span><input type="text" data-answer="into"></span> <b>your current emotions</b> of fear and uncertainty about home safety.</div>
-      <div class="sentence">11. Great creatives don't <b>come up with the stuff out of</b> <span class="hint-input"><span class="first-letter">n</span><input type="text" data-answer="nowhere"></span>; they conduct deep research into consumer behaviour.</div>
-      <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
-        <span class="card-score" data-score="v3-6"></span>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>3.7 Choose the correct preposition</h3>
-      <div class="links"><a href="https://wordwall.net/ru/embed/881dbf0deabc41d4aa11bdab861b6ada?themeId=1&templateId=36&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
-    </div>
-
-    <div class="card" data-task="dragfill" data-id="v3-7">
-      <h3>3.8 Fill in the gaps</h3>
+    <div class="card" data-task="dragfill" data-id="v2-5">
+      <h3>2.5 Fill in the gaps</h3>
       <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
       <div class="bank">
-        <div class="chip" data-word="takes a backseat">takes a backseat</div>
-        <div class="chip" data-word="sophistication">sophistication</div>
-        <div class="chip" data-word="speak to you">speak to you</div>
-        <div class="chip" data-word="out of touch">out of touch</div>
-        <div class="chip" data-word="propel">propel</div>
-        <div class="chip" data-word="blasted with">blasted with</div>
-        <div class="chip" data-word="quote unquote">quote unquote</div>
-        <div class="chip" data-word="be deceived into">be deceived into</div>
-        <div class="chip" data-word="one-dimensional">one-dimensional</div>
-        <div class="chip" data-word="touch point">touch point</div>
-        <div class="chip" data-word="bombard">bombard</div>
-        <div class="chip" data-word="wrap your mind around">wrap your mind around</div>
+        <div class="chip" data-word="nonconscious mimicry">nonconscious mimicry</div>
+        <div class="chip" data-word="blends into">blends into</div>
+        <div class="chip" data-word="well-received">well-received</div>
+        <div class="chip" data-word="complete strangers">complete strangers</div>
+        <div class="chip" data-word="distraction">distraction</div>
+        <div class="chip" data-word="positive feelings">positive feelings</div>
+        <div class="chip" data-word="empathy">empathy</div>
+        <div class="chip" data-word="survival trait">survival trait</div>
+        <div class="chip" data-word="fit in with">fit in with</div>
+        <div class="chip" data-word="vulnerable">vulnerable</div>
+        <div class="chip" data-word="synchronisation">synchronisation</div>
+        <div class="chip" data-word="sense of self">sense of self</div>
       </div>
       <ul style="list-style:none; padding-left:0;">
-        <li class="sentence">1. Using outdated slang in their ads made the brand seem completely <span class="dz" data-answer="out of touch"></span> with a younger audience.</li>
-        <li class="sentence">2. In luxury marketing, the product's price often <span class="dz" data-answer="takes a backseat"></span> to the story of its craftsmanship and exclusivity.</li>
-        <li class="sentence">3. Every customer interaction, from the website to the packaging, is a <span class="dz" data-answer="touch point"></span> that influences their overall brand experience.</li>
-        <li class="sentence">4. The best brand stories <span class="dz" data-answer="speak to you"></span> on a personal level, making you feel understood.</li>
-        <li class="sentence">5. Consumers should not <span class="dz" data-answer="be deceived into"></span> believing that a "green" logo automatically means a company is fully sustainable.</li>
-        <li class="sentence">6. Regulators are looking into companies that <span class="dz" data-answer="bombard"></span> consumers <b>with</b> pre-checked subscription options and hidden fees.</li>
-        <li class="sentence">7. The <span class="dz" data-answer="sophistication"></span> of their targeting algorithm allows them to serve ads to people who are most likely to convert.</li>
-        <li class="sentence">8. A single, powerful story can <span class="dz" data-answer="propel"></span> a small brand to international fame almost overnight.</li>
-        <li class="sentence">9. During the holiday season, shoppers are <span class="dz" data-answer="blasted with"></span> advertisements from every direction.</li>
-        <li class="sentence">10. The campaign promoted a lifestyle of <span class="dz" data-answer="quote unquote"></span> "effortless cool" that was, in reality, very carefully constructed.</li>
-        <li class="sentence">11. The brand's social media presence felt <span class="dz" data-answer="one-dimensional"></span>, as it only ever posted promotional content and never engaged in real conversation.</li>
-        <li class="sentence">12. It's difficult to <span class="dz" data-answer="wrap your mind around"></span> the sheer scale of data that large tech companies collect for marketing purposes.</li>
+        <li class="sentence">1. The chameleon effect is the <span class="dz" data-answer="nonconscious mimicry"></span> of another person's gestures or mannerisms.</li>
+        <li class="sentence">2. Just as a chameleon <span class="dz" data-answer="blends into"></span> the background, people acquire the behaviours of others to make their interactions smooth and <span class="dz" data-answer="well-received"></span>.</li>
+        <li class="sentence">3. Bargh and Chartrand wanted to see if the effect worked in both acquaintances and <span class="dz" data-answer="complete strangers"></span>.</li>
+        <li class="sentence">4. The photograph was used as a <span class="dz" data-answer="distraction"></span> to ensure subconscious acts during the experiment.</li>
+        <li class="sentence">5. When someone copies our behaviour, we develop more <span class="dz" data-answer="positive feelings"></span> about them and form a moment of connection and <span class="dz" data-answer="empathy"></span>.</li>
+        <li class="sentence">6. Another theory says the chameleon effect exists as an adapted <span class="dz" data-answer="survival trait"></span>.</li>
+        <li class="sentence">7. Being able to <span class="dz" data-answer="fit in with"></span> those around you means there are others who can have your back when under threat.</li>
+        <li class="sentence">8. It is natural for outsiders to initially feel <span class="dz" data-answer="vulnerable"></span> when moving into a new group.</li>
+        <li class="sentence">9. Some happy couples are described as living life in <span class="dz" data-answer="synchronisation"></span>, developing each other's quirks and routines over the years.</li>
+        <li class="sentence">10. When someone carries the chameleon trait to the extreme, they can lose their <span class="dz" data-answer="sense of self"></span>.</li>
       </ul>
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
-        <span class="card-score" data-score="v3-7"></span>
+        <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
+        <span class="card-score" data-score="v2-5"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="typehint" data-id="v2-6">
+      <h3>2.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
+      <div class="sentence">1. The chameleon effect is the nonconscious <span class="hint-input"><span class="first-letter">m</span><input type="text" data-answer="mimicry"></span> of another person's gestures or mannerisms.</div>
+      <div class="sentence">2. Just as a chameleon <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="blends"></span> into the background to match any environment, people acquire the behaviours of others.</div>
+      <div class="sentence">3. Bargh and Chartrand studied whether participants would copy the actions of someone they hadn't <span class="hint-input"><span class="first-letter">m</span><input type="text" data-answer="met"></span> before.</div>
+      <div class="sentence">4. In the first stage of the experiment, participants increased their face <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="touching"></span> by 20% and foot movement by 50%.</div>
+      <div class="sentence">5. The individuals weren't <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="aware"></span> of what they were being studied for, and the photograph was used as a distraction.</div>
+      <div class="sentence">6. Studies have shown that when someone copies our behaviour, we develop more <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="positive"></span> feelings about them.</div>
+      <div class="sentence">7. It is part of human nature to share feelings and <span class="hint-input"><span class="first-letter">n</span><input type="text" data-answer="navigate"></span> through life with companions.</div>
+      <div class="sentence">8. Being able to fit in with those around you and be accepted into a group is an adapted <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="survival"></span> trait.</div>
+      <div class="sentence">9. Because people in the same community usually share the same behaviour, it is natural for <span class="hint-input"><span class="first-letter">o</span><input type="text" data-answer="outsiders"></span> to initially feel vulnerable.</div>
+      <div class="sentence">10. As your brain processes a strong new accent, you may begin to <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="adopt"></span> a different one to the one you use daily.</div>
+      <div class="sentence">11. Couples develop some of each other's <span class="hint-input"><span class="first-letter">q</span><input type="text" data-answer="quirks"></span> and routines until they both appear very similar to an outsider.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-6">↻ Reset</button>
+        <span class="card-score" data-score="v2-6"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v2-7">
+      <h3>2.7 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="adopt">adopt</div>
+        <div class="chip" data-word="self-consciousness">self-consciousness</div>
+        <div class="chip" data-word="subconsciously">subconsciously</div>
+        <div class="chip" data-word="persona">persona</div>
+        <div class="chip" data-word="suppress">suppress</div>
+        <div class="chip" data-word="quirks">quirks</div>
+        <div class="chip" data-word="outsiders">outsiders</div>
+        <div class="chip" data-word="vulnerable">vulnerable</div>
+        <div class="chip" data-word="well-received">well-received</div>
+        <div class="chip" data-word="distraction">distraction</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. As your brain processes a strong new accent, you may begin to <span class="dz" data-answer="adopt"></span> a different one to the one you use daily.</li>
+        <li class="sentence">2. When the chameleon effect occurs in a foreign country, your <span class="dz" data-answer="self-consciousness"></span> is heightened.</li>
+        <li class="sentence">3. Those who worry about fitting in are most likely to <span class="dz" data-answer="subconsciously"></span> develop new accents and mannerisms.</li>
+        <li class="sentence">4. For others, there is a certain <span class="dz" data-answer="persona"></span> that they believe they need to achieve to progress in their profession.</li>
+        <li class="sentence">5. Most people felt they had to <span class="dz" data-answer="suppress"></span> some aspect of their personality at work to appear professional.</li>
+        <li class="sentence">6. Couples develop some of each other's <span class="dz" data-answer="quirks"></span> and routines until they both appear very similar to an outsider.</li>
+        <li class="sentence">7. Because those in the same community usually share the same behaviour, it is natural for <span class="dz" data-answer="outsiders"></span> to initially feel <span class="dz" data-answer="vulnerable"></span>.</li>
+        <li class="sentence">8. People acquire the behaviours of others to make their interactions smooth and <span class="dz" data-answer="well-received"></span>.</li>
+        <li class="sentence">9. The photograph was used as a <span class="dz" data-answer="distraction"></span> to ensure subconscious acts during the experiment.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-7">↻ Reset</button>
+        <span class="card-score" data-score="v2-7"></span>
       </div>
     </div>
   </section>
 
   <section class="section" id="audio">
-    <div class="section-title"><span class="num">4</span> Audio</div>
-    <div class="card" data-task="typeblank" data-id="a4-1">
-      <h3>4.1 Watch the videos and fill in the gaps</h3>
-      <div class="instruction">💡 Open each clip, listen, and type the missing word(s) into the blanks.</div>
+    <div class="section-title"><span class="num">3</span> Audio</div>
+    <div class="card" data-task="typeblank" data-id="a3-1">
+      <h3>3.1 Listen and fill in the gaps</h3>
+      <div class="instruction">💡 Listen to the extracts and type the missing words.</div>
 
-      <div class="links" style="margin:0 0 12px"><a href="https://drive.google.com/file/d/1ek4ju-xTBjx5QfGUe1lANPKxe2HmfZp1/preview" target="_blank">▶ Open video 1</a></div>
-      <div class="sentence">Companies spend billions of dollars every year to manipulate your psychology so you feel desire, loyalty, and urgency. All in an effort to get you to buy more stuff. This isn't a conspiracy. It's not even a secret. These are strategies shared in boardrooms, <input class="blank" data-answer="bragged"> <b>about</b> in tech offices, and liked on LinkedIn. Brands hide their true intentions from you <b>through a sleight of</b> <input class="blank" data-answer="hand">. They <b>seamlessly</b> <input class="blank" data-answer="blend"> <b>into</b> culture, track your every move, and <b>hit you with relentless messaging</b>. Every word, every image, and every offer is tested and optimized to get you to buy more. And the more I looked into it, the more I realized how <input class="blank" data-answer="sophisticated"> it's gotten. This video is sponsored by Surf Shark. I'll share more about how they can help to keep your data private later. If there's one thing I want to get across from the very beginning, it's this. Don't <b>be</b> <input class="blank" data-answer="fooled"> <b>by</b> what companies say they value. It's all about the money. They'll claim their mission is to make the world a better place, to empower creativity, or to build a community. We're a company that focuses on connecting people. Let's be real, that's just the message they want you to hear. The truth is much simpler and far less romantic. They don't want to empower creativity. They want more people to make free content for them. They don't want to build a community. They want loyal customers that keep coming back. They don't want to make the world a better place. They want you to buy more, more often. And without thinking too hard about it. The business model is simple. <input class="blank" data-answer="Capture"> <b>your attention</b>, <input class="blank" data-answer="shape"> <b>your perception</b>, and turn it into profit. This doesn't mean that every company is <b>inherently bad</b> or that every advertising strategy is evil. It's just the nature of capitalism. Maximizing profit is the goal. It's the same story we've seen played out for decades, except now companies are getting smarter, using more sophisticated tools, and making it so much harder for you to resist. One of the oldest tricks in the books is for brands to get you to like them, to build <b>genuine</b> <input class="blank" data-answer="affinity"> and trust. And it all starts with branding.</div>
+      <div class="sentence">The chameleon effect is the <input class="blank" data-answer="nonconscious"> <b>mimicry</b> of another person's gestures or mannerisms. Just as a chameleon <input class="blank" data-answer="blends"> <b>into</b> the background to match any environment's colours, people <input class="blank" data-answer="acquire"> <b>the behaviours</b> of others to bring them closer together and help make their interactions smooth and <input class="blank" data-answer="well-received">.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1V-hQ7RUmrMDQerjVJ3wg0zEHsJWpaqD2/preview" target="_blank">▶ Open video 2</a></div>
-      <div class="sentence">Most people today are <input class="blank" data-answer="savvy"> enough to know that branding isn't just a logo, colors, or style guide. It's carefully engineered <input class="blank" data-answer="storytelling">. Because advertising doesn't just sell products, it sells values. Martin Lindström, marketing insider and author of the New York Times bestselling book Biology, says, "Brands that create an emotional connection to consumers are much stronger than those that don't. It's as simple and complicated as that." Luxury car commercials don't talk about gas mileage or safety ratings. They show you freedom, success, power. Even everyday products like deodorant or shampoo <b>are</b> <input class="blank" data-answer="pitched"> <b>as</b> the key to being a better, more authentic, or morally ethical version of yourself. And you know what? It really works. Brands invest millions into <b>crafting their</b> <input class="blank" data-answer="image">, <b>refining their</b> <input class="blank" data-answer="message">, and building an identity that <input class="blank" data-answer="speaks"> <b>to you</b>. Because they know it's going to help <b>bypass</b> <input class="blank" data-answer="rational"> <b>evaluation</b>. You don't buy a new car because you compare every <input class="blank" data-answer="spec">. You buy it because you want it to say something about who you are. Think about it. If you remove the logos from three popular running sneakers, most people, <input class="blank" data-answer="aside"> <b>from</b> sneaker heads, would struggle to tell them apart. When so many sneakers use the same materials, shapes, and manufacturing processes, it's the brand that makes the difference.</div>
+      <div class="sentence">Evidence that the chameleon effect was a real phenomenon was demonstrated in an experiment by psychologists John Bargh and Tanya Chartrand in 1999. The duo wanted to see if the chameleon effect worked in both acquaintances and <input class="blank" data-answer="complete strangers">.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/13a1ywoJ-uO6hUIZcefEyWymUxNo6SSBt/preview" target="_blank">▶ Open video 3</a></div>
-      <div class="sentence">This was made very clear in a 2018 <input class="blank" data-answer="stunt"> by the budget footwear company Payless. Amid dropping sales and <b>on the</b> <input class="blank" data-answer="verge"> <b>of</b> bankruptcy, Payless <b>took a big</b> <input class="blank" data-answer="swing">. They secretly took over the lease of an old Armani store in Santa Monica and turned it into a fake luxury boutique called Paylessi. The <b>pop-up shop</b> was extravagant and next to some of the most expensive retailers here on Third Street Promenade, they had the same 20 to $40 shoes on the shelves, but with fancy lighting, minimalist displays, and <b>high-end</b> <input class="blank" data-answer="tags"> that went up to $600. They invited fashion influencers to the <b>launch</b> party, and it worked. People <input class="blank" data-answer="raved"> <b>about</b> the quality, the design, and how premium it all felt. Within hours, Payless sold thousands of dollars worth of inventory, beautifully demonstrating the power of branding and how emotional storytelling can <input class="blank" data-answer="shift"> <b>your perception</b> of a product. And no, the irony doesn't fail me that this itself was a clever marketing stunt by a company looking to sell more shoes. Brands have smartened up a lot over the years. They know it's much easier to <input class="blank" data-answer="tap"> <input class="blank" data-answer="into"> <b>your current emotions</b> and behaviors than to fundamentally change your beliefs. This is one of Ram's most recent commercials. Americans, we can do anything we want except one thing. We just can't stop being American. If you were to reverse engineer this ad back to its origins, you'd probably end up in a room with <b>a</b> <input class="blank" data-answer="handful"> <b>of</b> brand and marketing experts. This is where it all begins. It's their job to figure out how to make people want a Ram truck. And they don't just <b>come up with this stuff</b> <input class="blank" data-answer="out"> <b>of</b> <input class="blank" data-answer="nowhere">. It's not based on their own intuition or feelings. They look at their competitors, panalyze the cultural climate, and study their target audience. Learning, among other things, that conservative Americans see the US as the greatest country in the world. Even though among high-income nations, it ranks 33rd in infant mortality, 20th in education, 40th in life expectancy, and has one of the worst healthcare systems in the world.</div>
+      <div class="sentence">In the first stage, when gestures were applied, participants increased their face <input class="blank" data-answer="touching"> by 20% and their foot movement by 50%, while in conversation about a <input class="blank" data-answer="photograph"> with the experimenter. The photograph was used as a <input class="blank" data-answer="distraction"> to ensure subconscious acts.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1feEGXDnEUFYmGp2CYqDSku6DgnV-gr1x/preview" target="_blank">▶ Open video 4</a></div>
-      <div class="sentence">But facts don't sell trucks, feelings do. So these brand experts decide that they want to <input class="blank" data-answer="harness"> <b>the feeling</b> of America is number one. After months of research, meetings, script revisions, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b>out of</b> <input class="blank" data-answer="touch">, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <input class="blank" data-answer="rebellious">, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands <input class="blank" data-answer="show"> up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b>take a</b> <input class="blank" data-answer="backseat"> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing. Microsoft Burger King, Gatorade, and others use the comment section as another <input class="blank" data-answer="touch"> <b>point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any <input class="blank" data-answer="interaction"> you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's <b>snarky friend</b>. Liquid Death is literally just water in a can, but its content makes you feel <b>rebellious</b> and <input class="blank" data-answer="irreverent">. And if you <b>feel the</b> <input class="blank" data-answer="urge"> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you.</div>
+      <div class="sentence">Studies such as this have shown that when someone copies our behaviour, we develop more <input class="blank" data-answer="positive"> <b>feelings</b> about them. These interactions could be a person subconsciously willing to be liked, and forming a moment of connection and <input class="blank" data-answer="empathy">.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1WvOpwZgJ3dllVExLWgKK7nKnatDinDMK/preview" target="_blank">▶ Open video 5</a></div>
-      <div class="sentence">Look, it would be pretty <b>one-</b><input class="blank" data-answer="dimensional"> to just sit here and say, "Brands bad, marketing bad." <input class="blank" data-answer="Plenty"> <b>of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b>being</b> <input class="blank" data-answer="deceived"> <b>into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you. At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b>it</b> <input class="blank" data-answer="crosses"> <b>a line</b> <input class="blank" data-answer="to"> being completely unethical. Out of all the advancements in marketing, the <input class="blank" data-answer="sophistication"> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <input class="blank" data-answer="propelled"> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what they cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical <input class="blank" data-answer="cues"> to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microargeting, and it's used by virtually every big brand today. Instead of <input class="blank" data-answer="blasting"> everyone <b>with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b>quote</b> <input class="blank" data-answer="unquote"> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them <input class="blank" data-answer="prime"> targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment.</div>
+      <div class="sentence">This is because it is part of human nature to share feelings and <input class="blank" data-answer="navigate"> <b>through life</b> with companions. Another theory says it's an adapted <input class="blank" data-answer="survival"> <b>trait</b>.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1T1fx-DHP06iSEqjBivdZtpvNYx2ks11K/preview" target="_blank">▶ Open video 6</a></div>
-      <div class="sentence">In her book, she says, "There's a reason why you erase something from existence, why a teen girl feels that it can't be shared, and surely Facebook shouldn't then be using that moment <b>to</b> <input class="blank" data-answer="bombard"> <b>them</b> <input class="blank" data-answer="with"> extreme weight loss ads or beauty industry ads or whatever else they push on teens feeling vulnerable." The weird thing is that the rest of our Facebook co-workers seemed unbothered about this. It's very very hard to <input class="blank" data-answer="wrap"> <b>your</b> <input class="blank" data-answer="mind"> <input class="blank" data-answer="around"> the amount of data that this company has on each person who logs on to its service. Don't let Mark Zuckerberg's rebrand fool you. Changing his wardrobe doesn't change their business model. According to Williams, nothing at the company changed after these <input class="blank" data-answer="allegations"> were brought <input class="blank" data-answer="forth">. They simply put out a PR statement to help repair their brand image and proceeded on business as usual.</div>
+      <div class="sentence">Being able to <input class="blank" data-answer="fit in"> <b>with</b> those around you means there are others who can have your back when under threat. It is natural for <input class="blank" data-answer="outsiders"> to initially feel <input class="blank" data-answer="vulnerable">.</div>
+
+      <div class="sentence">As your brain processes a strong new accent during conversation, you may begin to <input class="blank" data-answer="adopt"> <b>a different accent</b> to the one you use daily.</div>
+
+      <div class="sentence">Couples develop some of each other's <input class="blank" data-answer="quirks"> and routines until they both appear to be very similar to an outsider, living life in <input class="blank" data-answer="synchronisation">.</div>
+
+      <div class="sentence">When the chameleon effect occurs to you in a country that speaks a different language, <input class="blank" data-answer="self-consciousness"> is heightened.</div>
+
+      <div class="sentence">Some people carry this chameleon trait to the extreme, causing them to drastically change in different situations. When this happens, people can lose their <input class="blank" data-answer="sense of self">.</div>
+
+      <div class="sentence">For others, there is a certain <input class="blank" data-answer="persona"> that they believe they need to achieve to progress in their profession.</div>
+
+      <div class="sentence">The study concluded that extraverts felt more stressed and exhausted by fitting in to the tone of their jobs, while introverted people found it easier to <input class="blank" data-answer="suppress"> some aspect of their personality at work.</div>
 
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="a4-1">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="a4-1">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="a4-1">↻ Reset</button>
-        <span class="card-score" data-score="a4-1"></span>
+        <button class="btn btn-check btn-small" data-card="a3-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="a3-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="a3-1">↻ Reset</button>
+        <span class="card-score" data-score="a3-1"></span>
       </div>
     </div>
   </section>
 
   <section class="section" id="revision">
-    <div class="section-title"><span class="num">5</span> Revision</div>
+    <div class="section-title"><span class="num">4</span> Revision</div>
 
     <div class="card">
-      <h3>5.1 The Invisible Sell: Are You Being Pitched or Connected With?</h3>
+      <h3>4.1 Read the summary</h3>
       <details class="text-details" open>
-        <summary>📖 Read the text (click to collapse)</summary>
-        <p>We live in an age of supreme marketing <b class="v">sophistication</b>. Brands no longer just <b class="v">brag about</b> their features; they <b class="v">seamlessly blend into</b> your digital life, telling stories and <b class="v">harnessing the feeling of</b> community, aspiration, and belonging. The goal is simple: to <b class="v">capture your attention</b> and <b class="v">shift your perception of</b> their product from a simple commodity to a must-have emblem of identity.</p>
-        <p>Gone are the days of the one-off commercial. Now, campaigns are designed to <b class="v">hit you with relentless messaging</b> across every <b class="v">touch point</b> - your social media feed, your favorite podcast, the bus stop you pass every day. They expertly <b class="v">tap into your current emotions</b>, whether it's a desire for sustainability, a need for convenience, or a longing for adventure. A new brand might <b class="v">be pitched as</b> the authentic alternative, cultivating what feels like a <b class="v">genuine affinity</b> with its audience. They <b class="v">craft their image</b> and <b class="v">refine their message</b> until it seems to <b class="v">speak to you</b> personally.</p>
-        <p>But when does this art of persuasion cross into manipulation? It's a line that is becoming increasingly blurred.</p>
-        <p>Consider the <b class="v">launch</b> of a new, trendy brand. They might open a <b class="v">pop-up shop</b> in a trendy neighborhood, filled with art installations and free samples. Influencers <b class="v">rave about</b> the experience, and for a moment, the product feels less like a purchase and more like a membership. This isn't a clumsy <b class="v">stunt</b>; it's a calculated effort to <b class="v">propel</b> the brand into the cultural conversation. A legacy brand, feeling <b class="v">out of touch</b> and <b class="v">on the verge of</b> irrelevance, might <b class="v">take a big swing</b>, ditching its old logo and <b class="v">blast with</b> a new campaign that <b class="v">bombards someone with</b> images of cool, young people. They swap their traditional designs for collaborations with <b class="v">high-end tags</b>, hoping some of that glamour will rub off.</p>
-        <p>For the <b class="v">savvy</b> consumer, it can be difficult to <b class="v">wrap his mind around</b> what's real. Is this a brand I have a true connection with, or have I simply <b class="v">been fooled by</b> a brilliant narrative? The product's actual function can sometimes <b class="v">take a backseat</b> to the powerful story built around it.</p>
-        <p>The most critical moment is when you realize a brand is trying to <b class="v">hide something through a sleight of hand</b>. Perhaps their messaging about ethical sourcing doesn't match their manufacturing reality. Or their image of inclusivity feels <b class="v">one-dimensional</b> and manufactured. This is the point where the strategy <b class="v">crosses a line</b>. You weren't just being marketed to; you were <b class="v">being deceived into</b> believing in a relationship that never existed.</p>
-        <p>In this complex landscape, the most powerful tool is awareness. Question the stories you're told. Look beyond the emotional appeal and ask what the product actually does. By recognizing the sophisticated machinery behind the message, you can ensure your choices are driven by your own values, and not just by a feeling a brand has cleverly learned to sell.</p>
+        <summary>📖 Summary (click to collapse)</summary>
+        <p>The chameleon effect describes our tendency to <b class="v">nonconsciously mimic</b> the gestures, mannerisms, and even accents of those around us. Like a chameleon that <b class="v">blends into</b> its environment, we <b class="v">acquire the behaviours</b> of others to make our interactions smoother and more <b class="v">well-received</b>.</p>
+        <p>Psychologists John Bargh and Tanya Chartrand demonstrated this phenomenon in 1999. Their experiments with <b class="v">complete strangers</b> showed that participants increased their face <b class="v">touching</b> and foot waggling when interacting with an experimenter who performed those actions. The photograph used in the test served as a <b class="v">distraction</b> to ensure subconscious acts.</p>
+        <p>Two main theories explain why we mimic. First, copying someone's behaviour creates <b class="v">positive feelings</b> and <b class="v">empathy</b> — it helps us <b class="v">navigate through life</b> with companions by sharing emotions. Second, it's an adapted <b class="v">survival trait</b>: <b class="v">fitting in with</b> a group means there are others who can protect us.</p>
+        <p>The effect extends to speech. When exposed to new accents or vocabulary, we may <b class="v">adopt</b> a different one to the one we use daily. Couples in <b class="v">synchronisation</b> develop each other's <b class="v">quirks</b> over the years. When moving abroad, <b class="v">outsiders</b> may feel <b class="v">vulnerable</b>, and heightened <b class="v">self-consciousness</b> makes us more likely to <b class="v">subconsciously</b> pick up local mannerisms.</p>
+        <p>At work, many people adopt a professional <b class="v">persona</b> and <b class="v">suppress</b> aspects of their personality. Introverts find this easier than extraverts, who report feeling more stressed and exhausted.</p>
+        <p>While mimicry is mostly positive, carrying it to extremes can cause people to lose their <b class="v">sense of self</b>. The key is awareness: recognise the chameleon effect at play, and ensure your true self isn't being erased.</p>
       </details>
     </div>
 
     <div class="card">
-      <h3>5.2 Solve the crossword</h3>
-      <div class="links"><a href="https://wordwall.net/ru/embed/b0437fe8b1394ded9648e5ed11adcc35?themeId=1&templateId=11&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
-    </div>
-
-    <div class="card">
-      <h3>5.3 Complete the sentences with your own ideas <i>(Optional)</i></h3>
-      <p class="sentence">1. I usually tend to brag about…</p>
-      <p class="sentence">2. It's easy to be fooled by…</p>
-      <p class="sentence">3. A powerful way to capture your attention is to…</p>
-      <p class="sentence">4. The media can shape your perception of…</p>
-      <p class="sentence">5. On social media, it's important to craft your image to…</p>
-      <p class="sentence">6. A great song often speaks to you when…</p>
-      <p class="sentence">7. The company decided to take a big swing by…</p>
-      <p class="sentence">8. High-end tags often make people feel…</p>
-      <p class="sentence">9. Traveling to another country can shift your perception of…</p>
-      <p class="sentence">10. A good coach knows how to harness the feeling of…</p>
-      <p class="sentence">11. The most important touch point for a customer is…</p>
-      <p class="sentence">12. A one-dimensional character is boring because…</p>
-      <p class="sentence">13. For me, an advertisement crosses a line when it…</p>
-      <p class="sentence">14. A powerful speech can propel people to…</p>
-      <p class="sentence">15. I don't like it when websites blast me with…</p>
-      <p class="sentence">16. It's hard to wrap your mind around the concept of…</p>
+      <h3>4.2 Complete the sentences with your own ideas <i>(Optional)</i></h3>
+      <p class="sentence">1. I notice I tend to adopt new…</p>
+      <p class="sentence">2. When I feel vulnerable in a new group, I usually…</p>
+      <p class="sentence">3. A persona I've had to create was…</p>
+      <p class="sentence">4. A quirk I've picked up from a friend or partner is…</p>
+      <p class="sentence">5. The last time I subconsciously mimicked someone was when…</p>
       <textarea class="idea-box" style="margin-top:12px;" placeholder="Write your ideas here..."></textarea>
     </div>
   </section>
 
   <section class="section" id="speaking">
-    <div class="section-title"><span class="num">6</span> Speaking</div>
+    <div class="section-title"><span class="num">5</span> Speaking</div>
     <div class="section-banner">
       <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
         <rect width="1600" height="320" fill="#eef7f6"/>
@@ -677,19 +663,19 @@
 
     <div class="card warm">
       <h3>Thursday question</h3>
-      <p class="sentence">Which three points from the video stood out to you the most, and why?</p>
+      <p class="sentence">Think about a situation when you noticed someone <b class="v">subconsciously mimicking</b> you — or vice versa. What did you copy, and how did it make you feel?</p>
       <h3>Friday question</h3>
-      <p class="sentence">Can you think of a brand that has so <b class="v">seamlessly blended into</b> your life or culture that you don't even think of it as advertising anymore?</p>
+      <p class="sentence">Do you think there's a fine line between <b class="v">fitting in with</b> a group and losing your <b class="v">sense of self</b>? How do you stay authentic while being socially adaptable?</p>
     </div>
 
     <div class="card">
       <h3>Study Buddy</h3>
-      <p class="sentence">1. What is the author's main argument about modern marketing?</p>
-      <p class="sentence">2. Do you find that traditional ads have <b class="v">taken a backseat</b> in capturing your attention compared to the content you see on TikTok, Instagram, or YouTube?</p>
-      <p class="sentence">3. What's a purchase you made based purely on emotion that managed to <b class="v">bypass your rational evaluation</b> completely? Did you regret it?</p>
-      <p class="sentence">4. When you see an influencer <b class="v">brag about</b> a product, does it make you more or less likely to trust their recommendation? Why?</p>
-      <p class="sentence">5. Describe a time you felt a company <b class="v">hit you with relentless messaging</b>. How did it make you feel, and did it eventually work?</p>
-      <p class="sentence">6. Can you remember a time an ad was so perfectly targeted it felt creepy, like it had <b class="v">captured your attention</b> by listening in on your life?</p>
+      <p class="sentence">1. Can you think of a celebrity (like Joey Barton) who was called out for <b class="v">adopting</b> a new accent? Was it offensive or just a natural result of the chameleon effect?</p>
+      <p class="sentence">2. Have you ever felt <b class="v">vulnerable</b> as an <b class="v">outsider</b> in a new country or workplace? How did you try to fit in?</p>
+      <p class="sentence">3. Do you and your partner (or close friend) live in <b class="v">synchronisation</b>? What <b class="v">quirks</b> or routines have you picked up from each other?</p>
+      <p class="sentence">4. Have you ever had to <b class="v">suppress</b> some aspect of your personality at work to fit a professional <b class="v">persona</b>? Was it exhausting?</p>
+      <p class="sentence">5. Are you more introverted or extraverted? Which group do you think has a harder time adapting to workplace expectations?</p>
+      <p class="sentence">6. Do you believe the chameleon effect is mostly positive (building <b class="v">empathy</b>) or can it become dangerous in social media culture today?</p>
     </div>
   </section>
 
@@ -867,7 +853,7 @@ document.addEventListener('click',e=>{
 
 const cardResults={};
 function clearCard(card){
-  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
   card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
   if(selected&&card.contains(selected))selected=null;
   card.querySelectorAll('.answer-key').forEach(el=>el.remove());
@@ -885,12 +871,6 @@ function evaluateCard(card){
       const chip=dz.querySelector('.chip');
       if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
       else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
-    });
-  }else if(task==='select'){
-    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
-      total++;
-      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
-      else{sel.classList.add('incorrect');}
     });
   }else if(task==='match'){
     card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
@@ -935,11 +915,6 @@ function showAnswers(card){
       exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
       dz.appendChild(exp);
     });
-  }else if(task==='select'){
-    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
-      sel.value=sel.dataset.answer;
-      sel.classList.add('correct');
-    });
   }else if(task==='match'){
     card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
       const exp=document.createElement('span');
@@ -970,14 +945,12 @@ function showAnswers(card){
 }
 function hideAnswers(card){
   card.querySelectorAll('.answer-key').forEach(el=>el.remove());
-  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
   card.classList.remove('show-answers');
 }
 function resetCard(card){
   clearCard(card);
   card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
   card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
-  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
   card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
   card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
@@ -1018,7 +991,7 @@ document.getElementById('checkBtn').addEventListener('click',()=>{
   });
   const pct=t?Math.round(c/t*100):0;
   banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
-  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you see through the marketing tricks!'
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a true chameleon master!'
     :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
     :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
   banner.scrollIntoView({behavior:'smooth',block:'center'});
