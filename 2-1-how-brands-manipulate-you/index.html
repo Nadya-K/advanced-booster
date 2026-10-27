@@ -140,9 +140,40 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  .hint-input { 
+    display: inline-flex; 
+    align-items: center; 
+    margin: 0 4px; 
+    vertical-align: middle;
+    flex-wrap: wrap;
+    max-width: calc(100% - 8px);
+    gap: 0;
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none; 
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 80px;
+    max-width: 100%;
+    width: auto;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -180,8 +211,8 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 120px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .hint-input input { min-width: 90px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -189,7 +220,10 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 300px; }
+    /* Обложка адаптируется под текст только на мобильных */
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
@@ -211,6 +245,15 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    /* Обложка адаптируется под текст только на мобильных */
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
+    .hint-input input { min-width: 70px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
   }
 </style>
 </head>
@@ -585,7 +628,7 @@
       <div class="sentence">This was made very clear in a 2018 <input class="blank" data-answer="stunt"> by the budget footwear company Payless. Amid dropping sales and <b>on the</b> <input class="blank" data-answer="verge"> <b>of</b> bankruptcy, Payless <b>took a big</b> <input class="blank" data-answer="swing">. They secretly took over the lease of an old Armani store in Santa Monica and turned it into a fake luxury boutique called Paylessi. The <b>pop-up shop</b> was extravagant and next to some of the most expensive retailers here on Third Street Promenade, they had the same 20 to $40 shoes on the shelves, but with fancy lighting, minimalist displays, and <b>high-end</b> <input class="blank" data-answer="tags"> that went up to $600. They invited fashion influencers to the <b>launch</b> party, and it worked. People <input class="blank" data-answer="raved"> <b>about</b> the quality, the design, and how premium it all felt. Within hours, Payless sold thousands of dollars worth of inventory, beautifully demonstrating the power of branding and how emotional storytelling can <input class="blank" data-answer="shift"> <b>your perception</b> of a product. And no, the irony doesn't fail me that this itself was a clever marketing stunt by a company looking to sell more shoes. Brands have smartened up a lot over the years. They know it's much easier to <input class="blank" data-answer="tap"> <input class="blank" data-answer="into"> <b>your current emotions</b> and behaviors than to fundamentally change your beliefs. This is one of Ram's most recent commercials. Americans, we can do anything we want except one thing. We just can't stop being American. If you were to reverse engineer this ad back to its origins, you'd probably end up in a room with <b>a</b> <input class="blank" data-answer="handful"> <b>of</b> brand and marketing experts. This is where it all begins. It's their job to figure out how to make people want a Ram truck. And they don't just <b>come up with this stuff</b> <input class="blank" data-answer="out"> <b>of</b> <input class="blank" data-answer="nowhere">. It's not based on their own intuition or feelings. They look at their competitors, panalyze the cultural climate, and study their target audience. Learning, among other things, that conservative Americans see the US as the greatest country in the world. Even though among high-income nations, it ranks 33rd in infant mortality, 20th in education, 40th in life expectancy, and has one of the worst healthcare systems in the world.</div>
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1feEGXDnEUFYmGp2CYqDSku6DgnV-gr1x/preview" target="_blank">▶ Open video 4</a></div>
-      <div class="sentence">But facts don't sell trucks, feelings do. So these brand experts decide that they want to <input class="blank" data-answer="harness"> <b>the feeling</b> of America is number one. After months of research, meetings, script revisions, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b>out of</b> <input class="blank" data-answer="touch">, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <input class="blank" data-answer="rebellious">, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands <input class="blank" data-answer="show"> up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b>take a</b> <input class="blank" data-answer="backseat"> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing. Microsoft Burger King, Gatorade, and others use the comment section as another <input class="blank" data-answer="touch"> <b>point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any <input class="blank" data-answer="interaction"> you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's <b>snarky friend</b>. Liquid Death is literally just water in a can, but its content makes you feel <b>rebellious</b> and <input class="blank" data-answer="irreverent">. And if you <b>feel the</b> <input class="blank" data-answer="urge"> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you.</div>
+      <div class="sentence">But facts don't sell trucks, feelings do. So these brand experts decide that they want to <input class="blank" data-answer="harness"> <b>the feeling</b> of America is number one. After months of research, meetings, script revision, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b>out of</b> <input class="blank" data-answer="touch">, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <input class="blank" data-answer="rebellious">, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands <input class="blank" data-answer="show"> up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b>take a</b> <input class="blank" data-answer="backseat"> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing. Microsoft Burger King, Gatorade, and others use the comment section as another <input class="blank" data-answer="touch"> <b>point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any <input class="blank" data-answer="interaction"> you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's <b>snarky friend</b>. Liquid Death is literally just water in a can, but its content makes you feel <b>rebellious</b> and <input class="blank" data-answer="irreverent">. And if you <b>feel the</b> <input class="blank" data-answer="urge"> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you.</div>
 
       <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1WvOpwZgJ3dllVExLWgKK7nKnatDinDMK/preview" target="_blank">▶ Open video 5</a></div>
       <div class="sentence">Look, it would be pretty <b>one-</b><input class="blank" data-answer="dimensional"> to just sit here and say, "Brands bad, marketing bad." <input class="blank" data-answer="Plenty"> <b>of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b>being</b> <input class="blank" data-answer="deceived"> <b>into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you. At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b>it</b> <input class="blank" data-answer="crosses"> <b>a line</b> <input class="blank" data-answer="to"> being completely unethical. Out of all the advancements in marketing, the <input class="blank" data-answer="sophistication"> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <input class="blank" data-answer="propelled"> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what you cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical <input class="blank" data-answer="cues"> to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microargeting, and it's used by virtually every big brand today. Instead of <input class="blank" data-answer="blasting"> everyone <b>with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b>quote</b> <input class="blank" data-answer="unquote"> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them <input class="blank" data-answer="prime"> targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment.</div>
