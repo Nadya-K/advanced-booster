@@ -60,16 +60,22 @@
     max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden;
     border: 1px solid rgba(124, 107, 184, 0.08); 
     box-shadow: 0 12px 40px rgba(124, 107, 184, 0.08);
-    height: 400px; display: flex; flex-direction: column; 
+    min-height: 400px; height: auto; display: flex; flex-direction: column; 
   }
-  .cover-img { height: 62%; background: #f3efe6; }
+  .cover-img { 
+    min-height: 240px; background: #f3efe6; flex: 0 0 auto; 
+    aspect-ratio: 16 / 9; max-height: 320px;
+  }
   .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
   .cover-text { 
-    height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px;
-    padding: 16px 32px; text-align: center; background: #fff; 
+    height: auto; flex: 1 1 auto; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    padding: 22px 32px 26px; text-align: center; background: #fff; 
   }
   .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
-  .cover-text h1 { color: var(--purple); font-size: 42px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
+  .cover-text h1 { 
+    color: var(--purple); font-size: clamp(22px, 4vw, 38px); font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em;
+    overflow-wrap: break-word; word-wrap: break-word; hyphens: auto;
+  }
   .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
 
   .container { max-width: 920px; margin: 0 auto; padding: 24px; }
@@ -301,9 +307,10 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 280px; }
+    .cover-card { min-height: 340px; }
+    .cover-img { min-height: 180px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
-    .cover-text h1 { font-size: 28px; }
+    .cover-text h1 { font-size: clamp(22px, 6vw, 28px); }
     .cover-text p { font-size: 14px; }
   }
 
@@ -338,6 +345,12 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    .cover-card { min-height: 320px; }
+    .cover-img { min-height: 160px; max-height: 220px; }
+    .cover-text { padding: 18px 20px 22px; gap: 6px; }
+    .cover-text h1 { font-size: clamp(20px, 6.5vw, 26px); }
+    .cover-text p { font-size: 13px; }
+    .cover-brand { font-size: 11px; }
   }
 </style>
 </head>
