@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Beauty Standards — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .wordorder { margin-bottom: 20px; }
+  .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
+  .wordorder .bank { margin-bottom: 10px; }
+  .wo-target { min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; }
+  .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
+  .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .set-group { background: var(--soft); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--purple); }
+  .set-group p { font-size: 15.5px; line-height: 1.7; margin-bottom: 8px; }
+  .set-group p:last-child { margin-bottom: 0; }
+  .set-blank { display: inline-block; min-width: 90px; border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline; }
+  .set-dz { min-width: 170px; min-height: 40px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 4px 12px; margin: 0 0 12px; display: inline-block; vertical-align: middle; transition: all 0.2s ease; }
+  .set-dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .set-dz .chip { font-size: 13px; padding: 4px 10px; }
+  .set-dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .set-dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .wo-target { min-height: 64px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: 300px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .set-dz { min-width: 200px; min-height: 48px; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"/>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"/>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"/>
+      <circle cx="170" cy="112" r="9"/>
+      <path d="M152 132 L138 150 L152 150"/><path d="M188 132 L202 150 L188 150"/><path d="M148 158 q11 10 22 0 q11 10 22 0"/>
+    </g>
+    <path id="fArc" d="M100 152 A78 78 0 0 0 240 152" fill="none"/>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textPath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textPath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"/><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"/>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"/><circle cx="282" cy="170" r="3.5"/><circle cx="520" cy="122" r="3.5"/><circle cx="430" cy="202" r="3.5"/></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"/>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"/>
+        <circle cx="50" cy="45" r="6"/>
+        <path d="M37 53 L27 65 L37 65"/><path d="M63 53 L73 65 L63 65"/>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"/>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav">
+    <a class="links-btn" href="#links">🔗 Links</a>
+    <a href="#video">Video</a>
+    <a href="#text">Text</a>
+    <a href="#vocabulary">Vocabulary</a>
+    <a href="#revision">Revision</a>
+    <a href="#speaking">Speaking</a>
+  </nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap">
+  <div class="cover-card">
+    <div class="cover-img"><img src="img-cover.png" alt="Modern Beauty Standards — cover"></div>
+    <div class="cover-text">
+      <span class="cover-brand">Advanced Booster</span>
+      <h1>Modern Beauty Standards</h1>
+      <p>Nobody looks human anymore… and it's getting scary</p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px">
+    <div class="card">
+      <h3>Lesson links</h3>
+      <div class="links">
+        <a href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/d/1zuEvoXTQOGLuBGEeBBk_zEbfoU2eIBMe/preview" target="_blank">📄 Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/ru/1137931044/nobody-looks-human-anymore-and-its-getting-scary-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="warmup">
+    <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
+    <div class="card warm">
+      <h3>Let's chat!</h3>
+      <p class="sentence">1. Do you think beauty standards today are more or less realistic than 20 years ago?</p>
+      <p class="sentence">2. Have you ever noticed celebrities starting to look alike? What do you think is the reason?</p>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="section-title"><span class="num">1</span> Video</div>
+    <div class="card">
+      <h3>1.1 Watch the video</h3>
+      <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">Nobody Looks Human Anymore… And It's Getting Scary</p>
+      <div class="links"><a href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">▶ Open video</a></div>
+    </div>
+    <div class="card">
+      <h3>1.2 The whole video is here</h3>
+      <div class="links"><a class="alt" href="https://www.youtube.com/watch?v=3r7KwyQ8Xdg" target="_blank">Follow the link</a></div>
+    </div>
+  </section>
+
+  <section class="section" id="text">
+    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="card">
+      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <details class="text-details">
+        <summary>📖 Read the text (click to expand)</summary>
+        <p>We've reached a strange point in beauty standards where the more perfect you look, the less beautiful you are. Wild take, but hear me out. Some of the most beautiful women in the world don't look like themselves anymore. They've become so <b class="v">snatched</b>, so sculpted, so symmetrical, and now their faces all look perfect, but not in a good way. So, let's get this straight. I'm kind of nervous about this video because the last thing I want to do is speak down on a woman's face. That's brutal. But something about the new standard face <b class="v">doesn't sit right</b> anymore, literally. And there's young girls growing up all around the world thinking that this is right.</p>
+        <p>We're going to talk about the almost pretty girl. The girl who has every feature that can make her beautiful according to beauty standards, but these features have literally <b class="v">cut out</b> the warmth, the emotion, and that little bit of life that used to make someone beautiful. This video is going to be a whole lot of tough love. So, <b class="v">if you cannot stand the heat</b>, the oven is going to be on 450°, so I'm sorry. You're going to have to <b class="v">get out of the kitchen</b>. Welcome to the girl talk to know you need it. I'm not saying you have to subscribe. You're classy. I know you don't just give those away for free. But hopefully at the end of this video, we become bestie enough for you to take that next step.</p>
+        <p>Back then, beauty wasn't perfect, but that's exactly what made it perfect. Since celebrities have always been the <b class="v">blueprint</b> for what beauty is supposed to look like, they're our main focus for today. And in the early 2000s to 2010s, not only could you see women with natural beauty, you could see faces that looked completely different from each other. Before Instagram face, beauty used to <b class="v">be bold</b>. <b class="v">Faces were striking and complex</b>, and you could actually remember them, no one trying to <b class="v">blend in</b> with one another, and no one looked the same. There used to be so much mystery and diversity to women. Faces were textured, asymmetrical, and expressive. You could open magazines like InStyle, Essence, and Teen People, and see girls and women like Beyonce, Mandy Moore, Kiki Palmer, Amanda Bines. And I'm not going to <b class="v">sugarcoat</b> this and make it seem like the beauty standards back in the day couldn't be toxic. Thigh gaps and cheekbones were still glorified. Let's get that settled.</p>
+        <p>Danielle, you went to the dentist, but you refused to have your gap closed. Do you really think you can have a CoverGirl contract with the gap in your Mouth? Yes, why not? This is all people say. It's easy covergirl. It's not marketable. Yeah, just a little bit is okay, but I don't want to completely close it. Well, I guess she just left a gap wide open for another girl, baby. I agree.</p>
+        <p>Heroin chic is a style popularized in the early 1990s fashion and characterized by pale skin, <b class="v">dark circles</b> underneath the eyes, emaciated features, androgyny, and <b class="v">stringy hair</b>. All traits associated with the abuse of or other drugs. A 1996 article in the LA Times stated that the fashion industry had a nihilistic vision of beauty that was reflective of drug addiction.</p>
+        <p>I'm just going to say this. If the beauty standards back in the day weren't toxic, women wouldn't look like how they look today. Moral of the story, women used to look like themselves. And I know that kind of sounds like an oxymoron because of course women look like themselves, but when we take a look at today, it makes sense why I'm saying that. Over time, natural beauty started to <b class="v">feel outdated</b>, almost like it wasn't enough to just look like yourself.</p>
+        <p>Most of my life, <b class="v">I felt self-conscious</b> because I didn't have as much chest as other grown-up women. So, I went to the hospital and had what they call plastic surgery. But why? What was wrong with the way you were? But I just never felt good about myself the way I was.</p>
+        <p>As the beauty standards started to get more aggressive and it started to get more accessible in a way that made a lot of women feel like they had to have it, like they had to <b class="v">keep up</b>. Female celebrities are pretty much in an impossible position where they're required to look perfect and <b class="v">look youthful</b> forever in order to have a career. But they can't <b class="v">look too overdone</b> or they'll be plastic and they won't look effortless and that will damage their career because they won't be able to <b class="v">emote</b> and make the facial expressions that they need for acting. I mean, they're <b class="v">damned</b> if they do, damned if they don't. It's no wonder that celebrities are <b class="v">going to seemingly any length to look young and flawless</b> forever.</p>
+        <p>Once celebrities and influencers started <b class="v">showing off</b> these upgrades, people wanted those results. I went to Chris Jenner's last guy cuz the new guy is a million for a facelift. For a facelift and the ladies are lining up. These psychoses are calling and using code words and passwords. And you've got to know the password to get Chris Jenner's guy for a million bucks. What? Most people have a shopping wish list. I have a surgery wish list. Here are all the surgeries, treatments, etc. that I would get if money wasn't an issue. I want this nose. I need this nose. I would pay to have this nose. From the <b class="v">nose jobs</b> to the lip fillers, the brow lifts, and yes, Ozempic <b class="v">has a lot to do with</b> this also, but we'll get to that later. The new <b class="v">go-to look</b> started to become more sculpted and almost exaggerated. And as it became that, it also became more tempting because now you didn't have to be born with it. You could just buy it. So that's when we started to see this unsettling movement of women <b class="v">swapping out</b> their natural beauty <b class="v">for</b> something a bit more manufactured.</p>
+        <p>I got my third facelift. it. I mean, they yanked my face and I said, "Give me a good yank." I go, "Doctor, I don't want to see you in six months. Give me a good get in there and just start pulling, yanking." Now, this is where it gets really interesting because people aren't just talking about bad surgery. They're talking about the weird uneasy feeling they get from just looking at it. Today, there are countless women with the exact facial features we were taught to want. The sharp jawline, the high cheekbones, the big <b class="v">pouty lips</b>, but instead of looking stunning, something <b class="v">looks off</b>. Um, people's faces are really starting to scare me. Yeah, your lips don't need to look like they're trying to escape.</p>
+        <p>And I noticed Nicole Kidman having a weird mouth or something wrong with her face in Aquaman. I literally could not enjoy the movie when she was on screen because it was like something was going on. I don't know if it was like too much Botox because like her face didn't have like movement or anything, but this was terrifying. And y'all, it's so hard to put it into words without sounding or <b class="v">coming off as rude</b>. But let's be real, a lot of women nowadays, they don't look human. They don't look like a real person. They almost look like wax figures of themselves. Women don't really look like human beings anymore. Hundreds of thousands of perfectly beautiful, healthy women in trying to become even more beautiful, even more perfect are literally <b class="v">disfiguring</b> their faces with filler. Mara Lago is getting a lot of plastic surgery work done, right? Whether it's actually reconstruction or you're just getting injections here, there, and everywhere. But these people do not look like human beings anymore. It's a very uncanny valley.</p>
+        <p>Take Demi Lovato for example. She was introduced to the media as a child star, appearing in movies and TV shows like Camp Rock, Barney and Friends, and Sunny with a Chance. Hey, I'm Demi Lovado from Camp Rock. Hello. And you're watching Disney Channel. And behind the scenes, she was struggling with something that not even a lot of adults can handle. From eating disorders to battles with addiction, Demiy's journey hasn't been easy. So seeing her healthy and thriving today is amazing. Once I relapsed, the floodgates were open. Within a couple weeks, I called a drug dealer and I was like, "Do you have and he said no, but I have and I was like the 27-year-old went on to explain how she's come to be more accepting of her body. Now, when I look in the mirror and I start to have a negative thought, so what I say to myself is, "Nope, you're healthy and I accept you."</p>
+        <p>When someone's been through that much, it's not surprising they probably want to look like a completely new version of themself. So, as she's reintroduced herself to us today, people have started to talk. That is not Demi Lovado. And I don't care what anybody says. She <b class="v">went through a rough patch</b> and I'm all about <b class="v">healing</b>, but that Demi Lovado does not <b class="v">give me real person vibes</b>. Something about her new look looks unfamiliar. Her face is a bit more uplifted. Cheeks are a bit more <b class="v">hollowed</b> and her lips are a lot more pouty, almost to the point where it seems like she can't even close them. There's almost an uncanny, <b class="v">unemotional stiffness</b> to her face.</p>
+        <p>When I was a pre-teen, the beauty standard was hero and <b class="v">chic</b>. It was a very very very frail, thin looking people. The beauty standards were just so unrealistic. And so I wanted to be that role model for myself.</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="section" id="vocabulary">
+    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"/>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
+      </svg>
+    </div>
+
+    <div class="card">
+      <h3>3.1 Study the vocabulary (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/1zuEvoXTQOGLuBGEeBBk_zEbfoU2eIBMe/preview" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:20px">3.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ru/1137931044/nobody-looks-human-anymore-and-its-getting-scary-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-3">
+      <h3>3.3 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="unemotional stiffness">unemotional stiffness</div>
+        <div class="chip" data-word="swap out">swap out</div>
+        <div class="chip" data-word="blend in">blend in</div>
+        <div class="chip" data-word="bold">bold</div>
+        <div class="chip" data-word="pouty">pouty</div>
+        <div class="chip" data-word="stringy">stringy</div>
+        <div class="chip" data-word="sugarcoat">sugarcoat</div>
+        <div class="chip" data-word="blueprint">blueprint</div>
+        <div class="chip" data-word="chic">chic</div>
+        <div class="chip" data-word="doesn't sit right">doesn't sit right</div>
+        <div class="chip" data-word="striking and complex face">striking and complex face</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. I accepted the deal, but something about it just <span class="dz" data-answer="doesn't sit right"></span>.</li>
+        <li class="sentence">2. Her outfit, a simple black dress with interesting architectural lines, was the epitome of Parisian <span class="dz" data-answer="chic"></span>.</li>
+        <li class="sentence">3. Her signature style — a crisp white shirt, tailored trousers, and statement glasses — serves as a <span class="dz" data-answer="blueprint"></span> for office chic.</li>
+        <li class="sentence">4. It's a tragedy when people feel pressured to <span class="dz" data-answer="swap out"></span> their natural beauty for trendy, artificial features like <span class="dz" data-answer="pouty"></span> lips.</li>
+        <li class="sentence">5. His artistic style was <span class="dz" data-answer="bold"></span>, using vibrant, clashing colors to evoke strong emotion.</li>
+        <li class="sentence">6. She didn't possess conventional beauty, but her <span class="dz" data-answer="striking and complex face"></span> was infinitely more memorable, revealing intelligence and resilience.</li>
+        <li class="sentence">7. She chose a neutral-toned outfit to <span class="dz" data-answer="blend in"></span> at the conservative conference, saving her vibrant prints for the weekend.</li>
+        <li class="sentence">8. Fashion critics didn't <span class="dz" data-answer="sugarcoat"></span> their reviews; they called the collection "outdated" and uninspired.</li>
+        <li class="sentence">9. His <span class="dz" data-answer="unemotional stiffness"></span> in the photoshoot contrasted sharply with the vibrant, lively clothing he was meant to be advertising.</li>
+        <li class="sentence">10. The humidity made her normally sleek hair turn <span class="dz" data-answer="stringy"></span>, forcing her to improvise with an elegant updo.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
+        <span class="card-score" data-score="v3-3"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="match" data-id="v3-4">
+      <h3>3.4 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Column A</h4>
+          <div class="match-target" data-answer="standards"><span class="term">beauty</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="their career"><span class="term">to damage</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="overdone"><span class="term">to look</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="features"><span class="term">facial</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="lips"><span class="term">pouty</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="cheekbones"><span class="term">high</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="jobs"><span class="term">nose</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="valley"><span class="term">uncanny</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="for beauty"><span class="term">blueprint</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="model"><span class="term">role</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="disorders"><span class="term">eating</span><span class="matched-label" style="display:none"></span></div>
+        </div>
+        <div class="match-col">
+          <h4>Column B</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="jobs">jobs</div>
+            <div class="match-item" data-word="model">model</div>
+            <div class="match-item" data-word="cheekbones">cheekbones</div>
+            <div class="match-item" data-word="overdone">overdone</div>
+            <div class="match-item" data-word="their career">their career</div>
+            <div class="match-item" data-word="lips">lips</div>
+            <div class="match-item" data-word="standards">standards</div>
+            <div class="match-item" data-word="for beauty">for beauty</div>
+            <div class="match-item" data-word="valley">valley</div>
+            <div class="match-item" data-word="features">features</div>
+            <div class="match-item" data-word="disorders">disorders</div>
+          </div>
+        </div>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
+        <span class="card-score" data-score="v3-4"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.5 Choose the correct preposition to complete the sentence</h3>
+      <div class="links"><a href="https://wordwall.net/embed/35d6a0a6d2b14f72adccb3ff612e7320?themeId=1&templateId=36&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+
+    <div class="card" data-task="dragfill" data-id="v3-6">
+      <h3>3.6 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="outdated">outdated</div>
+        <div class="chip" data-word="go to great lengths">go to great lengths</div>
+        <div class="chip" data-word="look youthful">look youthful</div>
+        <div class="chip" data-word="emote">emote</div>
+        <div class="chip" data-word="overdone">overdone</div>
+        <div class="chip" data-word="feel self-conscious">feel self-conscious</div>
+        <div class="chip" data-word="keep up with">keep up with</div>
+        <div class="chip" data-word="cut out">cut out</div>
+        <div class="chip" data-word="look flawless">look flawless</div>
+        <div class="chip" data-word="show off">show off</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. She refused to follow fleeting trends, but her classic style never looked <span class="dz" data-answer="outdated"></span>.</li>
+        <li class="sentence">2. Wearing a bright red hat in a room full of neutrals made him <span class="dz" data-answer="feel self-conscious"></span>, but he wore it with confidence anyway.</li>
+        <li class="sentence">3. It's exhausting trying to <span class="dz" data-answer="keep up with"></span> every micro-trend; developing a personal style is more sustainable.</li>
+        <li class="sentence">4. A good skincare routine and staying hydrated can help you <span class="dz" data-answer="look youthful"></span>, but confidence is the real secret.</li>
+        <li class="sentence">5. Her makeup for the daytime event looked too <span class="dz" data-answer="overdone"></span>; the heavy contouring and dramatic lashes were better suited for evening.</li>
+        <li class="sentence">6. A great model needs to do more than pose; they must <span class="dz" data-answer="emote"></span> and tell a story with their eyes and posture.</li>
+        <li class="sentence">7. Her early blog posts were full of personal anecdotes, but lately, she seems to have <span class="dz" data-answer="cut out"></span> <b>the warmth</b>, posting only dry industry news.</li>
+        <li class="sentence">8. Some influencers <span class="dz" data-answer="go to great lengths"></span> <b>to look flawless</b>, spending hours on lighting, editing, and professional styling for a single post.</li>
+        <li class="sentence">9. The pressure to <span class="dz" data-answer="look flawless"></span> has led many to consider procedures like nose jobs and fillers at a very young age.</li>
+        <li class="sentence">10. He loves to <span class="dz" data-answer="show off"></span> his grandfather's vintage watch, not because it's expensive, but because of its story.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
+        <span class="card-score" data-score="v3-6"></span>
+      </div>
+    </div>
+
+    <div class="card" data-task="wordorder" data-id="v3-7">
+      <h3>3.7 Put the words into correct order</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="It's|so hard|to put|it|into|words|without|sounding|or coming|off|as|rude.">
+        <span class="wo-num">1/4</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="to put">to put</div><div class="chip" data-word="so hard">so hard</div><div class="chip" data-word="or coming">or coming</div><div class="chip" data-word="sounding">sounding</div><div class="chip" data-word="off">off</div><div class="chip" data-word="without">without</div><div class="chip" data-word="It's">It's</div><div class="chip" data-word="it">it</div><div class="chip" data-word="words">words</div><div class="chip" data-word="as">as</div><div class="chip" data-word="into">into</div><div class="chip" data-word="rude.">rude.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="I|just|never|felt|good|about|myself|the way|I was.">
+        <span class="wo-num">2/4</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="I">I</div><div class="chip" data-word="never">never</div><div class="chip" data-word="I was.">I was.</div><div class="chip" data-word="felt">felt</div><div class="chip" data-word="good">good</div><div class="chip" data-word="myself">myself</div><div class="chip" data-word="about">about</div><div class="chip" data-word="just">just</div><div class="chip" data-word="the way">the way</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="If|money|wasn't|an issue,|I'd|buy|a small|sailboat|and just|follow|the sun.">
+        <span class="wo-num">3/4</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="sailboat">sailboat</div><div class="chip" data-word="buy">buy</div><div class="chip" data-word="the sun.">the sun.</div><div class="chip" data-word="and just">and just</div><div class="chip" data-word="an issue,">an issue,</div><div class="chip" data-word="money">money</div><div class="chip" data-word="if">if</div><div class="chip" data-word="wasn't">wasn't</div><div class="chip" data-word="a small">a small</div><div class="chip" data-word="follow">follow</div><div class="chip" data-word="I'd">I'd</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="She|felt|trapped|by|society's|ever-changing|beauty|standards.">
+        <span class="wo-num">4/4</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="trapped">trapped</div><div class="chip" data-word="felt">felt</div><div class="chip" data-word="ever-changing">ever-changing</div><div class="chip" data-word="She">She</div><div class="chip" data-word="standards.">standards.</div><div class="chip" data-word="beauty">beauty</div><div class="chip" data-word="by">by</div><div class="chip" data-word="society's">society's</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
+        <span class="card-score" data-score="v3-7"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3.8 Write your own sentences using vocabulary you liked <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Write your sentences here..."></textarea>
+    </div>
+  </section>
+
+  <section class="section" id="revision">
+    <div class="section-title"><span class="num">4</span> Revision</div>
+
+    <div class="card" data-task="dragfill" data-id="r4-1">
+      <h3>4.1 Fill in the gaps</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="Damned if I do, damned if I don't">Damned if I do, damned if I don't</div>
+        <div class="chip" data-word="dark circles">dark circles</div>
+        <div class="chip" data-word="go-to look">go-to look</div>
+        <div class="chip" data-word="give me real person vibes">give me real person vibes</div>
+        <div class="chip" data-word="looks off">looks off</div>
+        <div class="chip" data-word="has something to do with">has something to do with</div>
+        <div class="chip" data-word="disfiguring">disfiguring</div>
+      </div>
+      <ul style="list-style:none; padding-left:0;">
+        <li class="sentence">1. Her radiant skin <span class="dz" data-answer="has something to do with"></span> genetics, but her diligent sunscreen use is the main factor.</li>
+        <li class="sentence">2. When in doubt, a leather jacket and jeans is my <span class="dz" data-answer="go-to look"></span>; it's effortlessly cool and always works.</li>
+        <li class="sentence">3. No amount of concealer could completely hide the <span class="dz" data-answer="dark circles"></span> after her week of travel, but she wore them with a tired smile.</li>
+        <li class="sentence">4. The color of that lipstick <span class="dz" data-answer="looks off"></span> with your undertones; a warmer red would be more harmonious.</li>
+        <li class="sentence">5. She argued that calling normal signs of aging "<span class="dz" data-answer="disfiguring"></span>" is a harmful exaggeration created by the beauty industry.</li>
+        <li class="sentence">6. I love her Instagram because she posts unedited photos; the loose threads and laughing lines <span class="dz" data-answer="give me real person vibes"></span>.</li>
+        <li class="sentence">7. If I tell my friend her partner is cheating, I destroy our friendship. If I don't, and she finds out I knew, she'll never forgive me. <span class="dz" data-answer="Damned if I do, damned if I don't"></span>.</li>
+      </ul>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button>
+        <span class="card-score" data-score="r4-1"></span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>4.2 Do the crossword</h3>
+      <div class="links"><a href="https://wordwall.net/embed/f6bc2dfa7206428b9950944c6c4779b0?themeId=1&templateId=11&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    </div>
+
+    <div class="card" data-task="setfill" data-id="r4-3">
+      <h3>4.3 Complete each set of three sentences with the same vocabulary item from the bank</h3>
+      <div class="instruction">💡 Drag the phrase that fits ALL three sentences of the set into the dashed box (or tap the phrase, then tap the box). Click × on a chip to return it.</div>
+      <div class="bank">
+        <div class="chip" data-word="cut out">cut out</div>
+        <div class="chip" data-word="bold">bold</div>
+        <div class="chip" data-word="self-conscious">self-conscious</div>
+        <div class="chip" data-word="go-to look">go-to look</div>
+        <div class="chip" data-word="have something to do with">have something to do with</div>
+        <div class="chip" data-word="sugarcoat">sugarcoat</div>
+        <div class="chip" data-word="youthful">youthful</div>
+        <div class="chip" data-word="blueprint">blueprint</div>
+      </div>
+
+      <div class="set-group" data-answer="cut out">
+        <span class="set-dz"></span>
+        <p>After the scandal, the CEO decided to <span class="set-blank"></span> all unnecessary expenses to save the company's reputation.</p>
+        <p>To improve his health, he had to <span class="set-blank"></span> processed sugars from his diet completely.</p>
+        <p>The director told the editor to <span class="set-blank"></span> the slow scene, as it disrupted the film's pace.</p>
+      </div>
+      <div class="set-group" data-answer="bold">
+        <span class="set-dz"></span>
+        <p>She knew she had to be <span class="set-blank"></span> and ask for the promotion she deserved.</p>
+        <p>For the party, he chose a <span class="set-blank"></span>, emerald-green suit that turned everyone's heads.</p>
+        <p>The activist's <span class="set-blank"></span> speech inspired many to join the cause.</p>
+      </div>
+      <div class="set-group" data-answer="self-conscious">
+        <span class="set-dz"></span>
+        <p>Wearing jeans to the gala made him feel <span class="set-blank"></span> as everyone else was in tuxedos.</p>
+        <p>Her accent sometimes made her feel <span class="set-blank"></span> when speaking in meetings.</p>
+        <p>He started to feel <span class="set-blank"></span> about his stringy hair, so he booked a haircut.</p>
+      </div>
+      <div class="set-group" data-answer="blueprint">
+        <span class="set-dz"></span>
+        <p>The architect presented the <span class="set-blank"></span> for the new community center.</p>
+        <p>Her business plan served as a <span class="set-blank"></span> for others wanting to start a sustainable company.</p>
+        <p>The treaty was considered a <span class="set-blank"></span> for international cooperation on climate change.</p>
+      </div>
+      <div class="set-group" data-answer="sugarcoat">
+        <span class="set-dz"></span>
+        <p>She didn't want to <span class="set-blank"></span> the news — the project had failed and we had to start over.</p>
+        <p>He tried to <span class="set-blank"></span> his criticism with a compliment, but she still felt upset.</p>
+        <p>Parents sometimes <span class="set-blank"></span> difficult truths to protect their young children.</p>
+      </div>
+      <div class="set-group" data-answer="youthful">
+        <span class="set-dz"></span>
+        <p>The celebrity's secret to looking <span class="set-blank"></span> involved good genetics and a lot of sunscreen.</p>
+        <p>This new moisturizer claims to help you look <span class="set-blank"></span> by reducing fine lines.</p>
+        <p>He looks <span class="set-blank"></span> for his age, often being mistaken for someone a decade younger.</p>
+      </div>
+      <div class="set-group" data-answer="have something to do with">
+        <span class="set-dz"></span>
+        <p>She believed her success must <span class="set-blank"></span> her relentless work ethic.</p>
+        <p>His sudden allergy must <span class="set-blank"></span> the new plants in the garden.</p>
+        <p>The strange noise seems to <span class="set-blank"></span> the old pipes in the building.</p>
+      </div>
+      <div class="set-group" data-answer="go-to look">
+        <span class="set-dz"></span>
+        <p>The minimalist black dress is her <span class="set-blank"></span> for important interviews.</p>
+        <p>For a quick, polished appearance, a sleek bun is my <span class="set-blank"></span>.</p>
+        <p>His <span class="set-blank"></span> on weekends consists of a vintage band t-shirt and jeans.</p>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-3">↻ Reset</button>
+        <span class="card-score" data-score="r4-3"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speaking">
+    <div class="section-title"><span class="num">5</span> Speaking</div>
+    <div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"/>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
+      </svg>
+    </div>
+
+    <div class="card warm">
+      <h3>Thursday question</h3>
+      <p class="sentence">According to the video, how have beauty standards changed over time, and why does this change matter?</p>
+      <h3>Friday question</h3>
+      <p class="sentence">How much pressure do you feel to <b class="v">keep up with</b> the <b class="v">flawless</b> and often <b class="v">overdone</b> looks promoted on social media? Do you ever <b class="v">feel self-conscious</b> comparing yourself?</p>
+      <p class="sentence"><b>OR</b></p>
+      <p class="sentence">What is your <b class="v">go-to look</b> for an important event? Do you prefer to <b class="v">blend in</b>, or to be bold and stand out?</p>
+    </div>
+
+    <div class="card">
+      <h3>Study buddy questions</h3>
+      <p class="sentence">1. The video describes a shift from diverse, "striking and complex" faces to a homogenous, "sculpted" ideal. Why do you think this shift happened? What roles have social media, cosmetic technology, and celebrity culture played?</p>
+      <p class="sentence">2. Where do you think the line is between looking polished and <b class="v">looking too overdone</b>?</p>
+      <p class="sentence">3. What reaction do you have to exaggerated features like <b class="v">pouty lips</b> — admiration, discomfort, or indifference?</p>
+      <p class="sentence">4. Growing up, who or what acted as your <b class="v">blueprint</b> for beauty or attractiveness?</p>
+      <p class="sentence">5. Have you ever felt that your natural look was starting to <b class="v">feel outdated</b> compared to what's trending online?</p>
+      <p class="sentence">6. Can you recall a time when you felt particularly <b class="v">self-conscious</b> about your appearance? What triggered it?</p>
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"/></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="8" r="2.6" fill="currentColor"/></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Reset all
+  </button>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function placeSetChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.set-dz'):null;
+    if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.set-dz'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('set-dz'))placeSetChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')||parent.classList.contains('set-dz')){
+      returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const sdz=e.target.closest('.set-dz');
+    if(sdz&&selected.classList.contains('chip')){placeSetChip(sdz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.match-target,.chip,.wordorder,.wo-target,.set-dz').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      total++;
+      const dz=group.querySelector('.set-dz');
+      const chip=dz&&dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===group.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
+      mt.appendChild(exp);
+    });
+  }else if(task==='setfill'){
+    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+      const dz=group.querySelector('.set-dz');
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+group.dataset.answer;
+      if(dz)dz.appendChild(exp);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.set-dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you see the real person behind the filter!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+</script>
+</body>
+</html>
