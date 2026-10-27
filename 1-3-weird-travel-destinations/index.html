@@ -340,7 +340,10 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 280px; }
+    /* Обложка адаптируется под текст только на мобильных */
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
@@ -370,6 +373,12 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    /* Обложка адаптируется под текст только на мобильных */
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 26px; }
+    .cover-text p { font-size: 14px; }
   }
 </style>
 </head>
@@ -1003,8 +1012,7 @@ function select(el){
 }
 function returnChip(chip,sourceZone){
   chip.innerHTML=chip.dataset.word;
-  chip.classList.remove('correct','incorrect','selected','matched');
-  chip.style.display='';
+  chip.classList.remove('correct','incorrect','selected');
   let bank;
   if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
   else bank=chip.closest('.card').querySelector('.bank');
@@ -1022,21 +1030,20 @@ function assignMatch(mt,item){
   const label=mt.querySelector('.matched-label');
   if(label.dataset.word){
     const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
-    if(prev){prev.classList.remove('matched');prev.style.display='';}
+    if(prev)prev.classList.remove('matched');
   }
   label.dataset.word=item.dataset.word;
   label.textContent=item.dataset.word+' ×';
   label.style.display='inline-block';
   mt.classList.add('filled');
   item.classList.add('matched');
-  item.style.display='none';
   select(null);
 }
 function unmatch(mt){
   const label=mt.querySelector('.matched-label');
   if(!label.dataset.word)return;
   const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
-  if(item){item.classList.remove('matched');item.style.display='';}
+  if(item)item.classList.remove('matched');
   label.textContent='';label.style.display='none';delete label.dataset.word;
   mt.classList.remove('filled');
 }
