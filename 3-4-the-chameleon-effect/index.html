@@ -235,11 +235,40 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  /* АДАПТИРОВАННЫЙ HINT-INPUT — задание 4.1 */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .hint-input input { 
-    border: 2px solid rgba(124, 107, 184, 0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px;
-    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+    border: 2px solid rgba(124, 107, 184, 0.2); 
+    border-left: none; 
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px;
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 120px;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s; 
   }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -285,8 +314,9 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 130px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    /* АДАПТАЦИЯ 4.1 для мобильных */
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -330,6 +360,10 @@
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
+    /* АДАПТАЦИЯ 4.1 для узких экранов */
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
   }
 </style>
 </head>
