@@ -180,12 +180,40 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 280px; }
+    /* ОБЛОЖКА: адаптация под текст на мобильных (десктоп не тронут) */
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
-    .cover-text h1 { font-size: 26px; }
+    .cover-text h1 { font-size: 24px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
     .set-dz { min-width: 180px; min-height: 44px; }
+    /* ЗАДАНИЕ 3.3 (MATCH): карточки с ответами вертикально на тач-экранах */
+    .match-target { 
+      flex-direction: column; 
+      align-items: stretch; 
+      gap: 8px; 
+    }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { 
+      display: block; 
+      width: 100%; 
+      text-align: center; 
+      white-space: normal; 
+      padding: 8px 12px; 
+      box-sizing: border-box;
+    }
+    .match-target .answer-key { 
+      display: block; 
+      margin: 0; 
+      white-space: normal; 
+      text-align: left; 
+      width: 100%; 
+      font-size: 13px; 
+      padding: 6px 10px;
+      box-sizing: border-box;
+    }
   }
 
   @media (max-width: 760px){
@@ -203,6 +231,41 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    /* ОБЛОЖКА: узкие экраны */
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
+    /* ЗАДАНИЕ 3.3 (MATCH): узкие экраны */
+    .match-target { 
+      flex-direction: column; 
+      align-items: stretch; 
+      gap: 6px; 
+      padding: 10px 12px;
+    }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { 
+      display: block; 
+      width: 100%; 
+      text-align: center; 
+      white-space: normal; 
+      padding: 6px 10px; 
+      font-size: 12px;
+      box-sizing: border-box;
+    }
+    .match-target .answer-key { 
+      display: block; 
+      margin: 0; 
+      white-space: normal; 
+      text-align: left; 
+      width: 100%; 
+      font-size: 12px; 
+      padding: 5px 8px;
+      box-sizing: border-box;
+    }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
   }
 </style>
 </head>
