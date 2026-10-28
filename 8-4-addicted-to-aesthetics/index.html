@@ -124,9 +124,41 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 110px; outline: none; transition: border-color 0.2s; }
+  /* АДАПТИРОВАННЫЙ HINT-INPUT для задания 4.1 */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124, 107, 184, 0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 120px;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -175,8 +207,9 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .blank { width: 120px; font-size: 16px; }
-    .hint-input input { min-width: 110px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    /* АДАПТАЦИЯ 4.1 для тач-экранов */
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .section-title { font-size: 22px; }
@@ -205,6 +238,10 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    /* АДАПТАЦИЯ 4.1 для узких экранов */
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
   }
 </style>
 </head>
@@ -279,10 +316,10 @@
     <div class="card">
       <h3>Lesson links</h3>
       <div class="links">
-        <a href="https://thelegit.substack.com/p/addicted-to-aesthetics" target="_blank">📰 Original article</a>
-        <a class="pur" href="https://drive.google.com/file/d/1iwjSnc2Ri1oCDfW-iZAzK0h5DZCgWyYr/view" target="_blank">📄 Vocabulary PDF</a>
-        <a class="alt" href="https://quizlet.com/ae/1214240814/addicted-to-aesthetics-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
-        <a class="pur" href="https://docs.google.com/presentation/d/1MCU8UD9Yl0f51St6YGXgU-FW5I8O73cLSOnwtUWXdwI/edit?usp=sharing" target="_blank">📽 Presentation</a>
+        <a href="https://thelegit.substack.com/p/addicted-to-aesthetics" target="_blank"> Original article</a>
+        <a class="pur" href="https://drive.google.com/file/d/1iwjSnc2Ri1oCDfW-iZAzK0h5DZCgWyYr/view" target="_blank"> Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/ae/1214240814/addicted-to-aesthetics-flash-cards/?i=zxpms&x=1jqt" target="_blank"> Quizlet</a>
+        <a class="pur" href="https://docs.google.com/presentation/d/1MCU8UD9Yl0f51St6YGXgU-FW5I8O73cLSOnwtUWXdwI/edit?usp=sharing" target="_blank"> Presentation</a>
       </div>
     </div>
   </section>
@@ -376,7 +413,7 @@
       </ul>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="v2-3">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v2-3">👁 Show answers</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-3"> Show answers</button>
         <button class="btn btn-resetcard btn-small" data-card="v2-3">↻ Reset</button>
         <span class="card-score" data-score="v2-3"></span>
       </div>
@@ -464,7 +501,7 @@
       </ul>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5"> Show answers</button>
         <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
         <span class="card-score" data-score="v2-5"></span>
       </div>
@@ -516,7 +553,7 @@
 
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="vd3-1">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="vd3-1">👁 Show answers</button>
+        <button class="btn btn-showanswers btn-small" data-card="vd3-1"> Show answers</button>
         <button class="btn btn-resetcard btn-small" data-card="vd3-1">↻ Reset</button>
         <span class="card-score" data-score="vd3-1"></span>
       </div>
@@ -546,7 +583,7 @@
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
         <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-1"> Reset</button>
         <span class="card-score" data-score="r4-1"></span>
       </div>
     </div>
@@ -622,9 +659,10 @@
       <h3>Thursday</h3>
       <p class="sentence">According to the text, what is the main problem with the way social media influences how we see ourselves and the world?</p>
       <h3>Friday</h3>
-      <p class="sentence">How much do you think your social media profile represents your <b class="v">authentic self</b>?</p>
-      <p class="sentence"><b>or</b></p>
-      <p class="sentence">Do you think people today are too <b class="v">preoccupied with how things look</b>? Why or why not?</p>
+      <p class="sentence">Pick one question you like the most:<br>
+      How much do you think your social media profile represents your <b class="v">authentic self</b>?<br>
+      <b>or</b><br>
+      Do you think people today are too <b class="v">preoccupied with how things look</b>? Why or why not?</p>
     </div>
 
     <div class="card">
