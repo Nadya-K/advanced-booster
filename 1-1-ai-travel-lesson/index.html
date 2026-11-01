@@ -134,6 +134,13 @@
   }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124, 107, 184, 0.15); background: #101018; box-shadow: 0 6px 24px rgba(124, 107, 184, 0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { 
     border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
     min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
@@ -241,11 +248,41 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  /* HINT-INPUT: буква склеена с полем + авторасширение */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
   .hint-input input { 
-    border: 2px solid rgba(124, 107, 184, 0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px;
-    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+    border: 2px solid rgba(124, 107, 184, 0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 130px;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
   }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -292,8 +329,8 @@
     .dz .chip { font-size: 14px; }
     .option { padding: 14px 18px; font-size: 15px; }
     .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 130px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -301,13 +338,14 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст только на мобильных */
+    /* Обложка адаптируется под текст */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -341,12 +379,43 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется под текст только на мобильных */
+    /* Обложка адаптируется */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 26px; }
     .cover-text p { font-size: 14px; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    /* ВИДЕО: рамка выше + iframe рендерится шире и масштабируется */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку; плеер без масштабирования */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -446,7 +515,12 @@
     <div class="card">
       <h3>1.1 Watch the video and catch the main idea</h3>
       <p class="sentence"><b>Answer the question:</b> How is AI changing travel?</p>
-      <div class="links" style="margin-bottom:12px"><a href="https://www.youtube.com/watch?v=idWMC7ChrEo" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://www.youtube.com/embed/idWMC7ChrEo" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="How AI Is Changing Travel"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 16px;">
+        <a class="pur" href="https://www.youtube.com/watch?v=idWMC7ChrEo" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
       <h3>Extra links to the video</h3>
       <div class="links">
         <a href="https://drive.google.com/file/d/1g5YbBsGC3uzMk_2nHX5h2ikyYtHZQYHF/view?usp=sharing" target="_blank">📄 Part 1</a>
@@ -707,44 +781,75 @@
     <div class="section-title"><span class="num">4</span> Audio</div>
     <div class="card" data-task="typeblank" data-id="a4-1">
       <h3>4.1 Watch the videos and fill in the gaps</h3>
+      <div class="instruction">💡 Watch each clip right here or tap "🎬 Open the video in a new tab", listen, and type the missing word(s) into the blanks.</div>
 
-      <div class="links" style="margin:0 0 12px"><a href="https://drive.google.com/file/d/1W-U5v3uLpECrXR5VMS6mT0jnI4MUOn0g/preview" target="_blank">▶ Part 1</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1W-U5v3uLpECrXR5VMS6mT0jnI4MUOn0g/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 1"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1W-U5v3uLpECrXR5VMS6mT0jnI4MUOn0g/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Customer service robots.</b></div>
       <div class="sentence">Historically airport customer service has <input class="blank" data-answer="ranged"> <b>from</b> extremely helpful <b>to</b> extremely frustrating. It all <input class="blank" data-answer="boils"> <input class="blank" data-answer="down"> <b>to</b> the individual you ask for assistance. Don't be surprised if one day <b>in the</b> <input class="blank" data-answer="foreseeable"> <input class="blank" data-answer="future"> you arrive at the front desk to find a robot rather than a human being. Airport robots are becoming increasingly commonplace serving various functions like checking customers in and helping guests get to the right terminal. In 2020 the market for Global airport robots was valued to be $565.15 million with almost 50 percent of global Airlines and 32 percent of Airlines looking into robotics the market value is expected to <input class="blank" data-answer="reach"> over 2 500 million by 2030. In 2022 Phoenix Sky Harbor became the first airline to offer self-driving car rides. Just imagine taking an autonomous vehicle from the airport to your hotel where another robot checks you in.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1ighVA2DTRR5MRJdZtMKd68HBsxaZVJPF/preview" target="_blank">▶ Part 2</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/1ighVA2DTRR5MRJdZtMKd68HBsxaZVJPF/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 2"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1ighVA2DTRR5MRJdZtMKd68HBsxaZVJPF/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Forecasting flights.</b></div>
       <div class="sentence">Tell us if this sounds <input class="blank" data-answer="familiar"> - you book a trip several months in advance a few days before your flight you check your weather app to find a 50 chance of rain around the time of takeoff. The airport app nonetheless says that the flight is on time but less than an hour before the plane was <input class="blank" data-answer="supposed"> <b>to</b> leave it's delayed indefinitely. Companies like tomorrow.io are <input class="blank" data-answer="utilizing"> AI to improve <input class="blank" data-answer="forecasting"> employing tools like micro weather to <input class="blank" data-answer="map"> <input class="blank" data-answer="out"> weather patterns through machine learning services like weather 2020 can predict events months in advance. The weather isn't the only thing that AI can forecast. 'Underlay' which was founded by former Delta Airlines web developer Sophia Monroe has developed an AI based system to help predict bird strikes aircraft pushback approval and other potential delays allowing airports to <input class="blank" data-answer="resolve"> issues faster. Your plane might not land on time but at least you'll have a better idea of when you'll arrive.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1Ua22ddIIopc-4RFc_r0ZZJkbyvl-ixwM/preview" target="_blank">▶ Part 3</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/1Ua22ddIIopc-4RFc_r0ZZJkbyvl-ixwM/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 3"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1Ua22ddIIopc-4RFc_r0ZZJkbyvl-ixwM/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Ask the chatbots.</b></div>
       <div class="sentence">Whether you're looking to change your flight registration or <input class="blank" data-answer="upgrade"> <b>your</b> <b>hotel</b> <b>room</b>. Some people prefer to speak with a staff member. Since one person can only resolve so many issues at time <input class="blank" data-answer="chances"> <b>are</b> you'll spend a half hour on hold. Chat Bots are making things quicker and more convenient. In addition to <input class="blank" data-answer="walking"> users <input class="blank" data-answer="through"> processes like booking chat Bots can provide live updates and recommendations. Chatbots might not sound like anything new in the digital era but you'd be amazed by just how far AI has taken this technology in recent years. Chat GPT, which open AI <input class="blank" data-answer="launched"> in November 2022 is so sophisticated that it can feel like you're communicating with an actual person. Matt Breed of Seattle Tacoma International Airport not only sees the potential for chat GPT to improve chatbot customer service but to also help employees. When an airport finds itself <input class="blank" data-answer="under"> <input class="blank" data-answer="unusual"> <input class="blank" data-answer="circumstances">, chat's GPT might be able to provide a solution.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1CR51SVg-mdZpxpjRs66w09tQXfJJ8OOj/preview" target="_blank">▶ Part 4</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/1CR51SVg-mdZpxpjRs66w09tQXfJJ8OOj/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 4"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1CR51SVg-mdZpxpjRs66w09tQXfJJ8OOj/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>AI baggage handling.</b></div>
       <div class="sentence">In 2018 it was reported that 4.5 billion bags are annually handled by industry luggage systems within the next couple decades that number is expected to double. Thankfully AI is becoming more advanced as well, assisting <input class="blank" data-answer="considerably"> <b>with the growing</b> <input class="blank" data-answer="workload"> using photo recognition. AI can better keep track of every passengers back we're already seeing strong results as the costs of <input class="blank" data-answer="mishandled"> <input class="blank" data-answer="luggage"> has been reduced from 4.22 billion to 2.1 billion in the past decade. That said lost luggage may not be a problem of the past. In the event that <b>a bag is</b> <input class="blank" data-answer="misplaced"> though lost and found software is helping to <input class="blank" data-answer="reunite"> <b>you</b> <input class="blank" data-answer="with"> <b>your</b> <input class="blank" data-answer="luggage"> <b>faster</b>. AI is also being utilized to <input class="blank" data-answer="anticipate"> <b>how much cargo</b> <input class="blank" data-answer="space"> <b>will be needed</b> predicting the number of bags each passenger will bring based on their prior trips. The more prepared airlines are the fewer bags will risk getting left behind.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1t519VXaO6iV_pagw196cGAxUzEcXWgQ6/preview" target="_blank">▶ Part 5</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/1t519VXaO6iV_pagw196cGAxUzEcXWgQ6/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 5"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1t519VXaO6iV_pagw196cGAxUzEcXWgQ6/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Filing complaints and social media.</b></div>
       <div class="sentence">Your flight has been delayed and you're stuck in a terminal for the next few hours. To pass the time you <input class="blank" data-answer="channel"> <b>all of your</b> <input class="blank" data-answer="frustration"> <input class="blank" data-answer="into"> <b>a social media post</b>. You might expect your friends and followers to comment however you may be surprised to find a response from the airline as well. Airlines are using social listening tools to <input class="blank" data-answer="track"> <input class="blank" data-answer="down"> <b>complaints</b> in real time. If you include the airline's app sign in the post you're inclined to receive a speedy helpful reply detailing how to resolve the issue. People don't always know <b>how to</b> <input class="blank" data-answer="put"> <b>their</b> <input class="blank" data-answer="grievances"> <input class="blank" data-answer="into"> <b>the right</b> <input class="blank" data-answer="words"> but that's where our old pal chat GPT <input class="blank" data-answer="comes"> <input class="blank" data-answer="into"> <input class="blank" data-answer="play"> again. passenger Sherry luo used chat GPT to <input class="blank" data-answer="craft"> <b>a carefully</b> <input class="blank" data-answer="worded"> <b>email</b> to the airline when our flight was delayed going viral on Instagram and Tick Tock. So now more than ever once ignored Travelers are being heard thanks to AI.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1eFXInrpcq4ujBCWD7u6MI3PucEWsBuBs/preview" target="_blank">▶ Part 6</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/1eFXInrpcq4ujBCWD7u6MI3PucEWsBuBs/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 6"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1eFXInrpcq4ujBCWD7u6MI3PucEWsBuBs/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Dynamic pricing.</b></div>
       <div class="sentence">For years Airlines have used statistics to set prices considering when people are <input class="blank" data-answer="inclined"> <input class="blank" data-answer="to"> travel where they're most likely to book a trip and how much the average traveler is willing to pay throughout the seasons. The same Dynamic pricing strategies apply to hotels AI is refining the ways that businesses collect and analyze such data helping Airlines and hotels to calculate the most reasonable and <input class="blank" data-answer="enticing"> <input class="blank" data-answer="prices"> for potential patrons. AI is also being used to help customers find the best price. The travel app Hopper relies on machine learning algorithms to determine the most flexible flights and hotel for users. What's more Hopper will advise you whether to book the trip immediately or to <input class="blank" data-answer="wait"> <b>for a better</b> <input class="blank" data-answer="price">. AI technology isn't cheap but it may save us all the money in the Long Haul.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/115Wn358r5U2kqy02n0rRKh4ku2ELN_4L/preview" target="_blank">▶ Part 7</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/115Wn358r5U2kqy02n0rRKh4ku2ELN_4L/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 7"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/115Wn358r5U2kqy02n0rRKh4ku2ELN_4L/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>AI travel agents.</b></div>
       <div class="sentence">In 1758 Cox and Kings introduced the modern world travel agencies over two centuries later more people are relying on Virtual assistants to book their flights, arrange ground transportation and select the best hotels available. This doesn't necessarily mean that AI is <input class="blank" data-answer="putting"> <b>travel agents</b> <input class="blank" data-answer="out"> <b>of business</b>, however many travel agencies are <input class="blank" data-answer="evolving"> <input class="blank" data-answer="along"> with AI using the <input class="blank" data-answer="flourishing"> <b>technology</b> to improve their business. John Aish of tricep Solutions believes that quote AI will help travel agents to have a deeper understanding of their customers. For example, AI can be used to respond to clients quicker, <input class="blank" data-answer="map"> <input class="blank" data-answer="out"> <b>their</b> <input class="blank" data-answer="itineraries"> and search through their social media to determine their dream vacation destination. This <input class="blank" data-answer="frees"> <b>up the agent's</b> <input class="blank" data-answer="workload"> allowing them more time to <input class="blank" data-answer="assist"> <b>customers</b> in other ways.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/12v2IhRCsJlc_-YTnX8dTq9Q8RAoM3fnL/preview" target="_blank">▶ Part 8</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/12v2IhRCsJlc_-YTnX8dTq9Q8RAoM3fnL/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 8"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/12v2IhRCsJlc_-YTnX8dTq9Q8RAoM3fnL/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Facial recognition.</b></div>
       <div class="sentence">We all know the process upon arriving at the <b>TSA</b> <input class="blank" data-answer="checkpoint"> we show the security officer our identification, they check our ID and hopefully they let us through without any problems. Well AI is slowly but surely introducing another step. More airports are experimenting with facial recognition technology. Having Travelers insert their ID into a kiosk, the Traveler will then <input class="blank" data-answer="gaze"> <input class="blank" data-answer="into"> <b>a camera</b> comparing their face to the photo on their ID. Customs agents usually <input class="blank" data-answer="remain"> <input class="blank" data-answer="present"> although we could get to the point where the process is entirely autonomous. Facial recognition might not <input class="blank" data-answer="become"> <b>the</b> <input class="blank" data-answer="norm"> for every airport with various cities such as San Francisco having banned such technology, so may be skeptical of facial recognition but many have <input class="blank" data-answer="championed"> <b>its</b> <input class="blank" data-answer="efficiency"> <input class="blank" data-answer="cutting"> <b>passport scanning and fingerprint matching</b> <input class="blank" data-answer="out"> <input class="blank" data-answer="of"> <b>the</b> <input class="blank" data-answer="equation">. It also means less in-person contact which is always a plus and a post-covid world.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/18peP_3jHjsbpY9hgo4lkszCIqUTYnUSy/preview" target="_blank">▶ Part 9</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/18peP_3jHjsbpY9hgo4lkszCIqUTYnUSy/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 9"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/18peP_3jHjsbpY9hgo4lkszCIqUTYnUSy/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Titan security.</b></div>
       <div class="sentence">Facial recognition isn't the only way that AI is evolving airport security. Technology like baggage AI can automatically recognize potentially dangerous items <input class="blank" data-answer="alerting"> the airport authorities immediately with this technology proving so effective we could get to the point where passengers don't need to remove certain items from their bags as they <input class="blank" data-answer="pass"> <input class="blank" data-answer="through"> <b>security</b>. That also means that we'd get to keep our shoes and belts on without having to pay extra for TSA pre-check. AI plays an important part in airport cyber security especially <input class="blank" data-answer="when"> <input class="blank" data-answer="it"> <input class="blank" data-answer="comes"> <b>to</b> machine learning this significantly reduces the possibility of terrorism <input class="blank" data-answer="staying"> <b>multiple</b> <input class="blank" data-answer="steps"> <input class="blank" data-answer="ahead"> <b>of any looming threats</b>. It's understandable why some will be skeptical about relying on AI for safety. They've properly utilized and <input class="blank" data-answer="monitored"> though AI can make the world a safer and more efficient place.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1nISx_ga2YQambXn_dYzvDn70aFFvquNz/preview" target="_blank">▶ Part 10</a></div>
+      <div class="video-frame" style="margin-top:16px;">
+        <iframe src="https://drive.google.com/file/d/1nISx_ga2YQambXn_dYzvDn70aFFvquNz/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 10"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1nISx_ga2YQambXn_dYzvDn70aFFvquNz/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence"><b>Virtual reality.</b></div>
       <div class="sentence">As much as some people want to see the world, <input class="blank" data-answer="globetrotting"> isn't the cheapest hobby even if you <input class="blank" data-answer="save"> <b>up</b> <input class="blank" data-answer="enough"> <input class="blank" data-answer="for"> <b>your dream vacation</b> you might not have the time or money to cross off every destination <input class="blank" data-answer="on"> <b>your</b> <input class="blank" data-answer="bucket"> <input class="blank" data-answer="list">. Thanks to Virtual and augmented reality however you can visit the Eiffel Tower, take a gondola ride through Venice and wander across the Sahara Desert without ever leaving your house. AI is <input class="blank" data-answer="enhancing"> <b>VR and AR</b> <input class="blank" data-answer="technology"> through object recognition making you feel as if you're experiencing <b>the</b> <input class="blank" data-answer="real"> <input class="blank" data-answer="deal">. You can also personalize the experience with a virtual assistant we're not saying that VR is a substitute for actual travel but it will allow you to conquer Mount Everest without getting frostbite for anyone <b>on the</b> <input class="blank" data-answer="fence"> <input class="blank" data-answer="about"> traveling somewhere VR provides a preview of what to expect as well.</div>
 
@@ -1364,7 +1469,7 @@ document.getElementById('checkBtn').addEventListener('click',()=>{
   });
   const pct=t?Math.round(c/t*100):0;
   banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
-  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a true chameleon master!'
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — a true travel tech expert!'
     :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
     :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
   banner.scrollIntoView({behavior:'smooth',block:'center'});
@@ -1397,6 +1502,21 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== Авто-расширение полей hint-input под набранный текст ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeAllHintInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches&&e.target.matches('.hint-input input'))sizeHintInput(e.target);
+});
+window.addEventListener('load',sizeAllHintInputs);
+sizeAllHintInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllHintInputs,0)));
 </script>
 </body>
 </html>
