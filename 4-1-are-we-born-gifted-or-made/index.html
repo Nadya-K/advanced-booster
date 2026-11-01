@@ -77,9 +77,9 @@
   .links a.alt { background: var(--coral); }
   .links a.pur { background: var(--purple); }
 
-  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ: адаптив 16:9, на мобильных выше, чтобы плеер помещался целиком */
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
   .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
-  .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
   @supports not (aspect-ratio: 16 / 9) {
     .video-frame { height: 0; padding-bottom: 56.25%; }
   }
@@ -132,42 +132,10 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  /* HINT-INPUT: мобильная адаптация + авторасширение под набранный текст */
-  .hint-input { 
-    display: inline-flex; 
-    align-items: stretch;
-    margin: 0 4px; 
-    vertical-align: middle;
-    max-width: calc(100% - 8px);
-  }
-  .hint-input .first-letter { 
-    background: var(--purple); 
-    color: #fff; 
-    font-weight: 700; 
-    padding: 6px 10px; 
-    border-radius: 8px 0 0 8px; 
-    font-size: 15px;
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-  }
-  .hint-input input { 
-    border: 2px solid rgba(124, 107, 184, 0.2); 
-    border-left: none;
-    border-radius: 0 8px 8px 0; 
-    padding: 6px 10px; 
-    font-size: 15px; 
-    font-family: inherit; 
-    font-weight: 600; 
-    min-width: 40px;
-    width: 130px;
-    flex: 0 1 auto;
-    box-sizing: border-box;
-    outline: none; 
-    transition: border-color 0.2s, width 0.15s ease; 
-  }
+  /* HINT-INPUT: мобильная адаптация + авторасширение */
+  .hint-input { display: inline-flex; align-items: stretch; margin: 0 4px; vertical-align: middle; max-width: calc(100% - 8px); }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .hint-input input { border: 2px solid rgba(124, 107, 184, 0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 40px; width: 130px; flex: 0 1 auto; box-sizing: border-box; outline: none; transition: border-color 0.2s, width 0.15s ease; }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -256,15 +224,17 @@
     .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
     .sentence { word-break: break-word; overflow-wrap: anywhere; }
     .links a { font-size: 13px; padding: 9px 14px; }
-    /* ВИДЕО: на мобильных рамка выше, чтобы плеер помещался целиком */
+    /* ВИДЕО: рамка выше + плеер рендерится шире и масштабируется, чтобы контролы влезали */
     .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
   }
 
   @media (max-width: 480px){
-    .video-frame { aspect-ratio: auto; height: 320px; min-height: 0; }
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
   }
 
-  /* ЛАНДШАФТ (телефон повёрнут): меню и кнопки в ОДНУ строку */
+  /* ЛАНДШАФТ: меню и кнопки в одну строку; плеер без масштабирования */
   @media (max-height: 520px) and (orientation: landscape){
     body { padding-bottom: 90px; }
     .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -283,6 +253,7 @@
     .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
     .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -383,11 +354,11 @@
       <div class="video-frame">
         <iframe src="https://drive.google.com/file/d/1UX5H9uurBtOp5C42ojDvdbESH72J82xc/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
       </div>
-      <div class="links" style="margin:0 0 16px;">
+      <p class="sentence" style="font-style:italic; color:var(--purple);"><b>Child prodigies: Born brilliant or pressured by pushy parents?</b></p>
+      <div class="links" style="margin:0;">
         <a class="pur" href="https://drive.google.com/file/d/1UX5H9uurBtOp5C42ojDvdbESH72J82xc/preview" target="_blank">🎬 Open the video in a new tab</a>
         <a class="alt" href="https://www.youtube.com/watch?v=K14o0Cpt3lA&t=191s" target="_blank">▶ Watch on YouTube</a>
       </div>
-      <p class="sentence" style="font-style:italic; color:var(--purple); margin-top:16px; margin-bottom:0;"><b>Child prodigies: Born brilliant or pressured by pushy parents?</b></p>
     </div>
   </section>
 
