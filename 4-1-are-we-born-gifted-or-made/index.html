@@ -77,7 +77,7 @@
   .links a.alt { background: var(--coral); }
   .links a.pur { background: var(--purple); }
 
-  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ: адаптив 16:9 на всех устройствах */
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ: адаптив 16:9, на мобильных выше, чтобы плеер помещался целиком */
   .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
   .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
   @supports not (aspect-ratio: 16 / 9) {
@@ -256,6 +256,33 @@
     .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
     .sentence { word-break: break-word; overflow-wrap: anywhere; }
     .links a { font-size: 13px; padding: 9px 14px; }
+    /* ВИДЕО: на мобильных рамка выше, чтобы плеер помещался целиком */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 320px; min-height: 0; }
+  }
+
+  /* ЛАНДШАФТ (телефон повёрнут): меню и кнопки в ОДНУ строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
   }
 </style>
 </head>
@@ -356,15 +383,11 @@
       <div class="video-frame">
         <iframe src="https://drive.google.com/file/d/1UX5H9uurBtOp5C42ojDvdbESH72J82xc/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
       </div>
-      <div class="links" style="margin:0 0 16px;"><a class="pur" href="https://drive.google.com/file/d/1UX5H9uurBtOp5C42ojDvdbESH72J82xc/preview" target="_blank">⛶ Open video in new window</a></div>
-      <p class="sentence" style="font-style:italic; color:var(--purple); margin-top:16px; margin-bottom:0;"><b>Child prodigies: Born brilliant or pressured by pushy parents?</b></p>
-    </div>
-    <div class="card">
-      <h3>1.2 The original video is here</h3>
-      <div class="video-frame">
-        <iframe src="https://www.youtube.com/embed/K14o0Cpt3lA?start=191" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Original video"></iframe>
+      <div class="links" style="margin:0 0 16px;">
+        <a class="pur" href="https://drive.google.com/file/d/1UX5H9uurBtOp5C42ojDvdbESH72J82xc/preview" target="_blank">🎬 Open the video in a new tab</a>
+        <a class="alt" href="https://www.youtube.com/watch?v=K14o0Cpt3lA&t=191s" target="_blank">▶ Watch on YouTube</a>
       </div>
-      <div class="links"><a class="alt" href="https://www.youtube.com/watch?v=K14o0Cpt3lA&t=191s" target="_blank">⛶ Open in new window</a></div>
+      <p class="sentence" style="font-style:italic; color:var(--purple); margin-top:16px; margin-bottom:0;"><b>Child prodigies: Born brilliant or pressured by pushy parents?</b></p>
     </div>
   </section>
 
@@ -825,48 +848,48 @@
     <div class="section-title"><span class="num">5</span> Audio</div>
     <div class="card" data-task="typeblank" data-id="a5-1">
       <h3>5.1 Watch the video and fill in the gaps</h3>
-      <div class="instruction">💡 Watch each clip right here or open it in a new window, listen, and type the missing word(s) into the blanks.</div>
+      <div class="instruction">💡 Watch each clip right here or tap "🎬 Open the video in a new tab", listen, and type the missing word(s) into the blanks.</div>
 
       <div class="video-frame">
         <iframe src="https://drive.google.com/file/d/1fZyt4igkkXKDpDBbEwaGWs51DueolaLZ/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 1"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1fZyt4igkkXKDpDBbEwaGWs51DueolaLZ/preview" target="_blank">⛶ Open video 1 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1fZyt4igkkXKDpDBbEwaGWs51DueolaLZ/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">Percy Patterson here in what might be my last broadcast ever. I might get eaten or roasted or frozen solid or some horrible combination of the three. But know this. Know that I risked my life <input class="blank" data-answer="in"> <input class="blank" data-answer="pursuit"> <input class="blank" data-answer="of"> something extraordinary. Something bigger than us. Literally, so much bigger.</div>
 
       <div class="video-frame" style="margin-top:16px;">
         <iframe src="https://drive.google.com/file/d/1yhibPQJ3deUCNrgFFcjyJosPywG3Nmu7/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 2"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1yhibPQJ3deUCNrgFFcjyJosPywG3Nmu7/preview" target="_blank">⛶ Open video 2 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1yhibPQJ3deUCNrgFFcjyJosPywG3Nmu7/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">It's been quite an interesting day. You know, I pride myself on having this uncanny ability to spot and <input class="blank" data-answer="nurture"> <input class="blank" data-answer="talent">. Well, maybe not directly <input class="blank" data-answer="nurture">, but you know, I can see it, and then I delegate the <input class="blank" data-answer="nurturing">. When I read your application essay, I thought, "This girl is the future."</div>
 
       <div class="video-frame" style="margin-top:16px;">
         <iframe src="https://drive.google.com/file/d/1AmOcVmYdL1KWAKTBQiU93A9h8esDihLr/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 3"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1AmOcVmYdL1KWAKTBQiU93A9h8esDihLr/preview" target="_blank">⛶ Open video 3 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1AmOcVmYdL1KWAKTBQiU93A9h8esDihLr/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">That he plays every show as if it's his last, and that is the kind of urgency we need at regionals this year. So this week we're either gonna sing our last songs to each other or get in touch with what it feels like to do that. Okay, everyone. Let's <input class="blank" data-answer="make"> <input class="blank" data-answer="the"> <input class="blank" data-answer="most"> <input class="blank" data-answer="of"> it.</div>
 
       <div class="video-frame" style="margin-top:16px;">
         <iframe src="https://drive.google.com/file/d/16aFMOe5nDK39RW7ClanksTFqv04Nb8xj/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 4"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/16aFMOe5nDK39RW7ClanksTFqv04Nb8xj/preview" target="_blank">⛶ Open video 4 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/16aFMOe5nDK39RW7ClanksTFqv04Nb8xj/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">Alexis, in the past, I couldn't always be there for you when you were... when you were dealing with heartbreak. I wasn't there to protect you. And I guess I was just being a bit <input class="blank" data-answer="overzealous">, and trying to <input class="blank" data-answer="make"> <input class="blank" data-answer="up"> for lost time.<br><br>Well, if you really wanna know, I dated guys like, a whole lot worse than Artie.</div>
 
       <div class="video-frame" style="margin-top:16px;">
         <iframe src="https://drive.google.com/file/d/1cywOYyJ___0s3yoq2IXGd3aeDnypWYSW/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 5"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1cywOYyJ___0s3yoq2IXGd3aeDnypWYSW/preview" target="_blank">⛶ Open video 5 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1cywOYyJ___0s3yoq2IXGd3aeDnypWYSW/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">And he helped Herbert on the campaign trail. Let me show you what a government handout looks like. Hold your government hand out. Yeah! And let's give freedom from government a big thumbs-up!<br><br><i>Although they hadn't</i> <input class="blank" data-answer="achieved"> <i>complete</i> <input class="blank" data-answer="mastery">.<br><br>- Come on, Buster, dance!<br>- I don't want to dance.<br>Come on, dance, Buster!</div>
 
       <div class="video-frame" style="margin-top:16px;">
         <iframe src="https://drive.google.com/file/d/1hsoviy666Qs4DndwfgyuSVV9mfeAfPTG/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 6"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1hsoviy666Qs4DndwfgyuSVV9mfeAfPTG/preview" target="_blank">⛶ Open video 6 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1hsoviy666Qs4DndwfgyuSVV9mfeAfPTG/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">- Is that, like, "R"?<br>- It's "S", actually.<br>- You gotta <input class="blank" data-answer="nail"> that <input class="blank" data-answer="shot">.<br>- I'm a little rusty.<br>- Alright, remember it like this. B-E-E-F. Balance....<br>- Eyes, elbows, follow-through. I know.</div>
 
       <div class="video-frame" style="margin-top:16px;">
         <iframe src="https://drive.google.com/file/d/1j0jt5Rsh85t9s94Ly3qUenOYXXKbMx4K/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Video 7"></iframe>
       </div>
-      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1j0jt5Rsh85t9s94Ly3qUenOYXXKbMx4K/preview" target="_blank">⛶ Open video 7 in new window</a></div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1j0jt5Rsh85t9s94Ly3qUenOYXXKbMx4K/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">- Oh, wow, he must be really good-looking.<br>- Why would you say that?<br>- Well, 'cause only good-looking people can get away with saying things like that.<br>- I have found that to be true.<br>- It's a <input class="blank" data-answer="blessing"> and a <input class="blank" data-answer="curse"> really.<br>- Ted, you can't let him treat you like that.<br>- Who, you gotta ask yourself, who's the boss?<br>- Tony.<br>- Angela. - Mona.</div>
 
       <div class="card-actions">
