@@ -194,7 +194,10 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 300px; }
+    /* ОБЛОЖКА: адаптивная высота под текст на мобильных */
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
@@ -224,6 +227,12 @@
     .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
     .sentence { word-break: break-word; overflow-wrap: anywhere; }
     .links a { font-size: 13px; padding: 9px 14px; }
+    /* ОБЛОЖКА: узкие экраны */
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
     /* ВИДЕО: рамка выше + плеер рендерится шире и масштабируется, чтобы контролы влезали */
     .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
     .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
