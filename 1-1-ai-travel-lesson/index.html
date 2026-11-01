@@ -134,7 +134,6 @@
   }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
 
-  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
   .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124, 107, 184, 0.15); background: #101018; box-shadow: 0 6px 24px rgba(124, 107, 184, 0.10); margin: 0 0 12px; }
   .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
   @supports not (aspect-ratio: 16 / 9) {
@@ -217,10 +216,12 @@
   .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
   .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
 
+  /* BLANK INPUT: авторасширение по длине текста */
   .blank { 
-    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
     font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
     padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
   }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
@@ -248,7 +249,6 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  /* HINT-INPUT: буква склеена с полем + авторасширение */
   .hint-input { 
     display: inline-flex; 
     align-items: stretch;
@@ -328,7 +328,7 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .option { padding: 14px 18px; font-size: 15px; }
-    .blank { width: 130px; font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
     .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
     .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
@@ -338,7 +338,6 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
@@ -379,14 +378,12 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 26px; }
     .cover-text p { font-size: 14px; }
     .links a { font-size: 13px; padding: 9px 14px; }
-    /* ВИДЕО: рамка выше + iframe рендерится шире и масштабируется */
     .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
     .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
   }
@@ -396,7 +393,6 @@
     .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
   }
 
-  /* ЛАНДШАФТ: меню и кнопки в одну строку; плеер без масштабирования */
   @media (max-height: 520px) and (orientation: landscape){
     body { padding-bottom: 90px; }
     .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
@@ -1435,6 +1431,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1503,20 +1500,28 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
 
-/* ==== Авто-расширение полей hint-input под набранный текст ==== */
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
 function sizeHintInput(inp){
   const len=(inp.value||'').length;
   inp.style.width=Math.max(9,len+2)+'ch';
 }
-function sizeAllHintInputs(){
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
   document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
 }
 document.addEventListener('input',e=>{
-  if(e.target&&e.target.matches&&e.target.matches('.hint-input input'))sizeHintInput(e.target);
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
 });
-window.addEventListener('load',sizeAllHintInputs);
-sizeAllHintInputs();
-document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllHintInputs,0)));
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
