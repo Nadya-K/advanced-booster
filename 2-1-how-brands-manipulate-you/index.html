@@ -80,6 +80,13 @@
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
   .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
@@ -119,7 +126,13 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
-  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
+  }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
   .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
@@ -140,14 +153,13 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  /* ИСПРАВЛЕННЫЙ HINT-INPUT: Буква и поле намертво склеены */
+  /* HINT-INPUT: буква склеена с полем + авторасширение */
   .hint-input { 
     display: inline-flex; 
-    align-items: stretch; /* Растягивает элементы на всю высоту, чтобы не было швов */
+    align-items: stretch;
     margin: 0 4px; 
     vertical-align: middle;
-    max-width: calc(100% - 8px); /* Не дает блоку вылезти за пределы экрана */
-    /* flex-wrap убран! Теперь буква и поле всегда на одной строке */
+    max-width: calc(100% - 8px);
   }
   .hint-input .first-letter { 
     background: var(--purple); 
@@ -156,25 +168,26 @@
     padding: 6px 10px; 
     border-radius: 8px 0 0 8px; 
     font-size: 15px;
-    flex: 0 0 auto; /* Буква никогда не сжимается */
+    flex: 0 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
   }
   .hint-input input { 
     border: 2px solid rgba(124,107,184,0.2); 
-    border-left: none; /* Убираем левую границу, чтобы не было двойной линии */
+    border-left: none;
     border-radius: 0 8px 8px 0; 
     padding: 6px 10px; 
     font-size: 15px; 
     font-family: inherit; 
     font-weight: 600; 
-    min-width: 40px; /* Поле может сжиматься на узких экранах */
-    width: 120px;
-    flex: 1 1 auto; /* Занимает оставшееся место */
+    min-width: 40px;
+    width: 130px;
+    flex: 0 1 auto;
     box-sizing: border-box;
     outline: none; 
-    transition: border-color 0.2s; 
+    transition: border-color 0.2s, width 0.15s ease; 
   }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -212,7 +225,7 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
     .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
     .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
@@ -222,7 +235,6 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
@@ -230,6 +242,7 @@
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -247,7 +260,6 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
@@ -256,6 +268,37 @@
     .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
     .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
     .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -354,7 +397,12 @@
     <div class="card">
       <h3>1.1 Watch the video and catch the main idea</h3>
       <p class="sentence" style="font-weight:700; margin-bottom:16px;">How do brands manipulate us into buying more?</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/d/1x2_dE8MGUAQFEOtJZDlhj3Zd2qNkgxXn/preview" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
     </div>
     <div class="card">
       <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
@@ -618,24 +666,48 @@
     <div class="section-title"><span class="num">4</span> Audio</div>
     <div class="card" data-task="typeblank" data-id="a4-1">
       <h3>4.1 Watch the videos and fill in the gaps</h3>
-      <div class="instruction">💡 Open each clip, listen, and type the missing word(s) into the blanks.</div>
+      <div class="instruction">💡 Watch each clip right here or tap "🎬 Open the video in a new tab", listen, and type the missing word(s) into the blanks.</div>
 
-      <div class="links" style="margin:0 0 12px"><a href="https://drive.google.com/file/d/1ek4ju-xTBjx5QfGUe1lANPKxe2HmfZp1/preview" target="_blank">▶ Open video 1</a></div>
+      <p style="margin-bottom:12px;"><b>Part 1</b></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1ek4ju-xTBjx5QfGUe1lANPKxe2HmfZp1/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 1"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1ek4ju-xTBjx5QfGUe1lANPKxe2HmfZp1/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">Companies spend billions of dollars every year to manipulate your psychology so you feel desire, loyalty, and urgency. All in an effort to get you to buy more stuff. This isn't a conspiracy. It's not even a secret. These are strategies shared in boardrooms, <input class="blank" data-answer="bragged"> <b>about</b> in tech offices, and liked on LinkedIn. Brands hide their true intentions from you <b>through a sleight of</b> <input class="blank" data-answer="hand">. They <b>seamlessly</b> <input class="blank" data-answer="blend"> <b>into</b> culture, track your every move, and <b>hit you with relentless messaging</b>. Every word, every image, and every offer is tested and optimized to get you to buy more. And the more I looked into it, the more I realized how <input class="blank" data-answer="sophisticated"> it's gotten. This video is sponsored by Surf Shark. I'll share more about how they can help to keep your data private later. If there's one thing I want to get across from the very beginning, it's this. Don't <b>be</b> <input class="blank" data-answer="fooled"> <b>by</b> what companies say they value. It's all about the money. They'll claim their mission is to make the world a better place, to empower creativity, or to build a community. We're a company that focuses on connecting people. Let's be real, that's just the message they want you to hear. The truth is much simpler and far less romantic. They don't want to empower creativity. They want more people to make free content for them. They don't want to build a community. They want loyal customers that keep coming back. They don't want to make the world a better place. They want you to buy more, more often. And without thinking too hard about it. The business model is simple. <input class="blank" data-answer="Capture"> <b>your attention</b>, <input class="blank" data-answer="shape"> <b>your perception</b>, and turn it into profit. This doesn't mean that every company is <b>inherently bad</b> or that every advertising strategy is evil. It's just the nature of capitalism. Maximizing profit is the goal. It's the same story we've seen played out for decades, except now companies are getting smarter, using more sophisticated tools, and making it so much harder for you to resist. One of the oldest tricks in the books is for brands to get you to like them, to build <b>genuine</b> <input class="blank" data-answer="affinity"> and trust. And it all starts with branding.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1V-hQ7RUmrMDQerjVJ3wg0zEHsJWpaqD2/preview" target="_blank">▶ Open video 2</a></div>
+      <p style="margin:20px 0 12px;"><b>Part 2</b></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1V-hQ7RUmrMDQerjVJ3wg0zEHsJWpaqD2/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 2"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1V-hQ7RUmrMDQerjVJ3wg0zEHsJWpaqD2/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">Most people today are <input class="blank" data-answer="savvy"> enough to know that branding isn't just a logo, colors, or style guide. It's carefully engineered <input class="blank" data-answer="storytelling">. Because advertising doesn't just sell products, it sells values. Martin Lindström, marketing insider and author of the New York Times bestselling book Biology, says, "Brands that create an emotional connection to consumers are much stronger than those that don't. It's as simple and complicated as that." Luxury car commercials don't talk about gas mileage or safety ratings. They show you freedom, success, power. Even everyday products like deodorant or shampoo <b>are</b> <input class="blank" data-answer="pitched"> <b>as</b> the key to being a better, more authentic, or morally ethical version of yourself. And you know what? It really works. Brands invest millions into <b>crafting their</b> <input class="blank" data-answer="image">, <b>refining their</b> <input class="blank" data-answer="message">, and building an identity that <input class="blank" data-answer="speaks"> <b>to you</b>. Because they know it's going to help <b>bypass</b> <input class="blank" data-answer="rational"> <b>evaluation</b>. You don't buy a new car because you compare every <input class="blank" data-answer="spec">. You buy it because you want it to say something about who you are. Think about it. If you remove the logos from three popular running sneakers, most people, <input class="blank" data-answer="aside"> <b>from</b> sneaker heads, would struggle to tell them apart. When so many sneakers use the same materials, shapes, and manufacturing processes, it's the brand that makes the difference.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/13a1ywoJ-uO6hUIZcefEyWymUxNo6SSBt/preview" target="_blank">▶ Open video 3</a></div>
+      <p style="margin:20px 0 12px;"><b>Part 3</b></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/13a1ywoJ-uO6hUIZcefEyWymUxNo6SSBt/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 3"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/13a1ywoJ-uO6hUIZcefEyWymUxNo6SSBt/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">This was made very clear in a 2018 <input class="blank" data-answer="stunt"> by the budget footwear company Payless. Amid dropping sales and <b>on the</b> <input class="blank" data-answer="verge"> <b>of</b> bankruptcy, Payless <b>took a big</b> <input class="blank" data-answer="swing">. They secretly took over the lease of an old Armani store in Santa Monica and turned it into a fake luxury boutique called Paylessi. The <b>pop-up shop</b> was extravagant and next to some of the most expensive retailers here on Third Street Promenade, they had the same 20 to $40 shoes on the shelves, but with fancy lighting, minimalist displays, and <b>high-end</b> <input class="blank" data-answer="tags"> that went up to $600. They invited fashion influencers to the <b>launch</b> party, and it worked. People <input class="blank" data-answer="raved"> <b>about</b> the quality, the design, and how premium it all felt. Within hours, Payless sold thousands of dollars worth of inventory, beautifully demonstrating the power of branding and how emotional storytelling can <input class="blank" data-answer="shift"> <b>your perception</b> of a product. And no, the irony doesn't fail me that this itself was a clever marketing stunt by a company looking to sell more shoes. Brands have smartened up a lot over the years. They know it's much easier to <input class="blank" data-answer="tap"> <input class="blank" data-answer="into"> <b>your current emotions</b> and behaviors than to fundamentally change your beliefs. This is one of Ram's most recent commercials. Americans, we can do anything we want except one thing. We just can't stop being American. If you were to reverse engineer this ad back to its origins, you'd probably end up in a room with <b>a</b> <input class="blank" data-answer="handful"> <b>of</b> brand and marketing experts. This is where it all begins. It's their job to figure out how to make people want a Ram truck. And they don't just <b>come up with this stuff</b> <input class="blank" data-answer="out"> <b>of</b> <input class="blank" data-answer="nowhere">. It's not based on their own intuition or feelings. They look at their competitors, panalyze the cultural climate, and study their target audience. Learning, among other things, that conservative Americans see the US as the greatest country in the world. Even though among high-income nations, it ranks 33rd in infant mortality, 20th in education, 40th in life expectancy, and has one of the worst healthcare systems in the world.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1feEGXDnEUFYmGp2CYqDSku6DgnV-gr1x/preview" target="_blank">▶ Open video 4</a></div>
+      <p style="margin:20px 0 12px;"><b>Part 4</b></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1feEGXDnEUFYmGp2CYqDSku6DgnV-gr1x/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 4"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1feEGXDnEUFYmGp2CYqDSku6DgnV-gr1x/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">But facts don't sell trucks, feelings do. So these brand experts decide that they want to <input class="blank" data-answer="harness"> <b>the feeling</b> of America is number one. After months of research, meetings, script revisions, production schedules, and expensive shoots, this is what you get. Americans, we can do anything we want except one thing. Lower the rates of infant mortality. If you're anything like me, you watch this commercial and see it as completely absurd, <b>out of</b> <input class="blank" data-answer="touch">, and embarrassing. Like one YouTube comment put it, "The ad feels like a Grand Theft Auto parody commercial." But if that's the case, if that's how you feel, it's just because you aren't the target audience. They're not talking to you. They're talking directly to the person who wants to believe America is number one, who wants to see themselves as tough, <input class="blank" data-answer="rebellious">, free, and proudly patriotic. They're saying, "If you want to feel like a real American, then buy a Ram." It's not telling you what to value. It's figuring out how you think, feel, and behave, and selling your values back to you. This commercial is just one very small example of how brands <input class="blank" data-answer="show"> up in the world. 15 to 30 second commercials or TVC's as the industry calls them are starting to <b>take a</b> <input class="blank" data-answer="backseat"> to even more subtle and effective messaging in the form of organic content, email marketing campaigns, user generated content, and my favorite, comment marketing. Microsoft Burger King, Gatorade, and others use the comment section as another <input class="blank" data-answer="touch"> <b>point</b> in their marketing strategy. With speed, wit, and originality, they drop into conversations to show the world, "Hey, I'm a multinational corporation just like you." I mean person. I'm a person just like you. Every component a brand is sending, every signal it sends, any <input class="blank" data-answer="interaction"> you have with a brand is a brand. The most effective brands in the world are masters at storytelling across every medium. Wendy's reinvented itself from just another fast food chain into the internet's <b>snarky friend</b>. Liquid Death is literally just water in a can, but its content makes you feel <b>rebellious</b> and <input class="blank" data-answer="irreverent">. And if you <b>feel the</b> <input class="blank" data-answer="urge"> to jump to the defense of any of your favorite brands, that's most likely because their marketing worked on you.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1WvOpwZgJ3dllVExLWgKK7nKnatDinDMK/preview" target="_blank">▶ Open video 5</a></div>
-      <div class="sentence">Look, it would be pretty <b>one-</b><input class="blank" data-answer="dimensional"> to just sit here and say, "Brands bad, marketing bad." <input class="blank" data-answer="Plenty"> <b>of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b>being</b> <input class="blank" data-answer="deceived"> <b>into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you. At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b>it</b> <input class="blank" data-answer="crosses"> <b>a line</b> <input class="blank" data-answer="to"> being completely unethical. Out of all the advancements in marketing, the <input class="blank" data-answer="sophistication"> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <input class="blank" data-answer="propelled"> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what you cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical <input class="blank" data-answer="cues"> to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microargeting, and it's used by virtually every big brand today. Instead of <input class="blank" data-answer="blasting"> everyone <b>with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b>quote</b> <input class="blank" data-answer="unquote"> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them <input class="blank" data-answer="prime"> targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment.</div>
+      <p style="margin:20px 0 12px;"><b>Part 5</b></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1WvOpwZgJ3dllVExLWgKK7nKnatDinDMK/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 5"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1WvOpwZgJ3dllVExLWgKK7nKnatDinDMK/preview" target="_blank">🎬 Open the video in a new tab</a></div>
+      <div class="sentence">Look, it would be pretty <b>one-</b><input class="blank" data-answer="dimensional"> to just sit here and say, "Brands bad, marketing bad." <input class="blank" data-answer="Plenty"> <b>of</b> companies out there offer products and services that genuinely add value. We need razors to shave and jackets to stay warm. And even beyond the basics, there's nothing wrong with wanting a new pair of sunglasses or noise cancelling headphones. But if you're someone who's trying to make more intentional decisions about how you spend your time and your money, if you don't like <b>being</b> <input class="blank" data-answer="deceived"> <b>into</b> wanting things you don't need, or if you've felt buyer's remorse more times than you'd like to admit, the problem isn't you. At the end of the day, people know that they're being sold to all the time. But what most people don't realize is just how calculated and manipulative it's become. And at its worst, <b>it</b> <input class="blank" data-answer="crosses"> <b>a line</b> <input class="blank" data-answer="to"> being completely unethical. Out of all the advancements in marketing, the <input class="blank" data-answer="sophistication"> of tracking and targeting has arguably made the biggest impact on what you buy and why you buy it. And Facebook <input class="blank" data-answer="propelled"> this to an entirely new level. People started sharing personal information in a way they never had before. Suddenly, advertisers didn't have to guess who you were or what they cared about. They had it all in a neat little profile volunteered by you. Today, data-driven advertising has gotten so good, it often knows what you want before you do. As far back as 2015, advertisers were implementing haptic targeting, picking up on your phone sensors and physical <input class="blank" data-answer="cues"> to understand what you're doing and then using that data to sell things to you. So, if your phone detects that you're running, you might start seeing ads for a sports drink. Or perhaps you just dropped your phone, what a perfect time to send you an ad for a rugged phone case. One of the most common forms of advanced targeting is called microargeting, and it's used by virtually every big brand today. Instead of <input class="blank" data-answer="blasting"> everyone <b>with</b> the same generic ad, microtargeting allows brands to send specific messages to different audience segments like new parents, anxious college students, or luxury shoppers. These narrow groups are defined by shared behaviors, interests, demographics, and even emotional triggers. Exactly how messed up does this kind of targeting get? In April 2016, a leaked internal document revealed that Facebook was offering advertisers the ability to target 13 to 17 year olds on its platforms, including Instagram, specifically during moments of psychological vulnerability. That meant serving ads when teenagers felt <b>quote</b> <input class="blank" data-answer="unquote"> worthless, insecure, anxious, or stupid. They even identified moments when teens were worried about body confidence, making them <input class="blank" data-answer="prime"> targets for products promising a fix. Sarah Win Williams spent years inside Facebook as the director of global public policy and revealed in her book, Careless People, how manipulative and destructive this kind of targeting got. The company is always trying to push further and further in the tools it develops to meet what advertisers want. In one example, she describes how Facebook would retarget teenagers who had just deleted a selfie, serving them beauty product ads at that exact moment.</div>
 
-      <div class="links" style="margin:16px 0 12px"><a href="https://drive.google.com/file/d/1T1fx-DHP06iSEqjBivdZtpvNYx2ks11K/preview" target="_blank">▶ Open video 6</a></div>
+      <p style="margin:20px 0 12px;"><b>Part 6</b></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1T1fx-DHP06iSEqjBivdZtpvNYx2ks11K/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 6"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1T1fx-DHP06iSEqjBivdZtpvNYx2ks11K/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <div class="sentence">In her book, she says, "There's a reason why you erase something from existence, why a teen girl feels that it can't be shared, and surely Facebook shouldn't then be using that moment <b>to</b> <input class="blank" data-answer="bombard"> <b>them</b> <input class="blank" data-answer="with"> extreme weight loss ads or beauty industry ads or whatever else they push on teens feeling vulnerable." The weird thing is that the rest of our Facebook co-workers seemed unbothered about this. It's very very hard to <input class="blank" data-answer="wrap"> <b>your</b> <input class="blank" data-answer="mind"> <input class="blank" data-answer="around"> the amount of data that this company has on each person who logs on to its service. Don't let Mark Zuckerberg's rebrand fool you. Changing his wardrobe doesn't change their business model. According to Williams, nothing at the company changed after these <input class="blank" data-answer="allegations"> were brought <input class="blank" data-answer="forth">. They simply put out a PR statement to help repair their brand image and proceeded on business as usual.</div>
 
       <div class="card-actions">
@@ -1015,11 +1087,12 @@ function resetCard(card){
   card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
   card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
-  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
   card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1087,6 +1160,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
