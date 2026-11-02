@@ -134,6 +134,13 @@
   }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124, 107, 184, 0.15); background: #101018; box-shadow: 0 6px 24px rgba(124, 107, 184, 0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { 
     border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
     min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
@@ -204,10 +211,12 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
+  /* BLANK: авторасширение по длине текста */
   .blank { 
-    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
     font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
     padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
   }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
@@ -234,6 +243,46 @@
   .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  /* HINT-INPUT: буква склеена с полем + авторасширение */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124, 107, 184, 0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 130px;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
 
   details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124, 107, 184, 0.1); }
   details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
@@ -290,7 +339,9 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -298,11 +349,15 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 280px; }
+    /* Обложка адаптируется под текст */
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -327,6 +382,43 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    /* Обложка адаптируется */
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 26px; }
+    .cover-text p { font-size: 14px; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    /* ВИДЕО: рамка выше + iframe рендерится шире и масштабируется */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку; плеер без масштабирования */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -427,7 +519,12 @@
     <div class="card">
       <h3>1.1 Watch the video and catch the main idea</h3>
       <p class="sentence" style="font-weight:700; margin-bottom:16px;">What risks is she talking about?</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1jXbSOIxBJHlqddaS-O7f2OIeguCcqdAJ/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1jXbSOIxBJHlqddaS-O7f2OIeguCcqdAJ/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/d/1jXbSOIxBJHlqddaS-O7f2OIeguCcqdAJ/preview" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
     </div>
     <div class="card">
       <h3>1.2 Write down your ideas about the video (Optional)</h3>
@@ -716,12 +813,12 @@
     <div class="card" data-task="typeblank" data-id="g4-2">
       <h3>4.2 Complete the second sentence so that it has a similar meaning to the first, using the word in bold. Use 3 words, including the word given.</h3>
       <div class="instruction">💡 Type the complete answer (3 words).</div>
-      <div class="sentence">1. I'm sure they were very tired after the long journey.<br><b style="color:var(--purple);">MUST</b><br>They <input class="blank" data-answer="must have been" style="min-width:180px;"> very tired after the long journey.</div>
-      <div class="sentence">2. It was a mistake not to bring a map.<br><b style="color:var(--purple);">SHOULD</b><br>We <input class="blank" data-answer="should have brought" style="min-width:180px;"> a map.</div>
-      <div class="sentence">3. It's impossible that he forgot our anniversary. He's the most romantic person I know.<br><b style="color:var(--purple);">CAN'T</b><br>He <input class="blank" data-answer="can't have forgotten" style="min-width:180px;"> our anniversary.</div>
-      <div class="sentence">4. Perhaps she took the earlier train.<br><b style="color:var(--purple);">TAKEN</b><br>She <input class="blank" data-answer="might have taken" style="min-width:180px;"> the earlier train.</div>
-      <div class="sentence">5. I'm certain you left your umbrella at the office.<br><b style="color:var(--purple);">HAVE</b><br>You <input class="blank" data-answer="must have left" style="min-width:180px;"> your umbrella at the office.</div>
-      <div class="sentence">6. It was wrong of you to lie to me.<br><b style="color:var(--purple);">SHOULDN'T</b><br>You <input class="blank" data-answer="shouldn't have lied" style="min-width:180px;"> to me.</div>
+      <div class="sentence">1. I'm sure they were very tired after the long journey.<br><b style="color:var(--purple);">MUST</b><br>They <input class="blank" data-answer="must have been"> very tired after the long journey.</div>
+      <div class="sentence">2. It was a mistake not to bring a map.<br><b style="color:var(--purple);">SHOULD</b><br>We <input class="blank" data-answer="should have brought"> a map.</div>
+      <div class="sentence">3. It's impossible that he forgot our anniversary. He's the most romantic person I know.<br><b style="color:var(--purple);">CAN'T</b><br>He <input class="blank" data-answer="can't have forgotten"> our anniversary.</div>
+      <div class="sentence">4. Perhaps she took the earlier train.<br><b style="color:var(--purple);">TAKEN</b><br>She <input class="blank" data-answer="might have taken"> the earlier train.</div>
+      <div class="sentence">5. I'm certain you left your umbrella at the office.<br><b style="color:var(--purple);">HAVE</b><br>You <input class="blank" data-answer="must have left"> your umbrella at the office.</div>
+      <div class="sentence">6. It was wrong of you to lie to me.<br><b style="color:var(--purple);">SHOULDN'T</b><br>You <input class="blank" data-answer="shouldn't have lied"> to me.</div>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="g4-2">✓ Check</button>
         <button class="btn btn-showanswers btn-small" data-card="g4-2">👁 Show answers</button>
@@ -1177,6 +1274,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1244,6 +1342,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
