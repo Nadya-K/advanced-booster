@@ -80,7 +80,7 @@
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
 
-  /* ===== SUBMIT FLOW: steps + button + stream info ===== */
+  /* ===== SUBMIT FLOW ===== */
   .submit-steps { background: var(--soft); border-radius: 12px; padding: 14px 18px; margin: 16px 0 14px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink); }
   .submit-step { display: flex; align-items: flex-start; gap: 8px; flex: 1 1 180px; min-width: 180px; }
   .submit-step .step-num { background: var(--purple); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
@@ -106,6 +106,13 @@
   .toast .toast-body { flex: 1; }
   .toast .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
   .toast .toast-msg { font-size: 13px; color: #555; line-height: 1.45; }
+
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
 
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
@@ -146,7 +153,13 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
-  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
+  }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
   .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
@@ -167,9 +180,42 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  /* HINT-INPUT: буква склеена с полем + авторасширение */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 130px;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -206,9 +252,9 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 120px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -216,7 +262,10 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 300px; }
+    /* Обложка адаптируется под текст */
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
@@ -224,6 +273,7 @@
     .submit-btn { padding: 14px 22px !important; font-size: 15px !important; }
     .submit-steps { font-size: 14px; }
     .toast { bottom: 120px; right: 16px; left: 16px; max-width: none; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -244,31 +294,50 @@
     .submit-wrap { flex-direction: column; align-items: stretch; }
     .submit-btn { width: 100%; justify-content: center; }
     .stream-info { min-width: 0; }
-
-    /* ===== МОБИЛЬНЫЕ ШАГИ: компактно, но шрифт как в тексте ===== */
-    .submit-steps {
-      flex-direction: column;
-      gap: 10px;
-      padding: 14px 16px;
-      margin: 14px 0 12px;
-    }
-    .submit-step {
-      flex: 0 0 auto;
-      min-width: 0;
-      gap: 10px;
-    }
-    .submit-step .step-num {
-      width: 22px;
-      height: 22px;
-      font-size: 12px;
-      flex-shrink: 0;
-    }
-    .submit-step .step-text {
-      font-size: 15.5px;
-      line-height: 1.5;
-    }
-
+    .submit-steps { flex-direction: column; gap: 10px; padding: 14px 16px; margin: 14px 0 12px; }
+    .submit-step { flex: 0 0 auto; min-width: 0; gap: 10px; }
+    .submit-step .step-num { width: 22px; height: 22px; font-size: 12px; flex-shrink: 0; }
+    .submit-step .step-text { font-size: 15.5px; line-height: 1.5; }
+    /* Обложка адаптируется */
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
     .toast { bottom: 110px; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -357,8 +426,11 @@
     <div class="card">
       <h3>1.1 Watch the video</h3>
       <p class="sentence" style="font-weight:700; margin-bottom:16px;">Psychology of People Who Don't Post Their Photos on Social Media</p>
-      <div class="links">
-        <a href="https://drive.google.com/file/u/0/d/1Cjoagy_cYmFEr1Ev7ygl_M99j8DCAQIq/view" target="_blank">▶ Open video</a>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/u/0/d/1Cjoagy_cYmFEr1Ev7ygl_M99j8DCAQIq/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/u/0/d/1Cjoagy_cYmFEr1Ev7ygl_M99j8DCAQIq/view" target="_blank">🎬 Open the video in a new tab</a>
         <a class="alt" href="https://www.youtube.com/watch?v=gFKS1t1tyUI" target="_blank">▶ Watch on YouTube</a>
       </div>
     </div>
@@ -1086,6 +1158,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1154,6 +1227,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
 
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
+
 // ===== TOAST =====
 const toastEl = document.getElementById('toast');
 const toastIcon = document.getElementById('toastIcon');
@@ -1178,11 +1274,7 @@ function showToast(type, title, msg, duration = 6000) {
   toastTitle.textContent = title;
   toastMsg.textContent = msg;
   requestAnimationFrame(() => toastEl.classList.add('show'));
-
-  // fallback: auto-hide after timeout
   toastTimer = setTimeout(hideToast, duration);
-
-  // main: hide on next click anywhere on the page
   setTimeout(() => {
     document.addEventListener('click', hideToast, { once: true });
   }, 0);
@@ -1214,41 +1306,28 @@ async function copyToClipboard(text) {
 // ===== SUBMIT FLOW =====
 async function handleSubmit(btn) {
   const url = btn.dataset.formUrl;
-
   if (!url || url.includes('ТВОЯ_ССЫЛКА')) {
     showToast('error', 'Form not configured', 'Please ask Daria to add the Google Form link.');
     return;
   }
-
   const card = btn.closest('.card');
   const textarea = card ? card.querySelector('textarea.idea-box') : null;
   const answerText = textarea ? textarea.value.trim() : '';
-
   if (!answerText) {
     showToast('error', 'Nothing to submit', 'Please write your answer in the box first.');
     if (textarea) textarea.focus();
     return;
   }
-
-  // Task title from h3 (number already included), remove "(Optional)"
   const h3 = card ? card.querySelector('h3') : null;
   let taskTitle = h3 ? h3.textContent.trim() : '';
   taskTitle = taskTitle.replace(/\s*\(Optional\)\s*$/i, '').trim();
-
-  const textToCopy =
-    `Task title: ${taskTitle}\n\n` +
-    `My answer:\n${answerText}`;
-
+  const textToCopy = `Task title: ${taskTitle}\n\nMy answer:\n${answerText}`;
   const copied = await copyToClipboard(textToCopy);
-
   if (copied) {
-    showToast('success',
-      'Copied!',
-      'Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.');
+    showToast('success', 'Copied!', 'Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.');
     window.open(url, '_blank');
   } else {
-    showToast('error', 'Could not copy automatically',
-      'Please copy your answer manually, then open the form.');
+    showToast('error', 'Could not copy automatically', 'Please copy your answer manually, then open the form.');
     window.open(url, '_blank');
   }
 }
@@ -1259,7 +1338,6 @@ const STREAM_END_DATE = new Date('2026-11-15T23:59:59');
 function checkStreamStatus() {
   const now = new Date();
   const isEnded = now > STREAM_END_DATE;
-
   document.querySelectorAll('.submit-btn').forEach(btn => {
     if (isEnded) {
       btn.disabled = true;
@@ -1270,7 +1348,6 @@ function checkStreamStatus() {
       btn.onclick = () => handleSubmit(btn);
     }
   });
-
   document.querySelectorAll('.stream-info').forEach(block => {
     if (isEnded) block.classList.add('ended');
     else block.classList.remove('ended');
