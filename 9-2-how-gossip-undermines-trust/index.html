@@ -142,7 +142,13 @@
   @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
 
-  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; max-width: 100%; }
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box; max-width: 100%;
+  }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
   .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
@@ -166,9 +172,42 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; flex-wrap: wrap; max-width: calc(100% - 8px); margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; width: 130px; min-width: 60px; max-width: 100%; outline: none; transition: border-color 0.2s; }
+  /* HINT-INPUT: буква склеена с полем + авторасширение */
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: 130px;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input .answer-key { white-space: normal; }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -209,15 +248,16 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .option { padding: 14px 18px; font-size: 15px; }
-    .blank { width: 120px; font-size: 16px; }
-    .hint-input input { width: 120px; min-width: 60px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .section-title { font-size: 22px; }
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
+    /* Обложка адаптируется под текст */
     .cover-card { height: auto; min-height: 320px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
@@ -252,10 +292,36 @@
     .submit-step .step-num { width: 22px; height: 22px; font-size: 12px; flex-shrink: 0; }
     .submit-step .step-text { font-size: 15.5px; line-height: 1.5; }
     .toast { bottom: 110px; }
+    /* Обложка адаптируется */
     .cover-card { height: auto; min-height: 340px; }
     .cover-img { height: 210px; flex: 0 0 210px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
     .hint-input { max-width: calc(100% - 4px); }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
   }
 </style>
 </head>
@@ -601,19 +667,19 @@
       <div class="instruction">💡 Look at each post and type the hidden word(s) into the blanks below it.</div>
 
       <img class="post-img" src="1.png" alt="Post 1 — vdo.psychology">
-      <div class="post-caption"><input class="blank" data-answer="cross" style="width:100px;"> a <input class="blank" data-answer="line" style="width:100px;"></div>
+      <div class="post-caption"><input class="blank" data-answer="cross"> a <input class="blank" data-answer="line"></div>
 
       <img class="post-img" src="2.png" alt="Post 2 — itsloveleen_">
-      <div class="post-caption"><input class="blank" data-answer="tight" style="width:90px;">-<input class="blank" data-answer="knit" style="width:90px;"> <input class="blank" data-answer="community" style="width:130px;">!</div>
+      <div class="post-caption"><input class="blank" data-answer="tight">-<input class="blank" data-answer="knit"> <input class="blank" data-answer="community">!</div>
 
       <img class="post-img" src="3.png" alt="Post 3 — authorhaille">
-      <div class="post-caption"><input class="blank" data-answer="air" style="width:90px;"> my <input class="blank" data-answer="grievances" style="width:130px;"></div>
+      <div class="post-caption"><input class="blank" data-answer="air"> my <input class="blank" data-answer="grievances"></div>
 
       <img class="post-img" src="4.png" alt="Post 4 — s.v.o.jp">
-      <div class="post-caption"><input class="blank" data-answer="steer" style="width:100px;"> <input class="blank" data-answer="clear" style="width:100px;"> of</div>
+      <div class="post-caption"><input class="blank" data-answer="steer"> <input class="blank" data-answer="clear"> of</div>
 
       <img class="post-img" src="5.png" alt="Post 5 — simplydredmondsonochoa">
-      <div class="post-caption"><input class="blank" data-answer="undermine" style="width:120px;"> <input class="blank" data-answer="trust" style="width:100px;"></div>
+      <div class="post-caption"><input class="blank" data-answer="undermine"> <input class="blank" data-answer="trust"></div>
 
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="v3-1">✓ Check</button>
@@ -1038,6 +1104,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1105,6 +1172,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 
 // ===== TOAST =====
 const toastEl = document.getElementById('toast');
