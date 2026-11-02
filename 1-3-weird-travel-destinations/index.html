@@ -18,10 +18,7 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { 
     font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; 
-    color: var(--ink); 
-    background: var(--bg); 
-    line-height: 1.6; 
-    padding-bottom: 150px; 
+    color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; 
     -webkit-font-smoothing: antialiased;
   }
   a { color: var(--teal); text-decoration: none; }
@@ -31,8 +28,7 @@
     background: rgba(255, 255, 255, 0.95); 
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(124, 107, 184, 0.1); 
-    padding: 12px 24px; 
-    display: flex; align-items: center; gap: 16px; 
+    padding: 12px 24px; display: flex; align-items: center; gap: 16px; 
     box-shadow: 0 4px 20px rgba(124, 107, 184, 0.04); 
   }
   .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
@@ -134,6 +130,13 @@
   }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124, 107, 184, 0.15); background: #101018; box-shadow: 0 6px 24px rgba(124, 107, 184, 0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { 
     border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
     min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
@@ -210,10 +213,12 @@
   .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
   .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
 
+  /* BLANK: авторасширение по длине текста */
   .blank { 
-    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
     font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
     padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
   }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
@@ -241,11 +246,16 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input { 
+    display: inline-flex; align-items: stretch;
+    margin: 0 4px; vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
   .hint-input input { 
     border: 2px solid rgba(124, 107, 184, 0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px;
-    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 40px; width: 130px;
+    flex: 0 1 auto; box-sizing: border-box; outline: none; transition: border-color 0.2s, width 0.15s ease; 
   }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -330,9 +340,9 @@
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
     .option { padding: 14px 18px; font-size: 15px; }
-    .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 130px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -340,7 +350,6 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
@@ -349,16 +358,13 @@
     .cover-text p { font-size: 14px; }
     .paraphrase-gap input { min-width: 120px; font-size: 15px; }
     .pic-match-item img { height: 120px; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
     .header { 
-      padding: 10px 12px; 
-      gap: 12px; 
-      flex-wrap: nowrap; 
-      overflow-x: auto; 
-      scrollbar-width: none; 
-      -webkit-overflow-scrolling: touch;
+      padding: 10px 12px; gap: 12px; flex-wrap: nowrap; 
+      overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
     }
     .header::-webkit-scrollbar { display: none; }
     .brand { flex-shrink: 0; }
@@ -373,12 +379,40 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 26px; }
     .cover-text p { font-size: 14px; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -477,7 +511,12 @@
     <div class="card">
       <h3>1.1 Watch the video and answer the question</h3>
       <p class="sentence" style="font-weight:700; margin-bottom:16px;">Which place do you find the most appealing to visit?</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1L2B9NtgH9IkkTXhHPPxWs8U4lriup-KT/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1L2B9NtgH9IkkTXhHPPxWs8U4lriup-KT/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/d/1L2B9NtgH9IkkTXhHPPxWs8U4lriup-KT/preview" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
     </div>
     <div class="card">
       <h3>1.2 Write down your answer (Optional)</h3>
@@ -799,54 +838,90 @@
     <div class="section-title"><span class="num">3</span> Audio</div>
     <div class="card" data-task="typeblank" data-id="a3-1">
       <h3>3.1 Watch the videos and fill in the gaps</h3>
-      <div class="instruction">💡 Type the correct word into each gap.</div>
+      <div class="instruction">💡 Watch each clip right here or tap "🎬 Open the video in a new tab", listen, and type the missing word(s) into the blanks.</div>
       
       <p style="margin-bottom:12px;"><b>Pancake Rocks, NZ</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1I1wfC19_UR4Xz-eMdINU1OKVugFnn0UD/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1I1wfC19_UR4Xz-eMdINU1OKVugFnn0UD/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Pancake Rocks"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1I1wfC19_UR4Xz-eMdINU1OKVugFnn0UD/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">We agree pancakes do rock but sadly flapjacks aren't on the menu at this unique site in New Zealand. Located south of Punakaiki village <input class="blank" data-answer="on"> <b>the</b> <input class="blank" data-answer="outskirts"> <b>of</b> Paparoa National Park, the pancake rocks are made of limestone and have been slowly carved by the ocean tides over the course of countless years. As water bears through natural blowholes, it slowly <input class="blank" data-answer="eats"> <input class="blank" data-answer="away"> the layers of sandstone. The end result is an area of shoreline populated by rock formations that look unlike uneven <input class="blank" data-answer="stacks"> <b>of pancakes</b>. Thanks to a number of walkways in the area you can really get a close look at the structures without risk of damaging them.</p>
 
       <p style="margin:20px 0 12px;"><b>Lençóis Maranhenses National Park, Brazil</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1LMHdi2qqHYEVjxOxVDqcLTZzl5tCzTqr/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1LMHdi2qqHYEVjxOxVDqcLTZzl5tCzTqr/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lençóis Maranhenses"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1LMHdi2qqHYEVjxOxVDqcLTZzl5tCzTqr/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">We know what you're thinking — that's a pretty piece of abstract art, but allow your eyes to adjust a bit and you'll see that what you're actually looking at is a series of <input class="blank" data-answer="rolling"> <b>sand dunes</b> with water pooling between them. Located in Maranhão state, Lençóis Maranhenses National Park extends from the coastline to cover a total of 380,000 acres of land. The inland area is made up of low-lying sand dunes that, following rainstorms, become interspersed with fresh water lagoons. The end result is truly <input class="blank" data-answer="breathtaking"> and <input class="blank" data-answer="surreal"> to the point that, whether photographed from above or seen in person, the site is hard to believe. Don't let the photos fool you though — those lagoons are actually quite large. Visitors often identify swimming in the pools as one of the <input class="blank" data-answer="highlights"> <b>of the</b> <input class="blank" data-answer="trip">.</p>
 
       <p style="margin:20px 0 12px;"><b>Cat Island and Bunny Island, Japan</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1LuSJL4D4I-uA-qlFObFI8NSUjQURZCKe/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1LuSJL4D4I-uA-qlFObFI8NSUjQURZCKe/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Cat Island and Bunny Island"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1LuSJL4D4I-uA-qlFObFI8NSUjQURZCKe/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Okay, as an apology for all the food-related teasing, this entry comes just as advertised. And to really make amends we're giving you not one but two <input class="blank" data-answer="odd"> travel experiences for the price of one. Located off of Japan's eastern coast, the island of Tashirojima is home to only about 100 people — but many times that number of cats. They previously worked to keep mice away from local silkworms. But now they're an <input class="blank" data-answer="attraction"> <b>in their own</b> <input class="blank" data-answer="right">. As if that's not enough cuteness, over on the island of Ōkunoshima you can get another overdose of cute and cuddly — the place is totally <input class="blank" data-answer="overrun"> <input class="blank" data-answer="with"> feral but friendly rabbits. Adding to the weirdness factor, the island is also home to an abandoned poison gas factory, a relic from the island's dark World War II history.</p>
 
       <p style="margin:20px 0 12px;"><b>Goblin Valley State Park, USA</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1R6cJAfQOgxfCWXxH2edtd9vNqm-iRKeK/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1R6cJAfQOgxfCWXxH2edtd9vNqm-iRKeK/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Goblin Valley State Park"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1R6cJAfQOgxfCWXxH2edtd9vNqm-iRKeK/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Not as cute but nonetheless an interesting place to visit, Goblin Valley State Park is thankfully not named after a dominant local species. Located in Utah a few hundred miles from Salt Lake City, it actually takes its name from the strange rock formations that populate this otherwise <input class="blank" data-answer="uninhabited"> Valley. Slowly but surely, the powerful elements have <input class="blank" data-answer="chiselled"> <input class="blank" data-answer="away"> at the sandstone, resulting in mushroom-shaped pinnacles and hoodoos. These unique natural structures tend to be top-heavy with thinner lower sections, due to the upper layers of <input class="blank" data-answer="sandstone"> being more durable. Many of the pinnacles and hoodoos are millions of years old, and their odd shape certainly feels prehistoric — some suggest they even look like monstrous creatures from fairy tales, hence the name.</p>
 
       <p style="margin:20px 0 12px;"><b>Catacombs, Paris, France</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1AYlXJc0FyOPffIDcwS_6fkwRPIyDpDSI/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1AYlXJc0FyOPffIDcwS_6fkwRPIyDpDSI/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Catacombs"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1AYlXJc0FyOPffIDcwS_6fkwRPIyDpDSI/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Most of the weird places on our list today are <input class="blank" data-answer="naturally"> <b>occurring</b>, but not all of them. The world-famous Paris Catacombs might be a popular attraction, but there's no denying that this underground shrine to death is just about one of the strangest things the city has to offer. Occupying a small section of the tunnels that run underneath this city of love, the catacombs contain the bones of <input class="blank" data-answer="roughly"> 6 million Parisians. Once a simple dumping ground for human <input class="blank" data-answer="remains"> due to overloaded cemeteries, the ossuary was better organized in the early 19th century, when the bones were set up in various patterns. You're sure to enjoy the <input class="blank" data-answer="fine"> <b>wine,</b> <input class="blank" data-answer="world">-<input class="blank" data-answer="class"> <b>food</b> and stunning architecture of Paris, but we can all but guarantee that the catacombs are what will really stay with you.</p>
 
       <p style="margin:20px 0 12px;"><b>Thor's Well, Oregon, USA</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1xc87sYFWnDKhkrUBBXodQODPKaOn30Lp/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1xc87sYFWnDKhkrUBBXodQODPKaOn30Lp/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Thor's Well"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1xc87sYFWnDKhkrUBBXodQODPKaOn30Lp/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Returning to Oregon, the home state of the Painted Hills, we leave the John Day Fossil Beds National Monument for the coast. Cape Perpetua is a forested headland in Lincoln County managed by the United States Forest Service. Though the entire area is beautiful, the cape's <input class="blank" data-answer="perpetuous"> <input class="blank" data-answer="scenic"> area is, as the name suggests, a highlight. Here visitors can camp, hike and go whale watching among other activities, but those who <input class="blank" data-answer="seeking"> <input class="blank" data-answer="out"> <b>natural</b> <input class="blank" data-answer="oddities">  will want to make a beeline for Thor's Well as well. A powerful saltwater fountain, the aptly named coastal feature is known for both its seemingly insatiable thirst and the watery explosions it emits at high tide. For more coastal oddities, check out neighboring sites in the scenic <input class="blank" data-answer="area">, including the Devil's Churn and the Spouting Horn.</p>
 
       <p style="margin:20px 0 12px;"><b>Moeraki Boulders, NZ</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1iUm3DChX4oi4QtNUknE6BLJXl389hB0o/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1iUm3DChX4oi4QtNUknE6BLJXl389hB0o/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Moeraki Boulders"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1iUm3DChX4oi4QtNUknE6BLJXl389hB0o/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Rocks — they're not always the most exciting things on the planet, but as soon as they take on a weird shape, texture or color, or <input class="blank" data-answer="wind"> <input class="blank" data-answer="up"> <b>in an</b> <input class="blank" data-answer="odd"> <b>location</b>, we <b>can't</b> <input class="blank" data-answer="help"> but be fascinated by them. And the Moeraki Boulders check more than one box. Noteworthy for their size, location and strangely smooth shape, they almost look like the fossilized eggs of some colossal primordial beast, as if they were left to hatch by a sea turtle the size of a football stadium. <input class="blank" data-answer="Scattered"> <input class="blank" data-answer="across"> the beaches of New Zealand's Otago Coast, they vary in size from 1.8 feet to a <input class="blank" data-answer="whopping"> 7.2 feet in diameter. Though they've inspired local myths and extraterrestrial conspiracy theories, scientists for their part deem them to be naturally occurring, albeit having taken shape under specific circumstances across millions of years.</p>
 
       <p style="margin:20px 0 12px;"><b>Mendenhall Ice Caves, Alaska, USA</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1dHG79aXN8sovf0_PYtQjTxnq52MiDTh-/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1dHG79aXN8sovf0_PYtQjTxnq52MiDTh-/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Mendenhall Ice Caves"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1dHG79aXN8sovf0_PYtQjTxnq52MiDTh-/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Can't take the heat and need to cool off? Then why not take a trip to Alaska, where you can <input class="blank" data-answer="surround"> <b>yourself</b> <input class="blank" data-answer="with"> ice. And we're not just talking about a snowy landscape, we mean <input class="blank" data-answer="full"> <input class="blank" data-answer="immersion">. The glacier is impressive from any angle, but <input class="blank" data-answer="venturing"> <input class="blank" data-answer="inside"> is to step into another world. The <input class="blank" data-answer="glacier"> is partially hollow in certain areas meaning that you can venture into its underbelly. Once inside, apart from the rocky floor, you're surrounded by brilliant blue walls and a ceiling of ice. The result of the glacier's melting, the Mendenhall Ice Caves are forever changing — but they sadly won't be around forever.</p>
 
       <p style="margin:20px 0 12px;"><b>Jellyfish Lake, Palau</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/19eYZonQAdgI9dbbMFsyDCWfHUO70MojG/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/19eYZonQAdgI9dbbMFsyDCWfHUO70MojG/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Jellyfish Lake"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/19eYZonQAdgI9dbbMFsyDCWfHUO70MojG/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Imagine yourself swimming in a lake completely surrounded by jellyfish. For some, this particular mental image might be the stuff of nightmares — but hey, weird places aren't for everyone. And for travelers looking for a thoroughly unique experience, it doesn't get much better or more surreal than this. Located in Palau on the island of Eil Malk, this marine lake is <input class="blank" data-answer="packed"> <b>to the</b> <input class="blank" data-answer="gills"> with jellyfish. The lake is only about 1,500 feet long and 520 feet deep at its widest points, but in this modest-sized lake swim millions of jellyfish that are largely <input class="blank" data-answer="isolated"> from the ocean and have diverged from the evolutionary path of the rest of their various species. <input class="blank" data-answer="For"> <b>the</b> <input class="blank" data-answer="record">, these jellyfish can sting, but they're not considered powerful enough to harm humans. It's worth noting, however, that while snorkeling is allowed, scuba diving is not.</p>
 
       <p style="margin:20px 0 12px;"><b>Lake Hillier & Hutt Lagoon, Australia</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1RGR1dLHVMtXpKdcYGY1_PEX8sD1YyVZY/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1RGR1dLHVMtXpKdcYGY1_PEX8sD1YyVZY/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lake Hillier"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1RGR1dLHVMtXpKdcYGY1_PEX8sD1YyVZY/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Lakes <input class="blank" data-answer="come"> <b>in many</b> <input class="blank" data-answer="shapes"> <b>and</b> <input class="blank" data-answer="sizes"> — but color? That's not usually a variable you expect. In Australia, however, there are actually multiple lakes that defy convention with the bright pink color of their water. Lake Hillier, located on Middle Island, was first documented by European explorer Matthew Flinders in 1802. Today we know that the unique <input class="blank" data-answer="vibrant"> pink color is a result of two factors: the incredibly high concentration of salt in the lake and the presence of Dunaliella salina. Despite the <input class="blank" data-answer="eye">-<input class="blank" data-answer="catching"> pink hue, Lake Hillier is safe to swim in, though notably hard to reach. For a pink lake that's more accessible, consider a trip to Hutt Lagoon on Australia's West Coast — weather conditions and time of year can affect the intensity of the color.</p>
 
       <p style="margin:20px 0 12px;"><b>Deadvlei, Namibia</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1JMnX_1Gvhi8zg87Misq6dpeEKnzceGeI/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1JMnX_1Gvhi8zg87Misq6dpeEKnzceGeI/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Deadvlei"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1JMnX_1Gvhi8zg87Misq6dpeEKnzceGeI/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">If you're looking for a desert oasis, you're too late by about 600 to 700 years, actually. If, however, you're in the market for a totally unique photo, Deadvlei is just about as <input class="blank" data-answer="compelling"> <b>of a</b> <input class="blank" data-answer="place"> as you can ask for. This salt pan in Namibia is surrounded on all sides by some of the highest sand dunes on Earth. At one point long ago this was a collection point for water after rainfall, giving rise to an oasis of camel-thorn trees. It eventually dried up, however, and now only the skeletal remains are left as a reminder of what once was. The heat and lack of humidity are so intense that the trees, while not petrified, have become blackened as a result of the intense elements — and it's <input class="blank" data-answer="hauntingly"> <b>beautiful</b>.</p>
 
       <p style="margin:20px 0 12px;"><b>Salar de Uyuni, Bolivia</b></p>
-      <div class="links" style="margin-bottom:12px"><a href="https://drive.google.com/file/d/1bB0z_ISRYYlAzFQBd8WxTbyz0cSbD7L8/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1bB0z_ISRYYlAzFQBd8WxTbyz0cSbD7L8/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Salar de Uyuni"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px"><a class="pur" href="https://drive.google.com/file/d/1bB0z_ISRYYlAzFQBd8WxTbyz0cSbD7L8/preview" target="_blank">🎬 Open the video in a new tab</a></div>
       <p class="sentence">Photographers and Instagram influencers, this one's for you. Salar de Uyuni is so <input class="blank" data-answer="awe">-<input class="blank" data-answer="inspiringly"> beautiful and unique that it's now impossible not to appreciate it, regardless of your specific travel interests. The world's largest salt pan, this 4,086-square-mile stretch of land is covered in a salt crust and is one of the <input class="blank" data-answer="flattest"> expanses on Earth. It makes for a remarkable sight on any given day, rain or shine, but when a thin layer of water collects on the surface it becomes one giant mirror that reflects the sky — and when that happens, your brain will genuinely struggle to process the sight before your eyes: sky and land <input class="blank" data-answer="merge"> into one as far as the eye can see. Add some grazing flamingos, who use the salt flats as an annual <input class="blank" data-answer="breeding"> ground, and it's like <b>something</b> <input class="blank" data-answer="out"> <b>of a</b> <input class="blank" data-answer="dream">.</p>
       
       <div class="card-actions">
@@ -885,16 +960,16 @@
       <h3>4.3 Guess the adjectives (unscramble the letters)</h3>
       <div class="instruction">💡 Type the correct adjective. The letters are mixed up.</div>
 
-      <div class="sentence">1. <span class="scramble-letters">k t t n g r e i a b a h</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="breathtaking" style="width:200px;"></div>
-      <div class="sentence">2. <span class="scramble-letters">s u a r r e l</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="surreal" style="width:150px;"></div>
-      <div class="sentence">3. <span class="scramble-letters">n c i s e c</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="scenic" style="width:120px;"></div>
-      <div class="sentence">4. <span class="scramble-letters">a i t e u b h d n n i</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="uninhabited" style="width:180px;"></div>
-      <div class="sentence">5. <span class="scramble-letters">n g w h o p p i</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="whopping" style="width:150px;"></div>
-      <div class="sentence">6. <span class="scramble-letters">b t i r a v n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="vibrant" style="width:130px;"></div>
-      <div class="sentence">7. <span class="scramble-letters">- y e c a h c n t i g e</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="eye-catching" style="width:180px;"></div>
-      <div class="sentence">8. <span class="scramble-letters">p o l g e i l c m n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="compelling" style="width:160px;"></div>
-      <div class="sentence">9. <span class="scramble-letters">l p e s i g a w i r - y i n n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="awe-inspiringly" style="width:200px;"></div>
-      <div class="sentence">10. <span class="scramble-letters">e a b r i z r</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="bizarre" style="width:130px;"></div>
+      <div class="sentence">1. <span class="scramble-letters">k t t n g r e i a b a h</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="breathtaking"></div>
+      <div class="sentence">2. <span class="scramble-letters">s u a r r e l</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="surreal"></div>
+      <div class="sentence">3. <span class="scramble-letters">n c i s e c</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="scenic"></div>
+      <div class="sentence">4. <span class="scramble-letters">a i t e u b h d n n i</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="uninhabited"></div>
+      <div class="sentence">5. <span class="scramble-letters">n g w h o p p i</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="whopping"></div>
+      <div class="sentence">6. <span class="scramble-letters">b t i r a v n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="vibrant"></div>
+      <div class="sentence">7. <span class="scramble-letters">- y e c a h c n t i g e</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="eye-catching"></div>
+      <div class="sentence">8. <span class="scramble-letters">p o l g e i l c m n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="compelling"></div>
+      <div class="sentence">9. <span class="scramble-letters">l p e s i g a w i r - y i n n</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="awe-inspiringly"></div>
+      <div class="sentence">10. <span class="scramble-letters">e a b r i z r</span> <span class="scramble-hint"></span><br><input class="blank" data-answer="bizarre"></div>
 
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="r4-3">✓ Check</button>
@@ -907,11 +982,11 @@
     <div class="card" data-task="typeblank" data-id="r4-4">
       <h3>4.4 Complete the second sentence so that it has a similar meaning to the first, using the word given. Do not change the word given. Use between 3 and 6 words.</h3>
       <div class="instruction">💡 Type the complete answer.</div>
-      <div class="sentence" style="margin-bottom:16px;">1. The old castle is the main thing people come to see in this town.<br><b style="color:var(--purple);">ATTRACTION</b><br>The old castle is <input class="blank" data-answer="the main attraction" style="min-width:200px; width:auto;"> in this town.</div>
-      <div class="sentence" style="margin-bottom:16px;">2. We didn't plan to visit the cat museum, but we ended up there anyway.<br><b style="color:var(--purple);">WIND</b><br>We didn't plan to visit the cat museum, but we <input class="blank" data-answer="wound up" style="min-width:150px; width:auto;"> there.</div>
-      <div class="sentence" style="margin-bottom:16px;">3. The market was so crowded that it was almost impossible to move.<br><b style="color:var(--purple);">GILLS</b><br>The market was <input class="blank" data-answer="packed to the gills" style="min-width:220px; width:auto;"> that it was almost impossible to move.</div>
-      <div class="sentence" style="margin-bottom:16px;">4. The most effective way to learn the language is to live with a local family.<br><b style="color:var(--purple);">IMMERSION</b><br>The most effective way to learn the language is <input class="blank" data-answer="a full immersion" style="min-width:200px; width:auto;"> experience with a local family.</div>
-      <div class="sentence" style="margin-bottom:16px;">5. The hotel wasn't in the city centre; it was located on the edge of a national park.<br><b style="color:var(--purple);">OUTSKIRTS</b><br>The hotel was located <input class="blank" data-answer="on the outskirts of" style="min-width:220px; width:auto;"> a national park.</div>
+      <div class="sentence" style="margin-bottom:16px;">1. The old castle is the main thing people come to see in this town.<br><b style="color:var(--purple);">ATTRACTION</b><br>The old castle is <input class="blank" data-answer="the main attraction"> in this town.</div>
+      <div class="sentence" style="margin-bottom:16px;">2. We didn't plan to visit the cat museum, but we ended up there anyway.<br><b style="color:var(--purple);">WIND</b><br>We didn't plan to visit the cat museum, but we <input class="blank" data-answer="wound up"> there.</div>
+      <div class="sentence" style="margin-bottom:16px;">3. The market was so crowded that it was almost impossible to move.<br><b style="color:var(--purple);">GILLS</b><br>The market was <input class="blank" data-answer="packed to the gills"> that it was almost impossible to move.</div>
+      <div class="sentence" style="margin-bottom:16px;">4. The most effective way to learn the language is to live with a local family.<br><b style="color:var(--purple);">IMMERSION</b><br>The most effective way to learn the language is <input class="blank" data-answer="a full immersion"> experience with a local family.</div>
+      <div class="sentence" style="margin-bottom:16px;">5. The hotel wasn't in the city centre; it was located on the edge of a national park.<br><b style="color:var(--purple);">OUTSKIRTS</b><br>The hotel was located <input class="blank" data-answer="on the outskirts of"> a national park.</div>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="r4-4">✓ Check</button>
         <button class="btn btn-showanswers btn-small" data-card="r4-4">👁 Show answers</button>
@@ -1389,12 +1464,13 @@ function resetCard(card){
   card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
   card.querySelectorAll('.pic-match-item').forEach(pm=>unmatchPic(pm));
-  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
   card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
   card.querySelectorAll('.paraphrase-gap input').forEach(i=>{i.value='';});
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1462,6 +1538,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
