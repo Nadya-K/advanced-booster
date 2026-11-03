@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>How to Control Your Spending — Interactive Practice</title>
+<title>The De-influencing Trend — Interactive Practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -119,7 +119,13 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
-  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  /* BLANK: авторасширение */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
+  }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
   .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
@@ -141,8 +147,13 @@
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
   .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; white-space: nowrap; }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; 
+    min-width: 40px; width: 130px; flex: 0 1 auto;
+    box-sizing: border-box; outline: none; transition: border-color 0.2s, width 0.15s ease; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -154,10 +165,13 @@
   b.v { color: var(--purple); font-weight: 700; }
   b.p { background: #c9d2f5; padding: 0 4px; border-radius: 4px; font-weight: 700; }
 
-  .paraphrase-gap { display: inline-flex; align-items: center; margin: 0 4px; }
+  .paraphrase-gap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
   .paraphrase-gap input { 
     border: 2px solid rgba(124,107,184,0.2); border-radius: 8px; padding: 6px 10px;
-    font-size: 15px; font-family: inherit; font-weight: 600; min-width: 140px; outline: none; transition: border-color 0.2s; 
+    font-size: 15px; font-family: inherit; font-weight: 600; 
+    min-width: 60px; width: auto; 
+    box-sizing: content-box; outline: none; transition: border-color 0.2s, width 0.15s ease; 
+    text-align: center;
   }
   .paraphrase-gap input:focus { border-color: var(--purple); }
   .paraphrase-gap.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -191,9 +205,9 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 120px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -201,12 +215,18 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 300px; }
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
-    .cover-text h1 { font-size: 22px; }
+    .cover-text h1 { font-size: 24px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
-    .paraphrase-gap input { min-width: 120px; font-size: 15px; }
+    .paraphrase-gap input { min-width: 60px; font-size: 15px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 13px; padding: 6px 10px; box-sizing: border-box; }
   }
 
   @media (max-width: 760px){
@@ -223,6 +243,41 @@
     .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .paraphrase-gap input { min-width: 50px; font-size: 14px; padding: 5px 8px; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
   }
 </style>
@@ -283,7 +338,7 @@
 
 <div class="cover-wrap">
   <div class="cover-card">
-    <div class="cover-img"><img src="img-cover.png" alt="How to Control Your Spending — cover"></div>
+    <div class="cover-img"><img src="img-cover.png" alt="The De-influencing Trend — cover"></div>
     <div class="cover-text">
       <span class="cover-brand">Advanced Booster</span>
       <h1>The De-influencing Trend</h1>
@@ -300,7 +355,7 @@
       <div class="links">
         <a class="pur" href="https://drive.google.com/file/d/1p9Ss91btKY91-4NsnqaeLNA9tB-owRlX/view" target="_blank">📄 Vocabulary PDF</a>
         <a class="alt" href="https://quizlet.com/ru/1114006331/the-de-influencing-trend-can-help-you-to-control-your-spending-heres-how-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
-        <a href="https://docs.google.com/presentation/d/1YvxOBlwQaDVGG1UbrM6cZ39w8oLSjvUyZOdH0KsnnH4/edit?usp=sharing" target="_blank">📽 Presentation</a>
+        <a class="pur" href="https://docs.google.com/presentation/d/1YvxOBlwQaDVGG1UbrM6cZ39w8oLSjvUyZOdH0KsnnH4/edit?usp=sharing" target="_blank">📽 Presentation</a>
       </div>
     </div>
   </section>
@@ -550,7 +605,7 @@
       <p style="margin-bottom:16px; line-height:1.8;">But a new movement is rising where, instead of recommending their supposed 'favourite' products to their audience, influencers choose to advise you on items you shouldn't waste your money on. In an online world where <b>paid product placements</b> are now as common as traditional advertisements, marketing statistics from the UK show that 48% of millennial consumers find this marketing model more authentic than other advertising techniques, according to Cure Media.</p>
       <p style="margin-bottom:16px; line-height:1.8;">Whether you're looking for the best moisturiser, fitness app, or even a new therapist, the choice can be <b class="p">confusing (o…)</b> <span class="paraphrase-gap"><input type="text" data-answer="overwhelming"></span> when social recommendations <b>come into the picture</b>. With that in mind, here is how you can lean into the de-influencing trend, and control your spending when it comes to taking care of your wellbeing.</p>
       <p class="sub">Be aware of trends</p>
-      <p style="margin-bottom:16px; line-height:1.8;">Social media marketing <b class="p">is fueled by (t…)</b> <span class="paraphrase-gap"><input type="text" data-answer="thrives on"></span> creating a sense of urgency when you view their content. There's a certain thrill that comes from being an early adopter of a new wellness product, or finding a well-kept secret that could boost your happiness. But if something is being <b>hailed as</b> a 'cure-all' product, or the 'next big thing', </>take it with a pinch of salt</b>. Consider holding back and allowing time to pass before you make a decision. In a few weeks, the <b class="p">hype (b…)</b> <span class="paraphrase-gap"><input type="text" data-answer="buzz"></span> may well have faded, and you'll be pleased you didn't <b>get sucked into</b> the excitement, without evidence to <b>back it up</b>.</p>
+      <p style="margin-bottom:16px; line-height:1.8;">Social media marketing <b class="p">is fueled by (t…)</b> <span class="paraphrase-gap"><input type="text" data-answer="thrives on"></span> creating a sense of urgency when you view their content. There's a certain thrill that comes from being an early adopter of a new wellness product, or finding a well-kept secret that could boost your happiness. But if something is being <b>hailed as</b> a 'cure-all' product, or the 'next big thing', <b>take it with a pinch of salt</b>. Consider holding back and allowing time to pass before you make a decision. In a few weeks, the <b class="p">hype (b…)</b> <span class="paraphrase-gap"><input type="text" data-answer="buzz"></span> may well have faded, and you'll be pleased you didn't <b>get sucked into</b> the excitement, without evidence to <b>back it up</b>.</p>
       <p class="sub">Beware of self-diagnoses</p>
       <p style="margin-bottom:16px; line-height:1.8;">While social media has been a powerful tool for raising awareness about mental health concerns, and has, arguably, <b>done</b> some <b>heavy lifting</b> when it comes to ending the <b class="p">a strong feeling of disapproval (s…)</b> <span class="paraphrase-gap"><input type="text" data-answer="stigma"></span> around mental illness, not all information online is <b>factually accurate</b> or relevant. For example, one study in <i>The Canadian Journal of Psychiatry</i> showed that as little as 21% of ADHD-related information on TikTok was scientifically accurate, and roughly 50% of videos were misleading, so you should make sure to <b>cross-reference</b> any medical claims with reliable sources before making any related purchases. Be <b>sensibly suspicious</b> of any medical studies that are funded by organisations with <b>a vested interest</b> in the outcome.</p>
       <p class="sub">Practise purchase pausing</p>
@@ -1082,6 +1137,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1149,6 +1205,35 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeParaphraseInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(8,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('.paraphrase-gap input').forEach(sizeParaphraseInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+    else if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('.paraphrase-gap input'))sizeParaphraseInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
