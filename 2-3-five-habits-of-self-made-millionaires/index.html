@@ -80,6 +80,13 @@
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
   .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
@@ -119,7 +126,13 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
-  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
+  }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
   .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
@@ -159,6 +172,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
   }
   .hint-input input { 
     border: 2px solid rgba(124,107,184,0.2); 
@@ -169,11 +183,11 @@
     font-family: inherit; 
     font-weight: 600; 
     min-width: 40px;
-    width: 120px;
-    flex: 1 1 auto;
+    width: auto;
+    flex: 0 1 auto;
     box-sizing: border-box;
     outline: none; 
-    transition: border-color 0.2s; 
+    transition: border-color 0.2s, width 0.15s ease; 
   }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -229,7 +243,7 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
     .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
     .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
@@ -239,7 +253,6 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
@@ -247,6 +260,11 @@
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 13px; padding: 6px 10px; box-sizing: border-box; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -264,7 +282,6 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
@@ -273,6 +290,42 @@
     .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
     .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
     .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -349,7 +402,7 @@
       <h3>Lesson links</h3>
       <div class="links">
         <a href="https://drive.google.com/file/d/1pAyykfmplu3mX5PvHkanrhIu7QHLwFOC/view" target="_blank">▶ Lesson video</a>
-        <a class="pur" href="https://drive.google.com/file/u/0/d/16UvMow4Pc4zzXFIgU4gAoOeFIRF6X3-K/view" target="_blank">📄 Vocabulaary PDF</a>
+        <a class="pur" href="https://drive.google.com/file/u/0/d/16UvMow4Pc4zzXFIgU4gAoOeFIRF6X3-K/view" target="_blank">📄 Vocabulary PDF</a>
         <a class="alt" href="https://quizlet.com/hu/1118584636/5-actual-habits-of-self-made-millionaires-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
       </div>
     </div>
@@ -369,10 +422,14 @@
   <section class="section" id="video">
     <div class="section-title"><span class="num">1</span> Video</div>
     <div class="card">
-      <h3>1.1 Watch the video and catch the main idea. Answer the question:</h3>
+      <h3>1.1 Watch the video and catch the main idea</h3>
       <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">How would you summarize the speaker's overall philosophy or strategy for building wealth based on the five lessons?</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1pAyykfmplu3mX5PvHkanrhIu7QHLwFOC/view" target="_blank">▶ Open video</a></div>
-      <p style="margin-top:12px; font-size:14px; color:#6b7280;"><i>5 ACTUAL Habits of Self-Made Millionaires (NOT CLICKBAIT) | YourRichBFF</i></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1pAyykfmplu3mX5PvHkanrhIu7QHLwFOC/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/d/1pAyykfmplu3mX5PvHkanrhIu7QHLwFOC/preview" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
     </div>
     <div class="card">
       <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
@@ -1051,6 +1108,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1118,6 +1176,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+    else if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
