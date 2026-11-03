@@ -35,7 +35,6 @@
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
   .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
 
-  /* ===== ОБЛОЖКА: шаблон V3 (как в Gossip) ===== */
   .cover-wrap { padding: 24px 24px 12px; }
   .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
   .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
@@ -80,6 +79,13 @@
 
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
 
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
@@ -126,8 +132,22 @@
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
   .hint-input { display: inline-flex; align-items: center; flex-wrap: wrap; max-width: calc(100% - 8px); margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; width: 130px; min-width: 60px; max-width: 100%; outline: none; transition: border-color 0.2s; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; white-space: nowrap; }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: auto;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input .answer-key { white-space: normal; }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -167,20 +187,25 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .hint-input input { width: 120px; min-width: 60px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .section-title { font-size: 22px; }
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: auto; min-height: 320px; }
+    .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 13px; padding: 6px 10px; box-sizing: border-box; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -198,12 +223,51 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    .cover-card { height: auto; min-height: 340px; }
-    .cover-img { height: 210px; flex: 0 0 210px; }
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
-    .hint-input { max-width: calc(100% - 4px); }
-    .cover-text h1 { font-size: 22px; }
+    .cover-text h1 { font-size: 24px; }
     .cover-text p { font-size: 14px; }
+    .hint-input { max-width: calc(100% - 4px); }
+    .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -278,7 +342,7 @@
     <div class="card">
       <h3>Lesson links</h3>
       <div class="links">
-        <a href="https://drive.google.com/file/d/1sAZZPY5rVz3atOnjr67xTiwjzaV2_EIH/preview" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/d/1sAZZPY5rVz3atOnjr67xTiwjzaV2_EIH/preview" target="_blank">▶ Lesson video</a>
         <a class="pur" href="https://drive.google.com/file/u/0/d/1SNnUevz966x_2CSWxC51bYEJ-34QQC_d/view" target="_blank">📄 Vocabulary PDF</a>
         <a class="alt" href="https://quizlet.com/hu/1131780535/life-advice-that-sounds-good-but-will-destroy-you-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
       </div>
@@ -301,8 +365,12 @@
     <div class="card">
       <h3>1.1 Watch the video and catch the main idea</h3>
       <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">What is the speaker's overall message or warning about life advice?</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1sAZZPY5rVz3atOnjr67xTiwjzaV2_EIH/preview" target="_blank">▶ Open video</a></div>
-      <p style="margin-top:12px; font-size:14px; color:#6b7280;"><i>Life Advice That Sounds Good But Will Destroy You</i></p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1sAZZPY5rVz3atOnjr67xTiwjzaV2_EIH/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/d/1sAZZPY5rVz3atOnjr67xTiwjzaV2_EIH/preview" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
     </div>
     <div class="card">
       <h3>1.2 Write down your ideas about the video <i>(Optional)</i></h3>
@@ -955,6 +1023,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1022,6 +1091,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+    else if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
