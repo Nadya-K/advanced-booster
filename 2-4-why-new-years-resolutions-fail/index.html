@@ -80,6 +80,13 @@
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
   .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
@@ -119,7 +126,13 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
-  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; }
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box;
+  }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
   .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
@@ -141,8 +154,22 @@
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
   .hint-input { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
-  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
-  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; min-width: 130px; outline: none; transition: border-color 0.2s; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; white-space: nowrap; }
+  .hint-input input { 
+    border: 2px solid rgba(124,107,184,0.2); 
+    border-left: none;
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px; 
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: auto;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
   .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
@@ -162,7 +189,7 @@
   .para-text p { font-size: 16px; line-height: 1.9; margin-bottom: 16px; text-align: justify; }
   .para-text p:last-child { margin-bottom: 0; }
   .para-text .sub { font-weight: 800; color: var(--ink); margin: 22px 0 10px; font-size: 16.5px; text-align: left; }
-  .para-text .blank { width: 120px; margin: 0 4px; }
+  .para-text .blank { margin: 0 4px; }
 
   .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
   .actions .btn { padding: 12px 24px; font-size: 15px; }
@@ -190,9 +217,9 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
-    .hint-input input { min-width: 120px; font-size: 16px; }
-    .hint-input .first-letter { font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -200,7 +227,6 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
@@ -208,7 +234,11 @@
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
-    .para-text .blank { width: 130px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 13px; padding: 6px 10px; box-sizing: border-box; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -226,12 +256,50 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    /* Обложка адаптируется под текст только на мобильных */
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 24px; }
     .cover-text p { font-size: 14px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -308,7 +376,7 @@
       <div class="links">
         <a class="pur" href="https://drive.google.com/file/d/14vnj57XTNgXlwhlMU8EisPO_QxQr2-JU/view" target="_blank">📄 Vocabulary PDF</a>
         <a class="alt" href="https://quizlet.com/ru/1122266785/the-psychology-behind-why-new-years-resolutions-fail-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a>
-        <a href="https://docs.google.com/presentation/d/1R3IvicJgIrOYbphbRSjnjRspYXz0qWPkothv4ufi07g/edit?usp=sharing" target="_blank">📽 Presentation</a>
+        <a class="pur" href="https://docs.google.com/presentation/d/1R3IvicJgIrOYbphbRSjnjRspYXz0qWPkothv4ufi07g/edit?usp=sharing" target="_blank">📽 Presentation</a>
       </div>
     </div>
   </section>
@@ -545,27 +613,27 @@
         <div class="sub">Key Takeaways</div>
         <p>People often <b>set resolutions</b> that are too big and need smaller, immediate goals to succeed.<br>
         Understanding why you want to change is more important than thinking you should change.<br>
-        Change becomes a habit by <b>sticking with small steps</b> rather than <b>making</b> <b class="p">severe and sudden (d…)</b> <input class="blank" data-answer="drastic" style="width:110px;"> <b>changes</b> all at once.</p>
+        Change becomes a habit by <b>sticking with small steps</b> rather than <b>making</b> <b class="p">severe and sudden (d…)</b> <input class="blank" data-answer="drastic"> <b>changes</b> all at once.</p>
         <p>When the clock strikes midnight signaling the start of a new year, many adults will have <b>committed themselves to a New Year's resolution</b>.<br>
         According to a Forbes Health/OnePoll survey conducted in October of 2023, 61.7% of respondents say they feel pressured to set a New Year's resolution. In addition, many respondents are planning on setting multiple goals with 66.5% stating they plan on making three or more resolutions for the year ahead.<br>
-        Whether it's to lose weight, get out of debt, <b class="p">follow (p…)</b> <input class="blank" data-answer="pursue" style="width:110px;"> <b>a coveted hobby</b>, socialize more, or something else, for many, making New Year's resolutions is part of the festivities. And with so many people committing to goals for the new year, the hope and optimism that change can happen is <b>in the air</b>. The reality is, however, that over 90% of New Year's <b>resolutions will be</b> <b class="p">left (a…)</b> <input class="blank" data-answer="abandoned" style="width:130px;"> within just a few months.<br>
+        Whether it's to lose weight, get out of debt, <b class="p">follow (p…)</b> <input class="blank" data-answer="pursue"> <b>a coveted hobby</b>, socialize more, or something else, for many, making New Year's resolutions is part of the festivities. And with so many people committing to goals for the new year, the hope and optimism that change can happen is <b>in the air</b>. The reality is, however, that over 90% of New Year's <b>resolutions will be</b> <b class="p">left (a…)</b> <input class="blank" data-answer="abandoned"> within just a few months.<br>
         Why aren't we more successful at keeping our New Year's resolutions? Some reasons include the idea that we're thinking too big, we're not considering the 'why' behind them, and the fact that we may not be ready for change.</p>
         <div class="sub">Why Do We Make New Year's Resolutions?</div>
-        <p>In many ways, the ritual of making resolutions on New Year's is <b class="p">random (a…)</b> <input class="blank" data-answer="arbitrary" style="width:110px;">. After all, we can set goals at any time. What is it about the turning of the calendar year that makes us especially likely to commit to big goals? "The New Year is an opportunity for reflection," observes licensed clinical psychologist Terri Bly of Ellie Mental Health in Mendota Heights, MN.<br>
+        <p>In many ways, the ritual of making resolutions on New Year's is <b class="p">random (a…)</b> <input class="blank" data-answer="arbitrary">. After all, we can set goals at any time. What is it about the turning of the calendar year that makes us especially likely to commit to big goals? "The New Year is an opportunity for reflection," observes licensed clinical psychologist Terri Bly of Ellie Mental Health in Mendota Heights, MN.<br>
         As a result, the coming of the new year may lead many of us to consider the changes we want to make or have been told to make in our lives. Then the ritual of making resolutions can serve as a motivator for us to commit to making those changes.<br>
         Jennifer Kowalski, a licensed professional counselor at Thriveworks in Cheshire, CT, agrees with this assessment. "A new year represents a fresh start, and people need something to signal a moment to refresh..." Kowalski notes, "…when something comes to an end, it's an opening to a new beginning." And since everyone in the world experiences the new year on the same day, it's a moment where many of the people around us are looking back on the old year and thinking about how to improve their lives in the new year. Consequently, the desire to make resolutions can be especially strong.<br>
         Yet, even though so many of us make New Year's resolutions, we also regularly fail to keep them. So why do we even bother if we know our <b>chances of success are slim</b>? According to Bly, "As humans, we do tend to be optimistic <b>in the face of</b> evidence." So even if we know the success rate of resolutions is low or we've failed to keep a New Year's resolution in the past, each new year offers hope that this time our resolutions will finally stick.</p>
         <div class="sub">Why Resolutions Fail</div>
-        <p>Unfortunately, optimism alone won't result in the change we want. The reality is there are a number of things about the way we make New Year's resolutions that <b>set us up for</b> <b class="p">collapse (f…)</b> <input class="blank" data-answer="failure" style="width:100px;"> before we've even started.</p>
+        <p>Unfortunately, optimism alone won't result in the change we want. The reality is there are a number of things about the way we make New Year's resolutions that <b>set us up for</b> <b class="p">collapse (f…)</b> <input class="blank" data-answer="failure"> before we've even started.</p>
         <div class="sub">We're Thinking Too Big</div>
-        <p>One of the biggest issues with New Year's resolutions is that they often <b class="p">focus on (r… a…)</b> <input class="blank" data-answer="revolve around" style="width:150px;"> huge changes like <b>adjusting</b> our eating habits, getting more sleep, or becoming fluent in a new language. "Where we go wrong with New Year's resolutions is there's this idea that it's supposed to be some big, <b>sweeping change</b>, because that sounds kind of sexy," Bly explained. "But as humans we're not wired to make big, sweeping changes."<br>
-        Kowalski <b class="p">agrees (c…)</b> <input class="blank" data-answer="concurs" style="width:110px;">, sharing, "In order to change a behavior, you have to be uncomfortable and nobody wants to be uncomfortable. So in order to see <b>a lasting change</b>, you have to be in a state of discomfort for a really long period of time…. People tend to set New Year's resolution that are really big, and they might be achievable, but there are probably 30 steps they needed to take before they get to that place. And so they make it <b>unattainable</b> by not setting smaller, more immediate goals."<br>
-        As a result, if we want to be able to meet our goal of, say, learning a language, we need to set smaller goals along the way to be successful, like <b class="p">giving (d…)</b> <input class="blank" data-answer="devoting" style="width:110px;"> <b>five minutes a day to</b> learning a new word or phrase. That way we can <b>ease ourselves into</b> the change, instead of making an <b>overwhelming change</b> that we probably can't <b>sustain, like</b> planning to be fluent in the new language in four months.</p>
+        <p>One of the biggest issues with New Year's resolutions is that they often <b class="p">focus on (r… a…)</b> <input class="blank" data-answer="revolve around"> huge changes like <b>adjusting</b> our eating habits, getting more sleep, or becoming fluent in a new language. "Where we go wrong with New Year's resolutions is there's this idea that it's supposed to be some big, <b>sweeping change</b>, because that sounds kind of sexy," Bly explained. "But as humans we're not wired to make big, sweeping changes."<br>
+        Kowalski <b class="p">agrees (c…)</b> <input class="blank" data-answer="concurs">, sharing, "In order to change a behavior, you have to be uncomfortable and nobody wants to be uncomfortable. So in order to see <b>a lasting change</b>, you have to be in a state of discomfort for a really long period of time…. People tend to set New Year's resolution that are really big, and they might be achievable, but there are probably 30 steps they needed to take before they get to that place. And so they make it <b>unattainable</b> by not setting smaller, more immediate goals."<br>
+        As a result, if we want to be able to meet our goal of, say, learning a language, we need to set smaller goals along the way to be successful, like <b class="p">giving (d…)</b> <input class="blank" data-answer="devoting"> <b>five minutes a day to</b> learning a new word or phrase. That way we can <b>ease ourselves into</b> the change, instead of making an <b>overwhelming change</b> that we probably can't <b>sustain, like</b> planning to be fluent in the new language in four months.</p>
         <div class="sub">We Aren't Asking Why</div>
         <p>Change is hard, and as a result, Bly says, "the pain of not changing has to be greater than the pain of changing for us to really… change." However, many of our resolutions tend to involve things we feel we should do. But when we focus on what we should do, we're not focusing on what's in it for us. One way we're more likely to change is to <b>get at the heart of</b> our internal reason for wanting to.<br>
         "Usually New Year's resolutions are optional things," Bly notes, "and so if we hate doing it, any goal we set is just pain and we're not really sure what the reward is going to be, we're not going to do it." For example, if our resolution is to go to the gym three times a week but we hate going to the gym, we won't meet our goal.<br>
-        Instead, Bly explains, we need to know our personal reasons for our goal. If that's to go to the gym, we need to <b class="p">think more thoroughly (d… d…)</b> <input class="blank" data-answer="dig deeper" style="width:140px;"> and ask ourselves why. For instance, if we want to go to the gym, is it because we want to get in shape, because we want to feel healthier, or something else?<br>
-        If we know the reason we're making a particular resolution, we may find there are other <b class="p">ways (r…)</b> <input class="blank" data-answer="routes" style="width:100px;"> <b>to achieving</b> it that will be more enjoyable and satisfying for us and, therefore, make us more likely to <b>stick with it</b> over the long term. "<b class="p">It's necessary to (w… n… t… h… a…)</b> <input class="blank" data-answer="We need to have an" style="width:180px;"> understanding of… what is the thing I want for myself? How might I get that?" Bly observes. "That is going to be way better than a 'should.'"</p>
+        Instead, Bly explains, we need to know our personal reasons for our goal. If that's to go to the gym, we need to <b class="p">think more thoroughly (d… d…)</b> <input class="blank" data-answer="dig deeper"> and ask ourselves why. For instance, if we want to go to the gym, is it because we want to get in shape, because we want to feel healthier, or something else?<br>
+        If we know the reason we're making a particular resolution, we may find there are other <b class="p">ways (r…)</b> <input class="blank" data-answer="routes"> <b>to achieving</b> it that will be more enjoyable and satisfying for us and, therefore, make us more likely to <b>stick with it</b> over the long term. "<b class="p">It's necessary to (w… n… t… h… a…)</b> <input class="blank" data-answer="We need to have an"> understanding of… what is the thing I want for myself? How might I get that?" Bly observes. "That is going to be way better than a 'should.'"</p>
         <div class="sub">We Aren't Ready to Change</div>
         <p>Another reason we can't commit to our New Year's resolutions long-term is that we aren't ready to change. Bly points to the Stages of Change model as a way to understand the process people go through before they're psychologically ready to change. The model consists of the following stages:<br>
         <b>Precontemplation:</b> You're starting to become aware that there may be something to change<br>
@@ -573,11 +641,11 @@
         <b>Preparation:</b> You start putting a plan together to make a change<br>
         <b>Action:</b> You make the change<br>
         <b>Maintenance:</b> You determine how to maintain the change<br>
-        Bly posits that the people who stick with their New Year's resolutions are likely at the Action stage when they <b>make their resolution</b>, while those that fail are not. This indicates that people who make New Year's resolutions <b class="p">suddenly (o… a… w…)</b> <input class="blank" data-answer="on a whim" style="width:130px;"> are unlikely to succeed. Instead, a certain amount of thought and psychological — and possibly physical — preparation and planning has to go into a New Year's resolution in order to sustain it.</p>
+        Bly posits that the people who stick with their New Year's resolutions are likely at the Action stage when they <b>make their resolution</b>, while those that fail are not. This indicates that people who make New Year's resolutions <b class="p">suddenly (o… a… w…)</b> <input class="blank" data-answer="on a whim"> are unlikely to succeed. Instead, a certain amount of thought and psychological — and possibly physical — preparation and planning has to go into a New Year's resolution in order to sustain it.</p>
         <div class="sub">Creating Lasting Change</div>
         <p>Kowalski notes that we often stay the same out of habit, but change can become a habit too — if we stick with it. However, when we set big, overwhelming New Year's resolutions, we also set up the expectation that we're going to <b>turn over an entirely new leaf</b> on January 1. But real change requires <b>incremental changes</b> so we can make ourselves comfortable with the change and ensure the change becomes habitual.<br>
-        "If you <b>go all in</b> and you only do it for the month of January, that doesn't create a habit," Kowalski says. "It's about getting yourself in the habit of doing new things." But that only works if you've created a New Year's resolution that isn't too uncomfortable and makes you believe you can <b class="p">continue (k… a… i…)</b> <input class="blank" data-answer="keep at it" style="width:130px;">.<br>
-        As a result, instead of setting one big New Year's resolution that people may quickly come to believe is unattainable, Bly suggests that New Year's might be a good time to create a timeline for the next year that sets a variety of small <b class="p">achievements (m…)</b> <input class="blank" data-answer="milestones" style="width:130px;"> that will help us get to a bigger goal over time. While it's not as sexy as a traditional New Year's resolution, this will work better with our psychology and make it far more likely that the changes we make actually last.</p>
+        "If you <b>go all in</b> and you only do it for the month of January, that doesn't create a habit," Kowalski says. "It's about getting yourself in the habit of doing new things." But that only works if you've created a New Year's resolution that isn't too uncomfortable and makes you believe you can <b class="p">continue (k… a… i…)</b> <input class="blank" data-answer="keep at it">.<br>
+        As a result, instead of setting one big New Year's resolution that people may quickly come to believe is unattainable, Bly suggests that New Year's might be a good time to create a timeline for the next year that sets a variety of small <b class="p">achievements (m…)</b> <input class="blank" data-answer="milestones"> that will help us get to a bigger goal over time. While it's not as sexy as a traditional New Year's resolution, this will work better with our psychology and make it far more likely that the changes we make actually last.</p>
       </div>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="p3-1">✓ Check</button>
@@ -1037,6 +1105,7 @@ function resetCard(card){
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1104,6 +1173,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+    else if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
