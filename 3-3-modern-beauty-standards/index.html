@@ -37,7 +37,7 @@
 
   .cover-wrap { padding: 24px 24px 12px; }
   .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
-  .cover-img { height: 62%; background: #cfc9ec; }
+  .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
   .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
   .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
   .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
@@ -79,6 +79,13 @@
 
   .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
 
   .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
@@ -137,7 +144,12 @@
   .set-group { background: var(--soft); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--purple); }
   .set-group p { font-size: 15.5px; line-height: 1.7; margin-bottom: 8px; }
   .set-group p:last-child { margin-bottom: 0; }
-  .set-blank { display: inline-block; min-width: 90px; border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline; }
+  .set-blank { 
+    display: inline-block; min-width: 60px; width: auto; 
+    border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline;
+    padding: 2px 6px; box-sizing: content-box;
+    font: inherit; font-size: 15px; font-weight: 600; text-align: center;
+  }
   .set-dz { min-width: 170px; min-height: 40px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 4px 12px; margin: 0 0 12px; display: inline-block; vertical-align: middle; transition: all 0.2s ease; }
   .set-dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
   .set-dz .chip { font-size: 13px; padding: 4px 10px; }
@@ -177,11 +189,18 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: 300px; }
+    .cover-card { height: auto; min-height: 280px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 22px; }
     .cover-text p { font-size: 14px; }
     .set-dz { min-width: 200px; min-height: 48px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 13px; padding: 6px 10px; box-sizing: border-box; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -199,6 +218,48 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .cover-text h1 { font-size: 24px; }
+    .cover-text p { font-size: 14px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -273,7 +334,7 @@
     <div class="card">
       <h3>Lesson links</h3>
       <div class="links">
-        <a href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">▶ Lesson video</a>
+        <a class="pur" href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">▶ Lesson video</a>
         <a class="pur" href="https://drive.google.com/file/d/1zuEvoXTQOGLuBGEeBBk_zEbfoU2eIBMe/preview" target="_blank">📄 Vocabulary PDF</a>
         <a class="alt" href="https://quizlet.com/ru/1137931044/nobody-looks-human-anymore-and-its-getting-scary-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
       </div>
@@ -296,7 +357,12 @@
     <div class="card">
       <h3>1.1 Watch the video</h3>
       <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">Nobody Looks Human Anymore… And It's Getting Scary</p>
-      <div class="links"><a href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">▶ Open video</a></div>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
+      </div>
+      <div class="links" style="margin:0;">
+        <a class="pur" href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">🎬 Open the video in a new tab</a>
+      </div>
     </div>
     <div class="card">
       <h3>1.2 The whole video is here</h3>
