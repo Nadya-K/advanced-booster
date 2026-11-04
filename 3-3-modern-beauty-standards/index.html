@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern Beauty Standards — Interactive Practice</title>
+<title>The Chameleon Effect — Interactive Practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,55 +16,99 @@
     --success: #5cb85c; --error: #d9534f;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  body { 
+    font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; 
+    color: var(--ink); background: var(--bg); line-height: 1.6; 
+    padding-bottom: 150px; -webkit-font-smoothing: antialiased;
+  }
   a { color: var(--teal); text-decoration: none; }
 
-  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .header { 
+    position: sticky; top: 0; z-index: 100; 
+    background: rgba(255, 255, 255, 0.95); 
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(124, 107, 184, 0.1); 
+    padding: 12px 24px; display: flex; align-items: center; gap: 16px; 
+    box-shadow: 0 4px 20px rgba(124, 107, 184, 0.04); 
+  }
   .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
   .brand .logo { width: 44px; height: 44px; }
   .brand .brand-text { line-height: 1.2; }
   .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
   .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  
   .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
-  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
-  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a { 
+    padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); 
+    font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; 
+  }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124, 107, 184, 0.2); }
   .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
   .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  
   .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
   .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
   .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
   .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
 
   .cover-wrap { padding: 24px 24px 12px; }
-  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
-  .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
+  .cover-card { 
+    max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden;
+    border: 1px solid rgba(124, 107, 184, 0.08); 
+    box-shadow: 0 12px 40px rgba(124, 107, 184, 0.08);
+    height: 400px; display: flex; flex-direction: column; 
+  }
+  .cover-img { height: 62%; background: #f3efe6; flex: 0 0 62%; }
   .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
-  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-text { 
+    height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px;
+    padding: 16px 32px; text-align: center; background: #fff; 
+  }
   .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
-  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text h1 { color: var(--purple); font-size: 42px; font-weight: 800; line-height: 1.1; margin: 0; letter-spacing: -0.02em; }
   .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
 
   .container { max-width: 920px; margin: 0 auto; padding: 24px; }
   .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
-  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
-  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-title { 
+    font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; 
+    display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em;
+  }
+  .section-title .num { 
+    background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; 
+  }
   .section-banner { margin: 16px 0 20px; }
   .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
-  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+  .instruction { 
+    background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px;
+    margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500;
+  }
 
-  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card { 
+    background: #fff; border-radius: 20px; padding: 24px; 
+    box-shadow: 0 4px 24px rgba(124, 107, 184, 0.06);
+    margin-bottom: 24px; border: 1px solid rgba(124, 107, 184, 0.08); 
+  }
   .card.warm { border-left: 5px solid var(--coral); }
   .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
-  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
-  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
-  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
-  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92, 184, 92, 0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217, 83, 79, 0.1); }
+  
+  .card-actions { 
+    display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px;
+    border-top: 1px dashed rgba(124, 107, 184, 0.2); flex-wrap: wrap; 
+  }
+  .btn { 
+    padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer;
+    transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; 
+  }
   .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
   .btn-check { background: var(--teal); color: #fff; }
-  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.3); }
   .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
   .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
-  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.15); }
   .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
   .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
   .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
@@ -72,62 +116,123 @@
   .card-score.bad { color: var(--error); }
 
   .links { display: flex; flex-wrap: wrap; gap: 12px; }
-  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
-  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a { 
+    display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff;
+    font-weight: 600; font-size: 14px; transition: all 0.2s ease; 
+  }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63, 157, 154, 0.25); }
   .links a.alt { background: var(--coral); }
   .links a.pur { background: var(--purple); }
 
-  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
-  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+  .idea-box { 
+    width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px;
+    font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s;
+  }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
 
-  /* ВСТРОЕННЫЕ ВИДЕО-ПЛЕЕРЫ */
+  /* ВСТРОЕННЫЕ ВИДЕО/АУДИО ПЛЕЕРЫ */
   .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
   .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
   @supports not (aspect-ratio: 16 / 9) {
     .video-frame { height: 0; padding-bottom: 56.25%; }
   }
 
-  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank { 
+    border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
+    min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
+  }
   .bank.drag-over { background: #b8e0df; border-style: solid; }
-  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
-  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip { 
+    background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px;
+    font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none;
+    box-shadow: 0 2px 8px rgba(63, 157, 154, 0.08);
+  }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63, 157, 154, 0.2); }
   .chip.dragging { opacity: 0.4; }
   .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
   .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
   .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
   .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
   .chip .remove:hover { opacity: 1; }
-  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+  .chip.selected, .match-item.selected {
+    outline: 3px solid var(--coral); outline-offset: 2px;
+    transform: scale(1.05); box-shadow: 0 4px 12px rgba(232, 112, 95, 0.3);
+  }
 
-  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; }
-  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; overflow-wrap: break-word; }
+  .dz { 
+    display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple);
+    border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; 
+  }
   .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
   .dz .chip { font-size: 13px; padding: 4px 10px; }
   .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
   .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
 
+  .select-wrap { display: inline-flex; align-items: center; margin: 0 4px; vertical-align: middle; }
+  .select-wrap select {
+    appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    background: #fff; border: 2px solid var(--purple-light); border-radius: 8px;
+    padding: 6px 32px 6px 12px; font-size: 15px; font-family: inherit; font-weight: 600;
+    color: var(--ink); cursor: pointer; outline: none; transition: all 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237c6bb8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 10px center;
+  }
+  .select-wrap select:hover { border-color: var(--purple); }
+  .select-wrap select:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,107,184,0.15); }
+  .select-wrap select.correct { border-color: var(--success); background-color: #e8f5e8; }
+  .select-wrap select.incorrect { border-color: var(--error); background-color: #fbe9e7; }
+
   .wordorder { margin-bottom: 20px; }
   .wo-num { font-weight: 700; color: var(--purple); font-size: 15px; display: block; margin-bottom: 8px; }
   .wordorder .bank { margin-bottom: 10px; }
-  .wo-target { min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; }
+  .wo-target { 
+    min-height: 56px; border: 2px dashed var(--purple); border-radius: 14px; background: #fff; padding: 10px;
+    display: flex; flex-wrap: wrap; gap: 8px; align-items: center; transition: all 0.2s ease; 
+  }
   .wo-target.drag-over { background: var(--purple-light); border-style: solid; }
   .wordorder.correct .wo-target { border-color: var(--success); background: #e8f5e8; }
   .wordorder.incorrect .wo-target { border-color: var(--error); background: #fbe9e7; }
 
-  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  .answer-key {
+    display: inline-block; margin-left: 6px;
+    background: var(--success); color: #fff;
+    padding: 4px 10px; border-radius: 8px;
+    font-size: 13px; font-weight: 700;
+    white-space: nowrap; vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(92, 184, 92, 0.3);
+    animation: popIn 0.25s ease;
+  }
   @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
-  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
+
+  /* BLANK: авторасширение по длине текста */
+  .blank { 
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box; max-width: 100%;
+  }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
 
   .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
   .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
-  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item { 
+    background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; 
+  }
   .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
   .match-item.dragging { opacity: 0.4; }
   .match-item.matched { display: none; }
   .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target { 
+    background: #fff; border: 2px dashed rgba(124, 107, 184, 0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px;
+    min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; 
+  }
   .match-target .term { font-weight: 600; color: var(--purple); }
   .match-target.drag-over { background: var(--purple-light); border-style: solid; }
   .match-target.filled { background: var(--purple-light); border-style: solid; }
@@ -135,33 +240,64 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  .hint-input { 
+    display: inline-flex; 
+    align-items: stretch;
+    margin: 0 4px; 
+    vertical-align: middle;
+    max-width: calc(100% - 8px);
+  }
+  .hint-input .first-letter { 
+    background: var(--purple); 
+    color: #fff; 
+    font-weight: 700; 
+    padding: 6px 10px; 
+    border-radius: 8px 0 0 8px; 
+    font-size: 15px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+  }
+  .hint-input input { 
+    border: 2px solid rgba(124, 107, 184, 0.2); 
+    border-left: none; 
+    border-radius: 0 8px 8px 0; 
+    padding: 6px 10px;
+    font-size: 15px; 
+    font-family: inherit; 
+    font-weight: 600; 
+    min-width: 40px;
+    width: auto;
+    flex: 0 1 auto;
+    box-sizing: border-box;
+    outline: none; 
+    transition: border-color 0.2s, width 0.15s ease; 
+  }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124, 107, 184, 0.1); }
   details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
-  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
-  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124, 107, 184, 0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 15.5px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 700; color: var(--ink); margin: 20px 0 10px; font-size: 16px; }
   b.v { color: var(--purple); font-weight: 700; }
 
-  .set-group { background: var(--soft); border-radius: 16px; padding: 16px 20px; margin-bottom: 16px; border-left: 4px solid var(--purple); }
-  .set-group p { font-size: 15.5px; line-height: 1.7; margin-bottom: 8px; }
-  .set-group p:last-child { margin-bottom: 0; }
-  .set-blank { 
-    display: inline-block; min-width: 60px; width: auto; 
-    border-bottom: 2px solid var(--ink); margin: 0 4px; vertical-align: baseline;
-    padding: 2px 6px; box-sizing: content-box;
-    font: inherit; font-size: 15px; font-weight: 600; text-align: center;
+  .actions { 
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #fff; border-radius: 999px; padding: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap;
+    box-shadow: 0 8px 32px rgba(124, 107, 184, 0.15), 0 2px 8px rgba(124, 107, 184, 0.08);
+    z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124, 107, 184, 0.1);
   }
-  .set-dz { min-width: 170px; min-height: 40px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 4px 12px; margin: 0 0 12px; display: inline-block; vertical-align: middle; transition: all 0.2s ease; }
-  .set-dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
-  .set-dz .chip { font-size: 13px; padding: 4px 10px; }
-  .set-dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
-  .set-dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
-
-  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
   .actions .btn { padding: 12px 24px; font-size: 15px; }
   .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
-  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124, 107, 184, 0.3); }
   .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
-  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124, 107, 184, 0.2); }
   .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
   .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
 
@@ -182,6 +318,9 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
+    .blank { min-width: 50px; font-size: 16px; }
+    .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
+    .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
     .btn-small { padding: 12px 18px; font-size: 14px; }
     .wo-target { min-height: 64px; }
@@ -193,9 +332,9 @@
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
-    .cover-text h1 { font-size: 22px; }
+    .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
-    .set-dz { min-width: 200px; min-height: 48px; }
+    .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
     .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
     .match-target .term { font-size: 15px; }
     .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
@@ -204,7 +343,10 @@
   }
 
   @media (max-width: 760px){
-    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header { 
+      padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; 
+      scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    }
     .header::-webkit-scrollbar { display: none; }
     .brand { flex-shrink: 0; }
     .brand .brand-text span { display: none; }
@@ -214,22 +356,28 @@
     .progress-bar { width: 60px; }
     .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
     .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
-    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions { 
+      flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto;
+      max-width: calc(100vw - 24px); padding: 8px; gap: 8px;
+      scrollbar-width: none; -webkit-overflow-scrolling: touch; 
+    }
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
     .cover-card { height: auto; min-height: 300px; }
     .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
-    .cover-text h1 { font-size: 24px; }
+    .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
+    .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
+    .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
+    .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
     .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
     .match-target .term { font-size: 14px; }
     .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
     .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
     .match-item { font-size: 13.5px; padding: 10px 14px; }
-    .sentence { word-break: break-word; overflow-wrap: anywhere; }
-    .links a { font-size: 13px; padding: 9px 14px; }
     /* ВИДЕО: масштабирование */
     .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
     .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
@@ -305,9 +453,10 @@
   </div>
   <nav class="nav">
     <a class="links-btn" href="#links">🔗 Links</a>
-    <a href="#video">Video</a>
+    <a href="#warmup">Warm-up</a>
     <a href="#text">Text</a>
     <a href="#vocabulary">Vocabulary</a>
+    <a href="#audio">Audio</a>
     <a href="#revision">Revision</a>
     <a href="#speaking">Speaking</a>
   </nav>
@@ -319,11 +468,11 @@
 
 <div class="cover-wrap">
   <div class="cover-card">
-    <div class="cover-img"><img src="img-cover.png" alt="Modern Beauty Standards — cover"></div>
+    <div class="cover-img"><img src="img-cover.png" alt="The Chameleon Effect — cover"></div>
     <div class="cover-text">
       <span class="cover-brand">Advanced Booster</span>
-      <h1>Modern Beauty Standards</h1>
-      <p>Nobody looks human anymore… and it's getting scary</p>
+      <h1>The Chameleon Effect</h1>
+      <p>Why we mimic each other — and what it says about us</p>
     </div>
   </div>
 </div>
@@ -334,9 +483,9 @@
     <div class="card">
       <h3>Lesson links</h3>
       <div class="links">
-        <a class="pur" href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">▶ Lesson video</a>
-        <a class="pur" href="https://drive.google.com/file/d/1zuEvoXTQOGLuBGEeBBk_zEbfoU2eIBMe/preview" target="_blank">📄 Vocabulary PDF</a>
-        <a class="alt" href="https://quizlet.com/ru/1137931044/nobody-looks-human-anymore-and-its-getting-scary-flash-cards/?i=zxpms&x=1qqt" target="_blank">🃏 Quizlet</a>
+        <a class="pur" href="https://drive.google.com/file/d/19fq8yn1d5ei3ovX30kBMN5QWEzBYrkSq/view" target="_blank">📄 Vocabulary PDF</a>
+        <a class="alt" href="https://quizlet.com/ru/1141145887/the-chameleon-effect-flash-cards/?i=zxpms&amp;x=1jqt" target="_blank">🃏 Quizlet</a>
+        <a class="pur" href="https://docs.google.com/presentation/d/1Ntcsr8KBvq2HdZS-ECFu9akLjv0shtywkRwBpz3a2og/edit?usp=sharing" target="_blank">📽 Presentation</a>
       </div>
     </div>
   </section>
@@ -347,269 +496,324 @@
     <div class="section-title"><span class="num" style="background:var(--coral)">💬</span> Warm-up</div>
     <div class="card warm">
       <h3>Let's chat!</h3>
-      <p class="sentence">1. Do you think beauty standards today are more or less realistic than 20 years ago?</p>
-      <p class="sentence">2. Have you ever noticed celebrities starting to look alike? What do you think is the reason?</p>
+      <p class="sentence">1. Have you ever caught yourself copying a friend's gesture or accent? Why do you think it happened?</p>
+      <p class="sentence">2. Do you behave differently with different social groups? Is that being fake or being flexible?</p>
     </div>
   </section>
 
-<section class="section" id="video">
-  <div class="section-title"><span class="num">1</span> Video</div>
-  <div class="card">
-    <h3>1.1 Watch the video</h3>
-    <p class="sentence" style="font-style:italic; color:var(--purple); margin-bottom:16px;">Nobody Looks Human Anymore… And It's Getting Scary</p>
-    <div class="video-frame">
-      <iframe src="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Lesson video"></iframe>
-    </div>
-    <div class="links" style="margin:0;">
-      <a class="pur" href="https://drive.google.com/file/d/1gmjuT1__uKV8p4GfwUcd-QcrTbgP18Jq/preview" target="_blank">🎬 Open the video in a new tab</a>
-      <a class="alt" href="https://www.youtube.com/watch?v=3r7KwyQ8Xdg" target="_blank">▶ Watch on YouTube</a>
-    </div>
-  </div>
-</section>
-
   <section class="section" id="text">
-    <div class="section-title"><span class="num">2</span> Text</div>
+    <div class="section-title"><span class="num">1</span> Text</div>
     <div class="card">
-      <h3>2.1 Look through the text to make sure you got everything</h3>
+      <h3>1.1 Read the text and answer the question: <i>What is the chameleon effect? Why do people mimic each other?</i></h3>
       <details class="text-details">
-        <summary>📖 Read the text (click to expand)</summary>
-        <p>We've reached a strange point in beauty standards where the more perfect you look, the less beautiful you are. Wild take, but hear me out. Some of the most beautiful women in the world don't look like themselves anymore. They've become so <b class="v">snatched</b>, so sculpted, so symmetrical, and now their faces all look perfect, but not in a good way. So, let's get this straight. I'm kind of nervous about this video because the last thing I want to do is speak down on a woman's face. That's brutal. But something about the new standard face <b class="v">doesn't sit right</b> anymore, literally. And there's young girls growing up all around the world thinking that this is right.</p>
-        <p>We're going to talk about the almost pretty girl. The girl who has every feature that can make her beautiful according to beauty standards, but these features have literally <b class="v">cut out</b> the warmth, the emotion, and that little bit of life that used to make someone beautiful. This video is going to be a whole lot of tough love. So, <b class="v">if you cannot stand the heat</b>, the oven is going to be on 450°, so I'm sorry. You're going to have to <b class="v">get out of the kitchen</b>. Welcome to the girl talk to know you need it. I'm not saying you have to subscribe. You're classy. I know you don't just give those away for free. But hopefully at the end of this video, we become bestie enough for you to take that next step.</p>
-        <p>Back then, beauty wasn't perfect, but that's exactly what made it perfect. Since celebrities have always been the <b class="v">blueprint</b> for what beauty is supposed to look like, they're our main focus for today. And in the early 2000s to 2010s, not only could you see women with natural beauty, you could see faces that looked completely different from each other. Before Instagram face, beauty used to <b class="v">be bold</b>. <b class="v">Faces were striking and complex</b>, and you could actually remember them, no one trying to <b class="v">blend in</b> with one another, and no one looked the same. There used to be so much mystery and diversity to women. Faces were textured, asymmetrical, and expressive. You could open magazines like InStyle, Essence, and Teen People, and see girls and women like Beyonce, Mandy Moore, Kiki Palmer, Amanda Bines. And I'm not going to <b class="v">sugarcoat</b> this and make it seem like the beauty standards back in the day couldn't be toxic. Thigh gaps and cheekbones were still glorified. Let's get that settled.</p>
-        <p>Danielle, you went to the dentist, but you refused to have your gap closed. Do you really think you can have a CoverGirl contract with the gap in your Mouth? Yes, why not? This is all people say. It's easy covergirl. It's not marketable. Yeah, just a little bit is okay, but I don't want to completely close it. Well, I guess she just left a gap wide open for another girl, baby. I agree.</p>
-        <p>Heroin chic is a style popularized in the early 1990s fashion and characterized by pale skin, <b class="v">dark circles</b> underneath the eyes, emaciated features, androgyny, and <b class="v">stringy hair</b>. All traits associated with the abuse of or other drugs. A 1996 article in the LA Times stated that the fashion industry had a nihilistic vision of beauty that was reflective of drug addiction.</p>
-        <p>I'm just going to say this. If the beauty standards back in the day weren't toxic, women wouldn't look like how they look today. Moral of the story, women used to look like themselves. And I know that kind of sounds like an oxymoron because of course women look like themselves, but when we take a look at today, it makes sense why I'm saying that. Over time, natural beauty started to <b class="v">feel outdated</b>, almost like it wasn't enough to just look like yourself.</p>
-        <p>Most of my life, <b class="v">I felt self-conscious</b> because I didn't have as much chest as other grown-up women. So, I went to the hospital and had what they call plastic surgery. But why? What was wrong with the way you were? But I just never felt good about myself the way I was.</p>
-        <p>As the beauty standards started to get more aggressive and it started to get more accessible in a way that made a lot of women feel like they had to have it, like they had to <b class="v">keep up</b>. Female celebrities are pretty much in an impossible position where they're required to look perfect and <b class="v">look youthful</b> forever in order to have a career. But they can't <b class="v">look too overdone</b> or they'll be plastic and they won't look effortless and that will damage their career because they won't be able to <b class="v">emote</b> and make the facial expressions that they need for acting. I mean, they're <b class="v">damned</b> if they do, damned if they don't. It's no wonder that celebrities are <b class="v">going to seemingly any length to look young and flawless</b> forever.</p>
-        <p>Once celebrities and influencers started <b class="v">showing off</b> these upgrades, people wanted those results. I went to Chris Jenner's last guy cuz the new guy is a million for a facelift. For a facelift and the ladies are lining up. These psychoses are calling and using code words and passwords. And you've got to know the password to get Chris Jenner's guy for a million bucks. What? Most people have a shopping wish list. I have a surgery wish list. Here are all the surgeries, treatments, etc. that I would get if money wasn't an issue. I want this nose. I need this nose. I would pay to have this nose. From the <b class="v">nose jobs</b> to the lip fillers, the brow lifts, and yes, Ozempic <b class="v">has a lot to do with</b> this also, but we'll get to that later. The new <b class="v">go-to look</b> started to become more sculpted and almost exaggerated. And as it became that, it also became more tempting because now you didn't have to be born with it. You could just buy it. So that's when we started to see this unsettling movement of women <b class="v">swapping out</b> their natural beauty <b class="v">for</b> something a bit more manufactured.</p>
-        <p>I got my third facelift. it. I mean, they yanked my face and I said, "Give me a good yank." I go, "Doctor, I don't want to see you in six months. Give me a good get in there and just start pulling, yanking." Now, this is where it gets really interesting because people aren't just talking about bad surgery. They're talking about the weird uneasy feeling they get from just looking at it. Today, there are countless women with the exact facial features we were taught to want. The sharp jawline, the high cheekbones, the big <b class="v">pouty lips</b>, but instead of looking stunning, something <b class="v">looks off</b>. Um, people's faces are really starting to scare me. Yeah, your lips don't need to look like they're trying to escape.</p>
-        <p>And I noticed Nicole Kidman having a weird mouth or something wrong with her face in Aquaman. I literally could not enjoy the movie when she was on screen because it was like something was going on. I don't know if it was like too much Botox because like her face didn't have like movement or anything, but this was terrifying. And y'all, it's so hard to put it into words without sounding or <b class="v">coming off as rude</b>. But let's be real, a lot of women nowadays, they don't look human. They don't look like a real person. They almost look like wax figures of themselves. Women don't really look like human beings anymore. Hundreds of thousands of perfectly beautiful, healthy women in trying to become even more beautiful, even more perfect are literally <b class="v">disfiguring</b> their faces with filler. Mara Lago is getting a lot of plastic surgery work done, right? Whether it's actually reconstruction or you're just getting injections here, there, and everywhere. But these people do not look like human beings anymore. It's a very uncanny valley.</p>
-        <p>Take Demi Lovato for example. She was introduced to the media as a child star, appearing in movies and TV shows like Camp Rock, Barney and Friends, and Sunny with a Chance. Hey, I'm Demi Lovado from Camp Rock. Hello. And you're watching Disney Channel. And behind the scenes, she was struggling with something that not even a lot of adults can handle. From eating disorders to battles with addiction, Demiy's journey hasn't been easy. So seeing her healthy and thriving today is amazing. Once I relapsed, the floodgates were open. Within a couple weeks, I called a drug dealer and I was like, "Do you have and he said no, but I have and I was like the 27-year-old went on to explain how she's come to be more accepting of her body. Now, when I look in the mirror and I start to have a negative thought, so what I say to myself is, "Nope, you're healthy and I accept you."</p>
-        <p>When someone's been through that much, it's not surprising they probably want to look like a completely new version of themself. So, as she's reintroduced herself to us today, people have started to talk. That is not Demi Lovado. And I don't care what anybody says. She <b class="v">went through a rough patch</b> and I'm all about <b class="v">healing</b>, but that Demi Lovado does not <b class="v">give me real person vibes</b>. Something about her new look looks unfamiliar. Her face is a bit more uplifted. Cheeks are a bit more <b class="v">hollowed</b> and her lips are a lot more pouty, almost to the point where it seems like she can't even close them. There's almost an uncanny, <b class="v">unemotional stiffness</b> to her face.</p>
-        <p>When I was a pre-teen, the beauty standard was hero and <b class="v">chic</b>. It was a very very very frail, thin looking people. The beauty standards were just so unrealistic. And so I wanted to be that role model for myself.</p>
+        <summary>📖 Read the text — The Chameleon Effect (click to expand)</summary>
+        <div class="sub">Why do we mimic each other?</div>
+        <p>Have you ever been in mid-conversation with someone, when you look over and find them standing in the same position as you or holding the same facial expression? It may seem like they have consciously copied you, but it is much more likely that this is the chameleon effect <b class="v">at play</b>. The chameleon effect is the nonconscious mimicry of another person's gestures or mannerisms. Just as a chameleon <b class="v">blends into the background</b> to match any environment's colours, people acquire the behaviours of others to bring them closer together and help make their interactions smooth and <b class="v">well-received</b>.</p>
+        <div class="sub">When was the chameleon effect realised?</div>
+        <p>Evidence that the chameleon effect was a real phenomenon was demonstrated in an experiment by psychologists John Bargh and Tanya Chartrand in 1999. The duo wanted to see if the chameleon effect worked in both acquaintances and complete strangers.</p>
+        <p>The first of their experiments included 78 people, who each spoke with an experimenter. During three parts of the test, Bargh and Chartrand studied whether participants would copy the actions of someone they hadn't met before – such as waggling the foot and touching the face. The second experiment measured the impact that copying someone has on the person being mimicked.</p>
+        <p>In the first stage, when gestures were applied, participants increased their face touching by 20% and their foot movement by 50%, while in conversation about a photograph with the experimenter.</p>
+        <p>The individuals weren't aware of what they were being studied for, and the photograph was used as a distraction to ensure subconscious acts. The second part of the experiment involved half of the participants being mimicked, and then rating <b class="v">the likeability of</b> the experimenter.</p>
+        <p>The results showed that those who were mimicked scored the experimenter higher.</p>
+        <div class="sub">Why do we do it?</div>
+        <p>Due to these mirrored movements being carried out without conscious thought, researchers don't have all the answers as to why we create moments of symmetry. However, studies such as this have shown that when someone copies our behaviour, we develop more positive feelings about them. These interactions could be a person subconsciously willing to be liked, and forming a moment of connection and empathy.</p>
+        <p>To understand the empathetic theory of the chameleon effect, consider how you would respond in a situation where your close friend tells you they have just passed an exam they had been really worried about. If your friend tells you the news in an excitable and happy manner, <b class="v">the chances are</b> you respond in a similar tone. This is because it is part of human nature to share feelings and <b class="v">navigate through life</b> with companions. Most people want to share in the happiness of their friends or show others that they want the same outcomes.</p>
+        <p>Another theory about why the chameleon effect exists is <b class="v">as an adapted survival trait</b>. Being able to <b class="v">fit in</b> with those around you, and being accepted into a group means that there are others who can <b class="v">have your back</b> when <b class="v">under threat</b>. In modern life, the brain may react similarly when moving abroad or into another new group. Because those who live in the same country or community usually share the same behaviour, traits, knowledge and attitude, it is natural for outsiders to initially <b class="v">feel vulnerable</b>.</p>
+        <div class="sub">Chameleon talk</div>
+        <p>In some instances, the chameleon effect targets speech. As your brain processes a strong new accent during conversation – or <b class="v">is exposed to</b> new vocabulary – you may begin to adopt a different accent to the one you use daily. Similarly, if you spend enough time talking to someone who uses a particular word or phrase, it is easy to unintentionally <b class="v">incorporate</b> new phrases <b class="v">into</b> your regular speech. Accidentally developing the foreign accent of the person you are talking to can <b class="v">come across as</b> offensive and mocking, as many people have never heard of the chameleon effect.</p>
+        <p>Couples and close friends are significant targets for the power of the chameleon effect. Some happy couples, for example, are described as being 'made for each other' as they seemingly live life in synchronisation. For most couples, their similarities grow over the years.</p>
+        <p>By spending significant amounts of time together during each day, couples develop some of each other's <b class="v">quirks</b> and routines until they both appear to be very similar to an outsider. Meanwhile, those in the couple are unlikely to notice much or any change in their persona, themselves.</p>
+        <p>Your own signs of the chameleon effect may <b class="v">go unnoticed</b>, but some celebrities in the public eye can't escape this awareness and are frequently called out for their changing behaviours. One example can be heard in the video of English football player Joey Barton being interviewed in a French accent that went viral in 2012. This wasn't because of what he said, but because he had only lived in France for a matter of months. The football player had recently been signed to play for Marseille, and had been living there for the season. As he answered questions at the press conference in France, his Scouse English accent was <b class="v">swapped for</b> French pronunciations.</p>
+        <p>The accent wasn't put on to allow the French audience to better understand him, as he was speaking to his French translator.</p>
+        <p>In an interview later on, he explained that he had no idea that was how he was speaking at the time, but came to realise it around 15 minutes into the interview.</p>
+        <p>According to psychologists, when the chameleon effect <b class="v">occurs</b> to you during time in a country that speaks a different language, self-consciousness <b class="v">is heightened</b>. Those who actively worry about fitting in and not being able to communicate are most likely to subconsciously develop new accents and mannerisms in a foreign country.</p>
+        <p>The main reasons behind humans' social flexibility and mimicry are positive. However, too much of the chameleon effect can be damaging. Some people carry this chameleon trait to the extreme, causing them to drastically change in different situations. When this happens, people can lose their sense of self. Those who change their entire personalities in different groups often <b class="v">go undetected</b>. But more common signs of the chameleon effect are easier to <b class="v">pinpoint</b>. Next time you are in a social gathering, take a look around for <b class="v">subtle mirroring gestures</b>, and you might just see some chameleons for yourself.</p>
+        <div class="sub">Chameleons at work</div>
+        <p>When working in a job, most people mimic the behaviour of people in the workplace in some way, whether consciously or not. This is because, in general, many people like to keep their work and social life relatively separate.</p>
+        <p>For others, there is a certain persona that they believe they need to achieve to progress in their profession.</p>
+        <p>One study, carried out by psychologists at the University of Cambridge, found that most people felt they had to <b class="v">suppress</b> some aspect of their personality at work to appear professional.</p>
+        <p>Of those who did this, introverted people found it easier than extraverted people. The study concluded that extraverts felt more stressed and exhausted by fitting in to the tone of their jobs. Psychologists think this may be because there are more opportunities for introverts to <b class="v">return to their true selves</b> at work, as opposed to extraverts.</p>
+        <p>Employees can spend time working alone in most jobs, which doesn't benefit the extraverted chameleon so much.</p>
       </details>
+    </div>
+
+    <div class="card">
+      <h3>1.2 The original article is here</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/17A0jyWfYf3Z211rjdE4bpm-4jXiYgYAz/preview" target="_blank">Follow the link</a></div>
+    </div>
+
+    <div class="card">
+      <h3>1.3 Write down your ideas about the text <i>(Optional)</i></h3>
+      <textarea class="idea-box" placeholder="Type your ideas here..."></textarea>
     </div>
   </section>
 
   <section class="section" id="vocabulary">
-    <div class="section-title"><span class="num">3</span> Vocabulary</div>
+    <div class="section-title"><span class="num">2</span> Vocabulary</div>
     <div class="section-banner">
       <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
         <rect width="1600" height="320" fill="#f4f2fb"/>
         <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"/>
         <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"/>
         <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"/>
-        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/></g>
-        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/><line x1="110" y1="40" x2="110" y2="128"/></g>
-        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/></g>
-        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/></g>
-        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"/><rect x="52" y="92" width="16" height="34" rx="8"/><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/></g>
-        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/></g>
+        <g transform="translate(120,110)">
+          <rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"/>
+          <rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"/>
+          <rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"/>
+        </g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round">
+          <path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"/>
+          <path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"/>
+          <line x1="110" y1="40" x2="110" y2="128"/>
+        </g>
+        <g transform="translate(640,80)">
+          <rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"/>
+          <path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"/>
+        </g>
+        <g transform="translate(820,90)" fill="#7c6bb8">
+          <path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"/>
+          <path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(1060,90)" fill="#3f9d9a">
+          <circle cx="60" cy="52" r="44"/>
+          <rect x="52" y="92" width="16" height="34" rx="8"/>
+          <path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"/>
+        </g>
+        <g transform="translate(1280,100)" fill="#e8705f">
+          <path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"/>
+          <path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"/>
+        </g>
         <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
         <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/></g>
       </svg>
     </div>
 
     <div class="card">
-      <h3>3.1 Study the vocabulary (link to PDF file)</h3>
-      <div class="links"><a href="https://drive.google.com/file/d/1zuEvoXTQOGLuBGEeBBk_zEbfoU2eIBMe/preview" target="_blank">Follow the link</a></div>
-      <h3 style="margin-top:20px">3.2 Quizlet</h3>
-      <div class="links"><a class="alt" href="https://quizlet.com/ru/1137931044/nobody-looks-human-anymore-and-its-getting-scary-flash-cards/?i=zxpms&x=1qqt" target="_blank">Follow the link</a></div>
+      <h3>2.1 Study the vocabulary (link to PDF file)</h3>
+      <div class="links"><a href="https://drive.google.com/file/d/19fq8yn1d5ei3ovX30kBMN5QWEzBYrkSq/view" target="_blank">Follow the link</a></div>
+      <h3 style="margin-top:14px">2.2 Quizlet</h3>
+      <div class="links"><a class="alt" href="https://quizlet.com/ru/1141145887/the-chameleon-effect-flash-cards/?i=zxpms&amp;x=1jqt" target="_blank">Follow the link</a></div>
     </div>
 
-    <div class="card" data-task="dragfill" data-id="v3-3">
-      <h3>3.3 Fill in the gaps</h3>
-      <div class="instruction">💡 Drag each word from the bank into the correct gap (or tap the word, then tap the gap). Click × on a chip to return it.</div>
+    <div class="card" data-task="dragfill" data-id="v2-3">
+      <h3>2.3 Fill in the gaps — drag or click the words</h3>
+      <div class="instruction">💡 Drag each word from the bank into the correct gap, or click the word and then click the gap. Click × on a chip to return it.</div>
       <div class="bank">
-        <div class="chip" data-word="unemotional stiffness">unemotional stiffness</div>
-        <div class="chip" data-word="swap out">swap out</div>
-        <div class="chip" data-word="blend in">blend in</div>
-        <div class="chip" data-word="bold">bold</div>
-        <div class="chip" data-word="pouty">pouty</div>
-        <div class="chip" data-word="stringy">stringy</div>
-        <div class="chip" data-word="sugarcoat">sugarcoat</div>
-        <div class="chip" data-word="blueprint">blueprint</div>
-        <div class="chip" data-word="chic">chic</div>
-        <div class="chip" data-word="doesn't sit right">doesn't sit right</div>
-        <div class="chip" data-word="striking and complex face">striking and complex face</div>
+        <div class="chip" data-word="navigate through">navigate through</div>
+        <div class="chip" data-word="well-received">well-received</div>
+        <div class="chip" data-word="feel vulnerable">feel vulnerable</div>
+        <div class="chip" data-word="mimic">mimic</div>
+        <div class="chip" data-word="have your back">have your back</div>
+        <div class="chip" data-word="exposed">exposed</div>
+        <div class="chip" data-word="chances">chances</div>
+        <div class="chip" data-word="under threat">under threat</div>
+        <div class="chip" data-word="likeability">likeability</div>
+        <div class="chip" data-word="fit in">fit in</div>
       </div>
-      <ul style="list-style:none; padding-left:0;">
-        <li class="sentence">1. I accepted the deal, but something about it just <span class="dz" data-answer="doesn't sit right"></span>.</li>
-        <li class="sentence">2. Her outfit, a simple black dress with interesting architectural lines, was the epitome of Parisian <span class="dz" data-answer="chic"></span>.</li>
-        <li class="sentence">3. Her signature style — a crisp white shirt, tailored trousers, and statement glasses — serves as a <span class="dz" data-answer="blueprint"></span> for office chic.</li>
-        <li class="sentence">4. It's a tragedy when people feel pressured to <span class="dz" data-answer="swap out"></span> their natural beauty for trendy, artificial features like <span class="dz" data-answer="pouty"></span> lips.</li>
-        <li class="sentence">5. His artistic style was <span class="dz" data-answer="bold"></span>, using vibrant, clashing colors to evoke strong emotion.</li>
-        <li class="sentence">6. She didn't possess conventional beauty, but her <span class="dz" data-answer="striking and complex face"></span> was infinitely more memorable, revealing intelligence and resilience.</li>
-        <li class="sentence">7. She chose a neutral-toned outfit to <span class="dz" data-answer="blend in"></span> at the conservative conference, saving her vibrant prints for the weekend.</li>
-        <li class="sentence">8. Fashion critics didn't <span class="dz" data-answer="sugarcoat"></span> their reviews; they called the collection "outdated" and uninspired.</li>
-        <li class="sentence">9. His <span class="dz" data-answer="unemotional stiffness"></span> in the photoshoot contrasted sharply with the vibrant, lively clothing he was meant to be advertising.</li>
-        <li class="sentence">10. The humidity made her normally sleek hair turn <span class="dz" data-answer="stringy"></span>, forcing her to improvise with an elegant updo.</li>
-      </ul>
+      <div class="sentence">1. His proposal for a "quiet hour" to boost focus was <span class="dz" data-answer="well-received"></span> by his team.</div>
+      <div class="sentence">2. She worked not on <b>the</b> <span class="dz" data-answer="likeability"></span> <b>of her persona</b>, but on the authenticity of her character.</div>
+      <div class="sentence">3. If you avoid new challenges, <b>the</b> <span class="dz" data-answer="chances"></span> <b>are</b> you'll stagnate in your personal development.</div>
+      <div class="sentence">4. Personal growth isn't about trying to <span class="dz" data-answer="mimic"></span> someone else's life path, but about discovering your own.</div>
+      <div class="sentence">5. Learning emotional intelligence is crucial to <span class="dz" data-answer="navigate through"></span> <b>life</b>'s complex relationships successfully.</div>
+      <div class="sentence">6. He stopped trying to <span class="dz" data-answer="fit in"></span> with every group and instead sought communities where he could be himself.</div>
+      <div class="sentence">7. True friends <span class="dz" data-answer="have your back"></span> during difficult transitions, supporting your growth even when it's uncomfortable.</div>
+      <div class="sentence">8. My creativity felt like it was <span class="dz" data-answer="under threat"></span> <b>of</b> being extinguished by my rigid daily routine.</div>
+      <div class="sentence">9. Starting therapy made him <span class="dz" data-answer="feel vulnerable"></span>, but it was the first step toward major growth.</div>
+      <div class="sentence">10. To broaden your perspective, you need to <b>be</b> <span class="dz" data-answer="exposed"></span> <b>to</b> ideas that challenge your own.</div>
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button>
-        <span class="card-score" data-score="v3-3"></span>
+        <button class="btn btn-check btn-small" data-card="v2-3">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-3">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-3">↻ Reset</button>
+        <span class="card-score" data-score="v2-3"></span>
       </div>
     </div>
 
-    <div class="card" data-task="match" data-id="v3-4">
-      <h3>3.4 Match the parts of collocations</h3>
-      <div class="instruction">💡 Drag each ending to the matching beginning (or tap the ending, then tap the beginning). Click the coral label to unmatch.</div>
+    <div class="card" data-task="match" data-id="v2-4">
+      <h3>2.4 Match the parts of collocations</h3>
+      <div class="instruction">💡 Drag each ending to the matching word, or click the word and then click the ending. Click the coral label to unmatch.</div>
       <div class="match-grid">
         <div class="match-col">
-          <h4>Column A</h4>
-          <div class="match-target" data-answer="standards"><span class="term">beauty</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="their career"><span class="term">to damage</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="overdone"><span class="term">to look</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="features"><span class="term">facial</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="lips"><span class="term">pouty</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="cheekbones"><span class="term">high</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="jobs"><span class="term">nose</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="valley"><span class="term">uncanny</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="for beauty"><span class="term">blueprint</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="model"><span class="term">role</span><span class="matched-label" style="display:none"></span></div>
-          <div class="match-target" data-answer="disorders"><span class="term">eating</span><span class="matched-label" style="display:none"></span></div>
+          <h4>Word</h4>
+          <div class="match-target" data-answer="expression"><span class="term">facial</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="interactions"><span class="term">smooth</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="strangers"><span class="term">complete</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="acts"><span class="term">subconscious</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="movements"><span class="term">mirrored</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="nature"><span class="term">human</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="trait"><span class="term">survival</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="flexibility"><span class="term">social</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="some aspect"><span class="term">suppress</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="change"><span class="term">drastically</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="viral"><span class="term">go</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="the study"><span class="term">carry out</span><span class="matched-label" style="display:none"></span></div>
         </div>
         <div class="match-col">
-          <h4>Column B</h4>
+          <h4>Ending</h4>
           <div class="bank" style="display:block">
-            <div class="match-item" data-word="jobs">jobs</div>
-            <div class="match-item" data-word="model">model</div>
-            <div class="match-item" data-word="cheekbones">cheekbones</div>
-            <div class="match-item" data-word="overdone">overdone</div>
-            <div class="match-item" data-word="their career">their career</div>
-            <div class="match-item" data-word="lips">lips</div>
-            <div class="match-item" data-word="standards">standards</div>
-            <div class="match-item" data-word="for beauty">for beauty</div>
-            <div class="match-item" data-word="valley">valley</div>
-            <div class="match-item" data-word="features">features</div>
-            <div class="match-item" data-word="disorders">disorders</div>
+            <div class="match-item" data-word="movements">movements</div>
+            <div class="match-item" data-word="the study">the study</div>
+            <div class="match-item" data-word="strangers">strangers</div>
+            <div class="match-item" data-word="change">change</div>
+            <div class="match-item" data-word="expression">expression</div>
+            <div class="match-item" data-word="some aspect">some aspect</div>
+            <div class="match-item" data-word="viral">viral</div>
+            <div class="match-item" data-word="nature">nature</div>
+            <div class="match-item" data-word="flexibility">flexibility</div>
+            <div class="match-item" data-word="acts">acts</div>
+            <div class="match-item" data-word="interactions">interactions</div>
+            <div class="match-item" data-word="trait">trait</div>
           </div>
         </div>
       </div>
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button>
-        <span class="card-score" data-score="v3-4"></span>
+        <button class="btn btn-check btn-small" data-card="v2-4">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-4">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-4">↻ Reset</button>
+        <span class="card-score" data-score="v2-4"></span>
       </div>
     </div>
 
-    <div class="card">
-      <h3>3.5 Choose the correct preposition to complete the sentence</h3>
-      <div class="links"><a href="https://wordwall.net/embed/35d6a0a6d2b14f72adccb3ff612e7320?themeId=1&templateId=36&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    <div class="card" data-task="select" data-id="v2-5">
+      <h3>2.5 Choose the correct preposition</h3>
+      <div class="instruction">💡 Select the correct preposition from the dropdown menu.</div>
+      <div class="sentence">1. In the interview, he tried to come across <span class="select-wrap"><select data-answer="as"><option value="">Choose...</option><option value="as">as</option><option value="of">of</option><option value="with">with</option></select></span> confident and capable.</div>
+      <div class="sentence">2. The chameleon's skin blends <span class="select-wrap"><select data-answer="into"><option value="">Choose...</option><option value="into">into</option><option value="with">with</option><option value="for">for</option></select></span> its surroundings perfectly.</div>
+      <div class="sentence">3. The scientists carefully carried <span class="select-wrap"><select data-answer="out"><option value="">Choose...</option><option value="out">out</option><option value="on">on</option><option value="for">for</option></select></span> the complex experiment.</div>
+      <div class="sentence">4. The activist was called out <span class="select-wrap"><select data-answer="for"><option value="">Choose...</option><option value="at">at</option><option value="on">on</option><option value="for">for</option></select></span> spreading misinformation.</div>
+      <div class="sentence">5. He tried to put <span class="select-wrap"><select data-answer="on"><option value="">Choose...</option><option value="in">in</option><option value="with">with</option><option value="on">on</option></select></span> a British accent, but it wasn't very convincing.</div>
+      <div class="sentence">6. She was worried about fitting <span class="select-wrap"><select data-answer="in"><option value="">Choose...</option><option value="in">in</option><option value="at">at</option><option value="off">off</option></select></span> at her new school.</div>
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="v2-5">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-5">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-5">↻ Reset</button>
+        <span class="card-score" data-score="v2-5"></span>
+      </div>
     </div>
 
-    <div class="card" data-task="dragfill" data-id="v3-6">
-      <h3>3.6 Fill in the gaps</h3>
-      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
+    <div class="card" data-task="dragfill" data-id="v2-6">
+      <h3>2.6 Fill in the gaps — drag or click the phrases</h3>
+      <div class="instruction">💡 Drag each phrase from the bank into the correct gap, or click the phrase and then click the gap. Click × on a chip to return it.</div>
       <div class="bank">
-        <div class="chip" data-word="outdated">outdated</div>
-        <div class="chip" data-word="go to great lengths">go to great lengths</div>
-        <div class="chip" data-word="look youthful">look youthful</div>
-        <div class="chip" data-word="emote">emote</div>
-        <div class="chip" data-word="overdone">overdone</div>
-        <div class="chip" data-word="feel self-conscious">feel self-conscious</div>
-        <div class="chip" data-word="keep up with">keep up with</div>
-        <div class="chip" data-word="cut out">cut out</div>
-        <div class="chip" data-word="look flawless">look flawless</div>
-        <div class="chip" data-word="show off">show off</div>
+        <div class="chip" data-word="be heightened">be heightened</div>
+        <div class="chip" data-word="go unnoticed">go unnoticed</div>
+        <div class="chip" data-word="blend into">blend into</div>
+        <div class="chip" data-word="return to their true selves">return to their true selves</div>
+        <div class="chip" data-word="quirk">quirk</div>
+        <div class="chip" data-word="go undetected">go undetected</div>
+        <div class="chip" data-word="incorporate">incorporate</div>
+        <div class="chip" data-word="occur">occur</div>
+        <div class="chip" data-word="pinpoint">pinpoint</div>
+        <div class="chip" data-word="swapped for">swapped for</div>
+        <div class="chip" data-word="comes across">comes across</div>
+        <div class="chip" data-word="suppress">suppress</div>
+        <div class="chip" data-word="at play">at play</div>
+        <div class="chip" data-word="to the extreme">to the extreme</div>
       </div>
-      <ul style="list-style:none; padding-left:0;">
-        <li class="sentence">1. She refused to follow fleeting trends, but her classic style never looked <span class="dz" data-answer="outdated"></span>.</li>
-        <li class="sentence">2. Wearing a bright red hat in a room full of neutrals made him <span class="dz" data-answer="feel self-conscious"></span>, but he wore it with confidence anyway.</li>
-        <li class="sentence">3. It's exhausting trying to <span class="dz" data-answer="keep up with"></span> every micro-trend; developing a personal style is more sustainable.</li>
-        <li class="sentence">4. A good skincare routine and staying hydrated can help you <span class="dz" data-answer="look youthful"></span>, but confidence is the real secret.</li>
-        <li class="sentence">5. Her makeup for the daytime event looked too <span class="dz" data-answer="overdone"></span>; the heavy contouring and dramatic lashes were better suited for evening.</li>
-        <li class="sentence">6. A great model needs to do more than pose; they must <span class="dz" data-answer="emote"></span> and tell a story with their eyes and posture.</li>
-        <li class="sentence">7. Her early blog posts were full of personal anecdotes, but lately, she seems to have <span class="dz" data-answer="cut out"></span> <b>the warmth</b>, posting only dry industry news.</li>
-        <li class="sentence">8. Some influencers <span class="dz" data-answer="go to great lengths"></span> <b>to look flawless</b>, spending hours on lighting, editing, and professional styling for a single post.</li>
-        <li class="sentence">9. The pressure to <span class="dz" data-answer="look flawless"></span> has led many to consider procedures like nose jobs and fillers at a very young age.</li>
-        <li class="sentence">10. He loves to <span class="dz" data-answer="show off"></span> his grandfather's vintage watch, not because it's expensive, but because of its story.</li>
+      <ul style="list-style:disc; margin-left:20px;">
+        <li class="sentence">When you procrastinate on an important goal, there are often deeper fears of failure <span class="dz" data-answer="at play"></span>.</li>
+        <li class="sentence">I try to <span class="dz" data-answer="incorporate"></span> a short meditation session <b>into</b> my morning ritual for clarity.</li>
+        <li class="sentence">In interviews, passion <span class="dz" data-answer="comes across"></span> <b>as</b> more genuine than perfectly rehearsed answers.</li>
+        <li class="sentence">A subtle lack of fulfillment can <span class="dz" data-answer="go undetected"></span> for years if you don't pause to self-reflect.</li>
+        <li class="sentence">She learned to embrace her <span class="dz" data-answer="quirk"></span> of needing solitude to recharge, seeing it as a strength.</li>
+        <li class="sentence">Your small, consistent efforts towards a goal will not <span class="dz" data-answer="go unnoticed"></span> by your future self.</li>
+        <li class="sentence">Her people-pleasing was <span class="dz" data-answer="swapped for"></span> healthy boundary-setting after some self-reflection.</li>
+        <li class="sentence">It's common for a crisis of confidence to <span class="dz" data-answer="occur"></span> just before a major personal breakthrough.</li>
+        <li class="sentence">During times of change, our senses can <span class="dz" data-answer="be heightened"></span>, making us more aware of both opportunities and fears.</li>
+        <li class="sentence">Don't <b>take</b> self-discipline <span class="dz" data-answer="to the extreme"></span>; allow yourself grace to avoid burnout.</li>
+        <li class="sentence">Many people, after years of wearing a social mask, feel immense relief when they <span class="dz" data-answer="return to their true selves"></span>.</li>
+        <li class="sentence">Through journaling, she could <span class="dz" data-answer="pinpoint"></span> the exact moments her anxiety was triggered.</li>
+        <li class="sentence">He worked to <span class="dz" data-answer="suppress"></span> his defensive reactions in order to listen and learn from criticism.</li>
+        <li class="sentence">Early in her career, she tried to <span class="dz" data-answer="blend into"></span> the corporate culture, but later realized she needed to <b>blend</b> her personal values <b>into</b> her professional life.</li>
       </ul>
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button>
-        <span class="card-score" data-score="v3-6"></span>
+        <button class="btn btn-check btn-small" data-card="v2-6">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="v2-6">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="v2-6">↻ Reset</button>
+        <span class="card-score" data-score="v2-6"></span>
       </div>
     </div>
+  </section>
 
-    <div class="card" data-task="wordorder" data-id="v3-7">
-      <h3>3.7 Put the words into correct order</h3>
-      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div>
+  <section class="section" id="audio">
+    <div class="section-title"><span class="num">3</span> Audio</div>
+    <div class="card" data-task="typeblank" data-id="a3-1">
+      <h3>3.1 Watch the clips and fill in the gaps — type the missing words</h3>
+      <div class="instruction">💡 Listen to each clip and type the missing word(s) into the blanks. No word bank — rely on your ear!</div>
 
-      <div class="wordorder" data-answer="It's|so hard|to put|it|into|words|without|sounding|or coming|off|as|rude.">
-        <span class="wo-num">1/4</span>
-        <div class="bank wo-bank">
-          <div class="chip" data-word="to put">to put</div><div class="chip" data-word="so hard">so hard</div><div class="chip" data-word="or coming">or coming</div><div class="chip" data-word="sounding">sounding</div><div class="chip" data-word="off">off</div><div class="chip" data-word="without">without</div><div class="chip" data-word="It's">It's</div><div class="chip" data-word="it">it</div><div class="chip" data-word="words">words</div><div class="chip" data-word="as">as</div><div class="chip" data-word="into">into</div><div class="chip" data-word="rude.">rude.</div>
-        </div>
-        <div class="wo-target"></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:8px 0 8px;">Part 1</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/15iGAtw2DsPSLx9g5uPJcoNynHHAS0nTO/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 1"></iframe>
       </div>
-
-      <div class="wordorder" data-answer="I|just|never|felt|good|about|myself|the way|I was.">
-        <span class="wo-num">2/4</span>
-        <div class="bank wo-bank">
-          <div class="chip" data-word="I">I</div><div class="chip" data-word="never">never</div><div class="chip" data-word="I was.">I was.</div><div class="chip" data-word="felt">felt</div><div class="chip" data-word="good">good</div><div class="chip" data-word="myself">myself</div><div class="chip" data-word="about">about</div><div class="chip" data-word="just">just</div><div class="chip" data-word="the way">the way</div>
-        </div>
-        <div class="wo-target"></div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/15iGAtw2DsPSLx9g5uPJcoNynHHAS0nTO/preview" target="_blank">🎬 Part 1 — open in a new tab</a>
       </div>
+      <div class="sentence">- Well, we're very different. And we grew up very differently. And I think that we're just having trouble <input class="blank" data-answer="navigating"> <input class="blank" data-answer="through"> that. But we love each other. And we want to fix this.<br>- Do you?<br>- Do I love her? Yes.<br>- Want to fix this.<br>- I just don't know if these are things that can be fixed.</div>
 
-      <div class="wordorder" data-answer="If|money|wasn't|an issue,|I'd|buy|a small|sailboat|and just|follow|the sun.">
-        <span class="wo-num">3/4</span>
-        <div class="bank wo-bank">
-          <div class="chip" data-word="sailboat">sailboat</div><div class="chip" data-word="buy">buy</div><div class="chip" data-word="the sun.">the sun.</div><div class="chip" data-word="and just">and just</div><div class="chip" data-word="an issue,">an issue,</div><div class="chip" data-word="money">money</div><div class="chip" data-word="if">if</div><div class="chip" data-word="wasn't">wasn't</div><div class="chip" data-word="a small">a small</div><div class="chip" data-word="follow">follow</div><div class="chip" data-word="I'd">I'd</div>
-        </div>
-        <div class="wo-target"></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 2</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1iETLdaz1qmaT6WOZPFcv31B8NEfdYJH_/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 2"></iframe>
       </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/1iETLdaz1qmaT6WOZPFcv31B8NEfdYJH_/preview" target="_blank">🎬 Part 2 — open in a new tab</a>
+      </div>
+      <div class="sentence">- If you're doing nothing wrong, what is there to fear?<br>- I'm fearing your definition of wrong.<br>- These are dangerous times.<br>- Dangerous times?<br>- Are they not?<br>- Do you feel <input class="blank" data-answer="under"> <input class="blank" data-answer="threat">?<br>- Personally? Here, yes.<br>- I'm at great risk of ingesting too much of this nourishing Chandrilan hospitality.</div>
 
-      <div class="wordorder" data-answer="She|felt|trapped|by|society's|ever-changing|beauty|standards.">
-        <span class="wo-num">4/4</span>
-        <div class="bank wo-bank">
-          <div class="chip" data-word="trapped">trapped</div><div class="chip" data-word="felt">felt</div><div class="chip" data-word="ever-changing">ever-changing</div><div class="chip" data-word="She">She</div><div class="chip" data-word="standards.">standards.</div><div class="chip" data-word="beauty">beauty</div><div class="chip" data-word="by">by</div><div class="chip" data-word="society's">society's</div>
-        </div>
-        <div class="wo-target"></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 3</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/14FlMGg-zyyA96QEij4ZhkFvXbaR_i4OB/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 3"></iframe>
       </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/14FlMGg-zyyA96QEij4ZhkFvXbaR_i4OB/preview" target="_blank">🎬 Part 3 — open in a new tab</a>
+      </div>
+      <div class="sentence">- We thought you might have left for good.<br>- And would that be good?<br>- I visited your sister to ask where you were. Three days and not a word? Did you think it would <input class="blank" data-answer="go"> <input class="blank" data-answer="unnoticed">? The Company have men in every tavern asking where you are. They're offering £10 to anyone with information. Making threats. Money being offered... It's only a matter of time, James.</div>
+
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 4</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/18tZ-eoyOcABuSYf2vl3UZXolYKMl0a19/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 4"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/18tZ-eoyOcABuSYf2vl3UZXolYKMl0a19/preview" target="_blank">🎬 Part 4 — open in a new tab</a>
+      </div>
+      <div class="sentence">- You're okay. We got you.<br>- Bag.<br>- We got you.<br>- More warming blankets over here!<br>- You didn't have to <input class="blank" data-answer="take"> it <input class="blank" data-answer="to"> such an <input class="blank" data-answer="extreme">. Jumping into a pool of chemicals just to crush me.<br>- I'm gonna go check on the rest of those kids.</div>
+
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 5</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1am2X8SVT_sWJGWnWM_KnKxcufAiKednO/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 5"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/1am2X8SVT_sWJGWnWM_KnKxcufAiKednO/preview" target="_blank">🎬 Part 5 — open in a new tab</a>
+      </div>
+      <div class="sentence">- So what were they doing that we're not?<br>- We took this tech from Straal's lab on the Glenn. It was an augmentation to their navigation system. I've <input class="blank" data-answer="incorporated"> it <input class="blank" data-answer="into"> our drive unit, but it won't load completely. To function optimally, it would appear to require some kind of supercomputer.<br>- You must have missed that on the Glenn.</div>
 
       <div class="card-actions">
-        <button class="btn btn-check btn-small" data-card="v3-7">✓ Check</button>
-        <button class="btn btn-showanswers btn-small" data-card="v3-7">👁 Show answers</button>
-        <button class="btn btn-resetcard btn-small" data-card="v3-7">↻ Reset</button>
-        <span class="card-score" data-score="v3-7"></span>
+        <button class="btn btn-check btn-small" data-card="a3-1">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="a3-1">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="a3-1">↻ Reset</button>
+        <span class="card-score" data-score="a3-1"></span>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>3.8 Write your own sentences using vocabulary you liked <i>(Optional)</i></h3>
-      <textarea class="idea-box" placeholder="Write your sentences here..."></textarea>
     </div>
   </section>
 
   <section class="section" id="revision">
     <div class="section-title"><span class="num">4</span> Revision</div>
 
-    <div class="card" data-task="dragfill" data-id="r4-1">
-      <h3>4.1 Fill in the gaps</h3>
-      <div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div>
-      <div class="bank">
-        <div class="chip" data-word="Damned if I do, damned if I don't">Damned if I do, damned if I don't</div>
-        <div class="chip" data-word="dark circles">dark circles</div>
-        <div class="chip" data-word="go-to look">go-to look</div>
-        <div class="chip" data-word="give me real person vibes">give me real person vibes</div>
-        <div class="chip" data-word="looks off">looks off</div>
-        <div class="chip" data-word="has something to do with">has something to do with</div>
-        <div class="chip" data-word="disfiguring">disfiguring</div>
-      </div>
-      <ul style="list-style:none; padding-left:0;">
-        <li class="sentence">1. Her radiant skin <span class="dz" data-answer="has something to do with"></span> genetics, but her diligent sunscreen use is the main factor.</li>
-        <li class="sentence">2. When in doubt, a leather jacket and jeans is my <span class="dz" data-answer="go-to look"></span>; it's effortlessly cool and always works.</li>
-        <li class="sentence">3. No amount of concealer could completely hide the <span class="dz" data-answer="dark circles"></span> after her week of travel, but she wore them with a tired smile.</li>
-        <li class="sentence">4. The color of that lipstick <span class="dz" data-answer="looks off"></span> with your undertones; a warmer red would be more harmonious.</li>
-        <li class="sentence">5. She argued that calling normal signs of aging "<span class="dz" data-answer="disfiguring"></span>" is a harmful exaggeration created by the beauty industry.</li>
-        <li class="sentence">6. I love her Instagram because she posts unedited photos; the loose threads and laughing lines <span class="dz" data-answer="give me real person vibes"></span>.</li>
-        <li class="sentence">7. If I tell my friend her partner is cheating, I destroy our friendship. If I don't, and she finds out I knew, she'll never forgive me. <span class="dz" data-answer="Damned if I do, damned if I don't"></span>.</li>
-      </ul>
+    <div class="card" data-task="typehint" data-id="r4-1">
+      <h3>4.1 Complete the gaps</h3>
+      <div class="instruction">💡 Type the complete word into each gap. The purple letter before the gap is just a hint — it is NOT part of your answer.</div>
+      <div class="sentence">1. There are many complex factors <b>at</b> <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="play"></span> in the economy's downturn.</div>
+      <div class="sentence">2. The chameleon can <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="blend"></span> <b>into</b> its surroundings to hide from predators.</div>
+      <div class="sentence">3. <b>The</b> <span class="hint-input"><span class="first-letter">l</span><input type="text" data-answer="likeability"></span> <b>of</b> the main character made the movie a joy to watch.</div>
+      <div class="sentence">4. Her wisdom helped her <span class="hint-input"><span class="first-letter">n</span><input type="text" data-answer="navigate"></span> <b>through life's</b> many challenges.</div>
+      <div class="sentence">5. He changed his style of dress just to <span class="hint-input"><span class="first-letter">f</span><input type="text" data-answer="fit"></span> <b>in</b> with the new crowd.</div>
+      <div class="sentence">6. Don't worry about the presentation; I <b>have your</b> <span class="hint-input"><span class="first-letter">b</span><input type="text" data-answer="back"></span> if you forget any data.</div>
+      <div class="sentence">7. The coastal village is <b>under</b> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="threat"></span> of flooding from the rising seas.</div>
+      <div class="sentence">8. After sharing her personal story, she began to <b>feel</b> <span class="hint-input"><span class="first-letter">v</span><input type="text" data-answer="vulnerable"></span>.</div>
+      <div class="sentence">9. Children should <b>be</b> <span class="hint-input"><span class="first-letter">e</span><input type="text" data-answer="exposed"></span> <b>to</b> different cultures and ideas.</div>
+      <div class="sentence">10. Despite his shyness, he <b>comes</b> <span class="hint-input"><span class="first-letter">a</span><input type="text" data-answer="across"></span> <b>as</b> very confident in interviews.</div>
+      <div class="sentence">11. Her hard work often <b>goes</b> <span class="hint-input"><span class="first-letter">u</span><input type="text" data-answer="unnoticed"></span> by her supervisors.</div>
+      <div class="sentence">12. It's hard to <span class="hint-input"><span class="first-letter">p</span><input type="text" data-answer="pinpoint"></span> the exact moment when their relationship changed.</div>
+      <div class="sentence">13. He tried to <span class="hint-input"><span class="first-letter">s</span><input type="text" data-answer="suppress"></span> a laugh during the serious meeting.</div>
+      <div class="sentence">14. After the stressful project ended, the team could finally relax and <b>return to their</b> <span class="hint-input"><span class="first-letter">t</span><input type="text" data-answer="true"></span> <b>selves.</b></div>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button>
         <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button>
@@ -618,72 +822,142 @@
       </div>
     </div>
 
-    <div class="card">
-      <h3>4.2 Do the crossword</h3>
-      <div class="links"><a href="https://wordwall.net/embed/f6bc2dfa7206428b9950944c6c4779b0?themeId=1&templateId=11&fontStackId=0" target="_blank">▶ Open Wordwall</a></div>
+    <div class="card" data-task="wordorder" data-id="r4-2">
+      <h3>4.2 Put the words into correct order</h3>
+      <div class="instruction">💡 Drag the words from the bank into the empty area in the correct order, or click a word and then click the target area. Click a word in the answer area to send it back.</div>
+
+      <div class="wordorder" data-answer="Moving|to|a different|country|drastically|changed|her outlook|on|life.">
+        <span class="wo-num">1.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="drastically">drastically</div>
+          <div class="chip" data-word="changed">changed</div>
+          <div class="chip" data-word="life.">life.</div>
+          <div class="chip" data-word="a different">a different</div>
+          <div class="chip" data-word="on">on</div>
+          <div class="chip" data-word="country">country</div>
+          <div class="chip" data-word="her outlook">her outlook</div>
+          <div class="chip" data-word="to">to</div>
+          <div class="chip" data-word="Moving">Moving</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="To|avoid|burnout,|she|tries|to keep|her|work|and|social life|relatively|separate.">
+        <span class="wo-num">2.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="social life">social life</div>
+          <div class="chip" data-word="relatively">relatively</div>
+          <div class="chip" data-word="and">and</div>
+          <div class="chip" data-word="tries">tries</div>
+          <div class="chip" data-word="burnout,">burnout,</div>
+          <div class="chip" data-word="to keep">to keep</div>
+          <div class="chip" data-word="separate.">separate.</div>
+          <div class="chip" data-word="her">her</div>
+          <div class="chip" data-word="work">work</div>
+          <div class="chip" data-word="avoid">avoid</div>
+          <div class="chip" data-word="To">To</div>
+          <div class="chip" data-word="she">she</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="He|took|his minimalist|lifestyle|to|the extreme|by owning|only|fifty items.">
+        <span class="wo-num">3.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="fifty items.">fifty items.</div>
+          <div class="chip" data-word="He">He</div>
+          <div class="chip" data-word="his minimalist">his minimalist</div>
+          <div class="chip" data-word="to">to</div>
+          <div class="chip" data-word="only">only</div>
+          <div class="chip" data-word="the extreme">the extreme</div>
+          <div class="chip" data-word="took">took</div>
+          <div class="chip" data-word="by owning">by owning</div>
+          <div class="chip" data-word="lifestyle">lifestyle</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="He|tried|to suppress|his laughter|during|the serious|meeting.">
+        <span class="wo-num">4.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="to suppress">to suppress</div>
+          <div class="chip" data-word="He">He</div>
+          <div class="chip" data-word="tried">tried</div>
+          <div class="chip" data-word="during">during</div>
+          <div class="chip" data-word="the serious">the serious</div>
+          <div class="chip" data-word="his laughter">his laughter</div>
+          <div class="chip" data-word="meeting.">meeting.</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="After|the|loss,|she|felt|emotionally|raw|and|vulnerable.">
+        <span class="wo-num">5.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="emotionally">emotionally</div>
+          <div class="chip" data-word="and">and</div>
+          <div class="chip" data-word="loss,">loss,</div>
+          <div class="chip" data-word="raw">raw</div>
+          <div class="chip" data-word="she">she</div>
+          <div class="chip" data-word="the">the</div>
+          <div class="chip" data-word="felt">felt</div>
+          <div class="chip" data-word="vulnerable.">vulnerable.</div>
+          <div class="chip" data-word="After">After</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="wordorder" data-answer="He|relied|on|his faith|to navigate|through|that|dark|period of|unemployment.">
+        <span class="wo-num">6.</span>
+        <div class="bank wo-bank">
+          <div class="chip" data-word="period of">period of</div>
+          <div class="chip" data-word="dark">dark</div>
+          <div class="chip" data-word="He">He</div>
+          <div class="chip" data-word="through">through</div>
+          <div class="chip" data-word="on">on</div>
+          <div class="chip" data-word="to navigate">to navigate</div>
+          <div class="chip" data-word="that">that</div>
+          <div class="chip" data-word="relied">relied</div>
+          <div class="chip" data-word="unemployment.">unemployment.</div>
+          <div class="chip" data-word="his faith">his faith</div>
+        </div>
+        <div class="wo-target"></div>
+      </div>
+
+      <div class="card-actions">
+        <button class="btn btn-check btn-small" data-card="r4-2">✓ Check</button>
+        <button class="btn btn-showanswers btn-small" data-card="r4-2">👁 Show answers</button>
+        <button class="btn btn-resetcard btn-small" data-card="r4-2">↻ Reset</button>
+        <span class="card-score" data-score="r4-2"></span>
+      </div>
     </div>
 
-    <div class="card" data-task="setfill" data-id="r4-3">
-      <h3>4.3 Complete each set of three sentences with the same vocabulary item from the bank</h3>
-      <div class="instruction">💡 Drag the phrase that fits ALL three sentences of the set into the dashed box (or tap the phrase, then tap the box). Click × on a chip to return it.</div>
-      <div class="bank">
-        <div class="chip" data-word="cut out">cut out</div>
-        <div class="chip" data-word="bold">bold</div>
-        <div class="chip" data-word="self-conscious">self-conscious</div>
-        <div class="chip" data-word="go-to look">go-to look</div>
-        <div class="chip" data-word="have something to do with">have something to do with</div>
-        <div class="chip" data-word="sugarcoat">sugarcoat</div>
-        <div class="chip" data-word="youthful">youthful</div>
-        <div class="chip" data-word="blueprint">blueprint</div>
-      </div>
-
-      <div class="set-group" data-answer="cut out">
-        <span class="set-dz"></span>
-        <p>After the scandal, the CEO decided to <span class="set-blank"></span> all unnecessary expenses to save the company's reputation.</p>
-        <p>To improve his health, he had to <span class="set-blank"></span> processed sugars from his diet completely.</p>
-        <p>The director told the editor to <span class="set-blank"></span> the slow scene, as it disrupted the film's pace.</p>
-      </div>
-      <div class="set-group" data-answer="bold">
-        <span class="set-dz"></span>
-        <p>She knew she had to be <span class="set-blank"></span> and ask for the promotion she deserved.</p>
-        <p>For the party, he chose a <span class="set-blank"></span>, emerald-green suit that turned everyone's heads.</p>
-        <p>The activist's <span class="set-blank"></span> speech inspired many to join the cause.</p>
-      </div>
-      <div class="set-group" data-answer="self-conscious">
-        <span class="set-dz"></span>
-        <p>Wearing jeans to the gala made him feel <span class="set-blank"></span> as everyone else was in tuxedos.</p>
-        <p>Her accent sometimes made her feel <span class="set-blank"></span> when speaking in meetings.</p>
-        <p>He started to feel <span class="set-blank"></span> about his stringy hair, so he booked a haircut.</p>
-      </div>
-      <div class="set-group" data-answer="blueprint">
-        <span class="set-dz"></span>
-        <p>The architect presented the <span class="set-blank"></span> for the new community center.</p>
-        <p>Her business plan served as a <span class="set-blank"></span> for others wanting to start a sustainable company.</p>
-        <p>The treaty was considered a <span class="set-blank"></span> for international cooperation on climate change.</p>
-      </div>
-      <div class="set-group" data-answer="sugarcoat">
-        <span class="set-dz"></span>
-        <p>She didn't want to <span class="set-blank"></span> the news — the project had failed and we had to start over.</p>
-        <p>He tried to <span class="set-blank"></span> his criticism with a compliment, but she still felt upset.</p>
-        <p>Parents sometimes <span class="set-blank"></span> difficult truths to protect their young children.</p>
-      </div>
-      <div class="set-group" data-answer="youthful">
-        <span class="set-dz"></span>
-        <p>The celebrity's secret to looking <span class="set-blank"></span> involved good genetics and a lot of sunscreen.</p>
-        <p>This new moisturizer claims to help you look <span class="set-blank"></span> by reducing fine lines.</p>
-        <p>He looks <span class="set-blank"></span> for his age, often being mistaken for someone a decade younger.</p>
-      </div>
-      <div class="set-group" data-answer="have something to do with">
-        <span class="set-dz"></span>
-        <p>She believed her success must <span class="set-blank"></span> her relentless work ethic.</p>
-        <p>His sudden allergy must <span class="set-blank"></span> the new plants in the garden.</p>
-        <p>The strange noise seems to <span class="set-blank"></span> the old pipes in the building.</p>
-      </div>
-      <div class="set-group" data-answer="go-to look">
-        <span class="set-dz"></span>
-        <p>The minimalist black dress is her <span class="set-blank"></span> for important interviews.</p>
-        <p>For a quick, polished appearance, a sleek bun is my <span class="set-blank"></span>.</p>
-        <p>His <span class="set-blank"></span> on weekends consists of a vintage band t-shirt and jeans.</p>
+    <div class="card" data-task="match" data-id="r4-3">
+      <h3>4.3 Match the vocabulary to its definition</h3>
+      <div class="instruction">💡 Drag each word/phrase to the correct definition, or click a word and then click its definition. Click the coral label to unmatch.</div>
+      <div class="match-grid">
+        <div class="match-col">
+          <h4>Word / phrase</h4>
+          <div class="bank" style="display:block">
+            <div class="match-item" data-word="mimic">mimic</div>
+            <div class="match-item" data-word="feel vulnerable">feel vulnerable</div>
+            <div class="match-item" data-word="go unnoticed">go unnoticed</div>
+            <div class="match-item" data-word="suppress">suppress</div>
+            <div class="match-item" data-word="quirk">quirk</div>
+            <div class="match-item" data-word="at play">at play</div>
+            <div class="match-item" data-word="blend in/into">blend in/into</div>
+          </div>
+        </div>
+        <div class="match-col">
+          <h4>Definition</h4>
+          <div class="match-target" data-answer="mimic"><span class="term">to copy the way someone speaks, moves, or behaves</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="at play"><span class="term">to be in effect or operation; to be a factor</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="blend in/into"><span class="term">to become part of a background or group without standing out</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="go unnoticed"><span class="term">to not be noticed or observed</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="suppress"><span class="term">to deliberately stop yourself from showing an emotion or reaction</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="feel vulnerable"><span class="term">to feel unprotected and open to emotional or physical harm</span><span class="matched-label" style="display:none"></span></div>
+          <div class="match-target" data-answer="quirk"><span class="term">a strange or unusual habit or aspect of personality</span><span class="matched-label" style="display:none"></span></div>
+        </div>
       </div>
       <div class="card-actions">
         <button class="btn btn-check btn-small" data-card="r4-3">✓ Check</button>
@@ -702,35 +976,61 @@
         <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"/>
         <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"/>
         <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"/>
-        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/><circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/></g>
-        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/><circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/></g>
-        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"/><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/></g>
-        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/></g>
-        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"/><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/></g>
-        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/></g>
-        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/></g>
+        <g transform="translate(140,90)">
+          <path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"/>
+          <circle cx="50" cy="60" r="8" fill="#fff"/><circle cx="80" cy="60" r="8" fill="#fff"/><circle cx="110" cy="60" r="8" fill="#fff"/>
+        </g>
+        <g transform="translate(380,120)">
+          <path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"/>
+          <circle cx="42" cy="50" r="7" fill="#fff"/><circle cx="66" cy="50" r="7" fill="#fff"/><circle cx="90" cy="50" r="7" fill="#fff"/>
+        </g>
+        <g transform="translate(620,80)" fill="#e8705f">
+          <rect x="40" y="0" width="36" height="80" rx="18"/>
+          <path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+          <line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"/>
+        </g>
+        <g transform="translate(840,110)">
+          <circle cx="50" cy="40" r="34" fill="#b9a6e0"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"/>
+        </g>
+        <g transform="translate(980,110)">
+          <circle cx="50" cy="40" r="34" fill="#8fd0c8"/>
+          <path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"/>
+        </g>
+        <g transform="translate(1160,90)" fill="#d9cdef">
+          <path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"/>
+        </g>
+        <g transform="translate(1360,130)" fill="#bfe3e0">
+          <path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"/>
+        </g>
         <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
         <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"/><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"/></g>
       </svg>
     </div>
 
     <div class="card warm">
-      <h3>Thursday question</h3>
-      <p class="sentence">According to the video, how have beauty standards changed over time, and why does this change matter?</p>
-      <h3>Friday question</h3>
-      <p class="sentence">How much pressure do you feel to <b class="v">keep up with</b> the <b class="v">flawless</b> and often <b class="v">overdone</b> looks promoted on social media? Do you ever <b class="v">feel self-conscious</b> comparing yourself?</p>
-      <p class="sentence"><b>OR</b></p>
-      <p class="sentence">What is your <b class="v">go-to look</b> for an important event? Do you prefer to <b class="v">blend in</b>, or to be bold and stand out?</p>
+      <h3>Thursday</h3>
+      <p class="sentence">According to the text, what is the "chameleon effect" and what are two possible reasons why humans <b class="v">mimic</b> each other unconsciously?</p>
+      <h3>Friday</h3>
+      <p class="sentence">Pick one question you like the most:<br>
+      Is there a specific person whose mannerisms you've accidentally picked up over time (laughing like them, using their hand gestures)?<br>
+      <b>Or:</b><br>
+      Have you ever noticed two people who have been together for a long time who physically look or sound alike? Do you find that charming or slightly unsettling?</p>
     </div>
 
     <div class="card">
-      <h3>Study buddy questions</h3>
-      <p class="sentence">1. The video describes a shift from diverse, "striking and complex" faces to a homogenous, "sculpted" ideal. Why do you think this shift happened? What roles have social media, cosmetic technology, and celebrity culture played?</p>
-      <p class="sentence">2. Where do you think the line is between looking polished and <b class="v">looking too overdone</b>?</p>
-      <p class="sentence">3. What reaction do you have to exaggerated features like <b class="v">pouty lips</b> — admiration, discomfort, or indifference?</p>
-      <p class="sentence">4. Growing up, who or what acted as your <b class="v">blueprint</b> for beauty or attractiveness?</p>
-      <p class="sentence">5. Have you ever felt that your natural look was starting to <b class="v">feel outdated</b> compared to what's trending online?</p>
-      <p class="sentence">6. Can you recall a time when you felt particularly <b class="v">self-conscious</b> about your appearance? What triggered it?</p>
+      <h3>Study Buddy</h3>
+      <p class="sentence">1. Have you ever caught yourself unintentionally <b class="v">mimicking</b> a friend's laugh, catchphrase, or mannerism?</p>
+      <p class="sentence">2. Who helps you <b class="v">navigate through life's biggest challenges</b>?</p>
+      <p class="sentence">3. Who in your life can you always count on to <b class="v">have your back</b>?</p>
+      <p class="sentence">4. In what kind of new social situation do you most <b class="v">feel vulnerable</b>?</p>
+      <p class="sentence">5. If you could <b class="v">swap one daily habit for</b> a better one, what would it be?</p>
+      <p class="sentence">6. What is a personal strength of yours that often <b class="v">goes undetected</b>?</p>
+    </div>
+
+    <div class="card">
+      <h3>5.1 Presentation</h3>
+      <div class="links"><a class="pur" href="https://docs.google.com/presentation/d/1Ntcsr8KBvq2HdZS-ECFu9akLjv0shtywkRwBpz3a2og/edit?usp=sharing" target="_blank">Follow the link</a></div>
     </div>
   </section>
 
@@ -767,8 +1067,7 @@ function select(el){
 }
 function returnChip(chip,sourceZone){
   chip.innerHTML=chip.dataset.word;
-  chip.classList.remove('correct','incorrect','selected','matched');
-  chip.style.display='';
+  chip.classList.remove('correct','incorrect','selected');
   let bank;
   if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
   else bank=chip.closest('.card').querySelector('.bank');
@@ -782,44 +1081,39 @@ function placeChip(dz,chip){
   chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
   select(null);
 }
-function placeSetChip(dz,chip){
-  const existing=dz.querySelector('.chip');
-  if(existing&&existing!==chip)returnChip(existing,dz);
-  dz.appendChild(chip);
-  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
-  select(null);
-}
 function assignMatch(mt,item){
   const label=mt.querySelector('.matched-label');
   if(label.dataset.word){
     const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
-    if(prev){prev.classList.remove('matched');prev.style.display='';}
+    if(prev)prev.classList.remove('matched');
   }
   label.dataset.word=item.dataset.word;
   label.textContent=item.dataset.word+' ×';
   label.style.display='inline-block';
   mt.classList.add('filled');
   item.classList.add('matched');
-  item.style.display='none';
   select(null);
 }
 function unmatch(mt){
   const label=mt.querySelector('.matched-label');
   if(!label.dataset.word)return;
   const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
-  if(item){item.classList.remove('matched');item.style.display='';}
+  if(item)item.classList.remove('matched');
   label.textContent='';label.style.display='none';delete label.dataset.word;
   mt.classList.remove('filled');
 }
 
-const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+const state={dragging:null, ghost:null, offsetX:0, offsetY:0, currentOver:null, isDragging:false, startX:0, startY:0};
 function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+
 function makeDraggable(el,type){
   if(isCoarse)return;
   const start=e=>{
     if(el.classList.contains('matched'))return;
-    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
-    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.startX = e.clientX;
+    state.startY = e.clientY;
+    state.isDragging = false;
+    const pos={x:e.clientX,y:e.clientY},rect=el.getBoundingClientRect();
     state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
     state.dragging={el,type,origin:el.parentElement};
     el.classList.add('dragging');
@@ -831,26 +1125,30 @@ function makeDraggable(el,type){
   };
   el.addEventListener('mousedown',start);
 }
+
 function onMove(e){
   if(!state.dragging)return;
-  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
-  if(state.isDragging){
+  if (!state.isDragging && (Math.abs(e.clientX - state.startX) > 5 || Math.abs(e.clientY - state.startY) > 5)) {
+    state.isDragging = true;
+  }
+  if (state.isDragging) {
     e.preventDefault();
     const pos=pointerPos(e);
     if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
     const target=document.elementFromPoint(pos.x,pos.y);
     if(state.ghost)state.ghost.style.display='';
     if(state.currentOver)state.currentOver.classList.remove('drag-over');
-    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.set-dz'):null;
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
     if(drop){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
   }
 }
+
 function onEnd(e){
   if(!state.dragging)return;
-  if(!state.isDragging){
-    if(state.ghost){state.ghost.remove();state.ghost=null;}
+  if (!state.isDragging) {
+    if(state.ghost) { state.ghost.remove(); state.ghost = null; }
     state.dragging.el.classList.remove('dragging');
-    state.dragging=null;
+    state.dragging = null;
     return;
   }
   const pos=pointerPos(e);
@@ -859,11 +1157,10 @@ function onEnd(e){
   if(state.ghost){state.ghost.remove();state.ghost=null;}
   state.dragging.el.classList.remove('dragging');
   if(state.currentOver)state.currentOver.classList.remove('drag-over');
-  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target,.set-dz'):null;
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
   const{el,type,origin}=state.dragging;
   if(type==='chip'){
-    if(drop&&drop.classList.contains('dz'))placeChip(drop,el);
-    else if(drop&&drop.classList.contains('set-dz'))placeSetChip(drop,el);
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
     else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
     else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
     else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
@@ -872,6 +1169,7 @@ function onEnd(e){
   }
   state.dragging=null;state.currentOver=null;
 }
+
 document.addEventListener('mousemove',onMove);
 document.addEventListener('mouseup',onEnd);
 document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
@@ -894,7 +1192,7 @@ document.addEventListener('click',e=>{
       select(chip.classList.contains('selected')?null:chip);
       return;
     }
-    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')||parent.classList.contains('set-dz')){
+    if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){
       returnChip(chip,parent);
       return;
     }
@@ -906,9 +1204,7 @@ document.addEventListener('click',e=>{
   }
   if(selected){
     const dz=e.target.closest('.dz');
-    if(dz&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
-    const sdz=e.target.closest('.set-dz');
-    if(sdz&&selected.classList.contains('chip')){placeSetChip(sdz,selected);return;}
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
     const wot=e.target.closest('.wo-target');
     if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
     const mt=e.target.closest('.match-target');
@@ -918,7 +1214,7 @@ document.addEventListener('click',e=>{
 
 const cardResults={};
 function clearCard(card){
-  card.querySelectorAll('.dz,.match-target,.chip,.wordorder,.wo-target,.set-dz').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.dz,.hint-input,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
   card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
   if(selected&&card.contains(selected))selected=null;
   card.querySelectorAll('.answer-key').forEach(el=>el.remove());
@@ -937,6 +1233,12 @@ function evaluateCard(card){
       if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
       else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
     });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      total++;
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else{sel.classList.add('incorrect');}
+    });
   }else if(task==='match'){
     card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
       total++;
@@ -944,13 +1246,18 @@ function evaluateCard(card){
       if(label&&label.dataset.word===mt.dataset.answer){mt.classList.add('correct');correct++;}
       else mt.classList.add('incorrect');
     });
-  }else if(task==='setfill'){
-    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
       total++;
-      const dz=group.querySelector('.set-dz');
-      const chip=dz&&dz.querySelector('.chip');
-      if(chip&&chip.dataset.word===group.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
-      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+      const wrap=inp.closest('.hint-input');
+      if(norm(inp.value)===norm(inp.dataset.answer)){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
     });
   }else if(task==='wordorder'){
     card.querySelectorAll('.wordorder').forEach(wo=>{
@@ -975,18 +1282,28 @@ function showAnswers(card){
       exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
       dz.appendChild(exp);
     });
+  }else if(task==='select'){
+    card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
+      sel.value=sel.dataset.answer;
+      sel.classList.add('correct');
+    });
   }else if(task==='match'){
     card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
       const exp=document.createElement('span');
       exp.className='answer-key';exp.textContent='→ '+mt.dataset.answer;
       mt.appendChild(exp);
     });
-  }else if(task==='setfill'){
-    card.querySelectorAll('.set-group[data-answer]').forEach(group=>{
-      const dz=group.querySelector('.set-dz');
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
       const exp=document.createElement('span');
-      exp.className='answer-key';exp.textContent='✓ '+group.dataset.answer;
-      if(dz)dz.appendChild(exp);
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
     });
   }else if(task==='wordorder'){
     card.querySelectorAll('.wordorder').forEach(wo=>{
@@ -1000,17 +1317,21 @@ function showAnswers(card){
 }
 function hideAnswers(card){
   card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
   card.classList.remove('show-answers');
 }
 function resetCard(card){
   clearCard(card);
   card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
   card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
-  card.querySelectorAll('.set-dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1045,7 +1366,7 @@ document.getElementById('checkBtn').addEventListener('click',()=>{
   });
   const pct=t?Math.round(c/t*100):0;
   banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
-  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you see the real person behind the filter!'
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — you are a true chameleon master!'
     :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
     :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
   banner.scrollIntoView({behavior:'smooth',block:'center'});
@@ -1078,6 +1399,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+    else if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
