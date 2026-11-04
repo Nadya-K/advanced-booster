@@ -18,11 +18,8 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { 
     font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; 
-    color: var(--ink); 
-    background: var(--bg); 
-    line-height: 1.6; 
-    padding-bottom: 150px; 
-    -webkit-font-smoothing: antialiased;
+    color: var(--ink); background: var(--bg); line-height: 1.6; 
+    padding-bottom: 150px; -webkit-font-smoothing: antialiased;
   }
   a { color: var(--teal); text-decoration: none; }
 
@@ -31,8 +28,7 @@
     background: rgba(255, 255, 255, 0.95); 
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(124, 107, 184, 0.1); 
-    padding: 12px 24px; 
-    display: flex; align-items: center; gap: 16px; 
+    padding: 12px 24px; display: flex; align-items: center; gap: 16px; 
     box-shadow: 0 4px 20px rgba(124, 107, 184, 0.04); 
   }
   .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
@@ -134,6 +130,13 @@
   }
   .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 107, 184, 0.1); }
 
+  /* ВСТРОЕННЫЕ ВИДЕО/АУДИО ПЛЕЕРЫ */
+  .video-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid rgba(124,107,184,0.15); background: #101018; box-shadow: 0 6px 24px rgba(124,107,184,0.10); margin: 0 0 12px; }
+  .video-frame iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; display: block; }
+  @supports not (aspect-ratio: 16 / 9) {
+    .video-frame { height: 0; padding-bottom: 56.25%; }
+  }
+
   .bank { 
     border: 2px dashed rgba(63, 157, 154, 0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px;
     min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; 
@@ -204,10 +207,12 @@
   .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
   .wordorder .answer-key { display: block; margin: 10px 0 0; white-space: normal; font-size: 14px; }
 
+  /* BLANK: авторасширение по длине текста */
   .blank { 
-    width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent;
+    min-width: 60px; width: auto; border: none; border-bottom: 2px solid var(--teal); background: transparent;
     font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center;
-    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; max-width: 100%;
+    padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s;
+    box-sizing: content-box; max-width: 100%;
   }
   .blank:focus { background: var(--teal-light); border-radius: 8px; }
   .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
@@ -235,7 +240,6 @@
   .match-target.correct { background: #e8f5e8; border-color: var(--success); }
   .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
 
-  /* АДАПТИРОВАННЫЙ HINT-INPUT — буква и поле намертво склеены */
   .hint-input { 
     display: inline-flex; 
     align-items: stretch;
@@ -254,6 +258,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
   }
   .hint-input input { 
     border: 2px solid rgba(124, 107, 184, 0.2); 
@@ -264,11 +269,11 @@
     font-family: inherit; 
     font-weight: 600; 
     min-width: 40px;
-    width: 120px;
-    flex: 1 1 auto;
+    width: auto;
+    flex: 0 1 auto;
     box-sizing: border-box;
     outline: none; 
-    transition: border-color 0.2s; 
+    transition: border-color 0.2s, width 0.15s ease; 
   }
   .hint-input input:focus { border-color: var(--purple); }
   .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
@@ -313,7 +318,7 @@
     .match-target { min-height: 56px; font-size: 15px; }
     .dz { min-width: 120px; min-height: 40px; }
     .dz .chip { font-size: 14px; }
-    .blank { width: 130px; font-size: 16px; }
+    .blank { min-width: 50px; font-size: 16px; }
     .hint-input input { min-width: 50px; font-size: 16px; padding: 7px 10px; }
     .hint-input .first-letter { font-size: 16px; padding: 7px 10px; }
     .btn { padding: 14px 24px; font-size: 15px; }
@@ -323,13 +328,18 @@
     .card h3 { font-size: 18px; }
     .sentence { font-size: 15.5px; line-height: 1.7; }
     .instruction { font-size: 15px; }
-    .cover-card { height: auto; min-height: 320px; }
+    .cover-card { height: auto; min-height: 280px; }
     .cover-img { height: 200px; flex: 0 0 200px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
     .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
     .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
     .select-wrap select { font-size: 16px; padding: 8px 36px 8px 12px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 8px; }
+    .match-target .term { font-size: 15px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 8px 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 13px; padding: 6px 10px; box-sizing: border-box; }
+    .video-frame { border-radius: 12px; }
   }
 
   @media (max-width: 760px){
@@ -354,14 +364,50 @@
     .actions::-webkit-scrollbar { display: none; }
     .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
     .actions .ic { width: 14px; height: 14px; }
-    .cover-card { height: auto; min-height: 340px; }
-    .cover-img { height: 210px; flex: 0 0 210px; }
+    .cover-card { height: auto; min-height: 300px; }
+    .cover-img { height: 180px; flex: 0 0 180px; }
     .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
     .cover-text h1 { font-size: 28px; }
     .cover-text p { font-size: 14px; }
     .hint-input input { min-width: 40px; font-size: 15px; padding: 6px 8px; }
     .hint-input .first-letter { font-size: 14px; padding: 6px 8px; }
     .sentence { word-break: break-word; overflow-wrap: anywhere; }
+    .links a { font-size: 13px; padding: 9px 14px; }
+    .match-target { flex-direction: column; align-items: stretch; gap: 6px; padding: 10px 12px; }
+    .match-target .term { font-size: 14px; }
+    .match-target .matched-label { display: block; width: 100%; text-align: center; white-space: normal; padding: 6px 10px; font-size: 12px; box-sizing: border-box; }
+    .match-target .answer-key { display: block; margin: 0; white-space: normal; text-align: left; width: 100%; font-size: 12px; padding: 5px 8px; box-sizing: border-box; }
+    .match-item { font-size: 13.5px; padding: 10px 14px; }
+    /* ВИДЕО: масштабирование */
+    .video-frame { aspect-ratio: 4 / 3; min-height: 300px; }
+    .video-frame iframe { width: 160%; height: 160%; transform: scale(0.625); transform-origin: top left; }
+  }
+
+  @media (max-width: 480px){
+    .video-frame { aspect-ratio: auto; height: 340px; min-height: 0; }
+    .video-frame iframe { width: 200%; height: 200%; transform: scale(0.5); transform-origin: top left; }
+  }
+
+  /* ЛАНДШАФТ: меню и кнопки в одну строку */
+  @media (max-height: 520px) and (orientation: landscape){
+    body { padding-bottom: 90px; }
+    .header { padding: 6px 12px; gap: 10px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 32px; height: 32px; }
+    .brand .brand-text b { font-size: 14px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 11.5px; padding: 5px 10px; white-space: nowrap; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .score-badge { font-size: 11.5px; padding: 4px 10px; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 6px; gap: 8px; bottom: 10px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 8px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .video-frame { aspect-ratio: 16 / 9; min-height: 0; height: auto; }
+    .video-frame iframe { width: 100%; height: 100%; transform: none; }
   }
 </style>
 </head>
@@ -691,22 +737,52 @@
   <section class="section" id="audio">
     <div class="section-title"><span class="num">3</span> Audio</div>
     <div class="card" data-task="typeblank" data-id="a3-1">
-      <h3>3.1 Watch the videos and fill in the gaps — type the missing words</h3>
-      <div class="instruction">💡 Open each clip, listen, and type the missing word(s) into the blanks. No word bank — rely on your ear!</div>
+      <h3>3.1 Watch the clips and fill in the gaps — type the missing words</h3>
+      <div class="instruction">💡 Listen to each clip and type the missing word(s) into the blanks. No word bank — rely on your ear!</div>
 
-      <div class="links" style="margin:0 0 8px"><a href="https://drive.google.com/file/d/15iGAtw2DsPSLx9g5uPJcoNynHHAS0nTO/preview" target="_blank">▶ Part 1</a></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:8px 0 8px;">Part 1</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/15iGAtw2DsPSLx9g5uPJcoNynHHAS0nTO/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 1"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/15iGAtw2DsPSLx9g5uPJcoNynHHAS0nTO/preview" target="_blank">🎬 Part 1 — open in a new tab</a>
+      </div>
       <div class="sentence">- Well, we're very different. And we grew up very differently. And I think that we're just having trouble <input class="blank" data-answer="navigating"> <input class="blank" data-answer="through"> that. But we love each other. And we want to fix this.<br>- Do you?<br>- Do I love her? Yes.<br>- Want to fix this.<br>- I just don't know if these are things that can be fixed.</div>
 
-      <div class="links" style="margin:12px 0 8px"><a href="https://drive.google.com/file/d/1iETLdaz1qmaT6WOZPFcv31B8NEfdYJH_/preview" target="_blank">▶ Part 2</a></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 2</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1iETLdaz1qmaT6WOZPFcv31B8NEfdYJH_/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 2"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/1iETLdaz1qmaT6WOZPFcv31B8NEfdYJH_/preview" target="_blank">🎬 Part 2 — open in a new tab</a>
+      </div>
       <div class="sentence">- If you're doing nothing wrong, what is there to fear?<br>- I'm fearing your definition of wrong.<br>- These are dangerous times.<br>- Dangerous times?<br>- Are they not?<br>- Do you feel <input class="blank" data-answer="under"> <input class="blank" data-answer="threat">?<br>- Personally? Here, yes.<br>- I'm at great risk of ingesting too much of this nourishing Chandrilan hospitality.</div>
 
-      <div class="links" style="margin:12px 0 8px"><a href="https://drive.google.com/file/d/14FlMGg-zyyA96QEij4ZhkFvXbaR_i4OB/preview" target="_blank">▶ Part 3</a></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 3</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/14FlMGg-zyyA96QEij4ZhkFvXbaR_i4OB/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 3"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/14FlMGg-zyyA96QEij4ZhkFvXbaR_i4OB/preview" target="_blank">🎬 Part 3 — open in a new tab</a>
+      </div>
       <div class="sentence">- We thought you might have left for good.<br>- And would that be good?<br>- I visited your sister to ask where you were. Three days and not a word? Did you think it would <input class="blank" data-answer="go"> <input class="blank" data-answer="unnoticed">? The Company have men in every tavern asking where you are. They're offering £10 to anyone with information. Making threats. Money being offered... It's only a matter of time, James.</div>
 
-      <div class="links" style="margin:12px 0 8px"><a href="https://drive.google.com/file/d/18tZ-eoyOcABuSYf2vl3UZXolYKMl0a19/preview" target="_blank">▶ Part 4</a></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 4</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/18tZ-eoyOcABuSYf2vl3UZXolYKMl0a19/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 4"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/18tZ-eoyOcABuSYf2vl3UZXolYKMl0a19/preview" target="_blank">🎬 Part 4 — open in a new tab</a>
+      </div>
       <div class="sentence">- You're okay. We got you.<br>- Bag.<br>- We got you.<br>- More warming blankets over here!<br>- You didn't have to <input class="blank" data-answer="take"> it <input class="blank" data-answer="to"> such an <input class="blank" data-answer="extreme">. Jumping into a pool of chemicals just to crush me.<br>- I'm gonna go check on the rest of those kids.</div>
 
-      <div class="links" style="margin:12px 0 8px"><a href="https://drive.google.com/file/d/1am2X8SVT_sWJGWnWM_KnKxcufAiKednO/preview" target="_blank">▶ Part 5</a></div>
+      <p class="sentence" style="font-weight:700; color:var(--purple); margin:20px 0 8px;">Part 5</p>
+      <div class="video-frame">
+        <iframe src="https://drive.google.com/file/d/1am2X8SVT_sWJGWnWM_KnKxcufAiKednO/preview" loading="lazy" allow="autoplay; fullscreen" allowfullscreen title="Part 5"></iframe>
+      </div>
+      <div class="links" style="margin:0 0 12px;">
+        <a class="pur" href="https://drive.google.com/file/d/1am2X8SVT_sWJGWnWM_KnKxcufAiKednO/preview" target="_blank">🎬 Part 5 — open in a new tab</a>
+      </div>
       <div class="sentence">- So what were they doing that we're not?<br>- We took this tech from Straal's lab on the Glenn. It was an augmentation to their navigation system. I've <input class="blank" data-answer="incorporated"> it <input class="blank" data-answer="into"> our drive unit, but it won't load completely. To function optimally, it would appear to require some kind of supercomputer.<br>- You must have missed that on the Glenn.</div>
 
       <div class="card-actions">
@@ -1028,7 +1104,6 @@ function unmatch(mt){
 }
 
 const state={dragging:null, ghost:null, offsetX:0, offsetY:0, currentOver:null, isDragging:false, startX:0, startY:0};
-
 function pointerPos(e){return{x:e.clientX,y:e.clientY};}
 
 function makeDraggable(el,type){
@@ -1038,7 +1113,6 @@ function makeDraggable(el,type){
     state.startX = e.clientX;
     state.startY = e.clientY;
     state.isDragging = false;
-    
     const pos={x:e.clientX,y:e.clientY},rect=el.getBoundingClientRect();
     state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
     state.dragging={el,type,origin:el.parentElement};
@@ -1057,7 +1131,6 @@ function onMove(e){
   if (!state.isDragging && (Math.abs(e.clientX - state.startX) > 5 || Math.abs(e.clientY - state.startY) > 5)) {
     state.isDragging = true;
   }
-  
   if (state.isDragging) {
     e.preventDefault();
     const pos=pointerPos(e);
@@ -1072,14 +1145,12 @@ function onMove(e){
 
 function onEnd(e){
   if(!state.dragging)return;
-  
   if (!state.isDragging) {
     if(state.ghost) { state.ghost.remove(); state.ghost = null; }
     state.dragging.el.classList.remove('dragging');
     state.dragging = null;
     return;
   }
-  
   const pos=pointerPos(e);
   if(state.ghost)state.ghost.style.display='none';
   const target=document.elementFromPoint(pos.x,pos.y);
@@ -1165,12 +1236,8 @@ function evaluateCard(card){
   }else if(task==='select'){
     card.querySelectorAll('.select-wrap select[data-answer]').forEach(sel=>{
       total++;
-      if(sel.value===sel.dataset.answer){
-        sel.classList.add('correct');
-        correct++;
-      }else{
-        sel.classList.add('incorrect');
-      }
+      if(sel.value===sel.dataset.answer){sel.classList.add('correct');correct++;}
+      else{sel.classList.add('incorrect');}
     });
   }else if(task==='match'){
     card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
@@ -1250,9 +1317,7 @@ function showAnswers(card){
 }
 function hideAnswers(card){
   card.querySelectorAll('.answer-key').forEach(el=>el.remove());
-  card.querySelectorAll('.select-wrap select').forEach(sel=>{
-    sel.classList.remove('correct','incorrect');
-  });
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
   card.classList.remove('show-answers');
 }
 function resetCard(card){
@@ -1261,11 +1326,12 @@ function resetCard(card){
   card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
   card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
   card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
-  card.querySelectorAll('.hint-input input').forEach(i=>i.value='');
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
   card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
   delete cardResults[card.dataset.id];
   const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
   updateGlobal();
+  setTimeout(sizeAllInputs,0);
 }
 function updateGlobal(){
   let c=0,t=0;
@@ -1333,6 +1399,29 @@ document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
   e.preventDefault();
   document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
 }));
+
+/* ==== АВТО-РАСШИРЕНИЕ ВСЕХ ПОЛЕЙ ВВОДА ==== */
+function sizeBlankInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(6,len+2)+'ch';
+}
+function sizeHintInput(inp){
+  const len=(inp.value||'').length;
+  inp.style.width=Math.max(9,len+2)+'ch';
+}
+function sizeAllInputs(){
+  document.querySelectorAll('input.blank').forEach(sizeBlankInput);
+  document.querySelectorAll('.hint-input input').forEach(sizeHintInput);
+}
+document.addEventListener('input',e=>{
+  if(e.target&&e.target.matches){
+    if(e.target.matches('input.blank'))sizeBlankInput(e.target);
+    else if(e.target.matches('.hint-input input'))sizeHintInput(e.target);
+  }
+});
+window.addEventListener('load',sizeAllInputs);
+sizeAllInputs();
+document.querySelectorAll('.btn-resetcard, #resetBtn').forEach(b=>b.addEventListener('click',()=>setTimeout(sizeAllInputs,0)));
 </script>
 </body>
 </html>
