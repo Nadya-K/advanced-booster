@@ -1,0 +1,876 @@
+
+
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How to Fix Your Attention Span — Interactive Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c6bb8; --purple-dark: #5f4fa1; --purple-light: #e3def5;
+    --teal: #3f9d9a; --teal-dark: #2d7c79; --teal-light: #d4ebea;
+    --coral: #e8705f; --coral-dark: #c55444; --coral-light: #fae0dc;
+    --ink: #2b2b3a; --soft: #f4f6f9; --bg: #f8f9fc;
+    --success: #5cb85c; --error: #d9534f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', 'Segoe UI', -apple-system, Arial, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.6; padding-bottom: 150px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--teal); text-decoration: none; }
+
+  .header { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(124,107,184,0.1); padding: 12px 24px; display: flex; align-items: center; gap: 16px; box-shadow: 0 4px 20px rgba(124,107,184,0.04); }
+  .brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .brand .logo { width: 44px; height: 44px; }
+  .brand .brand-text { line-height: 1.2; }
+  .brand .brand-text b { display: block; color: var(--purple); font-size: 18px; font-weight: 800; }
+  .brand .brand-text span { display: block; color: var(--teal); font-size: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; flex: 1 1 auto; }
+  .nav a { padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--purple); font-weight: 600; font-size: 13px; transition: all 0.2s ease; white-space: nowrap; }
+  .nav a:hover { background: var(--purple); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(124,107,184,0.2); }
+  .nav a.links-btn { background: var(--teal-light); color: var(--teal-dark); }
+  .nav a.links-btn:hover { background: var(--teal); color: #fff; }
+  .progress-wrap { display: flex; align-items: center; gap: 12px; flex-shrink: 0; margin-left: auto; }
+  .progress-bar { width: 140px; height: 8px; background: var(--purple-light); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--purple), var(--teal)); width: 0%; transition: width 0.5s ease; }
+  .score-badge { background: var(--purple); color: #fff; padding: 6px 12px; border-radius: 999px; font-weight: 700; font-size: 13px; white-space: nowrap; }
+
+  .cover-wrap { padding: 24px 24px 12px; }
+  .cover-card { max-width: 880px; margin: 0 auto; background: #fff; border-radius: 24px; overflow: hidden; border: 1px solid rgba(124,107,184,0.08); box-shadow: 0 12px 40px rgba(124,107,184,0.08); height: 400px; display: flex; flex-direction: column; }
+  .cover-img { height: 62%; background: #cfc9ec; flex: 0 0 62%; }
+  .cover-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 45%; display: block; }
+  .cover-text { height: 38%; display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 16px 32px; text-align: center; background: #fff; }
+  .cover-brand { color: var(--teal); font-weight: 800; font-size: 14px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .cover-text h1 { color: var(--purple); font-size: 34px; font-weight: 800; line-height: 1.15; margin: 0; letter-spacing: -0.02em; }
+  .cover-text p { color: #6b7280; font-size: 16px; margin: 0; font-weight: 500; }
+
+  .container { max-width: 920px; margin: 0 auto; padding: 24px; }
+  .section { margin-bottom: 48px; scroll-margin-top: 100px; position: relative; }
+  .section-title { font-size: 24px; font-weight: 800; color: var(--purple); margin-bottom: 20px; display: flex; align-items: center; gap: 14px; letter-spacing: -0.02em; }
+  .section-title .num { background: var(--purple); color: #fff; width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+  .section-banner { margin: 16px 0 20px; }
+  .banner, svg.banner { width: 100%; height: auto; display: block; border-radius: 20px; }
+  .instruction { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 14px 18px; border-radius: 12px; margin-bottom: 20px; font-size: 15px; color: var(--teal-dark); font-weight: 500; }
+
+  .card { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 4px 24px rgba(124,107,184,0.06); margin-bottom: 24px; border: 1px solid rgba(124,107,184,0.08); }
+  .card.warm { border-left: 5px solid var(--coral); }
+  .card h3 { color: var(--teal); font-size: 19px; font-weight: 700; margin-bottom: 16px; }
+  .card.correct { border-color: var(--success); box-shadow: 0 4px 24px rgba(92,184,92,0.1); }
+  .card.incorrect { border-color: var(--error); box-shadow: 0 4px 24px rgba(217,83,79,0.1); }
+  .card-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; padding-top: 16px; border-top: 1px dashed rgba(124,107,184,0.2); flex-wrap: wrap; }
+  .btn { padding: 10px 20px; border-radius: 12px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s ease; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-small { padding: 8px 16px; font-size: 13.5px; border-radius: 10px; }
+  .btn-check { background: var(--teal); color: #fff; }
+  .btn-check:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.3); }
+  .btn-resetcard { background: var(--coral-light); color: var(--coral-dark); }
+  .btn-resetcard:hover { background: var(--coral); color: #fff; transform: translateY(-2px); }
+  .btn-showanswers { background: var(--soft); color: var(--purple); border: 1px solid rgba(124,107,184,0.15); }
+  .btn-showanswers:hover { background: var(--purple-light); transform: translateY(-2px); }
+  .btn-showanswers.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+  .card-score { margin-left: auto; font-weight: 700; font-size: 14px; color: var(--purple); }
+  .card-score.good { color: var(--success); }
+  .card-score.bad { color: var(--error); }
+
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .links a { display: inline-flex; align-items: center; padding: 10px 18px; border-radius: 12px; background: var(--teal); color: #fff; font-weight: 600; font-size: 14px; transition: all 0.2s ease; }
+  .links a:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(63,157,154,0.25); }
+  .links a.alt { background: var(--coral); }
+  .links a.pur { background: var(--purple); }
+
+  .idea-box { width: 100%; min-height: 120px; border: 2px solid var(--purple-light); border-radius: 14px; padding: 14px 16px; font: inherit; font-size: 15px; outline: none; resize: vertical; background: #fff; color: var(--ink); transition: border-color 0.2s; }
+  .idea-box:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124,107,184,0.1); }
+
+  .submit-steps { background: var(--soft); border-radius: 12px; padding: 14px 18px; margin: 16px 0 14px; display: flex; gap: 18px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink); }
+  .submit-step { display: flex; align-items: flex-start; gap: 8px; flex: 1 1 180px; min-width: 180px; }
+  .submit-step .step-num { background: var(--purple); color: #fff; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .submit-step .step-text { font-weight: 500; line-height: 1.4; }
+  .submit-step .step-text b { color: var(--purple-dark); font-weight: 700; }
+
+  .submit-wrap { margin-top: 14px; display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .submit-btn { padding: 12px 22px !important; font-size: 15px !important; border-radius: 12px; background: var(--purple); color: #fff; font-weight: 600; border: none; cursor: pointer; font-family: inherit; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 16px rgba(124,107,184,0.3); transition: all 0.2s ease; white-space: nowrap; }
+  .submit-btn:hover:not(:disabled) { background: var(--purple-dark); transform: translateY(-2px); }
+  .submit-btn:disabled { background: #cbd5e0 !important; color: #8a8a8a !important; cursor: not-allowed; box-shadow: none !important; transform: none !important; white-space: normal; }
+  .stream-info { background: var(--teal-light); border-left: 4px solid var(--teal); padding: 10px 16px; border-radius: 10px; flex: 1; min-width: 240px; transition: all 0.3s ease; }
+  .stream-info-inner { color: var(--teal-dark); font-size: 13.5px; font-weight: 600; line-height: 1.5; }
+  .stream-info-inner .dates { font-weight: 500; color: var(--ink); }
+  .stream-info.ended { background: var(--coral-light); border-left-color: var(--coral); }
+  .stream-info.ended .stream-info-inner { color: var(--coral-dark); }
+
+  .toast { position: fixed; bottom: 110px; right: 24px; background: #fff; border-left: 5px solid var(--success); border-radius: 12px; padding: 14px 18px 14px 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.18); display: flex; align-items: flex-start; gap: 12px; max-width: 360px; z-index: 200; transform: translateX(calc(100% + 40px)); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .toast.show { transform: translateX(0); }
+  .toast.error { border-left-color: var(--error); }
+  .toast .toast-icon { width: 28px; height: 28px; flex-shrink: 0; background: var(--success); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; }
+  .toast.error .toast-icon { background: var(--error); }
+  .toast .toast-body { flex: 1; }
+  .toast .toast-title { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
+  .toast .toast-msg { font-size: 13px; color: #555; line-height: 1.45; }
+
+  .bank { border: 2px dashed rgba(63,157,154,0.3); background: var(--teal-light); border-radius: 16px; padding: 16px; margin-bottom: 20px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 10px; transition: background 0.2s; }
+  .bank.drag-over { background: #b8e0df; border-style: solid; }
+  .chip { background: #fff; color: var(--teal); border: 1.5px solid var(--teal); padding: 8px 16px; border-radius: 999px; font-weight: 600; font-size: 14px; cursor: grab; user-select: none; transition: all 0.2s ease; touch-action: none; box-shadow: 0 2px 8px rgba(63,157,154,0.08); }
+  .chip:hover { background: var(--teal); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(63,157,154,0.2); }
+  .chip.dragging { opacity: 0.4; }
+  .chip.ghost { position: fixed; pointer-events: none; z-index: 1000; box-shadow: 0 8px 24px rgba(0,0,0,0.15); transform: scale(1.05); }
+  .chip.correct { background: var(--success); color: #fff; border-color: var(--success); }
+  .chip.incorrect { background: var(--error); color: #fff; border-color: var(--error); }
+  .chip .remove { margin-left: 6px; cursor: pointer; opacity: 0.65; font-weight: 900; }
+  .chip .remove:hover { opacity: 1; }
+  .chip.selected, .match-item.selected { outline: 3px solid var(--coral); outline-offset: 2px; transform: scale(1.05); box-shadow: 0 4px 12px rgba(232,112,95,0.3); }
+
+  .sentence { padding: 14px 18px; margin-bottom: 12px; background: var(--soft); border-radius: 14px; font-size: 16px; line-height: 1.7; overflow-wrap: break-word; }
+  .dz { display: inline-block; min-width: 110px; min-height: 32px; background: rgba(255,255,255,0.8); border: 2px dashed var(--purple); border-radius: 10px; padding: 2px 10px; margin: 0 4px; vertical-align: middle; transition: all 0.2s ease; position: relative; }
+  .dz.drag-over { background: var(--purple-light); border-style: solid; transform: scale(1.05); }
+  .dz .chip { font-size: 13px; padding: 4px 10px; }
+  .dz.correct { background: #e8f5e8; border-color: var(--success); border-style: solid; }
+  .dz.incorrect { background: #fbe9e7; border-color: var(--error); border-style: solid; }
+  .dz.dz-radio { display: none; }
+
+  .options { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .option { background: #fff; border: 1.5px solid rgba(124,107,184,0.15); padding: 12px 18px; border-radius: 12px; cursor: pointer; font-weight: 500; font-size: 15px; transition: all 0.2s ease; display: flex; align-items: center; gap: 12px; position: relative; }
+  .option::before { content: ''; display: inline-block; width: 20px; height: 20px; border: 2px solid rgba(124,107,184,0.3); border-radius: 50%; flex-shrink: 0; transition: all 0.2s; }
+  .option:hover { border-color: var(--purple); background: var(--purple-light); }
+  .option.selected { background: var(--purple-light); border-color: var(--purple); }
+  .option.selected::before { border-color: var(--purple); background: var(--purple); box-shadow: inset 0 0 0 4px #fff; }
+  .option.correct { background: #e8f5e8; border-color: var(--success); }
+  .option.correct::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+  .option.incorrect { background: #fbe9e7; border-color: var(--error); }
+  .option.incorrect::before { border-color: var(--error); background: var(--error); box-shadow: inset 0 0 0 4px #fff; }
+  .option.answer-revealed { background: #e8f5e8; border-color: var(--success); }
+  .option.answer-revealed::before { border-color: var(--success); background: var(--success); box-shadow: inset 0 0 0 4px #fff; }
+
+  .answer-key { display: inline-block; margin-left: 6px; background: var(--success); color: #fff; padding: 4px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; white-space: nowrap; vertical-align: middle; box-shadow: 0 2px 6px rgba(92,184,92,0.3); animation: popIn 0.25s ease; }
+  @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+  .match-target .answer-key { margin-left: auto; font-size: 12px; padding: 2px 8px; white-space: normal; text-align: right; }
+
+  .blank { width: 140px; border: none; border-bottom: 2px solid var(--teal); background: transparent; font: inherit; font-size: 15px; font-weight: 600; color: var(--ink); outline: none; text-align: center; padding: 2px 6px; border-radius: 4px 4px 0 0; vertical-align: baseline; transition: all 0.2s; max-width: 100%; }
+  .blank:focus { background: var(--teal-light); border-radius: 8px; }
+  .blank.correct { border-color: var(--success); background: #e8f5e8; color: var(--teal-dark); border-radius: 8px; }
+  .blank.incorrect { border-color: var(--error); background: #fbe9e7; border-radius: 8px; }
+
+  .post-img { width: 100%; max-width: 100%; display: block; margin: 4px 0 0; border-radius: 14px 14px 0 0; border: 1px solid rgba(124,107,184,0.15); border-bottom: none; background: #fff; }
+  .post-caption { text-align: center; font-size: 15.5px; line-height: 1.9; padding: 10px 16px 18px; background: var(--soft); border-radius: 0 0 14px 14px; margin: 0 0 18px; border: 1px solid rgba(124,107,184,0.08); border-top: none; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 640px){ .match-grid { grid-template-columns: 1fr; } }
+  .match-col h4 { font-size: 13px; color: var(--coral); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; font-weight: 700; }
+  .match-item { background: var(--coral-light); border: 1.5px solid var(--coral); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; cursor: grab; font-size: 14.5px; font-weight: 600; transition: all 0.2s ease; touch-action: none; }
+  .match-item:hover { background: var(--coral); color: #fff; transform: translateX(4px); }
+  .match-item.dragging { opacity: 0.4; }
+  .match-item.matched { display: none; }
+  .match-item.ghost { position: fixed; pointer-events: none; z-index: 1000; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .match-target { background: #fff; border: 2px dashed rgba(124,107,184,0.3); padding: 12px 16px; border-radius: 12px; margin-bottom: 10px; min-height: 48px; font-size: 14.5px; display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: all 0.2s; flex-wrap: wrap; }
+  .match-target .term { font-weight: 600; color: var(--purple); }
+  .match-target.drag-over { background: var(--purple-light); border-style: solid; }
+  .match-target.filled { background: var(--purple-light); border-style: solid; }
+  .match-target .matched-label { background: var(--coral); color: #fff; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .match-target.correct { background: #e8f5e8; border-color: var(--success); }
+  .match-target.incorrect { background: #fbe9e7; border-color: var(--error); }
+
+  .hint-input { display: inline-flex; align-items: center; flex-wrap: wrap; max-width: calc(100% - 8px); margin: 0 4px; vertical-align: middle; }
+  .hint-input .first-letter { background: var(--purple); color: #fff; font-weight: 700; padding: 6px 10px; border-radius: 8px 0 0 8px; font-size: 15px; }
+  .hint-input input { border: 2px solid rgba(124,107,184,0.2); border-left: none; border-radius: 0 8px 8px 0; padding: 6px 10px; font-size: 15px; font-family: inherit; font-weight: 600; width: 130px; min-width: 60px; max-width: 100%; outline: none; transition: border-color 0.2s; }
+  .hint-input input:focus { border-color: var(--purple); }
+  .hint-input .answer-key { white-space: normal; }
+  .hint-input.correct input { border-color: var(--success); background: #e8f5e8; }
+  .hint-input.incorrect input { border-color: var(--error); background: #fbe9e7; }
+
+  details.text-details { background: var(--soft); border-radius: 16px; padding: 8px 20px; border: 1px solid rgba(124,107,184,0.1); }
+  details.text-details summary { cursor: pointer; font-weight: 700; color: var(--purple); padding: 12px 0; font-size: 16px; }
+  details.text-details[open] summary { border-bottom: 1px dashed rgba(124,107,184,0.2); margin-bottom: 16px; }
+  details.text-details p { font-size: 16px; text-align: justify; margin-bottom: 16px; line-height: 1.7; }
+  details.text-details .sub { font-weight: 800; color: var(--ink); margin: 22px 0 10px; font-size: 16.5px; }
+  details.text-details .num-h { font-weight: 800; color: var(--ink); margin: 14px 0 6px; font-size: 15.5px; }
+  b.v { color: var(--purple); font-weight: 700; }
+
+  .actions { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: #fff; border-radius: 999px; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; box-shadow: 0 8px 32px rgba(124,107,184,0.15), 0 2px 8px rgba(124,107,184,0.08); z-index: 100; max-width: calc(100vw - 32px); border: 1px solid rgba(124,107,184,0.1); }
+  .actions .btn { padding: 12px 24px; font-size: 15px; }
+  .actions .ic { width: 18px; height: 18px; flex-shrink: 0; }
+  .btn-primary { background: var(--purple); color: #fff; box-shadow: 0 4px 16px rgba(124,107,184,0.3); }
+  .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+  .btn-secondary, .btn-tertiary { background: #fff; color: var(--purple); border: 1px solid rgba(124,107,184,0.2); }
+  .btn-secondary:hover, .btn-tertiary:hover { background: var(--soft); transform: translateY(-2px); }
+  .btn-tertiary.active { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+  .result-banner { display: none; padding: 20px; border-radius: 16px; margin: 0 0 24px; text-align: center; font-weight: 700; font-size: 18px; }
+  .result-banner.show { display: block; animation: slideIn 0.5s ease; }
+  .result-banner.excellent { background: linear-gradient(135deg, var(--success), #4cae4c); color: #fff; }
+  .result-banner.good { background: linear-gradient(135deg, var(--teal), var(--purple)); color: #fff; }
+  .result-banner.try-again { background: linear-gradient(135deg, var(--coral), var(--coral-dark)); color: #fff; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .footer { text-align: center; padding: 16px 24px 40px; }
+  .footer .foot-emblem { height: 160px; width: auto; margin: 0 auto 12px; display: block; opacity: 0.9; }
+  .footer .copy { font-size: 14px; color: #9a93b5; font-weight: 500; }
+
+  @media (pointer: coarse){
+    .chip { padding: 12px 18px; font-size: 15px; }
+    .match-item { padding: 14px 16px; font-size: 15px; }
+    .match-target { min-height: 56px; font-size: 15px; }
+    .dz { min-width: 120px; min-height: 40px; }
+    .dz .chip { font-size: 14px; }
+    .option { padding: 14px 18px; font-size: 15px; }
+    .blank { width: 120px; font-size: 16px; }
+    .hint-input input { width: 120px; min-width: 60px; font-size: 16px; }
+    .hint-input .first-letter { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 15px; }
+    .btn-small { padding: 12px 18px; font-size: 14px; }
+    .section-title { font-size: 22px; }
+    .card h3 { font-size: 18px; }
+    .sentence { font-size: 15.5px; line-height: 1.7; }
+    .instruction { font-size: 15px; }
+    .cover-card { height: auto; min-height: 320px; }
+    .cover-img { height: 200px; flex: 0 0 200px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 20px 18px; gap: 6px; }
+    .cover-brand { font-size: 12px; letter-spacing: 0.15em; }
+    .cover-text h1 { font-size: 22px; }
+    .cover-text p { font-size: 14px; }
+    .submit-btn { padding: 14px 22px !important; font-size: 15px !important; }
+    .submit-steps { font-size: 14px; }
+    .toast { bottom: 120px; right: 16px; left: 16px; max-width: none; }
+  }
+
+  @media (max-width: 760px){
+    .header { padding: 10px 12px; gap: 12px; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .header::-webkit-scrollbar { display: none; }
+    .brand { flex-shrink: 0; }
+    .brand .brand-text span { display: none; }
+    .brand .logo { width: 36px; height: 36px; }
+    .brand .brand-text b { font-size: 15px; }
+    .progress-wrap { flex-shrink: 0; }
+    .progress-bar { width: 60px; }
+    .nav { flex: 0 0 auto; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; }
+    .nav a { font-size: 12px; padding: 6px 12px; white-space: nowrap; }
+    .actions { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; max-width: calc(100vw - 24px); padding: 8px; gap: 8px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .actions::-webkit-scrollbar { display: none; }
+    .actions .btn { flex: 0 0 auto; padding: 10px 14px; font-size: 12px; white-space: nowrap; }
+    .actions .ic { width: 14px; height: 14px; }
+    .submit-wrap { flex-direction: column; align-items: stretch; }
+    .submit-btn { width: 100%; justify-content: center; }
+    .stream-info { min-width: 0; }
+    .submit-steps { flex-direction: column; gap: 10px; padding: 14px 16px; margin: 14px 0 12px; }
+    .submit-step { flex: 0 0 auto; min-width: 0; gap: 10px; }
+    .submit-step .step-num { width: 22px; height: 22px; font-size: 12px; flex-shrink: 0; }
+    .submit-step .step-text { font-size: 15.5px; line-height: 1.5; }
+    .toast { bottom: 110px; }
+    .cover-card { height: auto; min-height: 340px; }
+    .cover-img { height: 210px; flex: 0 0 210px; }
+    .cover-text { height: auto; flex: 1 1 auto; padding: 14px 22px 20px; gap: 6px; }
+    .hint-input { max-width: calc(100% - 4px); }
+  }
+
+.video-wrap{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
+.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.wordorder{background:var(--soft);border-radius:14px;padding:12px 14px;margin-bottom:12px}
+.wordorder .wo-num{font-weight:700;color:var(--purple);margin-bottom:6px}
+.wordorder .wo-bank{margin-bottom:10px;padding:10px;min-height:56px}
+.wo-target{min-height:84px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;align-content:flex-start;padding:8px 10px 38px;border:2px dashed var(--purple);border-radius:12px;background:rgba(255,255,255,.85);transition:all .2s}
+.wo-target.drag-over{background:var(--teal-light)}
+.wordorder.correct .wo-target{border:2px solid var(--success)}
+.wordorder.incorrect .wo-target{border:2px solid var(--error);background:#fbe9e7}
+.wordorder .answer-key{display:block;margin-top:8px}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <g id="footerArt">
+    <path d="M170 30 C100 30 30 75 30 130 C30 190 95 232 175 232 C230 232 260 205 300 205 C340 205 370 230 425 230 C505 230 570 185 570 130 C570 75 505 30 428 30 C370 30 340 55 300 55 C260 55 230 30 170 30 Z" fill="#7263b3"></path>
+    <circle cx="170" cy="130" r="78" fill="none" stroke="#ffffff" stroke-width="4"></circle>
+    <g fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M170 78 C182 90 188 106 188 120 C188 132 184 142 178 150 L162 150 C156 142 152 132 152 120 C152 106 158 90 170 78 Z"></path>
+      <circle cx="170" cy="112" r="9"></circle>
+      <path d="M152 132 L138 150 L152 150"></path><path d="M188 132 L202 150 L188 150"></path><path d="M148 158 q11 10 22 0 q11 10 22 0"></path>
+    </g>
+    <path id="fArc" d="M75 130 A95 95 0 0 0 265 130" fill="none"></path>
+    <text fill="#ffffff" font-size="19" font-weight="700" letter-spacing="1" font-family="Inter, Segoe UI, Arial, sans-serif">
+      <textpath href="#fArc" startOffset="50%" text-anchor="middle">Advanced Booster</textpath>
+    </text>
+    <g fill="#ffffff" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="29">
+      <text x="305" y="108">@daria_talanova</text>
+      <text x="305" y="148">© Daria Talanova</text>
+      <text x="305" y="188">dariatalanova.com</text>
+    </g>
+    <g fill="none" stroke="#ffffff" stroke-width="3.5">
+      <circle cx="515" cy="62" r="13"></circle><ellipse cx="515" cy="62" rx="23" ry="6.5" transform="rotate(-18 515 62)"></ellipse>
+    </g>
+    <g fill="#ffffff"><circle cx="262" cy="95" r="3.5"></circle><circle cx="282" cy="170" r="3.5"></circle><circle cx="520" cy="122" r="3.5"></circle><circle cx="430" cy="202" r="3.5"></circle></g>
+  </g>
+</svg>
+
+<header class="header">
+  <div class="brand">
+    <svg class="logo" viewBox="0 0 100 100" aria-label="Advanced Booster logo">
+      <circle cx="50" cy="50" r="48" fill="#7c6bb8"></circle>
+      <g fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 20 C59 29 63 40 63 49 C63 57 60 64 55 69 L45 69 C40 64 37 57 37 49 C37 40 41 29 50 20 Z"></path>
+        <circle cx="50" cy="45" r="6"></circle>
+        <path d="M37 53 L27 65 L37 65"></path><path d="M63 53 L73 65 L63 65"></path>
+        <path d="M42 76 q4 4 8 0 q4 4 8 0"></path>
+      </g>
+    </svg>
+    <div class="brand-text"><b>Advanced Booster</b><span>by Daria Talanova</span></div>
+  </div>
+  <nav class="nav"><a class="links-btn" href="#links">🔗 Links</a><a href="#video">Video</a><a href="#text">Text</a><a href="#vocabulary">Vocabulary</a><a href="#revision">Revision</a><a href="#speaking">Speaking</a></nav>
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="score-badge" id="scoreBadge">0 / 0</div>
+  </div>
+</header>
+
+<div class="cover-wrap"><div class="cover-card"><div class="cover-img"><svg viewBox="0 0 900 250" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" role="img" aria-label="How to Fix Your Attention Span — cover"><rect width="900" height="250" fill="#cfc9ec"/><path d="M318 108 L640 46 L640 176 Z" fill="#ffd36e" opacity=".6"/><circle cx="260" cy="105" r="50" fill="#7c6bb8"/><path d="M150 250 q0-82 110-82 q110 0 110 82z" fill="#7c6bb8"/><circle cx="680" cy="112" r="36" fill="none" stroke="#e8705f" stroke-width="11"/><circle cx="680" cy="112" r="12" fill="#e8705f"/><rect x="430" y="188" width="64" height="40" rx="12" fill="#3f9d9a"/><rect x="90" y="30" width="56" height="38" rx="11" fill="#e8705f"/><circle cx="110" cy="190" r="20" fill="#3f9d9a"/><circle cx="560" cy="30" r="15" fill="#e8705f"/><rect x="790" y="40" width="46" height="30" rx="9" fill="#7c6bb8"/><rect x="780" y="180" width="60" height="38" rx="11" fill="#3f9d9a"/></svg></div><div class="cover-text"><span class="cover-brand">Advanced Booster</span><h1>How to Fix Your Attention Span</h1><p>Why our focus keeps slipping — and what actually helps</p></div></div></div> <div class="container">
+
+  <section class="section" id="links" style="margin-bottom:26px"><div class="card"><h3>Lesson links</h3><div class="links"><a class="pur" href="https://drive.google.com/file/d/1k_5YO4NsNFnpX5GTus_7pMh4OqHuMNyQ/view?usp=sharing" target="_blank">📄 Vocabulary PDF</a><a class="alt" href="https://quizlet.com/ae/1229459143/how-to-fix-your-attention-span-flash-cards/?i=zxpms&x=1jqt" target="_blank">🃏 Quizlet</a></div></div></section> <div class="result-banner" id="resultBanner"></div>
+
+  <section class="section" id="video"><div class="section-title"><span class="num">1</span> Video</div><div class="card"><h3>1.1 Watch the video</h3><div class="video-wrap"><iframe src="https://drive.google.com/file/d/1bLdOLKf-fpM84wuP5W-T06dxIVHrGKlC/preview" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="How to fix your attention span — video"></iframe></div><div class="links" style="margin-top:14px"><a class="pur" href="https://drive.google.com/file/d/1bLdOLKf-fpM84wuP5W-T06dxIVHrGKlC/view?usp=drive_link" target="_blank">🎬 Open the video in a new tab</a><a class="alt" href="https://www.youtube.com/watch?v=N2uQWfV6Jr4" target="_blank">▶ Watch on YouTube</a></div></div></section><section class="section" id="text"><div class="section-title"><span class="num">2</span> Text</div><div class="card"><h3>2.1 Look through the text to make sure you got everything</h3><details class="text-details"><summary>📖 How to Fix Your Attention Span (click to expand)</summary><p>In 2016, a group of researchers— oh, a new photo. These researchers <b class="v">set out to</b> measure— did I get that email? They measured— what was that? Sorry. The researchers set out to measure the length of, well, our <b class="v">attention spans</b>. Participants downloaded a program that tracked how long they stayed focused on a single computer application before switching to another. On average, users <b class="v">stuck with</b> a single task for 40 seconds, down from 75 seconds, measured just five years earlier. This doesn’t necessarily mean our attention spans are fundamentally getting shorter. Rather, in today’s world, our attention is <b class="v">being pulled in</b> more directions than ever before. This can make finding focus— for work, school, and even the things we love— feel almost impossible. Thankfully, there are ways we can improve and better protect our attention spans, both online and off.</p><p>Our brains are constantly receiving <b class="v">a flood of</b> information, from sensory input to environmental cues to internal thoughts. <b class="v">Filtering through</b> it all relies on several brain regions. The prefrontal cortex helps us decide what to pay attention to, while the parietal cortex shines a mental flashlight on that prioritized stream of information while ignoring the rest. The challenge of <b class="v">sustained attention</b> is keeping that flashlight focused in one place. The brain is continuously monitoring all these competing signals. And it redirects your focus if anything is flagged as particularly novel, unexpected, or <b class="v">emotionally charged</b>— whether it’s a knock on the door, a notification, or even <b class="v">a passing thought</b>. This ability to constantly <b class="v">scan our environments</b> and quickly refocus was key for human survival. So, while frustrating, <b class="v">getting distracted</b> is <b class="v">inevitable</b>. And our baseline ability to manage distractions can vary based on factors like genetics and brain differences. But no matter your starting point, there are ways to improve your ability to stay focused.</p><p>First, tasks that appropriately challenge you tend to hold your attention best. For example, you might focus better when working on a more difficult, intricately patterned puzzle than an easier one. Of course, we don’t always have a choice in what needs to get done. In these situations, it’s helpful to remember that if focusing feels like work, that’s because it is. In fact, some researchers theorize that attention is a limited resource. When you start focusing on something, this resource is at its highest, but it <b class="v">depletes</b> over time, leading to more mistakes and increasing the chance you’ll be distracted. Multitasking only increases the demand for this resource, exhausting attentional stores more quickly. That’s why focusing on one task and intentionally building in breaks can be helpful.</p><p>Studies even show a momentary break, to get a snack or just <b class="v">zone out</b>, can reset this attentional resource. And this strategy may be extra <b class="v">beneficial</b> when studying or practicing a new skill. During breaks, our minds replay the neural activity patterns of what you just learned, helping <b class="v">to solidify the memory</b> for the long term. Speaking of studying, stress, sleepiness, and poor mood can all weaken our ability to block out distractions. So activities that reduce stress, like exercising, chatting with friends, or getting a good night’s sleep, also make it easier to stay focused.</p><p>And nature may offer <b class="v">an extra boost</b>. In one study, a 15-minute walk outdoors led to greater improvements in lab-based attention tasks than the same walk indoors. Another effective strategy is mindfulness meditation. This practice is all about staying in the present moment through exercises like spending 12 minutes focusing on the sensations of breathing, which can help train your attention over time.</p><p>But before you go take a walk, grab a snack, or learn to meditate, there’s something much easier you can do right in this moment: get rid of distractions. It’s impossible to remove every distraction, after all, our own <b class="v">wandering minds</b> are often the biggest <b class="v">culprits</b>. But one recent survey estimated that Americans now check their phones around 200 times a day. The distractions on our screens are designed to grab and hold attention. So, remember to be kind to yourself. While we can’t always control every factor that <b class="v">pulls at our attention</b>, finding a quiet environment, closing extra tabs, and even blocking certain apps can give your brain the best chance at focusing in.</p></details></div></section><section class="section" id="vocabulary"><div class="section-title"><span class="num">3</span> Vocabulary</div><div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vocabulary">
+        <rect width="1600" height="320" fill="#f4f2fb"></rect>
+        <ellipse cx="300" cy="60" rx="260" ry="70" fill="#e3def5" opacity=".9"></ellipse>
+        <ellipse cx="1250" cy="270" rx="300" ry="80" fill="#d4ebea" opacity=".9"></ellipse>
+        <ellipse cx="800" cy="300" rx="240" ry="60" fill="#fae0dc" opacity=".8"></ellipse>
+        <g transform="translate(120,110)"><rect x="0" y="60" width="150" height="26" rx="6" fill="#7c6bb8"></rect><rect x="10" y="32" width="150" height="26" rx="6" fill="#3f9d9a"></rect><rect x="4" y="4" width="150" height="26" rx="6" fill="#e8705f"></rect></g>
+        <g transform="translate(360,90)" stroke="#5f4fa1" stroke-width="6" fill="#fff" stroke-linejoin="round"><path d="M0 40 q60 -26 110 0 l0 90 q-50 -26 -110 0 z"></path><path d="M220 40 q-60 -26 -110 0 l0 90 q50 -26 110 0 z"></path><line x1="110" y1="40" x2="110" y2="128"></line></g>
+        <g transform="translate(640,80)"><rect x="0" y="0" width="26" height="150" rx="12" fill="#e8705f" transform="rotate(18 13 75)"></rect><path d="M60 150 l14 -34 l20 20 z" fill="#f4c37a"></path></g>
+        <g transform="translate(820,90)" fill="#7c6bb8"><path d="M60 0 q50 0 60 40 q30 6 30 34 q0 30 -34 34 l-8 26 l-16 -26 q-40 -2 -48 -34 q-8 -34 16 -74z" opacity=".9"></path><path d="M40 60 q20 -18 40 0 M40 84 q20 18 40 0" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"></path></g>
+        <g transform="translate(1060,90)" fill="#3f9d9a"><circle cx="60" cy="52" r="44"></circle><rect x="52" y="92" width="16" height="34" rx="8"></rect><path d="M60 20 q-16 20 0 34 q16 -14 0 -34z" fill="#fff"></path></g>
+        <g transform="translate(1280,100)" fill="#e8705f"><path d="M0 40 q0 -40 50 -40 q50 0 50 40 q0 34 -50 34 l-16 14 l2 -14 q-36 -6 -36 -34z"></path><path d="M120 70 q0 -30 38 -30 q38 0 38 30 q0 26 -38 26 l-12 11 l1 -11 q-27 -5 -27 -26z" fill="#7c6bb8"></path></g>
+        <g fill="#3f9d9a"><path d="M520 40 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path><path d="M1180 250 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path></g>
+        <g fill="#e8705f"><path d="M980 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path><path d="M240 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path></g>
+      </svg>
+    </div><div class="card"><h3>3.1 Study the vocabulary (link to PDF file)</h3><div class="links"><a class="pur" href="https://drive.google.com/file/d/1k_5YO4NsNFnpX5GTus_7pMh4OqHuMNyQ/view?usp=sharing" target="_blank">Follow the link</a></div><h3 style="margin-top:20px">3.2 Quizlet</h3><div class="links"><a class="alt" href="https://quizlet.com/ae/1229459143/how-to-fix-your-attention-span-flash-cards/?i=zxpms&x=1jqt" target="_blank">Follow the link</a></div></div><div class="card" data-task="dragfill" data-id="v3-3"><h3>3.3 Fill in the gaps</h3><div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div><div class="bank"><div class="chip" data-word="stick with">stick with</div><div class="chip" data-word="sustained attention">sustained attention</div><div class="chip" data-word="pull at our attention">pull at our attention</div><div class="chip" data-word="attention spans">attention spans</div><div class="chip" data-word="filter through">filter through</div><div class="chip" data-word="a flood of">a flood of</div><div class="chip" data-word="pulled in">pulled in</div><div class="chip" data-word="scan the environment">scan the environment</div><div class="chip" data-word="culprit">culprit</div><div class="chip" data-word="attract more attention">attract more attention</div></div><ul style="list-style:none; padding-left:0;"><li class="sentence">1. Social media notifications constantly <span class="dz" data-answer="pull at our attention"></span>, even when we’re trying to focus.</li><li class="sentence">2. Children’s <span class="dz" data-answer="attention spans"></span> are usually shorter than adults’.</li><li class="sentence">3. Learning a new skill takes time, so it’s important to <span class="dz" data-answer="stick with"></span> it.</li><li class="sentence">4. I was immediately <span class="dz" data-answer="pulled in"></span> by the documentary because the story was so interesting.</li><li class="sentence">5. We receive <span class="dz" data-answer="a flood of"></span> information every day, which makes it difficult to focus.</li><li class="sentence">6. Our brains have to <span class="dz" data-answer="filter through"></span> thousands of pieces of information every minute.</li><li class="sentence">7. Reading a book requires <span class="dz" data-answer="sustained attention"></span>, especially when the topic is complex.</li><li class="sentence">8. Emotionally charged news stories tend to <span class="dz" data-answer="attract more attention"></span>.</li><li class="sentence">9. Lack of sleep is often the main <span class="dz" data-answer="culprit"></span> behind poor concentration.</li><li class="sentence">10. Our brains constantly <span class="dz" data-answer="scan the environment"></span> for anything unusual or potentially dangerous.</li></ul><div class="card-actions"> <button class="btn btn-check btn-small" data-card="v3-3">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="v3-3">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="v3-3">↻ Reset</button> <span class="card-score" data-score="v3-3"></span> </div></div><div class="card" data-task="match" data-id="v3-4"><h3>3.4 Match the words and phrases to their meanings</h3><div class="instruction">💡 Drag each meaning to the matching word or phrase (or tap the meaning, then tap the phrase). Click the meaning to return it.</div><div class="match-grid"><div class="match-col"><h4>Phrase</h4><div class="match-target" data-answer="the cause of a problem; the person responsible"><span class="term">a culprit</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to make a memory stronger"><span class="term">to solidify a memory</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to continue doing something"><span class="term">to stick with something</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to become interested or attracted"><span class="term">to be pulled in</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="a large amount of something"><span class="term">a flood of</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to attract or demand our attention"><span class="term">to pull at our attention</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to cause strong emotions"><span class="term">to be emotionally charged</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="a brief thought"><span class="term">a passing thought</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to look around and notice things"><span class="term">to scan the environment</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="unavoidable; certain to happen"><span class="term">inevitable</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to use up; to reduce"><span class="term">to deplete</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to stop paying attention; to daydream"><span class="term">to zone out</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to intend or plan to do something"><span class="term">to set out to do something</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="a mind that keeps switching between thoughts"><span class="term">a wandering mind</span><span class="matched-label" style="display:none"></span></div><div class="match-target" data-answer="to pass through gradually"><span class="term">to filter through</span><span class="matched-label" style="display:none"></span></div></div><div class="match-col"><h4>Meaning</h4><div class="bank" style="display:block"><div class="match-item" data-word="a mind that keeps switching between thoughts">a mind that keeps switching between thoughts</div><div class="match-item" data-word="to attract or demand our attention">to attract or demand our attention</div><div class="match-item" data-word="to pass through gradually">to pass through gradually</div><div class="match-item" data-word="to become interested or attracted">to become interested or attracted</div><div class="match-item" data-word="to cause strong emotions">to cause strong emotions</div><div class="match-item" data-word="to look around and notice things">to look around and notice things</div><div class="match-item" data-word="the cause of a problem; the person responsible">the cause of a problem; the person responsible</div><div class="match-item" data-word="to stop paying attention; to daydream">to stop paying attention; to daydream</div><div class="match-item" data-word="a large amount of something">a large amount of something</div><div class="match-item" data-word="a brief thought">a brief thought</div><div class="match-item" data-word="to make a memory stronger">to make a memory stronger</div><div class="match-item" data-word="to continue doing something">to continue doing something</div><div class="match-item" data-word="to intend or plan to do something">to intend or plan to do something</div><div class="match-item" data-word="unavoidable; certain to happen">unavoidable; certain to happen</div><div class="match-item" data-word="to use up; to reduce">to use up; to reduce</div></div></div></div><div class="card-actions"> <button class="btn btn-check btn-small" data-card="v3-4">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="v3-4">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="v3-4">↻ Reset</button> <span class="card-score" data-score="v3-4"></span> </div></div><div class="card" data-task="wordorder" data-id="v3-5"><h3>3.5 Put the words into correct order</h3><div class="instruction">💡 Drag the words from the bank into the empty area in the correct order (or tap a word, then tap the target area). Click a word in the answer area to send it back.</div><div class="wordorder" data-answer="I|was|pulled|in|by|the|story|and|couldn’t|stop|reading."><div class="wo-num">1.</div><div class="wo-bank bank"><div class="chip" data-word="in">in</div><div class="chip" data-word="the">the</div><div class="chip" data-word="pulled">pulled</div><div class="chip" data-word="by">by</div><div class="chip" data-word="and">and</div><div class="chip" data-word="story">story</div><div class="chip" data-word="reading.">reading.</div><div class="chip" data-word="was">was</div><div class="chip" data-word="couldn’t">couldn’t</div><div class="chip" data-word="I">I</div><div class="chip" data-word="stop">stop</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="We|received|a|flood|of|information|after|the|meeting."><div class="wo-num">2.</div><div class="wo-bank bank"><div class="chip" data-word="We">We</div><div class="chip" data-word="after">after</div><div class="chip" data-word="a">a</div><div class="chip" data-word="meeting.">meeting.</div><div class="chip" data-word="received">received</div><div class="chip" data-word="of">of</div><div class="chip" data-word="flood">flood</div><div class="chip" data-word="information">information</div><div class="chip" data-word="the">the</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="It|takes|time|for|the|brain|to|filter|through|all|this|information."><div class="wo-num">3.</div><div class="wo-bank bank"><div class="chip" data-word="to">to</div><div class="chip" data-word="brain">brain</div><div class="chip" data-word="all">all</div><div class="chip" data-word="time">time</div><div class="chip" data-word="this">this</div><div class="chip" data-word="through">through</div><div class="chip" data-word="for">for</div><div class="chip" data-word="the">the</div><div class="chip" data-word="information.">information.</div><div class="chip" data-word="takes">takes</div><div class="chip" data-word="It">It</div><div class="chip" data-word="filter">filter</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="Reading|a|long|article|requires|sustained|attention."><div class="wo-num">4.</div><div class="wo-bank bank"><div class="chip" data-word="a">a</div><div class="chip" data-word="article">article</div><div class="chip" data-word="sustained">sustained</div><div class="chip" data-word="attention.">attention.</div><div class="chip" data-word="Reading">Reading</div><div class="chip" data-word="long">long</div><div class="chip" data-word="requires">requires</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="I|get|distracted|easily|when|I|work|from|home."><div class="wo-num">5.</div><div class="wo-bank bank"><div class="chip" data-word="from">from</div><div class="chip" data-word="I">I</div><div class="chip" data-word="when">when</div><div class="chip" data-word="I">I</div><div class="chip" data-word="easily">easily</div><div class="chip" data-word="distracted">distracted</div><div class="chip" data-word="home.">home.</div><div class="chip" data-word="get">get</div><div class="chip" data-word="work">work</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="Stress|can|deplete|your|energy."><div class="wo-num">6.</div><div class="wo-bank bank"><div class="chip" data-word="deplete">deplete</div><div class="chip" data-word="your">your</div><div class="chip" data-word="Stress">Stress</div><div class="chip" data-word="energy.">energy.</div><div class="chip" data-word="can">can</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="I|sometimes|zone|out|during|long|meetings."><div class="wo-num">7.</div><div class="wo-bank bank"><div class="chip" data-word="sometimes">sometimes</div><div class="chip" data-word="zone">zone</div><div class="chip" data-word="I">I</div><div class="chip" data-word="during">during</div><div class="chip" data-word="meetings.">meetings.</div><div class="chip" data-word="long">long</div><div class="chip" data-word="out">out</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="A|cup|of|coffee|gives|me|an|extra|boost|in|the|morning."><div class="wo-num">8.</div><div class="wo-bank bank"><div class="chip" data-word="boost">boost</div><div class="chip" data-word="an">an</div><div class="chip" data-word="extra">extra</div><div class="chip" data-word="in">in</div><div class="chip" data-word="coffee">coffee</div><div class="chip" data-word="A">A</div><div class="chip" data-word="of">of</div><div class="chip" data-word="morning.">morning.</div><div class="chip" data-word="cup">cup</div><div class="chip" data-word="me">me</div><div class="chip" data-word="gives">gives</div><div class="chip" data-word="the">the</div></div><div class="wo-target"></div></div><div class="wordorder" data-answer="Having|a|wandering|mind|makes|it|difficult|to|concentrate."><div class="wo-num">9.</div><div class="wo-bank bank"><div class="chip" data-word="makes">makes</div><div class="chip" data-word="difficult">difficult</div><div class="chip" data-word="wandering">wandering</div><div class="chip" data-word="concentrate.">concentrate.</div><div class="chip" data-word="it">it</div><div class="chip" data-word="mind">mind</div><div class="chip" data-word="to">to</div><div class="chip" data-word="Having">Having</div><div class="chip" data-word="a">a</div></div><div class="wo-target"></div></div><div class="card-actions"> <button class="btn btn-check btn-small" data-card="v3-5">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="v3-5">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="v3-5">↻ Reset</button> <span class="card-score" data-score="v3-5"></span> </div></div><div class="card" data-task="dragfill" data-id="v3-6"><h3>3.6 Fill in the gaps</h3><div class="instruction">💡 Drag each phrase from the bank into the correct gap (or tap the phrase, then tap the gap). Click × on a chip to return it.</div><div class="bank"><div class="chip" data-word="deplete">deplete</div><div class="chip" data-word="extra boost">extra boost</div><div class="chip" data-word="get distracted">get distracted</div><div class="chip" data-word="beneficial">beneficial</div><div class="chip" data-word="a passing thought">a passing thought</div><div class="chip" data-word="inevitable">inevitable</div><div class="chip" data-word="solidify a memory">solidify a memory</div><div class="chip" data-word="zone out">zone out</div><div class="chip" data-word="set out">set out</div><div class="chip" data-word="wandering mind">wandering mind</div></div><ul style="list-style:none; padding-left:0;"><li class="sentence">1. I often <span class="dz" data-answer="get distracted"></span> by notifications when I’m trying to work.</li><li class="sentence">2. In today’s digital world, distractions are almost <span class="dz" data-answer="inevitable"></span>.</li><li class="sentence">3. Constantly switching between tasks can <span class="dz" data-answer="deplete"></span> your mental energy.</li><li class="sentence">4. I was so tired during the meeting that I started to <span class="dz" data-answer="zone out"></span>.</li><li class="sentence">5. Taking short breaks throughout the day can be <span class="dz" data-answer="beneficial"></span> for your concentration.</li><li class="sentence">6. Getting enough sleep helps <span class="dz" data-answer="solidify a memory"></span> and makes it easier to recall information later.</li><li class="sentence">7. Listening to upbeat music in the morning gives me an <span class="dz" data-answer="extra boost"></span> of energy.</li><li class="sentence">8. A <span class="dz" data-answer="wandering mind"></span> can make it difficult to finish even simple tasks.</li><li class="sentence">9. She <span class="dz" data-answer="set out"></span> to improve her concentration by reading for 30 minutes every day.</li><li class="sentence">10. It was just <span class="dz" data-answer="a passing thought"></span>, but now I can’t stop thinking about it.</li></ul><div class="card-actions"> <button class="btn btn-check btn-small" data-card="v3-6">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="v3-6">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="v3-6">↻ Reset</button> <span class="card-score" data-score="v3-6"></span> </div></div><div class="card"><h3>3.7 Choose the correct preposition</h3><div class="links"><a class="alt" href="https://wordwall.net/resource/122777466?wwmethod=link" target="_blank">🧩 Open the Wordwall activity</a></div></div><div class="card" data-task="typehint" data-id="v3-8"><h3>3.8 Paraphrase the expression in bold using the phrases from vocabulary</h3><div class="instruction">💡 The first letters are given. Type the complete phrase.</div><div class="sentence">1. The researchers <b>decided</b> <span class="hint-input"><span class="first-letter">s… o…</span><input type="text" data-answer="set out|set out to" style="width:107px"></span> to investigate how long people can concentrate on one task.</div><div class="sentence">2. It’s important to <b>continue doing</b> <span class="hint-input"><span class="first-letter">s… w…</span><input type="text" data-answer="stick with" style="width:140px"></span> something even when it becomes challenging.</div><div class="sentence">3. I was so <b>interested in</b> <span class="hint-input"><span class="first-letter">p… i…</span><input type="text" data-answer="pulled in" style="width:129px"></span> the documentary that I watched it until the end.</div><div class="sentence">4. We are constantly exposed to <b>a large amount of</b> <span class="hint-input"><span class="first-letter">a… f…</span><input type="text" data-answer="a flood of|flood of|a flood" style="width:140px"></span> information online.</div><div class="sentence">5. Our brains need time to <b>process</b> <span class="hint-input"><span class="first-letter">f… t…</span><input type="text" data-answer="filter through" style="width:184px"></span> all the information we receive.</div><div class="sentence">6. Sometimes a <b>brief thought</b> <span class="hint-input"><span class="first-letter">p… t…</span><input type="text" data-answer="passing thought|a passing thought" style="width:195px"></span> can turn into a big idea.</div><div class="sentence">7. Constant stress can <b>use up</b> <span class="hint-input"><span class="first-letter">d…</span><input type="text" data-answer="deplete" style="width:107px"></span> your mental energy.</div><div class="sentence">8. Regular exercise is <b>good for</b> <span class="hint-input"><span class="first-letter">b…</span><input type="text" data-answer="beneficial|beneficial to|beneficial for" style="width:140px"></span> your mental health.</div><div class="sentence">9. A short break can give you <b>additional energy</b> <span class="hint-input"><span class="first-letter">e… b…</span><input type="text" data-answer="an extra boost|extra boost" style="width:184px"></span> to continue working.</div><div class="sentence">10. Notifications constantly <b>demand</b> our attention <span class="hint-input"><span class="first-letter">p… a…</span><input type="text" data-answer="pull at" style="width:107px"></span>, even when we’re busy.</div><div class="card-actions"> <button class="btn btn-check btn-small" data-card="v3-8">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="v3-8">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="v3-8">↻ Reset</button> <span class="card-score" data-score="v3-8"></span> </div></div><div class="card"><h3>3.9 Write your own sentences using vocabulary you liked <i>(Optional)</i></h3><textarea class="idea-box" placeholder="Write your sentences here..."></textarea><div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answer in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your answer will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="3.9">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div></section><section class="section" id="revision"><div class="section-title"><span class="num">4</span> Revision</div><div class="card" data-task="typeblank" data-id="r4-1"><h3>4.1 Complete the gaps with the words</h3><div class="instruction">💡 Type the correct word into each gap. Sometimes you need to change the form.</div><div class="sentence">1. Children’s <input class="blank" data-answer="attention" style="width:129px;"> spans are usually shorter than adults’.</div><div class="sentence">2. Learning a new skill takes time, so it’s important to <input class="blank" data-answer="stick" style="width:85px;"> with it.</div><div class="sentence">3. I was immediately pulled <input class="blank" data-answer="in" style="width:80px;"> by the documentary because the story was so interesting.</div><div class="sentence">4. We receive a <input class="blank" data-answer="flood" style="width:85px;"> of information every day, which makes it difficult to focus.</div><div class="sentence">5. Our brains have to <input class="blank" data-answer="filter" style="width:96px;"> through thousands of pieces of information every minute.</div><div class="sentence">6. Our brains constantly <input class="blank" data-answer="scan" style="width:80px;"> the environment for anything unusual or potentially dangerous.</div><div class="sentence">7. I often get <input class="blank" data-answer="distracted" style="width:140px;"> by notifications when I’m trying to work.</div><div class="sentence">8. In today’s digital world, distractions are almost <input class="blank" data-answer="inevitable" style="width:140px;">.</div><div class="sentence">9. I was so tired during the meeting that I started to <input class="blank" data-answer="zone" style="width:80px;"> out.</div><div class="sentence">10. Taking short breaks throughout the day can be <input class="blank" data-answer="beneficial" style="width:140px;"> for your concentration.</div><div class="sentence">11. Listening to upbeat music in the morning gives me an <input class="blank" data-answer="extra" style="width:85px;"> boost of energy.</div><div class="sentence">12. A wandering <input class="blank" data-answer="mind" style="width:80px;"> can make it difficult to finish even simple tasks.</div><div class="sentence">13. It was just a passing <input class="blank" data-answer="thought" style="width:107px;">, but now I can’t stop thinking about it.</div><div class="card-actions"> <button class="btn btn-check btn-small" data-card="r4-1">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="r4-1">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="r4-1">↻ Reset</button> <span class="card-score" data-score="r4-1"></span> </div></div><div class="card" data-task="dragfill" data-id="r4-2"><h3>4.2 Complete each set with one word which fits all three gaps</h3><div class="instruction">💡 Drag each word from the bank into the gap above each group of sentences. One word fits all three sentences in the group. Click × on a chip to return it.</div><div class="bank"><div class="chip" data-word="stick">stick</div><div class="chip" data-word="solidify">solidify</div><div class="chip" data-word="beneficial">beneficial</div><div class="chip" data-word="culprit">culprit</div><div class="chip" data-word="passing">passing</div><div class="chip" data-word="zone">zone</div><div class="chip" data-word="flood">flood</div><div class="chip" data-word="pulled">pulled</div><div class="chip" data-word="deplete">deplete</div><div class="chip" data-word="pull">pull</div></div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="pulled"></span></div>1. I didn’t expect to get so ______ in the documentary.<br>2. Social media can easily get us ______ in.<br>3. The story was so interesting that I was completely ______ in.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="stick"></span></div>1. I find it difficult to ______ with a task when I’m tired.<br>2. You need to ______ with your goals, even when things get challenging.<br>3. How long can you ______ with one activity without getting distracted?</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="flood"></span></div>1. We receive a ______ of information every day.<br>2. A ______ of notifications appeared on my screen.<br>3. The internet exposes us to a ______ of different opinions.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="deplete"></span></div>1. Lack of sleep can ______ your energy.<br>2. Stress can ______ your mental resources.<br>3. Working long hours tends to ______ your motivation.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="zone"></span></div>1. Some people ______ out during long meetings.<br>2. I sometimes ______ out when I’m reading something boring.<br>3. It’s easy to ______ out when someone talks for too long.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="solidify"></span></div>1. Repetition helps ______ a memory.<br>2. Talking about an experience can help ______ it in your mind.<br>3. Writing things down helps ______ what you’ve learned.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="pull"></span></div>1. Notifications constantly ______ at our attention.<br>2. Bright colours and moving images ______ at our attention.<br>3. Advertisements are designed to ______ at our attention.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="culprit"></span></div>1. A main ______ behind poor concentration is stress.<br>2. Who was the ______ responsible for the mistake?<br>3. Scientists are trying to identify the ______ behind this problem.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="beneficial"></span></div>1. Regular exercise is ______ to both physical and mental health.<br>2. Is working from home ______ for productivity?<br>3. Spending time outdoors can be extremely ______.</div><div class="sentence"><div style="margin-bottom:8px"><span class="dz" data-answer="passing"></span></div>1. Sometimes a ______ thought can turn into a great idea.<br>2. It was just a ______ comment, but it made me think.<br>3. A ______ glance at the screen distracted me.</div><div class="card-actions"> <button class="btn btn-check btn-small" data-card="r4-2">✓ Check</button> <button class="btn btn-showanswers btn-small" data-card="r4-2">👁 Show answers</button> <button class="btn btn-resetcard btn-small" data-card="r4-2">↻ Reset</button> <span class="card-score" data-score="r4-2"></span> </div></div><div class="card"><h3>4.3 Complete the sentences with your own ideas. You can also do the task with your Study Buddy. <i>(Optional)</i></h3><p class="sentence">I think people’s <b>attention span</b> has become shorter because...</p><p class="sentence">I’m easily <b>pulled in</b> by stories / videos / conversations that...</p><p class="sentence">I find it difficult to <b>filter through information</b> when...</p><p class="sentence">The most <b>emotionally charged</b> topics to discuss with friends or family are...</p><p class="sentence">I <b>get distracted</b> most easily when...</p><p class="sentence">The things that <b>deplete</b> my energy the most are...</p><p class="sentence">I tend to <b>zone out</b> when people talk about...</p><p class="sentence">One habit I find particularly <b>beneficial</b> for my physical or mental health is...</p><p class="sentence">When I need <b>an extra boost</b> of energy or motivation, I usually...</p><p class="sentence">My mind tends to <b>wander</b> when...</p><textarea class="idea-box" style="margin-top:12px;" placeholder="Write your answers here..."></textarea><div class="submit-steps">
+        <div class="submit-step"><span class="step-num">1</span><span class="step-text"><b>Write</b> your answer in the box above</span></div>
+        <div class="submit-step"><span class="step-num">2</span><span class="step-text">Click <b>Submit for feedback</b> — your answer will be copied automatically</span></div>
+        <div class="submit-step"><span class="step-num">3</span><span class="step-text">In the form that opens, <b>paste</b> (Ctrl+V / ⌘+V) into the "Your answer" field</span></div>
+      </div>
+      <div class="submit-wrap">
+        <button type="button" class="submit-btn" data-form-url="https://forms.gle/oyQgzmBLxSeKP96SA" data-task-label="4.3">
+          📤 Submit for feedback
+        </button>
+        <div class="stream-info">
+          <div class="stream-info-inner">
+            📅 <b>Submissions accepted during this round:</b><br>
+            <span class="dates">October 19 – November 15, 2026</span>
+          </div>
+        </div>
+      </div>
+    </div></section><section class="section" id="speaking"><div class="section-title"><span class="num">5</span> Speaking</div><div class="section-banner">
+      <svg class="banner" viewBox="0 0 1600 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Speaking">
+        <rect width="1600" height="320" fill="#eef7f6"></rect>
+        <ellipse cx="350" cy="70" rx="280" ry="70" fill="#d4ebea" opacity=".9"></ellipse>
+        <ellipse cx="1200" cy="260" rx="300" ry="80" fill="#e3def5" opacity=".9"></ellipse>
+        <ellipse cx="800" cy="40" rx="220" ry="50" fill="#fae0dc" opacity=".8"></ellipse>
+        <g transform="translate(140,90)"><path d="M0 60 q0 -60 80 -60 q80 0 80 60 q0 60 -80 60 l-30 26 l4 -26 q-54 -10 -54 -60z" fill="#7c6bb8"></path><circle cx="50" cy="60" r="8" fill="#fff"></circle><circle cx="80" cy="60" r="8" fill="#fff"></circle><circle cx="110" cy="60" r="8" fill="#fff"></circle></g>
+        <g transform="translate(380,120)"><path d="M0 50 q0 -50 66 -50 q66 0 66 50 q0 50 -66 50 l-24 22 l3 -22 q-45 -8 -45 -50z" fill="#3f9d9a"></path><circle cx="42" cy="50" r="7" fill="#fff"></circle><circle cx="66" cy="50" r="7" fill="#fff"></circle><circle cx="90" cy="50" r="7" fill="#fff"></circle></g>
+        <g transform="translate(620,80)" fill="#e8705f"><rect x="40" y="0" width="36" height="80" rx="18"></rect><path d="M20 60 q0 40 38 40 q38 0 38 -40" fill="none" stroke="#e8705f" stroke-width="10" stroke-linecap="round"></path><line x1="58" y1="100" x2="58" y2="140" stroke="#e8705f" stroke-width="10" stroke-linecap="round"></line></g>
+        <g transform="translate(840,110)"><circle cx="50" cy="40" r="34" fill="#b9a6e0"></circle><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#b9a6e0"></path></g>
+        <g transform="translate(980,110)"><circle cx="50" cy="40" r="34" fill="#8fd0c8"></circle><path d="M10 120 q40 -40 80 0 l0 20 l-80 0z" fill="#8fd0c8"></path></g>
+        <g transform="translate(1160,90)" fill="#d9cdef"><path d="M0 50 q0 -50 70 -50 q70 0 70 50 q0 50 -70 50 l-26 22 l3 -22 q-47 -9 -47 -50z"></path></g>
+        <g transform="translate(1360,130)" fill="#bfe3e0"><path d="M0 40 q0 -40 56 -40 q56 0 56 40 q0 40 -56 40 l-20 18 l2 -18 q-38 -7 -38 -40z"></path></g>
+        <g fill="#e8705f"><path d="M560 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path><path d="M1120 40 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path></g>
+        <g fill="#7c6bb8"><path d="M300 250 l6 15 15 6 -15 6 -6 15 -6 -15 -15 -6 15 -6z"></path><path d="M1480 60 l5 12 12 5 -12 5 -5 12 -5 -12 -12 -5 12 -5z"></path></g>
+      </svg>
+    </div><div class="card warm"><h3>Thursday</h3><p class="sentence">According to the video, why do people find it increasingly difficult to stay focused?</p><h3>Friday</h3><p class="sentence">What distracts you the most: your phone, other people, background noise, or your own thoughts?</p><p class="sentence"><b>or</b></p><p class="sentence">Do you think children today are more easily distracted than previous generations? Why?</p></div><div class="card"><h3>Study Buddy</h3><p class="sentence">1. Have you ever <b class="v">set out to</b> do something productive but ended up spending hours on something completely different? What happened?</p><p class="sentence">2. Do you think your <b class="v">attention span</b> has changed over the last few years? In what way?</p><p class="sentence">3. Do you find it harder to concentrate when you’re dealing with something <b class="v">emotionally charged</b>?</p><p class="sentence">4. Do you tend to <b class="v">scan your environment</b> when you’re in a new place, or do you pay little attention to what’s happening around you?</p><p class="sentence">5. What do you usually do when you <b class="v">get distracted</b> while working or studying?</p><p class="sentence">6. When was the last time you completely <b class="v">zoned out</b>? What were you doing?</p></div></section>
+
+</div>
+
+<footer class="footer">
+  <svg class="foot-emblem" viewBox="0 0 600 260" role="img" aria-label="Advanced Booster — Daria Talanova"><use href="#footerArt"></use></svg>
+  <div class="copy">© Daria Talanova · Advanced Booster · dariatalanova.com</div>
+</footer>
+
+<div class="actions">
+  <button class="btn btn-primary" id="checkBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M3 8.5 L6.5 12 L13 4.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Check all answers
+  </button>
+  <button class="btn btn-tertiary" id="showAllBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M1 8 q7 -7 14 0 q-7 7 -14 0z" fill="none" stroke="currentColor" stroke-width="1.6"></path><circle cx="8" cy="8" r="2.6" fill="currentColor"></circle></svg>
+    <span class="lbl">Show all answers</span>
+  </button>
+  <button class="btn btn-secondary" id="resetBtn">
+    <svg class="ic" viewBox="0 0 16 16"><path d="M13 8 a5 5 0 1 1 -2 -4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path><path d="M13 1.5 v3 h-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    Reset all
+  </button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" role="alert">
+  <div class="toast-icon" id="toastIcon">✓</div>
+  <div class="toast-body">
+    <div class="toast-title" id="toastTitle">Copied!</div>
+    <div class="toast-msg" id="toastMsg">Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.</div>
+  </div>
+</div>
+
+<script>
+const norm=s=>(s||'').trim().toLowerCase();
+const isCoarse=window.matchMedia&&window.matchMedia('(pointer: coarse)').matches;
+let selected=null;
+function select(el){
+  if(selected)selected.classList.remove('selected');
+  selected=el||null;
+  if(selected)selected.classList.add('selected');
+}
+function returnChip(chip,sourceZone){
+  chip.innerHTML=chip.dataset.word;
+  chip.classList.remove('correct','incorrect','selected','matched');
+  chip.style.display='';
+  let bank;
+  if(sourceZone&&sourceZone.classList.contains('wo-target'))bank=sourceZone.closest('.wordorder').querySelector('.wo-bank');
+  else bank=chip.closest('.card').querySelector('.bank');
+  bank.appendChild(chip);
+  if(selected===chip)select(null);
+}
+function placeChip(dz,chip){
+  const existing=dz.querySelector('.chip');
+  if(existing&&existing!==chip)returnChip(existing,dz);
+  dz.appendChild(chip);
+  chip.innerHTML=chip.dataset.word+' <span class="remove">×</span>';
+  select(null);
+}
+function assignMatch(mt,item){
+  const label=mt.querySelector('.matched-label');
+  if(label.dataset.word){
+    const prev=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+    if(prev){prev.classList.remove('matched');prev.style.display='';}
+  }
+  label.dataset.word=item.dataset.word;
+  label.textContent=item.dataset.word+' ×';
+  label.style.display='inline-block';
+  mt.classList.add('filled');
+  item.classList.add('matched');
+  item.style.display='none';
+  select(null);
+}
+function unmatch(mt){
+  const label=mt.querySelector('.matched-label');
+  if(!label.dataset.word)return;
+  const item=document.querySelector('.match-item[data-word="'+CSS.escape(label.dataset.word)+'"]');
+  if(item){item.classList.remove('matched');item.style.display='';}
+  label.textContent='';label.style.display='none';delete label.dataset.word;
+  mt.classList.remove('filled');
+}
+
+const state={dragging:null,ghost:null,offsetX:0,offsetY:0,currentOver:null,isDragging:false,startX:0,startY:0};
+function pointerPos(e){return{x:e.clientX,y:e.clientY};}
+function makeDraggable(el,type){
+  if(isCoarse)return;
+  const start=e=>{
+    if(el.classList.contains('matched'))return;
+    state.startX=e.clientX;state.startY=e.clientY;state.isDragging=false;
+    const pos=pointerPos(e),rect=el.getBoundingClientRect();
+    state.offsetX=pos.x-rect.left;state.offsetY=pos.y-rect.top;
+    state.dragging={el,type,origin:el.parentElement};
+    el.classList.add('dragging');
+    const ghost=el.cloneNode(true);
+    ghost.classList.add('ghost');ghost.style.width=rect.width+'px';
+    ghost.style.left=(pos.x-state.offsetX)+'px';ghost.style.top=(pos.y-state.offsetY)+'px';
+    document.body.appendChild(ghost);state.ghost=ghost;
+    select(null);
+  };
+  el.addEventListener('mousedown',start);
+}
+function onMove(e){
+  if(!state.dragging)return;
+  if(!state.isDragging&&(Math.abs(e.clientX-state.startX)>5||Math.abs(e.clientY-state.startY)>5)){state.isDragging=true;}
+  if(state.isDragging){
+    e.preventDefault();
+    const pos=pointerPos(e);
+    if(state.ghost){state.ghost.style.left=(pos.x-state.offsetX)+'px';state.ghost.style.top=(pos.y-state.offsetY)+'px';state.ghost.style.display='none';}
+    const target=document.elementFromPoint(pos.x,pos.y);
+    if(state.ghost)state.ghost.style.display='';
+    if(state.currentOver)state.currentOver.classList.remove('drag-over');
+    const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+    if(drop&&!drop.classList.contains('dz-radio')){drop.classList.add('drag-over');state.currentOver=drop;}else state.currentOver=null;
+  }
+}
+function onEnd(e){
+  if(!state.dragging)return;
+  if(!state.isDragging){
+    if(state.ghost){state.ghost.remove();state.ghost=null;}
+    state.dragging.el.classList.remove('dragging');
+    state.dragging=null;
+    return;
+  }
+  const pos=pointerPos(e);
+  if(state.ghost)state.ghost.style.display='none';
+  const target=document.elementFromPoint(pos.x,pos.y);
+  if(state.ghost){state.ghost.remove();state.ghost=null;}
+  state.dragging.el.classList.remove('dragging');
+  if(state.currentOver)state.currentOver.classList.remove('drag-over');
+  const drop=target&&target.closest?target.closest('.dz,.bank,.match-target,.wo-target'):null;
+  const{el,type,origin}=state.dragging;
+  if(type==='chip'){
+    if(drop&&drop.classList.contains('dz')&&!drop.classList.contains('dz-radio'))placeChip(drop,el);
+    else if(drop&&drop.classList.contains('wo-target')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else if(drop&&drop.classList.contains('bank')){drop.appendChild(el);el.innerHTML=el.dataset.word;}
+    else{origin.appendChild(el);el.innerHTML=el.dataset.word;}
+  }else if(type==='match'){
+    if(drop&&drop.classList.contains('match-target'))assignMatch(drop,el);
+  }
+  state.dragging=null;state.currentOver=null;
+}
+document.addEventListener('mousemove',onMove);
+document.addEventListener('mouseup',onEnd);
+document.querySelectorAll('.chip').forEach(el=>makeDraggable(el,'chip'));
+document.querySelectorAll('.match-item').forEach(el=>makeDraggable(el,'match'));
+
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('remove')){
+    const chip=e.target.closest('.chip');
+    returnChip(chip,chip.parentElement);
+    return;
+  }
+  if(e.target.classList.contains('matched-label')){
+    unmatch(e.target.closest('.match-target'));
+    return;
+  }
+  if(e.target.classList.contains('option')){
+    const opt=e.target,sent=opt.closest('.sentence');
+    sent.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+    opt.classList.add('selected');
+    sent.querySelector('.dz-radio').dataset.selected=opt.dataset.value;
+    return;
+  }
+  const chip=e.target.closest('.chip');
+  if(chip){
+    const parent=chip.parentElement;
+    if(parent.classList.contains('bank')||parent.classList.contains('wo-bank')){
+      select(chip.classList.contains('selected')?null:chip);
+      return;
+    }
+    if(parent.classList.contains('wo-target')&&selected&&selected!==chip&&selected.classList.contains('chip')){parent.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;} if(parent.classList.contains('dz')||parent.classList.contains('wo-target')){ returnChip(chip,parent);
+      return;
+    }
+  }
+  const mitem=e.target.closest('.match-item');
+  if(mitem){
+    select(mitem.classList.contains('selected')?null:mitem);
+    return;
+  }
+  if(selected){
+    const dz=e.target.closest('.dz');
+    if(dz&&!dz.classList.contains('dz-radio')&&selected.classList.contains('chip')){placeChip(dz,selected);return;}
+    const wot=e.target.closest('.wo-target');
+    if(wot&&selected.classList.contains('chip')){wot.appendChild(selected);selected.innerHTML=selected.dataset.word;select(null);return;}
+    const mt=e.target.closest('.match-target');
+    if(mt&&selected.classList.contains('match-item')){assignMatch(mt,selected);return;}
+  }
+});
+
+const cardResults={};
+function clearCard(card){
+  card.querySelectorAll('.dz,.hint-input,.option,.match-target,.chip,.blank,.wordorder,.wo-target,.select-wrap select').forEach(el=>el.classList.remove('correct','incorrect','answer-revealed'));
+  card.querySelectorAll('.chip.selected,.match-item.selected').forEach(el=>el.classList.remove('selected'));
+  if(selected&&card.contains(selected))selected=null;
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.classList.remove('correct','incorrect','show-answers');
+  const btn=card.querySelector('.btn-showanswers');
+  if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+}
+function evaluateCard(card){
+  clearCard(card);
+  let correct=0,total=0;
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      total++;
+      const chip=dz.querySelector('.chip');
+      if(chip&&chip.dataset.word===dz.dataset.answer){dz.classList.add('correct');chip.classList.add('correct');correct++;}
+      else{dz.classList.add('incorrect');if(chip)chip.classList.add('incorrect');}
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      total++;
+      const sent=dz.closest('.sentence');
+      if(dz.dataset.selected===dz.dataset.answer){
+        correct++;
+        sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('correct');
+      }else{
+        if(dz.dataset.selected)sent.querySelector('.option[data-value="'+dz.dataset.selected+'"]')?.classList.add('incorrect');
+      }
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      total++;
+      const label=mt.querySelector('.matched-label');
+      if(label&&mt.dataset.answer.split('|').includes(label.dataset.word)){mt.classList.add('correct');correct++;}
+      else mt.classList.add('incorrect');
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      total++;
+      const wrap=inp.closest('.hint-input');
+      if(inp.dataset.answer.split('|').map(norm).includes(norm(inp.value))){wrap.classList.add('correct');correct++;}
+      else wrap.classList.add('incorrect');
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      total++;
+      if(norm(inp.value)===norm(inp.dataset.answer)){inp.classList.add('correct');correct++;}
+      else inp.classList.add('incorrect');
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      total++;
+      const seq=[...wo.querySelectorAll('.wo-target .chip')].map(c=>c.dataset.word).join('|');
+      if(seq===wo.dataset.answer){wo.classList.add('correct');correct++;}
+      else wo.classList.add('incorrect');
+    });
+  }
+  cardResults[card.dataset.id]={correct,total};
+  card.classList.add(correct===total?'correct':'incorrect');
+  const sc=card.querySelector('.card-score');
+  if(sc){sc.textContent='✓ '+correct+' / '+total;sc.className='card-score '+(correct===total?'good':'bad');}
+  updateGlobal();
+}
+function showAnswers(card){
+  hideAnswers(card);
+  const task=card.dataset.task;
+  if(task==='dragfill'){
+    card.querySelectorAll('.dz[data-answer]').forEach(dz=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+dz.dataset.answer;
+      dz.appendChild(exp);
+    });
+  }else if(task==='radio'){
+    card.querySelectorAll('.dz-radio[data-answer]').forEach(dz=>{
+      const sent=dz.closest('.sentence');
+      const correctOpt=sent.querySelector('.option[data-value="'+dz.dataset.answer+'"]');
+      if(correctOpt)correctOpt.classList.add('answer-revealed');
+    });
+  }else if(task==='match'){
+    card.querySelectorAll('.match-target[data-answer]').forEach(mt=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='→ '+(mt.dataset.answertext||mt.dataset.answer.split('|')[0]);
+      mt.appendChild(exp);
+    });
+  }else if(task==='typehint'){
+    card.querySelectorAll('.hint-input input[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer.split('|')[0]; inp.closest('.hint-input').appendChild(exp);
+    });
+  }else if(task==='typeblank'){
+    card.querySelectorAll('input.blank[data-answer]').forEach(inp=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';exp.textContent='✓ '+inp.dataset.answer;
+      inp.parentElement.insertBefore(exp,inp.nextSibling);
+    });
+  }else if(task==='wordorder'){
+    card.querySelectorAll('.wordorder').forEach(wo=>{
+      const exp=document.createElement('span');
+      exp.className='answer-key';
+      exp.textContent='✓ '+wo.dataset.answer.replace(/\|/g,' ');
+      wo.appendChild(exp);
+    });
+  }
+  card.classList.add('show-answers');
+}
+function hideAnswers(card){
+  card.querySelectorAll('.answer-key').forEach(el=>el.remove());
+  card.querySelectorAll('.answer-revealed').forEach(el=>el.classList.remove('answer-revealed'));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>sel.classList.remove('correct','incorrect'));
+  card.classList.remove('show-answers');
+}
+function resetCard(card){
+  clearCard(card);
+  card.querySelectorAll('.dz .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.wo-target .chip').forEach(chip=>returnChip(chip,chip.parentElement));
+  card.querySelectorAll('.select-wrap select').forEach(sel=>{sel.value='';});
+  card.querySelectorAll('.dz-radio').forEach(dz=>{delete dz.dataset.selected;});
+  card.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+  card.querySelectorAll('.match-target').forEach(mt=>unmatch(mt));
+  card.querySelectorAll('.hint-input input').forEach(i=>{i.value='';});
+  card.querySelectorAll('input.blank').forEach(i=>{i.value='';});
+  delete cardResults[card.dataset.id];
+  const sc=card.querySelector('.card-score');if(sc){sc.textContent='';sc.className='card-score';}
+  updateGlobal();
+}
+function updateGlobal(){
+  let c=0,t=0;
+  Object.values(cardResults).forEach(r=>{c+=r.correct;t+=r.total;});
+  document.getElementById('scoreBadge').textContent=c+' / '+t;
+  document.getElementById('progressFill').style.width=(t?Math.round(c/t*100):0)+'%';
+}
+function getCard(id){return document.querySelector('.card[data-id="'+id+'"]');}
+document.querySelectorAll('.btn-check').forEach(b=>b.addEventListener('click',()=>evaluateCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-resetcard').forEach(b=>b.addEventListener('click',()=>resetCard(getCard(b.dataset.card))));
+document.querySelectorAll('.btn-showanswers').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const card=getCard(b.dataset.card);
+    if(card.classList.contains('show-answers')){
+      hideAnswers(card);
+      b.classList.remove('active');
+      b.textContent='👁 Show answers';
+    }else{
+      showAnswers(card);
+      b.classList.add('active');
+      b.textContent='👁 Hide answers';
+    }
+  });
+});
+
+const banner=document.getElementById('resultBanner');
+document.getElementById('checkBtn').addEventListener('click',()=>{
+  let c=0,t=0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    evaluateCard(card);
+    c+=cardResults[card.dataset.id].correct;t+=cardResults[card.dataset.id].total;
+  });
+  const pct=t?Math.round(c/t*100):0;
+  banner.className='result-banner show '+(pct>=90?'excellent':pct>=60?'good':'try-again');
+  banner.innerHTML=pct>=90?'🎉 Excellent! '+c+'/'+t+' — your focus is on point!'
+    :pct>=60?'👍 Good job! '+c+'/'+t+' — use "Show answers" to see the correct ones.'
+    :'💪 Keep going! '+c+'/'+t+' — use "Show answers" to check the correct ones.';
+  banner.scrollIntoView({behavior:'smooth',block:'center'});
+});
+const showAllBtn=document.getElementById('showAllBtn');
+const showAllLbl=showAllBtn.querySelector('.lbl');
+showAllBtn.addEventListener('click',()=>{
+  const anyShown=[...document.querySelectorAll('.card.show-answers')].length>0;
+  document.querySelectorAll('.card[data-task]').forEach(card=>{
+    const btn=card.querySelector('.btn-showanswers');
+    if(anyShown){
+      hideAnswers(card);
+      if(btn){btn.classList.remove('active');btn.textContent='👁 Show answers';}
+    }else{
+      showAnswers(card);
+      if(btn){btn.classList.add('active');btn.textContent='👁 Hide answers';}
+    }
+  });
+  if(anyShown){showAllBtn.classList.remove('active');showAllLbl.textContent='Show all answers';}
+  else{showAllBtn.classList.add('active');showAllLbl.textContent='Hide all answers';}
+});
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset all answers?'))return;
+  document.querySelectorAll('.card[data-task]').forEach(resetCard);
+  banner.className='result-banner';
+  showAllBtn.classList.remove('active');
+  showAllLbl.textContent='Show all answers';
+});
+document.querySelectorAll('.nav a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+}));
+
+// ===== TOAST =====
+const toastEl = document.getElementById('toast');
+const toastIcon = document.getElementById('toastIcon');
+const toastTitle = document.getElementById('toastTitle');
+const toastMsg = document.getElementById('toastMsg');
+let toastTimer = null;
+
+function hideToast() {
+  toastEl.classList.remove('show');
+  if (toastTimer) { clearTimeout(toastTimer); toastTimer = null; }
+}
+
+function showToast(type, title, msg, duration = 6000) {
+  if (toastTimer) clearTimeout(toastTimer);
+  toastEl.classList.remove('show', 'error');
+  if (type === 'error') {
+    toastEl.classList.add('error');
+    toastIcon.textContent = '!';
+  } else {
+    toastIcon.textContent = '✓';
+  }
+  toastTitle.textContent = title;
+  toastMsg.textContent = msg;
+  requestAnimationFrame(() => toastEl.classList.add('show'));
+  toastTimer = setTimeout(hideToast, duration);
+  setTimeout(() => {
+    document.addEventListener('click', hideToast, { once: true });
+  }, 0);
+}
+
+async function copyToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) { /* fallback below */ }
+  }
+  try {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch (e) {
+    return false;
+  }
+}
+
+async function handleSubmit(btn) {
+  const url = btn.dataset.formUrl;
+  if (!url || url.includes('ТВОЯ_ССЫЛКА')) {
+    showToast('error', 'Form not configured', 'Please ask Daria to add the Google Form link.');
+    return;
+  }
+  const card = btn.closest('.card');
+  const textarea = card ? card.querySelector('textarea.idea-box') : null;
+  const answerText = textarea ? textarea.value.trim() : '';
+  if (!answerText) {
+    showToast('error', 'Nothing to submit', 'Please write your answer in the box first.');
+    if (textarea) textarea.focus();
+    return;
+  }
+  const h3 = card ? card.querySelector('h3') : null;
+  let taskTitle = h3 ? h3.textContent.trim() : '';
+  taskTitle = taskTitle.replace(/\s*Optional\s*$/i, '').trim();
+  const textToCopy = `Task title: ${taskTitle}\n\nMy answer:\n${answerText}`;
+  const copied = await copyToClipboard(textToCopy);
+  if (copied) {
+    showToast('success', 'Copied!', 'Task title and your answer are in the clipboard. Paste them into the form with Ctrl+V / ⌘+V.');
+    window.open(url, '_blank');
+  } else {
+    showToast('error', 'Could not copy automatically', 'Please copy your answer manually, then open the form.');
+    window.open(url, '_blank');
+  }
+}
+
+const STREAM_END_DATE = new Date('2026-11-15T23:59:59');
+function checkStreamStatus() {
+  const now = new Date();
+  const isEnded = now > STREAM_END_DATE;
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    if (isEnded) {
+      btn.disabled = true;
+      btn.textContent = '⏰ Submissions for this round are now closed';
+      btn.onclick = null;
+    } else {
+      btn.disabled = false;
+      btn.onclick = () => handleSubmit(btn);
+    }
+  });
+  document.querySelectorAll('.stream-info').forEach(block => {
+    if (isEnded) block.classList.add('ended');
+    else block.classList.remove('ended');
+  });
+}
+checkStreamStatus();
+setInterval(checkStreamStatus, 60 * 60 * 1000);
+</script>
+
+</body></html>
+
